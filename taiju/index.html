@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="体重">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#0b0f14">
+<title>体重の記録</title>
+<style>
+/* 1列のカード構成。上に今日の数字、中に3項目、下に推移グラフと入力 */
+:root{
+ color-scheme:light;
+ --bg:#0b0f14;--panel:#121820;--well:#0e141b;--line:#263040;--line2:#33404f;
+ --fg:#f2f6fa;--fg2:#b7c3ce;--fg3:#7d8b99;--accent:#5eead4;--accent-ink:#062a24;--up:#ff9f5a;--grid:#2a3442;
+ --num:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+ --sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Meiryo",sans-serif;
+}
+html,body{margin:0;background:var(--bg);color:var(--fg)}
+body{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{font-family:var(--sans);-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding-block:16px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h1{font-size:17px;margin:0;color:var(--fg2)}
+.meta{font-size:13px;color:var(--fg3)}
+.big{font-size:52px;font-weight:700;line-height:1;margin-top:12px;font-variant-numeric:tabular-nums}
+.big small{font-size:18px;color:var(--fg3);font-weight:500;margin-left:6px}
+.diffs{display:grid;gap:4px;margin-top:12px;font-size:14px;color:var(--fg2)}
+.diffs div{display:flex;justify-content:space-between;gap:10px}
+.diffs b{font-family:var(--num);font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.down{color:var(--accent)}.flat{color:var(--fg2)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+.card{background:var(--well);border:1px solid var(--line);border-radius:14px;padding:12px;min-width:0}
+.card .lb{font-size:12px;color:var(--fg2)}
+.card .v{font-size:22px;font-weight:700;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.card .v small{font-size:12px;color:var(--fg3);margin-left:2px;font-weight:500}
+.card .d{font-size:11px;color:var(--fg3)}
+.tabs{display:flex;gap:6px}
+.tabs button{background:var(--well);color:var(--fg2);border:1px solid var(--line2);border-radius:999px;padding:6px 13px;font-size:13px;font-family:inherit}
+.tabs button.on{color:var(--fg);border-color:#8aa4bd;background:#1d2a36}
+.chartBox{position:relative;margin-top:10px}
+#chart{display:block;width:100%;height:220px;touch-action:pan-y}
+#tip{position:absolute;pointer-events:none;background:#1d2a36;border:1px solid #3d4d5f;color:var(--fg);font-size:12px;padding:5px 8px;border-radius:8px;white-space:nowrap}
+.empty{color:var(--fg3);font-size:14px;text-align:center;padding:70px 10px;line-height:1.8}
+form{display:grid;gap:12px}
+.f{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+label{display:grid;gap:5px;font-size:12px;color:var(--fg2);min-width:0}
+input{background:var(--well);color:var(--fg);border:1px solid var(--line2);border-radius:10px;padding:10px;font-size:16px;font-family:inherit;width:100%;box-sizing:border-box;min-width:0;-webkit-appearance:none;appearance:none}
+input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.btn{background:var(--accent);color:var(--accent-ink);font-weight:700;border:0;border-radius:12px;padding:13px;font-size:16px;font-family:inherit}
+.btn2{background:var(--well);color:var(--fg2);border:1px solid var(--line2);border-radius:10px;padding:8px 12px;font-size:13px;font-family:inherit}
+.msg{font-size:13px;color:var(--fg3);min-height:1em}
+.list{display:grid;gap:0;margin-top:6px}
+.it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;font-variant-numeric:tabular-nums}
+.it span:first-child{color:var(--fg3);min-width:84px}
+.it .vals{flex:1}
+.del{background:none;border:1px solid var(--line2);color:var(--fg3);border-radius:8px;padding:5px 10px;font-size:12px;font-family:inherit}
+.del.sure{border-color:var(--up);color:var(--up)}
+.hint{font-size:12px;color:var(--fg3)}
+@media (max-width:520px){
+ .big{font-size:46px}
+ .cards{grid-template-columns:1fr}
+ .card{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px}
+ .card .v{margin:0}.card .d{width:100%}
+ .f{grid-template-columns:1fr 1fr}
+ .f label:first-child{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+ <section class="panel">
+  <div class="row"><h1>体重</h1><div class="meta" id="measured">記録はまだありません</div></div>
+  <div class="big" id="bigW">--<small>kg</small></div>
+  <div class="diffs" id="diffs"><div><span>最初の記録を入れると、前回との差がここに出ます</span></div></div>
+  <div class="cards">
+   <div class="card"><div class="lb">体脂肪率</div><div class="v" id="vF">--</div><div class="d" id="dF">入力すると出ます</div></div>
+   <div class="card"><div class="lb">BMI</div><div class="v" id="vB">--</div><div class="d" id="dB">身長を入れると出ます</div></div>
+   <div class="card"><div class="lb">除脂肪体重</div><div class="v" id="vL">--</div><div class="d" id="dL">体脂肪率から計算</div></div>
+  </div>
+ </section>
+
+ <section class="panel">
+  <h1>記録する</h1>
+  <form id="form" style="margin-top:12px">
+   <div class="f">
+    <label for="inDate">日付<input type="date" id="inDate" required></label>
+    <label for="inW">体重（kg）<input type="number" id="inW" inputmode="decimal" step="0.1" min="20" max="300" placeholder="例 72.4" required></label>
+    <label for="inF">体脂肪率（％）<input type="number" id="inF" inputmode="decimal" step="0.1" min="2" max="70" placeholder="なくても可"></label>
+   </div>
+   <button class="btn" type="submit" id="saveBtn">保存する</button>
+   <div class="msg" id="msg"></div>
+  </form>
+ </section>
+
+ <section class="panel">
+  <div class="row"><h1>体重の推移</h1>
+   <div class="tabs" id="tabs"><button type="button" data-r="30" class="on">30日</button><button type="button" data-r="90">90日</button><button type="button" data-r="365">1年</button><button type="button" data-r="0">全部</button></div>
+  </div>
+  <div class="chartBox"><svg id="chart" hidden></svg><div id="tip" hidden></div><div class="empty" id="chartEmpty">ここに体重のグラフが出ます。<br>下の欄から今日の体重を入れてください。</div></div>
+ </section>
+
+ <section class="panel">
+  <div class="row"><h1>身長</h1><span class="hint">BMIの計算に使います</span></div>
+  <div class="row" style="margin-top:10px;flex-wrap:nowrap">
+   <label for="inH" style="flex:1">身長（cm）<input type="number" id="inH" inputmode="decimal" step="0.1" min="100" max="230" placeholder="例 170"></label>
+   <button class="btn2" type="button" id="hBtn" style="align-self:end;padding:11px 14px">保存</button>
+  </div>
+ </section>
+
+ <section class="panel">
+  <div class="row"><h1>入れた記録</h1><span class="hint">同じ日付で保存し直すと上書きされます</span></div>
+  <div class="list" id="list"><div class="it"><span>まだありません</span></div></div>
+  <button type="button" class="btn2" id="moreBtn" hidden style="margin-top:10px">すべて表示</button>
+ </section>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i);};
+var entries={};   /* "YYYY-MM-DD" -> {w, f} */
+var showAll=false, height=null, range=30, col=null, setRef=null, dbOk=false;
+
+function p2(n){return n<10?"0"+n:""+n;}
+function todayKey(){var d=new Date();return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());}
+function kt(k){var a=k.split("-");return new Date(+a[0],+a[1]-1,+a[2]).getTime();}
+function md(k){var a=k.split("-");return (+a[1])+"/"+(+a[2]);}
+function ymd(k){var a=k.split("-");return a[0]+"/"+(+a[1])+"/"+(+a[2]);}
+function sg(d,dig,u){
+ var e=Math.pow(10,-dig)/2, c=Math.abs(d)<e?"flat":(d>0?"up":"down");
+ return "<b class=\""+c+"\">"+(c==="up"?"↑ +":(c==="down"?"↓ −":"± "))+Math.abs(d).toFixed(dig)+u+"</b>";
+}
+function sorted(){return Object.keys(entries).sort();}
+function bmi(w){return height?w/Math.pow(height/100,2):null;}
+
+/* ---------- 表示 ---------- */
+function render(){
+ var ks=sorted();
+ $("inH").value = height ? height : "";
+ if(!ks.length){
+  $("measured").textContent="記録はまだありません";
+  $("bigW").innerHTML="--<small>kg</small>";
+  $("diffs").innerHTML="<div><span>最初の記録を入れると、前回との差がここに出ます</span></div>";
+  $("vF").textContent=$("vB").textContent=$("vL").textContent="--";
+  $("dF").textContent="入力すると出ます";$("dB").textContent=height?"体重を入れると出ます":"身長を入れると出ます";$("dL").textContent="体脂肪率から計算";
+  $("list").innerHTML="<div class=\"it\"><span>まだありません</span></div>";
+  drawChart([]);return;
+ }
+ var lk=ks[ks.length-1], L=entries[lk];
+ $("measured").textContent=ymd(lk)+" の記録";
+ $("bigW").innerHTML=L.w.toFixed(1)+"<small>kg</small>";
+ var rows=[];
+ if(ks.length>1){
+  var pk=ks[ks.length-2];
+  rows.push("<div><span>前回（"+md(pk)+"）より</span>"+sg(L.w-entries[pk].w,1,"kg")+"</div>");
+  var ld=kt(lk),d0=new Date(ld),ms=new Date(d0.getFullYear(),d0.getMonth()-1,1).getTime(),me=new Date(d0.getFullYear(),d0.getMonth(),1).getTime();
+  var pm=ks.filter(function(k){var t=kt(k);return t>=ms&&t<me;});
+  if(pm.length){var av=pm.reduce(function(a,k){return a+entries[k].w;},0)/pm.length;rows.push("<div><span>先月（"+(new Date(ms).getMonth()+1)+"月）の平均より</span>"+sg(L.w-av,1,"kg")+"</div>");}
+  if(ks[0]!==pk)rows.push("<div><span>最初の記録（"+ymd(ks[0])+"）より</span>"+sg(L.w-entries[ks[0]].w,1,"kg")+"</div>");
+ }else rows.push("<div><span>2日目の記録から前回との差が出ます</span></div>");
+ $("diffs").innerHTML=rows.join("");
+
+ /* 体脂肪率・除脂肪体重：体脂肪率のある日だけで比べる */
+ var fk=ks.filter(function(k){return entries[k].f!=null;});
+ if(fk.length){
+  var fl=entries[fk[fk.length-1]], ff=entries[fk[0]];
+  $("vF").innerHTML=fl.f.toFixed(1)+"<small>％</small>";
+  var lean=function(e){return e.w*(1-e.f/100);};
+  $("vL").innerHTML=lean(fl).toFixed(1)+"<small>kg</small>";
+  if(fk.length>1){$("dF").innerHTML=ymd(fk[0])+"より "+sg(fl.f-ff.f,1,"％");$("dL").innerHTML=ymd(fk[0])+"より "+sg(lean(fl)-lean(ff),1,"kg");}
+  else{$("dF").textContent=ymd(fk[0])+" の記録";$("dL").textContent=ymd(fk[0])+" の記録";}
+ }else{$("vF").textContent=$("vL").textContent="--";$("dF").textContent="入力すると出ます";$("dL").textContent="体脂肪率から計算";}
+ if(height){
+  $("vB").textContent=bmi(L.w).toFixed(1);
+  $("dB").innerHTML=ks.length>1?ymd(ks[0])+"より "+sg(bmi(L.w)-bmi(entries[ks[0]].w),1,""):"身長 "+height+"cm で計算";
+ }else{$("vB").textContent="--";$("dB").textContent="身長を入れると出ます";}
+
+ /* 一覧（新しい順） */
+ var rv=ks.slice().reverse();$("moreBtn").hidden=showAll||rv.length<=10;if(!showAll)rv=rv.slice(0,10);
+ $("list").innerHTML=rv.map(function(k){
+  var e=entries[k];
+  return "<div class=\"it\"><span>"+ymd(k)+"</span><span class=\"vals\">"+e.w.toFixed(1)+"kg"+(e.f!=null?"　"+e.f.toFixed(1)+"％":"")+"</span><button type=\"button\" class=\"del\" data-k=\""+k+"\">削除</button></div>";
+ }).join("");
+ drawChart(ks);
+}
+
+/* ---------- グラフ ---------- */
+var pts=[],G=null;
+function drawChart(ks){
+ var svg=$("chart");
+ var end=kt(todayKey()), start=range?end-range*86400000:(ks.length?Math.min(kt(ks[0]),end-86400000):end);
+ var vis=ks.filter(function(k){var t=kt(k);return t>=start&&t<=end;});
+ if(!vis.length){
+  svg.hidden=true;$("tip").hidden=true;$("chartEmpty").hidden=false;
+  $("chartEmpty").innerHTML=ks.length?"この期間の記録はありません。<br>「全部」で全体が見られます。":"ここに体重のグラフが出ます。<br>下の欄から今日の体重を入れてください。";
+  pts=[];return;
+ }
+ $("chartEmpty").hidden=true;svg.hidden=false;
+ var w=Math.max(280,svg.clientWidth||600),h=220,pl=8,pr=44,pt=14,pb=28;
+ var lo=Infinity,hi=-Infinity;vis.forEach(function(k){lo=Math.min(lo,entries[k].w);hi=Math.max(hi,entries[k].w);});
+ var vlo=lo,vhi=hi,pad=Math.max(0.6,(hi-lo)*0.15);lo-=pad;hi+=pad;
+ var X=function(t){return pl+(t-start)/((end-start)||1)*(w-pl-pr);},Y=function(v){return pt+(hi-v)/(hi-lo)*(h-pt-pb);};
+ G={w:w,h:h};
+ pts=vis.map(function(k){return {k:k,v:entries[k].w,x:X(kt(k)),y:Y(entries[k].w)};});
+ var s="",lines=vhi-vlo<0.05?[vhi]:[vhi,vlo];
+ lines.forEach(function(v){var y=Y(v).toFixed(1);s+="<line x1=\""+pl+"\" x2=\""+(w-pr)+"\" y1=\""+y+"\" y2=\""+y+"\" stroke=\"#2a3442\" stroke-dasharray=\"3 5\"/><text x=\""+(w-pr+6)+"\" y=\""+(+y+4)+"\" fill=\"#7d8b99\" font-size=\"11\">"+v.toFixed(1)+"</text>";});
+ var solid="",dash="";
+ pts.forEach(function(a,i){
+  var P=a.x.toFixed(1)+" "+a.y.toFixed(1);
+  if(!i){solid+="M"+P;return;}
+  var b=pts[i-1];
+  if(kt(a.k)-kt(b.k)>7*86400000){dash+="M"+b.x.toFixed(1)+" "+b.y.toFixed(1)+"L"+P;solid+="M"+P;}else solid+="L"+P;
+ });
+ if(dash)s+="<path d=\""+dash+"\" fill=\"none\" stroke=\"#3fb8a6\" stroke-width=\"1.6\" stroke-dasharray=\"4 6\"/>";
+ s+="<path d=\""+solid+"\" fill=\"none\" stroke=\"#5eead4\" stroke-width=\"2\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>";
+ if(pts.length<=120)pts.forEach(function(p){s+="<circle cx=\""+p.x.toFixed(1)+"\" cy=\""+p.y.toFixed(1)+"\" r=\"2.5\" fill=\"#5eead4\"/>";});
+ var lp=pts[pts.length-1];
+ s+="<circle cx=\""+lp.x.toFixed(1)+"\" cy=\""+lp.y.toFixed(1)+"\" r=\"6\" fill=\"#5eead4\" stroke=\"#121820\" stroke-width=\"2\"/>";
+ var sd=new Date(start);
+ s+="<text x=\""+pl+"\" y=\""+(h-7)+"\" fill=\"#7d8b99\" font-size=\"11\">"+sd.getFullYear()+"/"+(sd.getMonth()+1)+"/"+sd.getDate()+"</text>";
+ s+="<text x=\""+(w-pr)+"\" y=\""+(h-7)+"\" fill=\"#7d8b99\" font-size=\"11\" text-anchor=\"end\">今日</text>";
+ s+="<line id=\"cur\" x1=\"0\" x2=\"0\" y1=\""+pt+"\" y2=\""+(h-pb)+"\" stroke=\"#8aa4bd\" visibility=\"hidden\"/><circle id=\"curDot\" r=\"5\" fill=\"#ffffff\" visibility=\"hidden\"/>";
+ svg.setAttribute("viewBox","0 0 "+w+" "+h);
+ svg.innerHTML=s;
+}
+function tip(ev){
+ if(!pts.length||!G)return;
+ var rc=$("chart").getBoundingClientRect(),x=(ev.clientX-rc.left)/rc.width*G.w,b=pts[0];
+ pts.forEach(function(p){if(Math.abs(p.x-x)<Math.abs(b.x-x))b=p;});
+ var c=$("cur"),d=$("curDot");if(!c)return;
+ c.setAttribute("x1",b.x);c.setAttribute("x2",b.x);c.setAttribute("visibility","visible");
+ d.setAttribute("cx",b.x);d.setAttribute("cy",b.y);d.setAttribute("visibility","visible");
+ var t=$("tip");t.textContent=ymd(b.k)+"　"+b.v.toFixed(1)+"kg";t.hidden=false;
+ var px=b.x/G.w*rc.width;t.style.left=Math.min(Math.max(0,px-t.offsetWidth/2),rc.width-t.offsetWidth)+"px";t.style.top=Math.max(0,b.y/G.h*rc.height-38)+"px";
+}
+$("chart").addEventListener("pointerdown",tip);
+$("chart").addEventListener("pointermove",tip);
+$("chart").addEventListener("pointerleave",function(){$("tip").hidden=true;});
+$("tabs").addEventListener("click",function(e){
+ var b=e.target.closest("button");if(!b)return;range=+b.getAttribute("data-r");
+ Array.prototype.forEach.call(this.querySelectorAll("button"),function(x){x.classList.toggle("on",x===b);});
+ drawChart(sorted());
+});
+var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){drawChart(sorted());},150);});
+
+/* ---------- 保存先（本人だけが読み書きできる場所） ---------- */
+function say(t){$("msg").textContent=t;}
+var KEY="taiju.kiroku.v1";
+function persist(){try{localStorage.setItem(KEY,JSON.stringify({e:entries,h:height}));return true;}catch(e){return false;}}
+var col={doc:function(k){return{set:async function(b){if(k==="settings")height=b.h;else entries[k]={w:b.w,f:b.f!=null?b.f:null};if(!persist())throw new Error("x");render();},delete:async function(){delete entries[k];persist();render();}};}};
+function start(){
+ try{var v=JSON.parse(localStorage.getItem(KEY)||"null");if(v){entries=v.e||{};height=typeof v.h==="number"?v.h:null;}dbOk=true;}
+ catch(e){dbOk=false;say("このブラウザでは保存できません。Safariで開いてください。");}
+ render();
+}
+$("inDate").value=todayKey();
+$("inDate").max=todayKey();
+$("form").addEventListener("submit",async function(e){
+ e.preventDefault();
+ var k=$("inDate").value,w=parseFloat($("inW").value),f=$("inF").value===""?null:parseFloat($("inF").value);
+ if(!k||!isFinite(w)){say("日付と体重を入れてください。");return;}
+ if(!dbOk){say("このブラウザでは保存できません。Safariで開いてください。");return;}
+ $("saveBtn").disabled=true;say("保存しています…");
+ try{
+  var body={w:Math.round(w*10)/10};if(f!=null&&isFinite(f))body.f=Math.round(f*10)/10;
+  await col.doc(k).set(body);
+  say(ymd(k)+" の記録を保存しました。");$("inW").value="";$("inF").value="";
+ }catch(err){say("保存できませんでした。もう一度「保存する」をタップしてください。");}
+ $("saveBtn").disabled=false;
+});
+$("hBtn").addEventListener("click",async function(){
+ var h=parseFloat($("inH").value);
+ if(!isFinite(h)||h<100||h>230){say("身長は cm で入れてください（例 170）。");return;}
+ if(!dbOk)return;
+ try{await col.doc("settings").set({h:Math.round(h*10)/10});say("身長を保存しました。");}catch(err){say("身長を保存できませんでした。");}
+});
+$("moreBtn").addEventListener("click",function(){showAll=true;render();});
+$("list").addEventListener("click",async function(e){
+ var b=e.target.closest(".del");if(!b||!dbOk)return;
+ if(!b.classList.contains("sure")){b.classList.add("sure");b.textContent="本当に削除";setTimeout(function(){if(b.isConnected){b.classList.remove("sure");b.textContent="削除";}},4000);return;}
+ try{await col.doc(b.getAttribute("data-k")).delete();}catch(err){say("削除できませんでした。");}
+});
+start();
+})();
+</script>
+
+</body>
+</html>
