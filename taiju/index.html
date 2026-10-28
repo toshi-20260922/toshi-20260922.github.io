@@ -53,7 +53,8 @@ input{background:var(--well);color:var(--fg);border:1px solid var(--line2);borde
 input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .btn{background:var(--accent);color:var(--accent-ink);font-weight:700;border:0;border-radius:12px;padding:13px;font-size:16px;font-family:inherit}
 .btn2{background:var(--well);color:var(--fg2);border:1px solid var(--line2);border-radius:10px;padding:8px 12px;font-size:13px;font-family:inherit}
-.msg{font-size:13px;color:var(--fg3);min-height:1em}
+.msg{font-size:15px;color:var(--fg2);min-height:1.4em;font-weight:700}
+.msg.ok{color:var(--accent)}.msg.ng{color:var(--up)}
 .list{display:grid;gap:0;margin-top:6px}
 .it{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;font-variant-numeric:tabular-nums}
 .it span:first-child{color:var(--fg3);min-width:84px}
@@ -88,14 +89,14 @@ input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:
 
  <section class="panel">
   <h1>記録する</h1>
-  <form id="form" style="margin-top:12px">
+  <form id="form" style="margin-top:12px" novalidate>
    <div class="f">
-    <label for="inDate">日付<input type="date" id="inDate" required></label>
-    <label for="inW">体重（kg）<input type="number" id="inW" inputmode="decimal" step="0.1" min="20" max="300" placeholder="例 72.4" required></label>
-    <label for="inF">体脂肪率（％）<input type="number" id="inF" inputmode="decimal" step="0.1" min="2" max="70" placeholder="なくても可"></label>
+    <label for="inDate">日付<input type="date" id="inDate"></label>
+    <label for="inW">体重（kg）<input type="text" id="inW" inputmode="decimal" autocomplete="off" placeholder="例 72.4"></label>
+    <label for="inF">体脂肪率（％）<input type="text" id="inF" inputmode="decimal" autocomplete="off" placeholder="なくても可"></label>
    </div>
    <button class="btn" type="submit" id="saveBtn">保存する</button>
-   <div class="msg" id="msg"></div>
+   <div class="msg" id="msg" role="status"></div>
   </form>
  </section>
 
@@ -109,7 +110,7 @@ input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:
  <section class="panel">
   <div class="row"><h1>身長</h1><span class="hint">BMIの計算に使います</span></div>
   <div class="row" style="margin-top:10px;flex-wrap:nowrap">
-   <label for="inH" style="flex:1">身長（cm）<input type="number" id="inH" inputmode="decimal" step="0.1" min="100" max="230" placeholder="例 170"></label>
+   <label for="inH" style="flex:1">身長（cm）<input type="text" id="inH" inputmode="decimal" autocomplete="off" placeholder="例 170"></label>
    <button class="btn2" type="button" id="hBtn" style="align-self:end;padding:11px 14px">保存</button>
   </div>
  </section>
@@ -251,35 +252,39 @@ $("tabs").addEventListener("click",function(e){
 var rt;window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){drawChart(sorted());},150);});
 
 /* ---------- 保存先（本人だけが読み書きできる場所） ---------- */
-function say(t){$("msg").textContent=t;}
+function say(t,c){var m=$("msg");m.textContent=t;m.className="msg"+(c?" "+c:"");}
+function num(v){v=String(v||"").replace(/[０-９]/g,function(d){return String.fromCharCode(d.charCodeAt(0)-0xFEE0);}).replace(/[．。，,]/g,".").replace(/[^0-9.]/g,"");return v===""?NaN:parseFloat(v);}
 var KEY="taiju.kiroku.v1";
-function persist(){try{localStorage.setItem(KEY,JSON.stringify({e:entries,h:height}));return true;}catch(e){return false;}}
+function persist(){try{var s=JSON.stringify({e:entries,h:height});localStorage.setItem(KEY,s);return localStorage.getItem(KEY)===s;}catch(e){return false;}}
 var col={doc:function(k){return{set:async function(b){if(k==="settings")height=b.h;else entries[k]={w:b.w,f:b.f!=null?b.f:null};if(!persist())throw new Error("x");render();},delete:async function(){delete entries[k];persist();render();}};}};
 function start(){
  try{var v=JSON.parse(localStorage.getItem(KEY)||"null");if(v){entries=v.e||{};height=typeof v.h==="number"?v.h:null;}dbOk=true;}
  catch(e){dbOk=false;say("このブラウザでは保存できません。Safariで開いてください。");}
  render();
+ try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
 }
 $("inDate").value=todayKey();
 $("inDate").max=todayKey();
 $("form").addEventListener("submit",async function(e){
  e.preventDefault();
- var k=$("inDate").value,w=parseFloat($("inW").value),f=$("inF").value===""?null:parseFloat($("inF").value);
- if(!k||!isFinite(w)){say("日付と体重を入れてください。");return;}
+ var k=$("inDate").value||todayKey(),w=num($("inW").value),fr=$("inF").value.trim(),f=fr===""?null:num(fr);
+ if(!isFinite(w)){say("体重を数字で入れてください（例 72.4）。","ng");return;}
+ if(w<20||w>300){say("体重は kg で入れてください（例 72.4）。","ng");return;}
+ if(f!=null&&(!isFinite(f)||f<2||f>70)){say("体脂肪率は ％ の数字で入れてください（例 21.5）。","ng");return;}
  if(!dbOk){say("このブラウザでは保存できません。Safariで開いてください。");return;}
  $("saveBtn").disabled=true;say("保存しています…");
  try{
   var body={w:Math.round(w*10)/10};if(f!=null&&isFinite(f))body.f=Math.round(f*10)/10;
   await col.doc(k).set(body);
-  say(ymd(k)+" の記録を保存しました。");$("inW").value="";$("inF").value="";
- }catch(err){say("保存できませんでした。もう一度「保存する」をタップしてください。");}
+  say("保存しました："+ymd(k)+"　"+body.w.toFixed(1)+"kg","ok");$("inW").value="";$("inF").value="";
+ }catch(err){say("保存できませんでした。Safariの「プライベート」をオフにして開き直してください。","ng");}
  $("saveBtn").disabled=false;
 });
 $("hBtn").addEventListener("click",async function(){
- var h=parseFloat($("inH").value);
- if(!isFinite(h)||h<100||h>230){say("身長は cm で入れてください（例 170）。");return;}
+ var h=num($("inH").value);
+ if(!isFinite(h)||h<100||h>230){say("身長は cm の数字で入れてください（例 170）。","ng");return;}
  if(!dbOk)return;
- try{await col.doc("settings").set({h:Math.round(h*10)/10});say("身長を保存しました。");}catch(err){say("身長を保存できませんでした。");}
+ try{await col.doc("settings").set({h:Math.round(h*10)/10});say("身長を保存しました："+h+"cm","ok");}catch(err){say("身長を保存できませんでした。","ng");}
 });
 $("moreBtn").addEventListener("click",function(){showAll=true;render();});
 $("list").addEventListener("click",async function(e){
