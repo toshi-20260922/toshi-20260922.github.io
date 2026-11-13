@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>所得税の計算と税率の早見表【2026年・令和8年分】年収別・課税所得別にいくらかかるか</title>
+<link rel="canonical" href="https://taxtable.jp/shotokuzei/">
+<meta name="description" content="所得税の税率表（速算表）と、年収別・課税所得別の所得税の早見表です。年収を入れると、令和8年分の所得税と税率がその場で出ます。基礎控除104万円・給与所得控除74万円に対応。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CW5VSP86R1');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<style id="szc">.sz-ul{margin:0 0 18px;padding-left:1.3em}.sz-ul li{margin:6px 0;line-height:1.8}.sz-t td,.sz-t th{white-space:nowrap}.sz-t td:first-child,.sz-t th:first-child{text-align:left}.sz-t td small{display:block;font-size:11px;color:#5b6666;font-weight:400}@media(min-width:900px){.sz-t7{font-size:14px}.sz-t7 th{font-size:12.5px}}@media(max-width:700px){.sz-t:not(.sz-t7){font-size:13px}.sz-t:not(.sz-t7) td,.sz-t:not(.sz-t7) th{padding-left:6px;padding-right:6px}.sz-t:not(.sz-t7) td:first-child,.sz-t:not(.sz-t7) th{white-space:normal}}</style><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="shotokuzei_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="財布"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="12" y="20" width="40" height="28" rx="5" fill="#00775a"></rect><path d="M12 26h34a6 6 0 0 1 6 6v0H12z" fill="#0f3d31"></path><rect x="38" y="30" width="16" height="10" rx="3" fill="#d8efe6"></rect><circle cx="44" cy="35" r="2.5" fill="#e08a2c"></circle><circle cx="24" cy="15" r="6" fill="#e08a2c"></circle><text x="24" y="18.5" font-size="8" font-weight="700" fill="#ffffff" text-anchor="middle">¥</text></svg></div>
+ <p class="upd">更新日：2026年11月10日（令和8年度税制改正に対応）</p>
+ <h1>所得税の計算と税率の早見表【2026年・令和8年分】年収別・課税所得別にいくらかかるか</h1>
+</div>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>年収を入れると、1年間の所得税と税率が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="inc">年収（給与・税金や保険料が引かれる前）</label>
+   <div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="30000000" step="10000" value="5000000"><span>円</span></div>
+   <input type="range" id="incr" min="1000000" max="20000000" step="10000" value="5000000" aria-label="年収">
+  </div>
+  <div class="full">
+   <label>年齢</label>
+   <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜64歳</button></div>
+  </div>
+ </div>
+ <div class="amt"><div><small>所得税<br>（1年）</small><b id="o-y">0<i>円</i></b><em id="o-r">年収の0%</em></div><div><small>所得税<br>（1か月あたり）</small><b id="o-m">0<i>円</i></b><em>12で割った額</em></div><div><small>課税される<br>所得</small><b id="o-d">0<i>円</i></b><em id="o-t">税率0%</em></div></div>
+ 
+ <ul><li id="o-br">給与所得0円から、社会保険料0円と基礎控除0円を引いて計算しています</li><li>単身・給与だけ・賞与なし・協会けんぽ東京都・勤め先の社会保険に入っている場合です</li><li>復興特別所得税（所得税額の2.1%）を含みます。扶養控除や生命保険料控除などは入れていません</li></ul>
+</div>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/shotokuzei/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/shotokuzei/">Xでポストする</a>
+</div><p>所得税は、1年間の所得から控除を引いた「課税される所得」に、5%から45%の税率を掛けて計算します。たとえば年収500万円の会社員（単身・40歳未満）なら、課税される所得は1,796,000円、税率は5%で、所得税は年91,600円です。</p><nav class="toc"><b>目次</b><ol><li><a href="#zentei">試算の前提</a></li><li><a href="#rate">所得税率の表（速算表）</a></li><li><a href="#kazei">課税される所得ごとの所得税 早見表</a></li><li><a href="#list">年収別の所得税 早見表</a></li><li><a href="#how">所得税の計算のしかた</a></li><li><a href="#change">令和8年分で変わったところ</a></li><li><a href="#next">次に確かめること</a></li><li><a href="#qa">よくある質問</a></li></ol></nav><h2 id="zentei">試算の前提（令和8年分）</h2><ul class="sz-ul"><li>税率と控除額は、国税庁「所得税の税率」の速算表</li><li>課税される所得は、1,000円未満を切り捨て</li><li>所得税の額は、復興特別所得税（所得税額の2.1%）を足して、100円未満を切り捨て</li><li>年収別の表は、単身・給与だけ・賞与なし・40歳未満・協会けんぽ東京都。引いている控除は、給与所得控除・社会保険料控除・基礎控除の3つ</li><li>扶養控除、配偶者控除、生命保険料控除、住宅ローン控除などは入れていません。使える控除がある人は、表より少なくなります</li></ul><h2 id="rate">所得税率の表（速算表）</h2><p>所得税の税率は、課税される所得が多いほど高くなる7段階です。計算は「課税される所得 × 税率 − 控除額」です。</p><div class="tw"><table class="sz-t"><thead><tr><th>課税される所得</th><th>税率</th><th>控除額</th></tr></thead><tbody><tr><td>195万円未満</td><td>5%</td><td>0円</td></tr><tr><td>195万円以上 330万円未満</td><td>10%</td><td>97,500円</td></tr><tr><td>330万円以上 695万円未満</td><td>20%</td><td>427,500円</td></tr><tr><td>695万円以上 900万円未満</td><td>23%</td><td>636,000円</td></tr><tr><td>900万円以上 1,800万円未満</td><td>33%</td><td>1,536,000円</td></tr><tr><td>1,800万円以上 4,000万円未満</td><td>40%</td><td>2,796,000円</td></tr><tr><td>4,000万円以上</td><td>45%</td><td>4,796,000円</td></tr></tbody></table></div><p class="note">例：課税される所得が700万円なら、700万円 × 23% − 636,000円 = 974,000円。これに復興特別所得税2.1%を足して、994,400円です。</p><h2 id="kazei">課税される所得ごとの所得税 早見表</h2><p>課税される所得が分かっている人は、この表で所得税の額を引けます。個人事業の人、年金の人も同じ表です。単位は円です。</p><div class="tw"><table class="sz-t"><thead><tr><th>課税される所得</th><th>税率</th><th>所得税</th><th>復興特別所得税を<br>足した額</th></tr></thead><tbody><tr><td>100万円</td><td>5%</td><td>50,000</td><td>51,000</td></tr><tr><td>150万円</td><td>5%</td><td>75,000</td><td>76,500</td></tr><tr><td>195万円</td><td>5%</td><td>97,500</td><td>99,500</td></tr><tr><td>200万円</td><td>10%</td><td>102,500</td><td>104,600</td></tr><tr><td>300万円</td><td>10%</td><td>202,500</td><td>206,700</td></tr><tr><td>330万円</td><td>10%</td><td>232,500</td><td>237,300</td></tr><tr><td>400万円</td><td>20%</td><td>372,500</td><td>380,300</td></tr><tr><td>500万円</td><td>20%</td><td>572,500</td><td>584,500</td></tr><tr><td>600万円</td><td>20%</td><td>772,500</td><td>788,700</td></tr><tr><td>695万円</td><td>20%</td><td>962,500</td><td>982,700</td></tr><tr><td>800万円</td><td>23%</td><td>1,204,000</td><td>1,229,200</td></tr><tr><td>900万円</td><td>23%</td><td>1,434,000</td><td>1,464,100</td></tr><tr><td>1,000万円</td><td>33%</td><td>1,764,000</td><td>1,801,000</td></tr><tr><td>1,500万円</td><td>33%</td><td>3,414,000</td><td>3,485,600</td></tr><tr><td>1,800万円</td><td>33%</td><td>4,404,000</td><td>4,496,400</td></tr><tr><td>2,000万円</td><td>40%</td><td>5,204,000</td><td>5,313,200</td></tr><tr><td>3,000万円</td><td>40%</td><td>9,204,000</td><td>9,397,200</td></tr><tr><td>4,000万円</td><td>40%</td><td>13,204,000</td><td>13,481,200</td></tr><tr><td>5,000万円</td><td>45%</td><td>17,704,000</td><td>18,075,700</td></tr></tbody></table></div><h2 id="list">年収別の所得税 早見表（会社員・令和8年分）</h2><p>給与の年収から、所得税がいくらになるかを出しました。単位は円です。</p><div class="tw"><table class="sz-t sz-t7"><thead><tr><th>年収</th><th>給与所得</th><th>社会保険料</th><th>基礎控除</th><th>課税される<br>所得</th><th>税率</th><th>所得税（年）</th></tr></thead><tbody><tr><td>200万円</td><td>1,260,000</td><td>299,472</td><td>1,040,000</td><td>0</td><td>—</td><td>0<small>月 0</small></td></tr><tr><td>250万円</td><td>1,670,000</td><td>353,064</td><td>1,040,000</td><td>276,000</td><td>5%</td><td>14,000<small>月 1,166</small></td></tr><tr><td>300万円</td><td>2,020,000</td><td>457,728</td><td>1,040,000</td><td>522,000</td><td>5%</td><td>26,600<small>月 2,216</small></td></tr><tr><td>350万円</td><td>2,370,000</td><td>528,336</td><td>1,040,000</td><td>801,000</td><td>5%</td><td>40,800<small>月 3,400</small></td></tr><tr><td>400万円</td><td>2,760,000</td><td>598,956</td><td>1,040,000</td><td>1,121,000</td><td>5%</td><td>57,200<small>月 4,766</small></td></tr><tr><td>450万円</td><td>3,160,000</td><td>669,564</td><td>1,040,000</td><td>1,450,000</td><td>5%</td><td>74,000<small>月 6,166</small></td></tr><tr><td>500万円</td><td>3,560,000</td><td>723,144</td><td>1,040,000</td><td>1,796,000</td><td>5%</td><td>91,600<small>月 7,633</small></td></tr><tr><td>550万円</td><td>3,960,000</td><td>827,820</td><td>1,040,000</td><td>2,092,000</td><td>10%</td><td>114,000<small>月 9,500</small></td></tr><tr><td>600万円</td><td>4,360,000</td><td>881,400</td><td>1,040,000</td><td>2,438,000</td><td>10%</td><td>149,300<small>月 12,441</small></td></tr><tr><td>650万円</td><td>4,760,000</td><td>934,980</td><td>1,040,000</td><td>2,785,000</td><td>10%</td><td>184,800<small>月 15,400</small></td></tr><tr><td>700万円</td><td>5,200,000</td><td>1,039,656</td><td>670,000</td><td>3,490,000</td><td>20%</td><td>276,100<small>月 23,008</small></td></tr><tr><td>750万円</td><td>5,650,000</td><td>1,093,236</td><td>670,000</td><td>3,886,000</td><td>20%</td><td>357,000<small>月 29,750</small></td></tr><tr><td>800万円</td><td>6,100,000</td><td>1,164,960</td><td>670,000</td><td>4,265,000</td><td>20%</td><td>434,400<small>月 36,200</small></td></tr><tr><td>850万円</td><td>6,550,000</td><td>1,185,612</td><td>670,000</td><td>4,694,000</td><td>20%</td><td>522,000<small>月 43,500</small></td></tr><tr><td>900万円</td><td>7,050,000</td><td>1,212,300</td><td>620,000</td><td>5,217,000</td><td>20%</td><td>628,800<small>月 52,400</small></td></tr><tr><td>950万円</td><td>7,550,000</td><td>1,238,988</td><td>620,000</td><td>5,691,000</td><td>20%</td><td>725,600<small>月 60,466</small></td></tr><tr><td>1,000万円</td><td>8,050,000</td><td>1,265,688</td><td>620,000</td><td>6,164,000</td><td>20%</td><td>822,200<small>月 68,516</small></td></tr><tr><td>1,100万円</td><td>9,050,000</td><td>1,331,160</td><td>620,000</td><td>7,098,000</td><td>23%</td><td>1,017,400<small>月 84,783</small></td></tr><tr><td>1,200万円</td><td>10,050,000</td><td>1,366,404</td><td>620,000</td><td>8,063,000</td><td>23%</td><td>1,244,000<small>月 103,666</small></td></tr><tr><td>1,300万円</td><td>11,050,000</td><td>1,437,936</td><td>620,000</td><td>8,992,000</td><td>23%</td><td>1,462,200<small>月 121,850</small></td></tr><tr><td>1,400万円</td><td>12,050,000</td><td>1,479,216</td><td>620,000</td><td>9,950,000</td><td>33%</td><td>1,784,100<small>月 148,675</small></td></tr><tr><td>1,500万円</td><td>13,050,000</td><td>1,556,796</td><td>620,000</td><td>10,873,000</td><td>33%</td><td>2,095,100<small>月 174,591</small></td></tr><tr><td>1,600万円</td><td>14,050,000</td><td>1,598,088</td><td>620,000</td><td>11,831,000</td><td>33%</td><td>2,417,900<small>月 201,491</small></td></tr><tr><td>1,800万円</td><td>16,050,000</td><td>1,644,372</td><td>620,000</td><td>13,785,000</td><td>33%</td><td>3,076,300<small>月 256,358</small></td></tr><tr><td>2,000万円</td><td>18,050,000</td><td>1,654,368</td><td>620,000</td><td>15,775,000</td><td>33%</td><td>3,746,800<small>月 312,233</small></td></tr></tbody></table></div><p class="note">給与所得は、年収から給与所得控除を引いた額です。所得税の下の小さい字は、12で割った1か月あたりの額です。税金と社会保険料を全部引いた手取りは、<a href="/tedori/">年収の手取り早見表</a>にまとめています。</p><h2 id="how">所得税の計算のしかた</h2><h3>1. 年収から給与所得控除を引く</h3><p>会社員は、年収から給与所得控除を引いた額が「給与所得」です。令和8年分の給与所得控除は、年収220万円までは74万円、850万円以上は195万円です。</p><h3>2. 所得控除を引く</h3><p>給与所得から、社会保険料控除、基礎控除、扶養控除などを引きます。残った額が「課税される所得」です。令和8年分の基礎控除は、合計所得が489万円以下なら104万円、489万円を超えて655万円以下なら67万円、655万円を超えて2,350万円以下なら62万円です。</p><h3>3. 税率を掛けて、控除額を引く</h3><p>課税される所得に速算表の税率を掛け、控除額を引きます。税率が上がるのは、区切りを超えた部分だけです。速算表の控除額は、その分を調整するための数字です。</p><h3>4. 復興特別所得税を足す</h3><p>出た所得税の額に、2.1%を足します。住宅ローン控除などの税額控除がある人は、2.1%を足す前に引きます。</p><h2 id="change">令和8年分で変わったところ</h2><p>令和8年分から、給与所得控除の最低額が65万円から74万円に、基礎控除が合計所得489万円以下の人は104万円になりました。給与だけの人は、年収178万円までは所得税がかかりません。税率の表は変わっていません。</p><p>令和9年分からは防衛特別所得税が始まります。国税庁は、復興特別所得税と合わせた率は変わらないと説明しています。</p><h2 id="next">次に確かめること</h2><ul class="sz-ul"><li>税金と社会保険料を引いた手取り：<a href="/tedori/">年収の手取り早見表</a></li><li>住民税の額と、かからない年収：<a href="/juminzei/">住民税の早見表</a></li><li>年末調整で戻る額：<a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a></li><li>扶養に入れる年収：<a href="/nenshu-kabe/">年収の壁 早見表</a></li><li>個人事業の人の所得税と手取り：<a href="/kojin-zei/">個人事業主の手取り早見表</a></li></ul><h2 id="qa">よくある質問</h2><h3>所得税は年収いくらからかかりますか？</h3><p>給与だけの人は、令和8年分は年収178万円を超えるとかかります。給与所得控除74万円と基礎控除104万円の合計が178万円だからです。社会保険料を払っている人は、その分だけ、かかり始める年収が上がります。</p><h3>所得税率は年収で決まりますか？</h3><p>年収ではなく、課税される所得で決まります。課税される所得は、年収から給与所得控除と所得控除を引いた額です。年収500万円の会社員（単身）なら、課税される所得は1,796,000円で、税率は5%です。</p><h3>税率が上がると、手取りが減ることはありますか？</h3><p>所得税では起きません。高い税率がかかるのは、区切りを超えた部分だけです。課税される所得が195万円から196万円に増えても、10%がかかるのは増えた1万円の部分だけです。</p><h3>毎月の給料から引かれている所得税と、この表の額は同じですか？</h3><p>毎月引かれているのは、見込みで計算した額です。1年分の正しい額は年末調整で計算し直し、差額が戻るか、追加で引かれます。</p><h3>所得税と住民税は何が違いますか？</h3><p>所得税は国に納める税金で、税率は5%から45%です。住民税は都道府県と市区町村に納める税金で、所得にかかる分の税率は合わせて10%です。住民税は、前の年の所得をもとに翌年に納めます。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p class="ask">所得税のほかに、住民税がいくらかかるかも確かめてみてください。</p><a class="cbtn nx" href="/juminzei/" data-cta="shotokuzei_next_jumin">住民税の早見表<br>（いくらから・非課税になる年収）</a><div class="src">出典・参考（2026年11月確認）
+ <ul><li>国税庁 タックスアンサー No.2260 所得税の税率</li><li>国税庁 タックスアンサー No.1199 基礎控除</li><li>国税庁 タックスアンサー No.1410 給与所得控除</li><li>国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</li><li>全国健康保険協会「令和8年度の都道府県単位保険料率」</li><li>厚生労働省「令和8年度 雇用保険料率のご案内」</li><li>表の金額は、上の資料の控除・税率・料率から計算しています</li></ul>
+</div>
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">事業をしている方は、</span><span class="nw">帳簿と申告を</span></p><p>会社を経営している方、個人で事業をしている方の、記帳から決算・申告までをまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="shotokuzei_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="shotokuzei_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script>
+(function(){
+ function kyuyo(x){
+  if(x<741000)return 0;
+  if(x<2191000)return x-740000;
+  if(x<2193000)return 1451000;
+  if(x<2196000)return 1453000;
+  if(x<2200000)return 1456000;
+  if(x<6600000){var A=Math.floor(x/4000)*4000;return x<3600000?Math.floor(A*0.7)-80000:Math.floor(A*0.8)-440000;}
+  if(x<8500000)return Math.floor(x*0.9)-1100000;
+  return x-1950000;
+ }
+ var G=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
+ function std(m){for(var i=0;i<G.length;i++){if(m<G[i][1]*1000)return G[i][0]*1000;}return 1390000;}
+ function r50(v){var f=Math.floor(v);return (v-f>0.5)?f+1:f;}
+ function shaho(a,old){var m=Math.floor(a/12),s=std(m),p=Math.min(Math.max(s,88000),650000);
+  return (r50(s*(985+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*0.005))*12;}
+ function kiso(g){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(g<=T[i][0])return T[i][1];}return 0;}
+ function itax(a,sh){var g=kyuyo(a),t=Math.floor(Math.max(0,g-sh-kiso(g))/1000)*1000;
+  var B=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]],b=0;
+  for(var i=0;i<B.length;i++){if(t<=B[i][0]){b=Math.floor(t*B[i][1]/100)-B[i][2];break;}}
+  return Math.floor(Math.floor(b*1.021)/100)*100;}
+ function jumin(a,sh){var g=kyuyo(a);if(g<=450000)return 0;
+  var t=Math.floor(Math.max(0,g-sh-430000)/1000)*1000,adj=t<=2000000?Math.min(50000,t):50000;
+  var shi=Math.floor(Math.max(0,Math.floor(t*6/100)-Math.floor(adj*3/100))/100)*100;
+  var ken=Math.floor(Math.max(0,Math.floor(t*4/100)-Math.floor(adj*2/100))/100)*100;
+  return shi+ken+5000;}
+ function all(a,old){var s=shaho(a,old),i=itax(a,s),j=jumin(a,s);return {s:s,i:i,j:j,t:a-s-i-j};}
+ function f(n){return n.toLocaleString("ja-JP");}
+ 
+ var B=[[1950000,5],[3300000,10],[6950000,20],[9000000,23],[18000000,33],[40000000,40],[1e15,45]];
+ var inc=document.getElementById("inc"),incr=document.getElementById("incr"),old=0;
+ function render(){var a=Math.max(0,Math.min(30000000,Math.floor(Number(inc.value)||0)));var g=kyuyo(a),sh=shaho(a,old),k=kiso(g),t=Math.floor(Math.max(0,g-sh-k)/1000)*1000,r=0;if(t>0){for(var i=0;i<B.length;i++){if(t<=B[i][0]){r=B[i][1];break;}}}var x=itax(a,sh);
+  document.getElementById("o-y").innerHTML=f(x)+"<i>円</i>";document.getElementById("o-m").innerHTML=f(Math.floor(x/12))+"<i>円</i>";document.getElementById("o-d").innerHTML=f(t)+"<i>円</i>";
+  document.getElementById("o-r").textContent="年収の"+(a?(Math.round(x/a*1000)/10):0)+"%";document.getElementById("o-t").textContent=t>0?"税率"+r+"%":"所得税はかかりません";
+  document.getElementById("o-br").textContent="給与所得"+f(g)+"円から、社会保険料"+f(sh)+"円と基礎控除"+f(k)+"円を引いて計算しています";}
+ inc.addEventListener("input",function(){if(incr)incr.value=inc.value;render();});
+ if(incr)incr.addEventListener("input",function(){inc.value=incr.value;render();});
+ document.querySelectorAll("#s-age button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("#s-age button").forEach(function(o){o.classList.remove("on");});b.classList.add("on");old=Number(b.getAttribute("data-v"));render();});});
+ render();
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

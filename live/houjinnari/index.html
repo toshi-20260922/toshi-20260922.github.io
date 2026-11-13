@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>法人成りの分岐点 早見表【2026年・令和8年】利益と役員報酬で分かる個人事業との差｜タックステーブル</title>
+
+<meta name="description" content="事業の利益と役員報酬の組み合わせごとに、個人事業のままの場合と法人にした場合の税金・社会保険料の差を早見表にしました。利益を入れると、その場で比べる計算もできます。大阪府・令和8年分。">
+<link rel="canonical" href="https://taxtable.jp/houjinnari/"><style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CW5VSP86R1');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<style id="mk7">.pnl .x7pt{font-size:18px;font-weight:700;line-height:1.5;margin:0 0 12px;color:#004d3c}.pnl .x7lb2{margin-top:4px}@media(min-width:900px){#x7ways .ways{grid-template-columns:repeat(4,1fr)}}.x7more{text-align:right;margin:12px 0 0}.x7more a{font-weight:700;color:#00775a}.x7bc{font-size:12px;margin:16px 0 0;color:#5b6b66}.x7bc a{color:#00775a}.x7h1{font-family:"Noto Sans JP",sans-serif;font-weight:900;font-size:28px;line-height:1.4;margin:22px 0 10px;color:#12312a}.x7lead{font-size:16px;line-height:1.9;margin:0 0 12px}.x7safe{display:inline-block;background:#e9f0ec;border-radius:14px;padding:9px 16px;font-size:13px;font-weight:700;line-height:1.7;margin:0 0 8px}.x7q{margin:26px 0 0;padding:16px;background:#f3f6f4;border-radius:8px}.x7q b{display:block;font-size:14px;margin:0 0 6px}.x7q a{display:inline-block;margin:0 16px 4px 0;color:#00775a;font-weight:700}@media(max-width:700px){.x7h1{font-size:23px}}</style><style id="mk7h">.x7tb th,.x7tb td{white-space:nowrap;text-align:right}.x7tb th:first-child,.x7tb td:first-child{text-align:left}.x7tb td.x7p{background:#dff0d0;font-weight:700;color:#12512f}.x7tb td.x7g{background:#eceeed;color:#8a9390}.x7tb td.x7k{background:#f6f3e6}.x7lg{font-size:13px;margin:0 0 8px}.x7lg i{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin:0 4px 0 10px;border:1px solid #c9d2ce}.x7ul{margin:0 0 20px;padding:0 0 0 1.2em;line-height:1.9}.x7ul li{margin:0 0 6px}.x7ul a{color:#00775a;font-weight:700}</style><style id="mk7fit">.x7tb{width:100%;font-size:13px;border-collapse:collapse}.x7tb th{white-space:normal;line-height:1.35;padding:6px 5px;vertical-align:bottom;font-size:12px}.x7tb td{padding:7px 5px}.x7tb th:first-child,.x7tb td:first-child{position:sticky;left:0;z-index:1}.x7tb td:first-child{background:#fff}.x7tb tr.x7hl td:first-child{background:#eaf5d8}@media(max-width:700px){.x7tb th{white-space:nowrap}}</style><style id="mk7h13">.x7t13{font-size:12px}.x7t13 th{font-size:11px;padding:6px 2px}.x7t13 td{padding:6px 3px}.x7t13 td small{display:block;font-size:10px;font-weight:400;color:#5b6666}</style><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="tblfit">@media(max-width:374px){table:not(:has(tr>:nth-child(7))) :is(td,th){padding-left:3px!important;padding-right:3px!important;letter-spacing:-.03em}}</style>
+</head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="houjinnari_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap"><p class="x7bc"><a href="/">トップ</a> › <a href="/#list">早見表の一覧</a> › 経営者・個人事業の数字</p>
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="家からビルへ"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><path d="M8 38l9-8 9 8" fill="none" stroke="#0f3d31" stroke-width="3" stroke-linejoin="round"></path><rect x="11" y="37" width="12" height="11" fill="#d8efe6"></rect><path d="M28 36h9M33 31l5 5-5 5" fill="none" stroke="#e08a2c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><rect x="42" y="16" width="14" height="32" fill="#0f3d31"></rect><rect x="45" y="20" width="3" height="3" fill="#d8efe6"></rect><rect x="45" y="26" width="3" height="3" fill="#d8efe6"></rect><rect x="45" y="32" width="3" height="3" fill="#d8efe6"></rect><rect x="45" y="38" width="3" height="3" fill="#d8efe6"></rect><rect x="50" y="20" width="3" height="3" fill="#d8efe6"></rect><rect x="50" y="26" width="3" height="3" fill="#d8efe6"></rect><rect x="50" y="32" width="3" height="3" fill="#d8efe6"></rect><rect x="50" y="38" width="3" height="3" fill="#d8efe6"></rect><rect x="6" y="48" width="52" height="3" fill="#0f3d31"></rect></svg></div>
+ <p class="upd">更新日：2026年11月10日（令和8年度税制改正に対応）</p>
+ <h1>法人成りの分岐点 早見表【2026年・令和8年】利益と役員報酬で分かる、個人事業との税金・社会保険料の差</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>利益を入れると、個人事業と法人の手元に残る額を比べられます</div>
+ <div class="in">
+  <div class="full">
+   <label for="inc">1年の利益（売上から経費を引いた額）</label>
+   <div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="50000000" step="10000" value="8000000"><span>円</span></div>
+   <input type="range" id="incr" min="3000000" max="20000000" step="10000" value="8000000" aria-label="利益">
+  </div>
+  <div class="full">
+   <label>年齢</label>
+   <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜59歳</button></div>
+  </div>
+ </div>
+ <div class="amt">
+  <div><small>個人事業で<br>手元に残る額</small><b id="o-k">0<i>円</i></b><em>青色申告65万円</em></div>
+  <div><small>法人で<br>手元に残る額</small><b id="o-h">0<i>円</i></b><em>役員報酬で受け取る</em></div>
+  <div><small>差</small><b id="o-d" style="font-size:18px">0<i>円</i></b><em id="o-w">年</em></div>
+ </div>
+ <div class="ch" id="gch" style="margin:0 0 16px"></div>
+ <ul>
+  <li id="o-1">法人は役員報酬を月0円とし、会社に残る利益をゼロにしています</li>
+  <li id="o-2">法人の社会保険料は、本人負担と会社負担を合わせて年0円です</li>
+  <li>単身・大阪府（国民健康保険・協会けんぽ大阪支部）・法人住民税の均等割は年7万円で計算しています</li>
+ </ul>
+</div>
+<div class="rcta"><p>法人にした最初の期から、記帳・決算・申告までまとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="houjinnari_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/houjinnari/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/houjinnari/">Xでポストする</a>
+</div>
+<p>法人にすると、利益を役員報酬として受け取り、給与所得控除が使えます。一方で、社会保険は会社と本人の両方が払う厚生年金と健康保険になり、赤字でも法人住民税の均等割がかかります。<span class="mk">手元に残る額だけで比べると、社会保険料の増え方で差が小さくなります。</span></p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#zentei">試算の前提</a></li><li><a href="#bunki">法人成りの分岐点 早見表（40歳未満）</a></li><li><a href="#bunki40">法人成りの分岐点 早見表（40〜59歳）</a></li><li><a href="#yomikata">表の読み方3つ</a></li><li><a href="#nokoru">会社に残るお金</a></li><li><a href="#hairanai">この表に入っていない、でも判断を左右すること</a></li><li><a href="#list">利益で見る個人事業と法人の比較</a></li>
+ <li><a href="#diff">個人事業と法人で変わるもの</a></li>
+ <li><a href="#qa">法人にするかでよく聞かれること</a></li>
+</ol></nav>
+<h2 id="zentei">試算の前提（令和8年分・大阪府・単身）</h2><ul class="x7ul"><li>個人事業のまま：青色申告特別控除65万円。所得税（復興特別所得税を含む）・住民税・個人事業税（5%）・国民健康保険（大阪府の令和8年度）・国民年金</li><li>法人にした場合：本人と会社の社会保険料（協会けんぽ大阪支部の令和8年度の料率・厚生年金・子ども・子育て拠出金）、役員報酬にかかる所得税・住民税、会社に残した利益にかかる法人税・地方法人税・法人住民税・法人事業税・特別法人事業税</li><li>会社は資本金1,000万円以下。地方税は標準税率、法人住民税の均等割は年7万円</li><li>配偶者への役員報酬なし、賞与なし</li><li>差は、個人事業のままの税金・社会保険料の合計から、法人にした場合の合計を引いた額。会社に残したお金にかかる税金まで入れています</li><li>消費税、会社の設立と維持にかかる費用は入れていません</li></ul><h2 id="bunki">法人成りの分岐点 早見表（40歳未満）</h2><p>事業の利益と、会社から自分に払う役員報酬の組み合わせごとに、個人事業のままの場合との差を出しました。単位は万円（年）です。「個人事業のまま」の列は、個人事業のままの税金・社会保険料の合計です。「全額を報酬」の列は、利益を役員報酬で払い切る場合で、小さい字はそのときの報酬の月額です。</p><p class="x7lg"><i style="background:#dff0d0"></i>プラス：法人のほうが軽い<i style="background:#fff"></i>マイナス：個人事業のままのほうが軽い<i style="background:#eceeed"></i>会社が赤字になる組み合わせ</p><div class="tw"><table class="x7tb x7t13"><thead><tr><th>事業の利益<br>（年）</th><th>個人事業<br>のまま</th><th>報酬<br>月20万</th><th>報酬<br>月30万</th><th>報酬<br>月40万</th><th>報酬<br>月50万</th><th>報酬<br>月60万</th><th>報酬<br>月70万</th><th>報酬<br>月80万</th><th>報酬<br>月90万</th><th>報酬<br>月100万</th><th>報酬<br>月120万</th><th>全額を<br>報酬</th></tr></thead><tbody><tr><td>400万円</td><td class="x7k">105</td><td class="">−9</td><td class="x7g">−26</td><td class="x7g">−76</td><td class="x7g">−123</td><td class="x7g">−179</td><td class="x7g">−236</td><td class="x7g">−282</td><td class="x7g">−328</td><td class="x7g">−378</td><td class="x7g">−496</td><td class="">−18<small>月29万</small></td></tr><tr><td>500万円</td><td class="x7k">138</td><td class="x7p">+2</td><td class="">−12</td><td class="x7g">−43</td><td class="x7g">−89</td><td class="x7g">−145</td><td class="x7g">−202</td><td class="x7g">−248</td><td class="x7g">−294</td><td class="x7g">−345</td><td class="x7g">−463</td><td class="">−20<small>月36万</small></td></tr><tr><td>600万円</td><td class="x7k">182</td><td class="x7p">+23</td><td class="x7p">+9</td><td class="">−10</td><td class="x7g">−45</td><td class="x7g">−102</td><td class="x7g">−159</td><td class="x7g">−204</td><td class="x7g">−250</td><td class="x7g">−301</td><td class="x7g">−419</td><td class="">−13<small>月43万</small></td></tr><tr><td>700万円</td><td class="x7k">227</td><td class="x7p">+45</td><td class="x7p">+31</td><td class="x7p">+12</td><td class="">−3</td><td class="x7g">−57</td><td class="x7g">−114</td><td class="x7g">−160</td><td class="x7g">−206</td><td class="x7g">−256</td><td class="x7g">−375</td><td class="">−1<small>月50万</small></td></tr><tr><td>800万円</td><td class="x7k">267</td><td class="x7p">+61</td><td class="x7p">+50</td><td class="x7p">+31</td><td class="x7p">+15</td><td class="x7g">−17</td><td class="x7g">−73</td><td class="x7g">−119</td><td class="x7g">−165</td><td class="x7g">−216</td><td class="x7g">−334</td><td class="">−4<small>月57万</small></td></tr><tr><td>900万円</td><td class="x7k">305</td><td class="x7p">+73</td><td class="x7p">+62</td><td class="x7p">+46</td><td class="x7p">+30</td><td class="x7p">+4</td><td class="x7g">−36</td><td class="x7g">−82</td><td class="x7g">−128</td><td class="x7g">−178</td><td class="x7g">−296</td><td class="">−13<small>月65万</small></td></tr><tr><td>1,000万円</td><td class="x7k">342</td><td class="x7p">+86</td><td class="x7p">+75</td><td class="x7p">+60</td><td class="x7p">+45</td><td class="x7p">+19</td><td class="">−8</td><td class="x7g">−44</td><td class="x7g">−90</td><td class="x7g">−141</td><td class="x7g">−259</td><td class="">−10<small>月73万</small></td></tr><tr><td>1,100万円</td><td class="x7k">381</td><td class="x7p">+97</td><td class="x7p">+89</td><td class="x7p">+74</td><td class="x7p">+61</td><td class="x7p">+35</td><td class="x7p">+9</td><td class="">−9</td><td class="x7g">−52</td><td class="x7g">−102</td><td class="x7g">−220</td><td class="">−8<small>月81万</small></td></tr><tr><td>1,200万円</td><td class="x7k">425</td><td class="x7p">+104</td><td class="x7p">+108</td><td class="x7p">+93</td><td class="x7p">+81</td><td class="x7p">+57</td><td class="x7p">+30</td><td class="x7p">+13</td><td class="x7g">−7</td><td class="x7g">−58</td><td class="x7g">−176</td><td class="">−2<small>月89万</small></td></tr><tr><td>1,300万円</td><td class="x7k">474</td><td class="x7p">+116</td><td class="x7p">+122</td><td class="x7p">+117</td><td class="x7p">+104</td><td class="x7p">+82</td><td class="x7p">+57</td><td class="x7p">+39</td><td class="x7p">+21</td><td class="x7g">−9</td><td class="x7g">−127</td><td class="x7p">+5<small>月96万</small></td></tr><tr><td>1,400万円</td><td class="x7k">523</td><td class="x7p">+128</td><td class="x7p">+134</td><td class="x7p">+135</td><td class="x7p">+128</td><td class="x7p">+105</td><td class="x7p">+82</td><td class="x7p">+65</td><td class="x7p">+47</td><td class="x7p">+25</td><td class="x7g">−79</td><td class="x7p">+16<small>月105万</small></td></tr><tr><td>1,500万円</td><td class="x7k">571</td><td class="x7p">+140</td><td class="x7p">+146</td><td class="x7p">+147</td><td class="x7p">+151</td><td class="x7p">+129</td><td class="x7p">+106</td><td class="x7p">+91</td><td class="x7p">+74</td><td class="x7p">+51</td><td class="x7g">−30</td><td class="x7p">+16<small>月112万</small></td></tr><tr><td>1,600万円</td><td class="x7k">620</td><td class="x7p">+152</td><td class="x7p">+157</td><td class="x7p">+159</td><td class="x7p">+163</td><td class="x7p">+153</td><td class="x7p">+130</td><td class="x7p">+115</td><td class="x7p">+100</td><td class="x7p">+78</td><td class="x7p">+17</td><td class="x7p">+17<small>月120万</small></td></tr><tr><td>1,800万円</td><td class="x7k">717</td><td class="x7p">+175</td><td class="x7p">+181</td><td class="x7p">+183</td><td class="x7p">+186</td><td class="x7p">+180</td><td class="x7p">+172</td><td class="x7p">+163</td><td class="x7p">+148</td><td class="x7p">+129</td><td class="x7p">+69</td><td class="x7p">+15<small>月136万</small></td></tr><tr><td>2,000万円</td><td class="x7k">815</td><td class="x7p">+199</td><td class="x7p">+205</td><td class="x7p">+206</td><td class="x7p">+210</td><td class="x7p">+204</td><td class="x7p">+196</td><td class="x7p">+196</td><td class="x7p">+196</td><td class="x7p">+176</td><td class="x7p">+121</td><td class="x7p">+25<small>月153万</small></td></tr><tr><td>2,500万円</td><td class="x7k">1103</td><td class="x7p">+304</td><td class="x7p">+309</td><td class="x7p">+311</td><td class="x7p">+315</td><td class="x7p">+308</td><td class="x7p">+300</td><td class="x7p">+301</td><td class="x7p">+301</td><td class="x7p">+297</td><td class="x7p">+272</td><td class="x7p">+86<small>月194万</small></td></tr><tr><td>3,000万円</td><td class="x7k">1395</td><td class="x7p">+409</td><td class="x7p">+416</td><td class="x7p">+419</td><td class="x7p">+423</td><td class="x7p">+416</td><td class="x7p">+409</td><td class="x7p">+409</td><td class="x7p">+409</td><td class="x7p">+405</td><td class="x7p">+381</td><td class="x7p">+99<small>月236万</small></td></tr></tbody></table></div><h2 id="bunki40">法人成りの分岐点 早見表（40〜59歳・介護保険料あり）</h2><div class="tw"><table class="x7tb x7t13"><thead><tr><th>事業の利益<br>（年）</th><th>個人事業<br>のまま</th><th>報酬<br>月20万</th><th>報酬<br>月30万</th><th>報酬<br>月40万</th><th>報酬<br>月50万</th><th>報酬<br>月60万</th><th>報酬<br>月70万</th><th>報酬<br>月80万</th><th>報酬<br>月90万</th><th>報酬<br>月100万</th><th>報酬<br>月120万</th><th>全額を<br>報酬</th></tr></thead><tbody><tr><td>400万円</td><td class="x7k">113</td><td class="">−5</td><td class="x7g">−24</td><td class="x7g">−76</td><td class="x7g">−123</td><td class="x7g">−181</td><td class="x7g">−240</td><td class="x7g">−287</td><td class="x7g">−334</td><td class="x7g">−386</td><td class="x7g">−507</td><td class="">−15<small>月28万</small></td></tr><tr><td>500万円</td><td class="x7k">148</td><td class="x7p">+8</td><td class="">−7</td><td class="x7g">−40</td><td class="x7g">−88</td><td class="x7g">−145</td><td class="x7g">−204</td><td class="x7g">−251</td><td class="x7g">−299</td><td class="x7g">−351</td><td class="x7g">−471</td><td class="">−17<small>月36万</small></td></tr><tr><td>600万円</td><td class="x7k">192</td><td class="x7p">+30</td><td class="x7p">+15</td><td class="">−6</td><td class="x7g">−44</td><td class="x7g">−101</td><td class="x7g">−160</td><td class="x7g">−207</td><td class="x7g">−255</td><td class="x7g">−306</td><td class="x7g">−427</td><td class="">−10<small>月43万</small></td></tr><tr><td>700万円</td><td class="x7k">238</td><td class="x7p">+53</td><td class="x7p">+38</td><td class="x7p">+18</td><td class="x7p">+1</td><td class="x7g">−55</td><td class="x7g">−114</td><td class="x7g">−161</td><td class="x7g">−209</td><td class="x7g">−260</td><td class="x7g">−381</td><td class="x7p">+2<small>月50万</small></td></tr><tr><td>800万円</td><td class="x7k">279</td><td class="x7p">+69</td><td class="x7p">+57</td><td class="x7p">+36</td><td class="x7p">+19</td><td class="x7g">−14</td><td class="x7g">−73</td><td class="x7g">−120</td><td class="x7g">−168</td><td class="x7g">−220</td><td class="x7g">−340</td><td class="x7p">+3<small>月57万</small></td></tr><tr><td>900万円</td><td class="x7k">317</td><td class="x7p">+82</td><td class="x7p">+70</td><td class="x7p">+51</td><td class="x7p">+34</td><td class="x7p">+7</td><td class="x7g">−36</td><td class="x7g">−83</td><td class="x7g">−130</td><td class="x7g">−182</td><td class="x7g">−303</td><td class="">−10<small>月64万</small></td></tr><tr><td>1,000万円</td><td class="x7k">354</td><td class="x7p">+94</td><td class="x7p">+82</td><td class="x7p">+65</td><td class="x7p">+49</td><td class="x7p">+22</td><td class="">−7</td><td class="x7g">−46</td><td class="x7g">−93</td><td class="x7g">−145</td><td class="x7g">−266</td><td class="">−8<small>月72万</small></td></tr><tr><td>1,100万円</td><td class="x7k">392</td><td class="x7p">+105</td><td class="x7p">+96</td><td class="x7p">+79</td><td class="x7p">+65</td><td class="x7p">+38</td><td class="x7p">+10</td><td class="">−9</td><td class="x7g">−55</td><td class="x7g">−107</td><td class="x7g">−227</td><td class="">−8<small>月80万</small></td></tr><tr><td>1,200万円</td><td class="x7k">435</td><td class="x7p">+111</td><td class="x7p">+113</td><td class="x7p">+96</td><td class="x7p">+83</td><td class="x7p">+58</td><td class="x7p">+30</td><td class="x7p">+11</td><td class="x7g">−12</td><td class="x7g">−64</td><td class="x7g">−185</td><td class="">−5<small>月88万</small></td></tr><tr><td>1,300万円</td><td class="x7k">483</td><td class="x7p">+123</td><td class="x7p">+127</td><td class="x7p">+120</td><td class="x7p">+107</td><td class="x7p">+83</td><td class="x7p">+56</td><td class="x7p">+37</td><td class="x7p">+18</td><td class="x7g">−15</td><td class="x7g">−136</td><td class="x7p">+2<small>月96万</small></td></tr><tr><td>1,400万円</td><td class="x7k">532</td><td class="x7p">+135</td><td class="x7p">+139</td><td class="x7p">+139</td><td class="x7p">+130</td><td class="x7p">+107</td><td class="x7p">+82</td><td class="x7p">+64</td><td class="x7p">+44</td><td class="x7p">+21</td><td class="x7g">−87</td><td class="x7p">+12<small>月104万</small></td></tr><tr><td>1,500万円</td><td class="x7k">581</td><td class="x7p">+146</td><td class="x7p">+151</td><td class="x7p">+151</td><td class="x7p">+153</td><td class="x7p">+131</td><td class="x7p">+105</td><td class="x7p">+90</td><td class="x7p">+71</td><td class="x7p">+47</td><td class="x7g">−39</td><td class="x7p">+17<small>月111万</small></td></tr><tr><td>1,600万円</td><td class="x7k">630</td><td class="x7p">+158</td><td class="x7p">+163</td><td class="x7p">+162</td><td class="x7p">+165</td><td class="x7p">+154</td><td class="x7p">+129</td><td class="x7p">+113</td><td class="x7p">+97</td><td class="x7p">+74</td><td class="x7g">+10</td><td class="x7p">+14<small>月119万</small></td></tr><tr><td>1,800万円</td><td class="x7k">727</td><td class="x7p">+182</td><td class="x7p">+186</td><td class="x7p">+186</td><td class="x7p">+189</td><td class="x7p">+182</td><td class="x7p">+173</td><td class="x7p">+161</td><td class="x7p">+145</td><td class="x7p">+125</td><td class="x7p">+63</td><td class="x7p">+14<small>月135万</small></td></tr><tr><td>2,000万円</td><td class="x7k">824</td><td class="x7p">+206</td><td class="x7p">+210</td><td class="x7p">+210</td><td class="x7p">+213</td><td class="x7p">+206</td><td class="x7p">+197</td><td class="x7p">+196</td><td class="x7p">+193</td><td class="x7p">+172</td><td class="x7p">+116</td><td class="x7p">+19<small>月152万</small></td></tr><tr><td>2,500万円</td><td class="x7k">1111</td><td class="x7p">+309</td><td class="x7p">+313</td><td class="x7p">+313</td><td class="x7p">+316</td><td class="x7p">+309</td><td class="x7p">+300</td><td class="x7p">+299</td><td class="x7p">+298</td><td class="x7p">+293</td><td class="x7p">+267</td><td class="x7p">+81<small>月193万</small></td></tr><tr><td>3,000万円</td><td class="x7k">1404</td><td class="x7p">+415</td><td class="x7p">+420</td><td class="x7p">+421</td><td class="x7p">+424</td><td class="x7p">+417</td><td class="x7p">+408</td><td class="x7p">+407</td><td class="x7p">+406</td><td class="x7p">+401</td><td class="x7p">+375</td><td class="x7p">+94<small>月235万</small></td></tr></tbody></table></div><h2 id="yomikata">分岐点は役員報酬の決め方で動く：表の読み方3つ</h2><h3>1. 利益をほぼ全額、役員報酬で受け取る場合</h3><p>利益1,250万円から、法人のほうが軽くなります（40〜59歳は1,260万円から）。それより下では、個人事業のままのほうが軽いか、ほぼ同じです。報酬を高くすると、本人と会社の社会保険料が増えるためです。</p><h3>2. 役員報酬を月50万円にして、残りを会社に残す場合</h3><p>利益720万円から、法人のほうが軽くなります（40〜59歳は700万円から）。</p><h3>3. 役員報酬を月30万円にする場合</h3><p>利益560万円から、法人のほうが軽くなります（40〜59歳は550万円から）。会社に残したお金は、そのままでは自分の財布に入りません。次の表で、会社にいくら残るかをあわせて見てください。</p><h2 id="nokoru">会社に残るお金（40歳未満・法人税などを払ったあと）</h2><p>利益から、役員報酬・会社負担の社会保険料・法人税などを引いて、会社に残る金額です。単位は万円です。</p><div class="tw"><table class="x7tb x7t13"><thead><tr><th>事業の利益<br>（年）</th><th>報酬<br>月20万</th><th>報酬<br>月30万</th><th>報酬<br>月40万</th><th>報酬<br>月50万</th><th>報酬<br>月60万</th><th>報酬<br>月70万</th><th>報酬<br>月80万</th><th>報酬<br>月90万</th><th>報酬<br>月100万</th><th>報酬<br>月120万</th></tr></thead><tbody><tr><td>400万円</td><td class="">90</td><td class="x7g">−20</td><td class="x7g">−159</td><td class="x7g">−295</td><td class="x7g">−431</td><td class="x7g">−565</td><td class="x7g">−690</td><td class="x7g">−816</td><td class="x7g">−942</td><td class="x7g">−1196</td></tr><tr><td>500万円</td><td class="">167</td><td class="">61</td><td class="x7g">−59</td><td class="x7g">−195</td><td class="x7g">−331</td><td class="x7g">−465</td><td class="x7g">−590</td><td class="x7g">−716</td><td class="x7g">−842</td><td class="x7g">−1096</td></tr><tr><td>600万円</td><td class="">245</td><td class="">138</td><td class="">30</td><td class="x7g">−95</td><td class="x7g">−231</td><td class="x7g">−365</td><td class="x7g">−490</td><td class="x7g">−616</td><td class="x7g">−742</td><td class="x7g">−996</td></tr><tr><td>700万円</td><td class="">322</td><td class="">216</td><td class="">108</td><td class="">2</td><td class="x7g">−131</td><td class="x7g">−265</td><td class="x7g">−390</td><td class="x7g">−516</td><td class="x7g">−642</td><td class="x7g">−896</td></tr><tr><td>800万円</td><td class="">397</td><td class="">293</td><td class="">185</td><td class="">80</td><td class="x7g">−31</td><td class="x7g">−165</td><td class="x7g">−290</td><td class="x7g">−416</td><td class="x7g">−542</td><td class="x7g">−796</td></tr><tr><td>900万円</td><td class="">472</td><td class="">369</td><td class="">263</td><td class="">157</td><td class="">52</td><td class="x7g">−65</td><td class="x7g">−190</td><td class="x7g">−316</td><td class="x7g">−442</td><td class="x7g">−696</td></tr><tr><td>1,000万円</td><td class="">548</td><td class="">444</td><td class="">339</td><td class="">235</td><td class="">130</td><td class="">25</td><td class="x7g">−90</td><td class="x7g">−216</td><td class="x7g">−342</td><td class="x7g">−596</td></tr><tr><td>1,100万円</td><td class="">620</td><td class="">519</td><td class="">414</td><td class="">312</td><td class="">207</td><td class="">103</td><td class="">6</td><td class="x7g">−116</td><td class="x7g">−242</td><td class="x7g">−496</td></tr><tr><td>1,200万円</td><td class="">683</td><td class="">594</td><td class="">490</td><td class="">388</td><td class="">285</td><td class="">181</td><td class="">84</td><td class="x7g">−16</td><td class="x7g">−142</td><td class="x7g">−396</td></tr><tr><td>1,300万円</td><td class="">746</td><td class="">659</td><td class="">565</td><td class="">463</td><td class="">361</td><td class="">258</td><td class="">161</td><td class="">64</td><td class="x7g">−42</td><td class="x7g">−296</td></tr><tr><td>1,400万円</td><td class="">809</td><td class="">722</td><td class="">634</td><td class="">538</td><td class="">436</td><td class="">335</td><td class="">239</td><td class="">141</td><td class="">43</td><td class="x7g">−196</td></tr><tr><td>1,500万円</td><td class="">872</td><td class="">786</td><td class="">697</td><td class="">612</td><td class="">511</td><td class="">410</td><td class="">316</td><td class="">219</td><td class="">121</td><td class="x7g">−96</td></tr><tr><td>1,600万円</td><td class="">936</td><td class="">849</td><td class="">761</td><td class="">675</td><td class="">586</td><td class="">485</td><td class="">391</td><td class="">297</td><td class="">199</td><td class="">1</td></tr><tr><td>1,800万円</td><td class="">1062</td><td class="">975</td><td class="">887</td><td class="">801</td><td class="">715</td><td class="">630</td><td class="">541</td><td class="">447</td><td class="">352</td><td class="">156</td></tr><tr><td>2,000万円</td><td class="">1188</td><td class="">1101</td><td class="">1013</td><td class="">928</td><td class="">842</td><td class="">757</td><td class="">678</td><td class="">597</td><td class="">503</td><td class="">311</td></tr><tr><td>2,500万円</td><td class="">1504</td><td class="">1417</td><td class="">1329</td><td class="">1244</td><td class="">1158</td><td class="">1073</td><td class="">994</td><td class="">914</td><td class="">835</td><td class="">674</td></tr><tr><td>3,000万円</td><td class="">1818</td><td class="">1732</td><td class="">1645</td><td class="">1560</td><td class="">1474</td><td class="">1389</td><td class="">1310</td><td class="">1230</td><td class="">1151</td><td class="">990</td></tr></tbody></table></div><p class="note">グレーは、役員報酬と会社負担の社会保険料が利益を上回り、会社が赤字になる組み合わせです。</p><h2 id="hairanai">この表に入っていない、でも判断を左右すること</h2><ul class="x7ul"><li>消費税：売上の規模やインボイスの登録によって、負担が変わります</li><li>会社の設立と維持にかかる費用：設立の登記、毎年の決算と申告の費用など</li><li>個人事業税がかからない業種：その場合、個人事業のままの負担は表より軽くなります</li><li>会社だけが使える方法：役員の社宅、出張の日当、退職金など</li></ul><h2 id="list">利益をすべて役員報酬にした場合の比較</h2>
+<p>上で選んだ年齢の条件で表示しています。入れた利益に近い行が黄色になります。</p>
+<div class="tw"><table>
+ <thead><tr><th>利益<br>（万円）</th><th>個人事業<br>（円）</th><th>法人<br>（円）</th><th>差<br>（円）</th></tr></thead>
+ <tbody id="tb"></tbody>
+</table></div>
+<p class="note" style="margin-top:8px">手元に残る額は、税金と社会保険料を引いた額です。個人事業は所得税・住民税・個人事業税（5%）・国民健康保険（大阪府の令和8年度）・国民年金で計算しています。法人は、利益から会社負担の社会保険料と均等割7万円を引いた残りをすべて役員報酬にし、本人の社会保険料・所得税・住民税を引いています。法人の社会保険料は協会けんぽ大阪支部の令和8年度の料率です。差は法人から個人事業を引いた額です。</p>
+<h2 id="diff">個人事業と法人で変わるもの</h2>
+<div class="tw"><table>
+ <thead><tr><th>項目</th><th>個人事業</th><th>法人</th></tr></thead>
+ <tbody>
+  <tr><td class="l">所得の控除</td><td class="l">青色申告特別控除65万円</td><td class="l">役員報酬に給与所得控除</td></tr>
+  <tr><td class="l">健康保険</td><td class="l">国民健康保険</td><td class="l">協会けんぽ（会社と本人で半分ずつ）</td></tr>
+  <tr><td class="l">年金</td><td class="l">国民年金（月17,920円）</td><td class="l">厚生年金（会社と本人で半分ずつ）</td></tr>
+  <tr><td class="l">赤字でもかかる税金</td><td class="l">なし</td><td class="l">法人住民税の均等割（年7万円から）</td></tr>
+  <tr><td class="l">個人事業税</td><td class="l">事業主控除290万円を超える所得に5%</td><td class="l">なし（法人事業税は利益にかかる）</td></tr>
+ </tbody>
+</table></div>
+<p>厚生年金に入ると、将来の年金が国民年金だけの場合より増えます。この比較は、その年の手元に残る額だけで比べています。</p>
+<p class="ask">個人事業のままだと、税金はいくらになるのか？<br>計算ツールで確かめてみてください。</p>
+<a class="cbtn nx" href="/kojin-zei/" data-cta="houjinnari_next_kojin">個人事業主の手取り早見表</a>
+<h2 id="qa">法人にするかでよく聞かれること</h2><h3>利益がいくらになったら、法人成りを考えればいいですか？</h3><p>役員報酬の決め方で変わります。40歳未満・単身・大阪府の場合、役員報酬を月30万円にするなら利益560万円から、月50万円なら720万円から、法人のほうが税金と社会保険料の合計が軽くなります。</p><h3>表の差には、会社に残したお金も入っていますか？</h3><p>入っています。会社に残した利益にかかる法人税などを引いたうえで、個人事業のままの場合と比べています。会社にいくら残るかは「会社に残るお金」の表で見られます。</p><h3>40歳以上だと結果は変わりますか？</h3><p>介護保険料が加わるので、差が数万円動きます。法人のほうが軽くなり始める利益は、役員報酬が月30万円なら550万円、月50万円なら700万円です。</p><h3>役員報酬を低くすると、なぜ差が大きくなるのですか？</h3><p>本人と会社の社会保険料は、役員報酬の額で決まります。報酬を低くすると社会保険料が減り、会社に残した利益には法人税がかかります。ただし、会社に残したお金を自分で使うには、報酬や退職金として受け取る必要があります。</p>
+<h3>利益がいくらから法人のほうが得ですか？</h3>
+<p id="qa1">一人ずつ違います。役員報酬の決め方、家族への給与、退職金、経費にできる範囲で、どちらが多く残るかが変わります。上の計算に自分の利益を入れて比べてください。</p>
+<h3>法人にすると社会保険は必ず入りますか？</h3>
+<p>法人は、役員1人だけでも健康保険と厚生年金に入ることが決まっています。</p>
+<h3>法人を作るのにいくらかかりますか？</h3>
+<p>株式会社は登録免許税などで20万円ほど、合同会社は6万円ほどかかります。毎年、法人住民税の均等割と税理士の費用もかかります。</p>
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">国税庁 タックスアンサー No.2260 所得税の税率</a></li>
+  <li><a href="https://www.pref.osaka.lg.jp/o100080/kokuho/iryouseido/hokenryouritsu/hokenryouritsu2.html">大阪府「令和8年度の府内統一保険料率」</a></li>
+  <li><a href="https://www.city.neyagawa.osaka.jp/material/files/group/50/R8touitsuhokennryounitsuite.pdf">寝屋川市「令和8年度の統一保険料について」（軽減の基準額）</a></li>
+  <li><a href="https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08">全国健康保険協会「令和8年度の都道府県単位保険料率」</a></li>
+  <li><a href="https://www.tax.metro.tokyo.lg.jp/documents/d/tax/202208_3">東京都主税局「個人事業税」</a></li>
+  <li>表の金額は、上の資料の控除・税率・料率から計算しています</li>
+</ul></div>
+
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">法人にしたら、</span><span class="nw">帳簿と申告は任せる</span></p><p>法人にすると、複式簿記の帳簿、決算書、法人税と地方税の申告書が毎年要ります。設立した最初の期から、記帳・決算・申告までまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="houjinnari_close_marunage">経理丸投げの無料相談</a></div>
+<div class="x7q"><b>あわせて見る</b><a href="/yakuin-tedori/">役員報酬の手取り早見表</a><a href="/houjinzei/">法人税の早見表</a><a href="/kojin-zei/">個人事業主の手取り早見表</a><a href="/#list">早見表の一覧</a></div><nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="houjinnari_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+ var GC={};
+ function gser(key,lo,hi,st,fn){if(GC[key])return GC[key];var a=[];for(var x=lo;x<=hi+1;x+=st)a.push([x,fn(x)]);GC[key]=a;return a;}
+ function glc(d,cur,cv,o){var W=340,H=150,L=40,R=10,T=14,B=22,x0=d[0][0],x1=d[d.length-1][0];
+  function X(v){return L+(v-x0)/(x1-x0)*(W-L-R);}function Y(v){return T+(1-(v-o.y0)/(o.y1-o.y0))*(H-T-B);}
+  var g='<p style="font-size:13px;font-weight:700;margin:0 0 4px;color:#004d3c">'+o.t+'</p><svg viewBox="0 0 '+W+' '+H+'" style="display:block;width:100%;height:auto;background:#ffffff;border-radius:4px" role="img" aria-label="'+o.t+'">';
+  o.yt.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(t)+'" y2="'+Y(t)+'" stroke="'+(t===0&&o.zero?'#1f2a2a':'#e3e8e6')+'" stroke-width="1"/><text x="'+(L-4)+'" y="'+(Y(t)+3.5)+'" font-size="10" fill="#6b7472" text-anchor="end">'+o.yf(t)+'</text>';});
+  o.xt.forEach(function(t,i){g+='<text x="'+X(t)+'" y="'+(H-6)+'" font-size="10" fill="#6b7472" text-anchor="'+(i===0?'start':(i===o.xt.length-1?'end':'middle'))+'">'+o.xf(t)+'</text>';});
+  g+='<polyline fill="none" stroke="#00775a" stroke-width="2.2" points="'+d.map(function(p){return X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1);}).join(' ')+'"/>';
+  if(cur>=x0&&cur<=x1)g+='<circle cx="'+X(cur)+'" cy="'+Y(Math.max(o.y0,Math.min(o.y1,cv)))+'" r="5" fill="#ffffff" stroke="#b5473a" stroke-width="2.5"/>';
+  return g+'</svg>';}
+ function man(t){return (t/10000).toLocaleString("ja-JP")+'万';}
+ function pc(t){return t+'%';}
+
+
+function f(n){return Math.round(n).toLocaleString("ja-JP");}
+function seg(id,cb,r){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.remove("on");});b.classList.add("on");cb(+b.dataset.v);r();});});}
+function link(a,b,r){a.addEventListener("input",function(){b.value=a.value;r();});b.addEventListener("input",function(){a.value=b.value;r();});}
+
+function kyuyo7(x){if(x<651000)return 0;if(x<1900000)return x-650000;if(x<6600000){var A=Math.floor(x/4000)*4000;return x<3600000?Math.floor(A*0.7)-80000:Math.floor(A*0.8)-440000;}if(x<8500000)return Math.floor(x*0.9)-1100000;return x-1950000;}
+function kyuyo8(x){if(x<741000)return 0;if(x<2191000)return x-740000;if(x<2193000)return 1451000;if(x<2196000)return 1453000;if(x<2200000)return 1456000;if(x<6600000){var A=Math.floor(x/4000)*4000;return x<3600000?Math.floor(A*0.7)-80000:Math.floor(A*0.8)-440000;}if(x<8500000)return Math.floor(x*0.9)-1100000;return x-1950000;}
+var GR=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
+function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000;}return 1390000;}
+function r50(v){var q=Math.floor(v);return (v-q>0.5)?q+1:q;}
+function shahoM(m,rate,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);return r50(s*(rate+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*0.005);}
+function jumin(g,sh,kiso){if(g<=450000)return {y:0,kin:0,sho:0};var t=Math.floor(Math.max(0,g-sh-kiso)/1000)*1000,adj=t<=2000000?Math.min(50000,t):50000;
+ var a=Math.floor(Math.max(0,Math.floor(t*6/100)-Math.floor(adj*3/100))/100)*100,b=Math.floor(Math.max(0,Math.floor(t*4/100)-Math.floor(adj*2/100))/100)*100;return {y:a+b+5000,kin:5000,sho:a+b};}
+
+var C=[[950,34990,33908,660000],[306,11191,10845,260000],[260,18682,0,170000],[28,1841,0,30000]];
+function kokuho(g,meOld,fam,famOld){
+ var n=1+fam,base=Math.max(0,g-430000);
+ var red=g<=430000?0.7:(g<=430000+310000*n?0.5:(g<=430000+570000*n?0.2:0));
+ var parts=[];C.forEach(function(c,i){
+  var cnt=i===2?((meOld?1:0)+famOld):n,ib=i===2?(meOld?base:0):base,hh=(i===2&&cnt===0)?0:1;
+  var v=cnt?Math.floor(ib*c[0]/10000)+Math.floor(c[1]*cnt*(1-red))+Math.floor(c[2]*hh*(1-red)):0;parts.push(Math.min(c[3],v));});
+ return {t:parts.reduce(function(a,b){return a+b;},0),p:parts,red:red};
+}
+
+function kiso(g){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(g<=T[i][0])return T[i][1];}return 0;}
+var BR=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]];
+function rateOf(t){if(t<=0)return 0;for(var i=0;i<BR.length;i++){if(t<=BR[i][0])return BR[i][1];}return 45;}
+function itaxT(t){t=Math.floor(Math.max(0,t)/1000)*1000;var b=0;for(var i=0;i<BR.length;i++){if(t<=BR[i][0]){b=Math.floor(t*BR[i][1]/100)-BR[i][2];break;}}return Math.floor(Math.floor(b*1.021)/100)*100;}
+
+var inc=document.getElementById("inc"),incr=document.getElementById("incr"),old=0,NEN=17920*12;
+function kojin(a,old){var g=Math.max(0,a-Math.min(650000,a)),k=kokuho(g,old,0,0).t,sh=k+NEN;
+ var it=itaxT(g-sh-kiso(g)),ju=jumin(g,sh,430000).y,jg=Math.floor(Math.floor(Math.max(0,a-2900000)/1000)*1000*5/100/100)*100;return a-it-ju-jg-sh;}
+function yakuin(m,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);var ken=r50(s*(1013+23+(old?162:0))/20000),nen=r50(p*1830/20000),kyo=Math.round(p*36/10000);return {me:ken+nen,co:ken+nen+kyo};}
+function houjin(a,old){var avail=a-70000,lo=0,hi=Math.floor(avail/12),m=0;
+ for(var n=0;n<40;n++){var mid=Math.floor((lo+hi)/2),y=yakuin(mid,old);if((mid+y.co)*12<=avail){m=mid;lo=mid+1;}else hi=mid-1;}
+ var y=yakuin(m,old),R=m*12,sh=y.me*12,g=kyuyo8(R);
+ var it=itaxT(g-sh-kiso(g)),ju=jumin(g,sh,430000).y;return {net:R-sh-it-ju,m:m,shAll:(y.me+y.co)*12};}
+function cross(old){var last=0;for(var a=3000000;a<=30000000;a+=100000){if(houjin(a,old).net<=kojin(a,old))last=a;}return last<30000000?last:0;}
+var ROWS=[400,500,600,700,800,900,1000,1200,1500,2000];
+function render(){
+ var a=Math.max(0,parseInt(inc.value,10)||0),k=kojin(a,old),h=houjin(a,old),d=h.net-k;
+  document.getElementById("gch").innerHTML=glc(gser('d'+old,3000000,20000000,500000,function(v){return houjin(v,old).net-kojin(v,old);}),a,d,{t:'利益ごとの手取りの差（法人−個人事業・0より上なら法人のほうが多い）',y0:-800000,y1:600000,yt:[-800000,-400000,0,400000],yf:function(t){return (t>0?'+':'')+man(t);},xt:[3000000,10000000,20000000],xf:man,zero:1});
+ document.getElementById("o-k").innerHTML=f(k)+"<i>円</i>";
+ document.getElementById("o-h").innerHTML=f(h.net)+"<i>円</i>";
+ document.getElementById("o-d").innerHTML=(d>=0?"+":"−")+f(Math.abs(d))+"<i>円</i>";
+ document.getElementById("o-w").textContent=d>=0?"法人のほうが多い":"個人事業のほうが多い";
+ document.getElementById("o-1").textContent="法人は役員報酬を月"+f(h.m)+"円とし、会社に残る利益をゼロにしています";
+ document.getElementById("o-2").textContent="法人の社会保険料は、本人負担と会社負担を合わせて年"+f(h.shAll)+"円です";
+
+ var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});
+ var t="";ROWS.forEach(function(r,i){var A=r*10000,kk=kojin(A,old),hh=houjin(A,old).net,dd=hh-kk;t+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(kk)+"</td><td>"+f(hh)+"</td><td>"+(dd>=0?"+":"−")+f(Math.abs(dd))+"</td></tr>";});
+ document.getElementById("tb").innerHTML=t;
+}
+link(inc,incr,render);seg("s-age",function(v){old=v;},render);render();
+
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

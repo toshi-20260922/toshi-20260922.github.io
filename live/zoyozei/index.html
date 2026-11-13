@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>贈与税の計算と早見表｜いくらからかかる？110万円を超えた額ごとの税額【2026年・令和8年分】</title>
+<link rel="canonical" href="https://taxtable.jp/zoyozei/">
+<meta name="description" content="贈与税がいくらからかかるかと、もらった額110万円から5,000万円までの税額を早見表にしました。もらった額を入れると、特例税率と一般税率それぞれの贈与税が出ます。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 行の終わりに1〜2文字だけ残さない */
+p,li,td,th,.amt small,.amt em{text-wrap:pretty}
+td.k{white-space:nowrap;text-align:left}
+td,th{word-break:auto-phrase}
+
+/* 贈与税ページだけの部品 */
+.amt{grid-template-columns:1fr 1fr}.amt div{min-width:0}.amt div.tot{order:-1;grid-column:1/3}.amt div.tot b{font-size:30px}
+tr.hit td{background:#fff3c4}
+#tb td small{color:#5b7a70;font-size:11px}
+.seg button{line-height:1.4}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CW5VSP86R1');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="zoyozei_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="贈り物の箱"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="28" width="36" height="22" rx="2" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><rect x="11" y="20" width="42" height="9" rx="2" fill="#d8efe6" stroke="#0f3d31" stroke-width="3"></rect><path d="M32 20v30" stroke="#e08a2c" stroke-width="4"></path><path d="M32 20c-4-9-14-7-11-1 2 3 7 2 11 1zM32 20c4-9 14-7 11-1-2 3-7 2-11 1z" fill="#e3b465" stroke="#0f3d31" stroke-width="2.4" stroke-linejoin="round"></path></svg></div>
+ <p class="upd">更新日：2026年11月10日（令和8年4月1日現在の法令）</p>
+ <h1>贈与税の計算と早見表｜いくらからかかる？110万円を超えた額ごとの税額【2026年・令和8年分】</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>もらった額を入れると、贈与税の額が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="amt">1年間にもらった額の合計</label>
+   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="1000000000" step="10000" value="5000000"><span>円</span></div>
+   <input type="range" id="amtr" min="0" max="30000000" step="100000" value="5000000" aria-label="もらった額">
+  </div>
+  <div class="full">
+   <label>だれからもらったか</label>
+   <div class="seg" id="s-kind"><button type="button" class="on" data-v="0">父母・祖父母から<br><span class="nw" style="font-size:12px">（18歳以上の子・孫）</span></button><button type="button" data-v="1">それ以外<br><span class="nw" style="font-size:12px">（夫婦・兄弟など）</span></button></div>
+  </div>
+ </div>
+ <div class="amt">
+  <div class="tot"><small>贈与税の額</small><b id="o-t">0<i>円</i></b><em id="o-r">もらった額に対する割合</em></div>
+  <div><small>税金を引いて<br>手元に残る額</small><b id="o-n">0<i>円</i></b><em id="o-k">使う税率</em></div>
+  <div><small>110万円を<br>引いた残り</small><b id="o-b">0<i>円</i></b><em>税率を掛ける額</em></div>
+ </div>
+ <ul>
+  <li>その年の1月1日から12月31日までに、個人からもらった額の合計<span class="nw">で計算します</span></li>
+  <li>「父母・祖父母から」は、もらった年の1月1日に18歳以上の子や孫が受<span class="nw">ける場合です</span></li>
+  <li>暦年課税の計算です。相続時精算課税を選んだ贈与は、<span class="nw">計算が別です</span></li>
+ </ul>
+</div>
+<div class="rcta"><p>贈与税の申告は、翌年の<span class="nw">2月1日から</span><span class="nw">3月15日までです。</span>同じ時期に確定申告がある事業主の方の、記帳から申告までをお受け<span class="nw">しています。</span></p><a href="https://oyama-toshiro.com/contact/" data-cta="zoyozei_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/zoyozei/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/zoyozei/">Xでポストする</a>
+</div>
+<p>贈与税は、1年間にもらった額の合計から110万円を引いた残りにかかります。<span class="mk">もらった額が110万円までなら、贈与税はかからず、申告も要りません。</span>18歳以上の子や孫が父母・祖父母からもらう場合は、税率が低いほうの表（特例税率）<span class="nw">を使います。</span></p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#list">もらった額で見る贈与税の早見表</a></li>
+ <li><a href="#how">贈与税の計算のしかた</a></li>
+ <li><a href="#rate">贈与税の割合で見る贈与額</a></li>
+ <li><a href="#free">贈与税がかからないもの</a></li>
+ <li><a href="#add">相続のときに足し戻される贈与</a></li>
+ <li><a href="#seisan">相続時精算課税</a></li>
+ <li><a href="#qa">贈与税でよく聞かれること</a></li>
+</ol></nav>
+<h2 id="list">もらった額で見る贈与税の早見表</h2>
+<p>上で入れた額に近い行が黄色になります。太い数字が贈与税の額、下の小さい数字がもらった額に対する割合です。税額の単<span class="nw">位は円です。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>もらった額<br>（万円）</th><th>父母・祖父母から<br>（特例税率）</th><th>それ以外<br>（一般税率）</th></tr></thead>
+ <tbody id="tb">
+ <tr data-s="110"><td>110</td><td><b>0</b><small>0.0%</small></td><td><b>0</b><small>0.0%</small></td></tr>
+ <tr data-s="150"><td>150</td><td><b>40,000</b><small>2.7%</small></td><td><b>40,000</b><small>2.7%</small></td></tr>
+ <tr data-s="200"><td>200</td><td><b>90,000</b><small>4.5%</small></td><td><b>90,000</b><small>4.5%</small></td></tr>
+ <tr data-s="300"><td>300</td><td><b>190,000</b><small>6.3%</small></td><td><b>190,000</b><small>6.3%</small></td></tr>
+ <tr data-s="400"><td>400</td><td><b>335,000</b><small>8.4%</small></td><td><b>335,000</b><small>8.4%</small></td></tr>
+ <tr data-s="500"><td>500</td><td><b>485,000</b><small>9.7%</small></td><td><b>530,000</b><small>10.6%</small></td></tr>
+ <tr data-s="600"><td>600</td><td><b>680,000</b><small>11.3%</small></td><td><b>820,000</b><small>13.7%</small></td></tr>
+ <tr data-s="700"><td>700</td><td><b>880,000</b><small>12.6%</small></td><td><b>1,120,000</b><small>16.0%</small></td></tr>
+ <tr data-s="800"><td>800</td><td><b>1,170,000</b><small>14.6%</small></td><td><b>1,510,000</b><small>18.9%</small></td></tr>
+ <tr data-s="900"><td>900</td><td><b>1,470,000</b><small>16.3%</small></td><td><b>1,910,000</b><small>21.2%</small></td></tr>
+ <tr data-s="1000"><td>1,000</td><td><b>1,770,000</b><small>17.7%</small></td><td><b>2,310,000</b><small>23.1%</small></td></tr>
+ <tr data-s="1200"><td>1,200</td><td><b>2,460,000</b><small>20.5%</small></td><td><b>3,155,000</b><small>26.3%</small></td></tr>
+ <tr data-s="1500"><td>1,500</td><td><b>3,660,000</b><small>24.4%</small></td><td><b>4,505,000</b><small>30.0%</small></td></tr>
+ <tr data-s="2000"><td>2,000</td><td><b>5,855,000</b><small>29.3%</small></td><td><b>6,950,000</b><small>34.8%</small></td></tr>
+ <tr data-s="3000"><td>3,000</td><td><b>10,355,000</b><small>34.5%</small></td><td><b>11,950,000</b><small>39.8%</small></td></tr>
+ <tr data-s="5000"><td>5,000</td><td><b>20,495,000</b><small>41.0%</small></td><td><b>22,895,000</b><small>45.8%</small></td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">1年間にもらった額の合計から基礎控除110万円を引き、国税庁の速算表で計算しています。もらった額が400万円までは、2つの税率の表で税額<span class="nw">が同じです。</span></p>
+<h2 id="how">贈与税の計算のしかた</h2>
+<p>1年間にもらった額の合計から110万円を引きます。残りの額を下の表に当てはめ、税率を掛けてから控除額<span class="nw">を引きます。</span></p>
+<p class="cap">父母・祖父母から18歳以上の子・孫へ<span class="nw">（特例税率）</span></p>
+<div class="tw"><table>
+ <thead><tr><th>110万円を<br>引いた残り</th><th>税率</th><th>控除額</th></tr></thead>
+ <tbody>
+  <tr><td class="l">200万円以下</td><td class="c">10%</td><td>なし</td></tr>
+  <tr><td class="l">400万円以下</td><td class="c">15%</td><td>10万円</td></tr>
+  <tr><td class="l">600万円以下</td><td class="c">20%</td><td>30万円</td></tr>
+  <tr><td class="l">1,000万円以下</td><td class="c">30%</td><td>90万円</td></tr>
+  <tr><td class="l">1,500万円以下</td><td class="c">40%</td><td>190万円</td></tr>
+  <tr><td class="l">3,000万円以下</td><td class="c">45%</td><td>265万円</td></tr>
+  <tr><td class="l">4,500万円以下</td><td class="c">50%</td><td>415万円</td></tr>
+  <tr><td class="l">4,500万円超</td><td class="c">55%</td><td>640万円</td></tr>
+ </tbody>
+</table></div>
+<p class="cap" style="margin-top:20px">それ以外の贈与<span class="nw">（一般税率）</span></p>
+<div class="tw"><table>
+ <thead><tr><th>110万円を<br>引いた残り</th><th>税率</th><th>控除額</th></tr></thead>
+ <tbody>
+  <tr><td class="l">200万円以下</td><td class="c">10%</td><td>なし</td></tr>
+  <tr><td class="l">300万円以下</td><td class="c">15%</td><td>10万円</td></tr>
+  <tr><td class="l">400万円以下</td><td class="c">20%</td><td>25万円</td></tr>
+  <tr><td class="l">600万円以下</td><td class="c">30%</td><td>65万円</td></tr>
+  <tr><td class="l">1,000万円以下</td><td class="c">40%</td><td>125万円</td></tr>
+  <tr><td class="l">1,500万円以下</td><td class="c">45%</td><td>175万円</td></tr>
+  <tr><td class="l">3,000万円以下</td><td class="c">50%</td><td>250万円</td></tr>
+  <tr><td class="l">3,000万円超</td><td class="c">55%</td><td>400万円</td></tr>
+ </tbody>
+</table></div>
+<p style="margin-top:20px">500万円をもらった場合、110万円を引いた残りは390万円です。父母から20歳の子へなら、390万円×15%−10万円で48万5,000円です。兄から弟へなら、390万円×20%−25万円で5<span class="nw">3万円です。</span></p>
+<p>一般税率の表は、兄弟の間、夫婦の間、親から18歳未満の子への贈与などに使います。夫の父からの贈与にも、一般税率の表<span class="nw">を使います。</span></p>
+<h2 id="rate">贈与税の割合で見る贈与額</h2>
+<p>もらった額に対する贈与税の割合は、額が大きいほど高くなります。下の表は、割合が左の数字以下に収まる、いちばん大きい<span class="nw">贈与額です。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>贈与税の割合</th><th>父母・祖父母から<br>（特例税率）</th><th>それ以外<br>（一般税率）</th></tr></thead>
+ <tbody>
+ <tr><td class="c">5%</td><td>220万円</td><td>220万円</td></tr>
+ <tr><td class="c">10%</td><td>520万円</td><td>470万円</td></tr>
+ <tr><td class="c">15%</td><td>820万円</td><td>653万円</td></tr>
+ <tr><td class="c">20%</td><td>1,170万円</td><td>845万円</td></tr>
+ <tr><td class="c">30%</td><td>2,096万円</td><td>1,496万円</td></tr>
+ <tr><td class="c">40%</td><td>4,670万円</td><td>3,050万円</td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">1年間に1人がもらう額です。万円未満は切り捨てています。相続税の税率は、法定相続分に応じた取得金額ごとに10%から<span class="nw">55%です。</span></p>
+<h2 id="free">贈与税がかからないもの</h2>
+<div class="tw"><table>
+ <thead><tr><th>もらうもの</th><th>かからない条件</th></tr></thead>
+ <tbody>
+  <tr><td class="k">生活費・教育費</td><td class="l">夫婦・親子・兄弟姉妹などの扶養義務者から、必要なつど受け取り、そのまま生活費や教育費に使うもの</td></tr>
+  <tr><td class="k">香典・お祝い・<br>お見舞い</td><td class="l">個人から受けるもので、社会通念上ふさわしい額のもの</td></tr>
+  <tr><td class="k">法人から<br>もらった財産</td><td class="l">贈与税ではなく所得税がかかります</td></tr>
+  <tr><td class="k">夫婦の間の<br>住むための不動産</td><td class="l">婚姻期間20年以上で、贈与税の申告をすると、110万円のほかに最高2,000万円まで引けます</td></tr>
+ </tbody>
+</table></div>
+<p style="margin-top:20px">生活費や教育費の名目でも、預金にしたり、株式や不動産を買うお金にしたりした分には、贈与税が<span class="nw">かかります。</span></p>
+<h2 id="add">相続のときに足し戻される贈与</h2>
+<p>相続や遺贈で財産を受け取った人が、亡くなった人から生前にもらっていた財産は、相続税の計算で遺産に足し戻します。足し戻す期間は、亡くなった日で<span class="nw">決まります。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>亡くなった日</th><th>足し戻す贈与の期間</th></tr></thead>
+ <tbody>
+  <tr><td class="l">令和8年12月31日まで</td><td class="l">亡くなる前3年以内</td></tr>
+  <tr><td class="l">令和9年1月1日から<br>令和12年12月31日まで</td><td class="l">令和6年1月1日から<br>亡くなった日まで</td></tr>
+  <tr><td class="l">令和13年1月1日から</td><td class="l">亡くなる前7年以内</td></tr>
+ </tbody>
+</table></div>
+<p style="margin-top:20px">110万円以下で贈与税がかからなかった年の分も、足し戻します。亡くなった日が令和9年1月2日以後の場合、亡くなる前3年より前の分は、合計100万円までは足し戻しません。足し戻した財産にかかっていた贈与税は、相続税か<span class="nw">ら引きます。</span></p>
+<p class="ask">退職金を受け取るときの税金は、いくらになるのか？<br>勤続年数ごとの早見表で確か<span class="nw">められます。</span></p>
+<a class="cbtn nx" href="/taishokukin/" data-cta="zoyozei_next_taishokukin">退職金の税金と手取りを見る</a>
+<h2 id="seisan">相続時精算課税</h2>
+<p>相続時精算課税は、60歳以上の父母や祖父母から、18歳以上の子や孫への贈与で選べる制度です。年齢は、贈与をした年の1月1<span class="nw">日で見ます。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>項目</th><th>相続時精算課税の内容</th></tr></thead>
+ <tbody>
+  <tr><td class="k">毎年の基礎控除</td><td class="l">110万円（令和6年1月1日以後の贈与）</td></tr>
+  <tr><td class="k">特別控除</td><td class="l">通算2,500万円まで</td></tr>
+  <tr><td class="k">超えた分の税率</td><td class="l">一律20%</td></tr>
+  <tr><td class="k">相続のとき</td><td class="l">贈与の額（令和6年以後の分は、毎年110万円を引いた残り）を相続財産に足して、相続税を計算します</td></tr>
+  <tr><td class="k">選ぶ手続き</td><td class="l">最初の贈与を受けた翌年の2月1日から3月15日までに、届出書を税務署に出します</td></tr>
+ </tbody>
+</table></div>
+<p style="margin-top:20px">一度選ぶと、その贈与者からの贈与は、暦年課税に<span class="nw">戻せません。</span></p>
+<h2 id="qa"><span class="nw">贈与税で</span><span class="nw">よく聞かれること</span></h2>
+<h3>贈与税はいくらからかかりますか？</h3>
+<p>1年間にもらった額の合計が110万円を超えると、かかります。110万円は、あげた人ごとではなく、もらった人が1年間に受けた合計<span class="nw">で数えます。</span></p>
+<h3>毎年100万円ずつもらえば、贈与税はかかりませんか？</h3>
+<p>毎年そのつど贈与の契約を結び、各年の合計が110万円以下なら、かかりません。「10年間、毎年100万円ずつ渡す」と最初に約束した場合は別です。約束した年に、まとめて受け取る権利をもらったものとして、贈与税が<span class="nw">かかります。</span></p>
+<h3>贈与税は、あげた人ともらった人のどちらが払いますか？</h3>
+<p>もらった人が申告して納めます。期間は、もらった年の翌年2月1日から3月15<span class="nw">日までです。</span></p>
+<h3>夫婦の間の贈与にも贈与税はかかりますか？</h3>
+<p>かかります。使うのは一般税率の表です。婚姻期間が20年以上の夫婦で、住むための不動産か、その購入資金を贈る場合は、最高2,000万円の配偶者控除があります。同じ配偶者からは一生に一度だ<span class="nw">け使えます。</span></p>
+<h3>贈与税を一度に払えないときは、どうなりますか？</h3>
+<p>贈与税額が10万円を超え、期限までに金銭で納めることが難しい場合は、何年かに分けて納める延納の制度があります。申告の期限までに税務署に申請して、許可<span class="nw">を受けます。</span></p>
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/zoyo/4408.htm">国税庁 タックスアンサー No.4408 贈与税の計算と税率（暦年課税）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/zoyo/4402.htm">国税庁 タックスアンサー No.4402 贈与税がかかる場合</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/zoyo/4405.htm">国税庁 タックスアンサー No.4405 贈与税がかからない場合</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/zoyo/4452.htm">国税庁 タックスアンサー No.4452 夫婦の間で居住用の不動産を贈与したときの配偶者控除</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/sozoku/4161.htm">国税庁 タックスアンサー No.4161 贈与財産の加算と税額控除（暦年課税）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/sozoku/4103.htm">国税庁 タックスアンサー No.4103 相続時精算課税の選択</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/sozoku/4155.htm">国税庁 タックスアンサー No.4155 相続税の税率</a></li>
+  <li>表の金額は、上の資料の基礎控除・税率・控除額から計<span class="nw">算しています</span></li>
+ </ul></div>
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">事業の帳簿と申告は、</span><span class="nw">まとめて任せる</span></p><p>個人で事業をしている方や会社を経営している方は、贈与税とは別に、毎年の帳簿づけと決算・申告が要ります。記帳から決算・申告までまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受け<span class="nw">しています。</span></p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="zoyozei_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="zoyozei_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+ var SP=[[2000000,10,0],[4000000,15,100000],[6000000,20,300000],[10000000,30,900000],[15000000,40,1900000],[30000000,45,2650000],[45000000,50,4150000],[1e18,55,6400000]];
+ var GE=[[2000000,10,0],[3000000,15,100000],[4000000,20,250000],[6000000,30,650000],[10000000,40,1250000],[15000000,45,1750000],[30000000,50,2500000],[1e18,55,4000000]];
+ function zei(g,T){var k=Math.floor(Math.max(0,g-1100000)/1000)*1000;for(var i=0;i<T.length;i++){if(k<=T[i][0])return Math.floor(Math.max(0,Math.round(k*T[i][1]/100)-T[i][2])/100)*100}}
+ window.__zoyo=function(g,kind){return zei(g,kind?GE:SP)};
+ var amt=document.getElementById("amt"),amtr=document.getElementById("amtr"),kind=0;
+ function fmt(n){return n.toLocaleString("ja-JP")}
+ function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
+ function draw(){var g=Math.min(Math.max(parseInt(amt.value,10)||0,0),1000000000),t=zei(g,kind?GE:SP);
+  set("o-t",t);set("o-n",g-t);set("o-b",Math.floor(Math.max(0,g-1100000)/1000)*1000);
+  document.getElementById("o-r").textContent=g>0?"もらった額の"+(t*100/g).toFixed(1)+"%":"もらった額に対する割合";
+  document.getElementById("o-k").textContent=kind?"一般税率":"特例税率";
+  var rows=document.querySelectorAll("#tb tr"),best=null,bd=1e18;
+  for(var i=0;i<rows.length;i++){rows[i].className="";var d=Math.abs(rows[i].getAttribute("data-s")*10000-g);if(d<bd){bd=d;best=rows[i]}}
+  if(best)best.className="hit"}
+ amt.addEventListener("input",function(){amtr.value=amt.value;draw()});
+ amtr.addEventListener("input",function(){amt.value=amtr.value;draw()});
+ var bs=document.querySelectorAll("#s-kind button");
+ bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.remove("on")});b.classList.add("on");kind=+b.dataset.v;draw()})});
+ draw();
+})();
+</script>
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

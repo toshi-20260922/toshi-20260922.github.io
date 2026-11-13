@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>法人税の早見表【令和8年度】所得ごとの税額と税率｜防衛特別法人税にも対応</title>
+<link rel="canonical" href="https://taxtable.jp/houjinzei/">
+<meta name="description" content="国税庁の税率で、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入れると、国に納める税金の合計と負担率が出ます。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 法人税ページだけの部品 */
+.amt{grid-template-columns:1fr 1fr}.amt div{min-width:0}.amt div.tot{order:-1;grid-column:1/3}.amt div.tot b{font-size:30px}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}
+.chk input{width:20px;height:20px;accent-color:#e3b465}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CW5VSP86R1');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="tblfit">@media(max-width:374px){table:not(:has(tr>:nth-child(7))) :is(td,th){padding-left:3px!important;padding-right:3px!important;letter-spacing:-.03em}}</style>
+</head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <p class="upd">更新日：2026年11月8日（国税庁 令和8年4月1日現在の法令）</p>
+ <h1>法人税の早見表【令和8年度】<br>所得ごとの税額と税率</h1>
+</div>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>会社の所得を入れると、国に納める法人税が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="inc">1年間の所得（税金を計算するもとになる利益）</label>
+   <div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="10000000000" step="10000" value="10000000"><span>円</span></div>
+   <input type="range" id="incr" min="0" max="50000000" step="100000" value="10000000" aria-label="所得">
+  </div>
+  <div class="full">
+   <label>資本金</label>
+   <div class="seg"><button type="button" class="on" data-c="0">1億円以下</button><button type="button" data-c="1">1億円を超える</button></div>
+  </div>
+  <div class="full">
+   <label class="chk"><input type="checkbox" id="bou" checked="">令和8年4月1日以後に始まる事業年度</label>
+  </div>
+ </div>
+ <div class="amt">
+  <div><small>法人税</small><b id="o-h">1,664,000<i>円</i></b><em>年額</em></div>
+  <div><small>地方法人税<br>防衛特別法人税</small><b id="o-c">171,300<i>円</i></b><em>年額</em></div>
+  <div class="tot"><small>国に納める税金の合計</small><b id="o-all">1,835,300<i>円</i></b><em id="o-rt">所得の18.4%</em></div>
+ </div>
+ <ul>
+  <li id="o-1">所得のうち800万円までは15%、超えた分は23.2%で計算しています</li>
+  <li id="o-2">防衛特別法人税は、法人税が500万円以下なのでかかりません</li>
+  <li>このほかに、都道府県と市区町村に法人住民税と法人事業税を納めます</li>
+ </ul>
+</div>
+
+<div class="rcta"><p>法人税の計算のもとになる決算書づくりから、申告までまとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/houjinzei/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/houjinzei/">Xでポストする</a>
+</div>
+
+<p>会社が国に納める税金は、法人税と、法人税の額にかかる地方法人税の2つでした。<span class="mk">令和8年4月1日以後に始まる事業年度からは、法人税が500万円を超える会社に防衛特別法人税もかかります。</span>資本金1億円以下の会社は、所得のうち800万円までの税率が15%に下がっています。</p>
+
+<nav class="toc">
+ <div class="t">目次</div>
+ <ol>
+  <li><a href="#rate">法人税の税率（令和8年度）</a></li>
+  <li><a href="#list">法人税の早見表</a></li>
+  <li><a href="#bouei">防衛特別法人税がかかる会社</a></li>
+  <li><a href="#small">15%になる会社・ならない会社</a></li>
+  <li><a href="#local">法人税のほかに納める税金</a></li>
+  <li><a href="#qa">法人税でよく聞かれること</a></li>
+ </ol>
+</nav>
+
+<h2 id="rate">法人税の税率（令和8年度）</h2>
+<p>普通の株式会社や合同会社の税率です。国に納める3つの税金を並べています。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>税金</th><th>資本金1億円以下</th><th>資本金1億円超</th></tr></thead>
+ <tbody>
+  <tr><td class="l">法人税<small>所得800万円まで</small></td><td>15%</td><td>23.2%</td></tr>
+  <tr><td class="l">法人税<small>所得800万円を超えた分</small></td><td>23.2%</td><td>23.2%</td></tr>
+  <tr><td class="l">地方法人税</td><td colspan="2" class="c">法人税の額×10.3%</td></tr>
+  <tr><td class="l">防衛特別法人税</td><td colspan="2" class="c">（法人税の額−500万円）×4%</td></tr>
+ </tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">資本金1億円以下でも、大きな会社の100%子会社などは15%になりません。前の3年の所得の平均が15億円を超える会社は19%、その年の所得が10億円を超える会社は17%です。防衛特別法人税は令和8年4月1日以後に始まる事業年度からかかります。</p>
+
+<h2 id="list">法人税の早見表</h2>
+<p>会社の所得が入る行を見てください。上で選んだ資本金と事業年度の条件で表示しています。</p>
+<p class="cap" id="t-cap">資本金1億円以下・令和8年4月1日以後に始まる事業年度</p>
+<div class="tw">
+<table>
+ <thead><tr><th>所得（円）</th><th>国に納める<br>合計（円）</th><th>負担率</th><th>うち法人税<br>（円）</th></tr></thead>
+ <tbody id="gtb"><tr><td>1,000,000</td><td>165,400</td><td>16.5%</td><td>150,000</td></tr><tr><td>2,000,000</td><td>330,900</td><td>16.5%</td><td>300,000</td></tr><tr><td>3,000,000</td><td>496,300</td><td>16.5%</td><td>450,000</td></tr><tr><td>4,000,000</td><td>661,800</td><td>16.5%</td><td>600,000</td></tr><tr><td>5,000,000</td><td>827,200</td><td>16.5%</td><td>750,000</td></tr><tr><td>6,000,000</td><td>992,700</td><td>16.5%</td><td>900,000</td></tr><tr><td>7,000,000</td><td>1,158,100</td><td>16.5%</td><td>1,050,000</td></tr><tr><td>8,000,000</td><td>1,323,600</td><td>16.5%</td><td>1,200,000</td></tr><tr><td>9,000,000</td><td>1,579,400</td><td>17.5%</td><td>1,432,000</td></tr><tr class="hit"><td>10,000,000</td><td>1,835,300</td><td>18.4%</td><td>1,664,000</td></tr><tr><td>12,000,000</td><td>2,347,100</td><td>19.6%</td><td>2,128,000</td></tr><tr><td>15,000,000</td><td>3,114,800</td><td>20.8%</td><td>2,824,000</td></tr><tr><td>20,000,000</td><td>4,394,300</td><td>22.0%</td><td>3,984,000</td></tr><tr><td>25,000,000</td><td>5,679,500</td><td>22.7%</td><td>5,144,000</td></tr><tr><td>30,000,000</td><td>7,005,400</td><td>23.4%</td><td>6,304,000</td></tr><tr><td>40,000,000</td><td>9,657,100</td><td>24.1%</td><td>8,624,000</td></tr><tr><td>50,000,000</td><td>12,308,900</td><td>24.6%</td><td>10,944,000</td></tr><tr><td>70,000,000</td><td>17,612,400</td><td>25.2%</td><td>15,584,000</td></tr><tr><td>100,000,000</td><td>25,567,700</td><td>25.6%</td><td>22,544,000</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">国に納める合計は、法人税・地方法人税・防衛特別法人税の合計です。所得の1,000円未満と、税額の100円未満は切り捨てています。税額控除や欠損金の繰越控除は入れていません。法人住民税と法人事業税は入っていません。</p>
+
+<h2 id="bouei">防衛特別法人税がかかる会社</h2>
+<p>防衛特別法人税は、法人税の額から500万円を引いた残りに4%をかけます。<span class="mk">資本金1億円以下の会社なら、所得がおよそ2,438万円を超えるとかかり始めます。</span>それより所得が少ない会社には、かかりません。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>所得</th><th>法人税</th><th>防衛特別法人税</th></tr></thead>
+ <tbody>
+  <tr><td class="l">2,000万円</td><td>3,984,000円</td><td>0円</td></tr>
+  <tr><td class="l">3,000万円</td><td>6,304,000円</td><td>52,100円</td></tr>
+  <tr><td class="l">5,000万円</td><td>10,944,000円</td><td>237,700円</td></tr>
+  <tr><td class="l">1億円</td><td>22,544,000円</td><td>701,700円</td></tr>
+ </tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">資本金1億円以下の会社の例です。かからない会社も、法人税の申告と一緒に防衛特別法人税の申告書を出します。</p>
+
+<h2 id="small">15%になる会社・ならない会社</h2>
+<h3>15%になる会社</h3>
+<p>事業年度の終わりに資本金が1億円以下の会社です。所得のうち年800万円までが15%、それを超えた分が23.2%です。事業年度が1年より短いときは、800万円を月数で割って使います。</p>
+<h3>15%にならない会社</h3>
+<p>資本金が5億円以上の会社の100%子会社は、自分の資本金が1億円以下でも全部23.2%です。前の3年の所得の平均が15億円を超える会社は、800万円までが19%です。その年の所得が10億円を超える会社は、800万円までが17%です。</p>
+
+<h2 id="local">法人税のほかに納める税金</h2>
+<p>会社は国のほかに、都道府県と市区町村にも税金を納めます。率は都道府県や市区町村ごとに少しずつ違うので、この早見表には入れていません。</p>
+<h3>法人住民税</h3>
+<p>法人税の額にかかる法人税割と、利益に関係なくかかる均等割があります。均等割は赤字でもかかり、資本金1,000万円以下で従業員50人以下の会社なら、標準の税率で年7万円です。</p>
+<h3>法人事業税と特別法人事業税</h3>
+<p>所得にかかる税金で、所得が増えるほど税率が上がります。特別法人事業税は、法人事業税と一緒に都道府県に納めます。</p>
+<p>個人事業のままの場合と会社にした場合で、手元に残る額を比べたいときは、<a href="/houjinnari/">法人成りの分岐点 早見表</a>で計算できます。</p>
+
+<h2 id="qa">法人税でよく聞かれること</h2>
+<h3>法人税の税率は何%ですか？</h3>
+<p>23.2%です。資本金1億円以下の会社は、所得のうち年800万円までが15%です。</p>
+<h3>所得800万円の会社の法人税は？</h3>
+<p>資本金1億円以下なら、法人税が120万円、地方法人税が123,600円で、合わせて1,323,600円です。</p>
+<h3>赤字の会社も法人税を払いますか？</h3>
+<p>所得がなければ法人税はかかりません。ただし法人住民税の均等割は、赤字でもかかります。</p>
+<h3>所得と利益は同じですか？</h3>
+<p>同じではありません。決算書の利益に、税金の計算で経費にならないもの（交際費の一部など）を足し、税金がかからない収入を引いたものが所得です。</p>
+<h3>法人税はいつ納めますか？</h3>
+<p>事業年度が終わった日の翌日から2か月以内に、申告と一緒に納めます。前の年の法人税が20万円を超えた会社は、事業年度の途中に中間申告をして前払いします。</p>
+
+<div class="src">出典・参考（2026年11月確認）
+ <ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5759.htm">国税庁「No.5759 法人税の税率」</a>（令和8年4月1日現在法令等）</li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/hojin/chihou_hojin/01.htm">国税庁「地方法人税の税率」</a></li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2025/pdf/E.pdf">国税庁「令和7年度 法人税関係法令の改正の概要」防衛特別法人税</a></li>
+ </ul>
+</div>
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">決算と法人税の申告は、</span><span class="nw">まるごと任せる</span></p><p>法人税の申告には、1年分の帳簿、決算書、法人税・地方法人税・法人住民税・法人事業税の申告書が要ります。記帳から決算・申告までまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/zoyozei/">贈与税の計算と早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script>
+(function(){
+ var cap=0,bou=document.getElementById("bou"),inc=document.getElementById("inc"),incr=document.getElementById("incr");
+ function d100(n){return Math.floor(n/100)*100;}
+ function calc(y){
+  var s=Math.floor(Math.max(0,y)/1000)*1000,h;
+  if(cap===0){var a=Math.min(s,8000000);h=a*0.15+Math.max(0,s-8000000)*0.232;}else{h=s*0.232;}
+  h=d100(Math.round(h));
+  var c=d100(Math.floor(Math.floor(h/1000)*1000*0.103));
+  var b=0;if(bou.checked&&h>5000000){b=d100(Math.floor(Math.floor((h-5000000)/1000)*1000*0.04));}
+  return {h:h,c:c,b:b,t:h+c+b};
+ }
+ function f(n){return n.toLocaleString("ja-JP");}
+ var R=[1,2,3,4,5,6,7,8,9,10,12,15,20,25,30,40,50,70,100];
+ function render(){
+  var y=Math.max(0,parseInt(inc.value,10)||0),x=calc(y);
+  document.getElementById("o-h").innerHTML=f(x.h)+"<i>円</i>";
+  document.getElementById("o-c").innerHTML=f(x.c+x.b)+"<i>円</i>";
+  document.getElementById("o-all").innerHTML=f(x.t)+"<i>円</i>";
+  document.getElementById("o-rt").textContent=y>0?"所得の"+(Math.round(x.t/y*1000)/10)+"%":"所得の0%";
+  document.getElementById("o-1").textContent=cap===0?"所得のうち800万円までは15%、超えた分は23.2%で計算しています":"資本金1億円を超えるので、所得の全部を23.2%で計算しています";
+  document.getElementById("o-2").textContent=!bou.checked?"令和8年3月31日までに始まる事業年度なので、防衛特別法人税は入れていません":(x.b>0?"防衛特別法人税"+f(x.b)+"円を含みます。地方法人税は"+f(x.c)+"円です":"防衛特別法人税は、法人税が500万円以下なのでかかりません");
+  document.getElementById("t-cap").textContent=(cap===0?"資本金1億円以下":"資本金1億円超")+"・"+(bou.checked?"令和8年4月1日以後に始まる事業年度":"令和8年3月31日までに始まる事業年度");
+  var h="",hit=-1;
+  for(var i=0;i<R.length;i++){if(y>=R[i]*1000000)hit=i;}
+  R.forEach(function(m,i){var v=m*1000000,z=calc(v);
+   h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(v)+"</td><td>"+f(z.t)+"</td><td>"+(Math.round(z.t/v*1000)/10).toFixed(1)+"%</td><td>"+f(z.h)+"</td></tr>";});
+  document.getElementById("gtb").innerHTML=h;
+ }
+ inc.addEventListener("input",function(){incr.value=inc.value;render();});
+ incr.addEventListener("input",function(){inc.value=incr.value;render();});
+ bou.addEventListener("change",render);
+ document.querySelectorAll(".seg button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".seg button").forEach(function(z){z.classList.remove("on");});b.classList.add("on");cap=+b.dataset.c;render();});});
+ render();
+})();
+</script>
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

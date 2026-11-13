@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>報酬・料金の源泉徴収は必要？不要？職種で引ける一覧と10.21%の計算【2026年・令和8年】</title>
+<link rel="canonical" href="https://taxtable.jp/gensen-hoshu/">
+<meta name="description" content="個人に払う報酬・料金のうち、源泉徴収が必要なものと不要なものを、支払いの内容ごとに一覧にしました。金額を入れると、10.21%・20.42%で源泉徴収する額が出ます。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 行の終わりに1〜2文字だけ残さない */
+p,li,td,th,.amt small,.amt em{text-wrap:pretty}
+td.k{white-space:nowrap;text-align:left}
+td,th{word-break:auto-phrase}
+
+/* 源泉徴収ページだけの部品 */
+.amt{grid-template-columns:1fr 1fr}.amt div{min-width:0}.amt div.tot{order:-1;grid-column:1/3}.amt div.tot b{font-size:30px}
+tr.hit td{background:#fff3c4}
+table.han td{height:auto;padding:8px 6px}
+table.han th:nth-child(2){width:84px}
+table.han td small{font-size:12px;margin-top:2px;color:#5b6666}
+table.han tr.grp td{background:#f4f7f6;font-weight:700;font-size:13px}
+.hj{display:inline-block;font-size:12px;font-weight:700;border-radius:4px;padding:2px 6px;white-space:nowrap}
+.hj.y{background:#00775a;color:#ffffff}.hj.n{background:#ffffff;color:#3f4b4b;border:1px solid #666666}.hj.c2{background:#fdf2e8;color:#a34d0f;border:1px solid #d0661c}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CW5VSP86R1');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="tblfit">@media(max-width:374px){table:not(:has(tr>:nth-child(7))) :is(td,th){padding-left:3px!important;padding-right:3px!important;letter-spacing:-.03em}}@media(max-width:340px){table:not(:has(tr>:nth-child(7))) :is(td,th){font-size:min(1em,12.5px)!important}}</style>
+</head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="gensen-hoshu_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="請求書と差し引く税金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="12" width="28" height="38" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><path d="M20 21h16M20 28h16M20 35h9" stroke="#9fc4b6" stroke-width="3" stroke-linecap="round"></path><circle cx="44" cy="42" r="11" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M39 42h10" stroke="#0f3d31" stroke-width="3.2" stroke-linecap="round"></path></svg></div>
+ <p class="upd">更新日：2026年11月10日（令和8年4月1日現在の法令）</p>
+ <h1>報酬・料金の源泉徴収は必要？不要？職種で引ける一覧と10.21%の計算【2026年・令和8年】</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>支払う相手と金額を入れると、源泉徴収する額が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="kind">支払う報酬の種類</label>
+   <select id="kind">
+    <option value="0">原稿料・講演料・デザイン料・弁護士や税理士の報酬・出演料・契約金</option>
+    <option value="1">司法書士・土地家屋調査士・海事代理士の報酬</option>
+    <option value="2">外交員・集金人・検針人の報酬</option>
+    <option value="3">ホステス・コンパニオンの報酬</option>
+    <option value="4">広告宣伝のための賞金</option>
+    <option value="5">プロボクサーの報酬</option>
+   </select>
+  </div>
+  <div class="full">
+   <label for="amt" id="l-amt">1回に支払う金額</label>
+   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="1000000000" step="1000" value="100000"><span>円</span></div>
+   <input type="range" id="amtr" min="0" max="3000000" step="10000" value="100000" aria-label="支払う金額">
+  </div>
+  <div class="full" id="daysbox" style="display:none">
+   <label for="days">報酬の計算期間の日数（営業日数ではなく、期間の全日数）</label>
+   <div class="row"><input type="number" id="days" inputmode="numeric" min="1" max="366" step="1" value="30" style="width:96px"><span>日</span></div>
+  </div>
+ </div>
+ <div class="amt">
+  <div class="tot"><small>源泉徴収する額（所得税と復興特別所得税）</small><b id="o-t">0<i>円</i></b><em id="o-f">計算式</em></div>
+  <div><small>差し引いて<br>相手に払う額</small><b id="o-n">0<i>円</i></b><em>支払う金額−源泉徴収</em></div>
+  <div><small>納める期限</small><b id="o-d" style="font-size:16px;line-height:1.6">翌月10日</b><em id="o-e">納期の特例</em></div>
+ </div>
+ <ul>
+  <li>支払う相手が個人で、支払う側が給与を払っている会社や個人事業主の場<span class="nw">合の計算です</span></li>
+  <li>請求書で報酬と消費税が分かれていれば、消費税を除いた報酬の<span class="nw">額を入れます</span></li>
+  <li>外交員とホステスは、同じ月に給与を払っていない場<span class="nw">合の計算です</span></li>
+ </ul>
+</div>
+<div class="rcta"><p>外注先への支払いと源泉所得税の納付は、毎月の帳簿に入ります。記帳から決算・申告までまとめてお受け<span class="nw">しています。</span></p><a href="https://oyama-toshiro.com/contact/" data-cta="gensen-hoshu_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/gensen-hoshu/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/gensen-hoshu/">Xでポストする</a>
+</div>
+<p>個人に報酬を払うとき、源泉徴収が要るのは、所得税法204条に並んでいる報酬だけです。<span class="mk">税率は10.21%で、1回の支払いが100万円を超える部分は20.42%です。</span>10万円の原稿料なら、10,210円を差し引いて89,790円<span class="nw">を払います。</span></p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#hantei">支払いの内容で引く源泉徴収の一覧</a></li>
+ <li><a href="#list">支払う金額で見る源泉徴収の早見表</a></li>
+ <li><a href="#rate">報酬の種類ごとの計算</a></li>
+ <li><a href="#tax">消費税と交通費の扱い</a></li>
+ <li><a href="#pay">納める期限と納期の特例</a></li>
+ <li><a href="#qa">報酬の源泉徴収でよく聞かれること</a></li>
+</ol></nav>
+<h2 id="hantei"><span class="nw">支払いの内容で引く</span><span class="nw">源泉徴収の一覧</span></h2>
+<p>法令と通達に名前が出ている支払いを載せています。支払う相手が個人の場合の判定です。下の欄に言葉を入れると、当てはまる行だけ<span class="nw">が残ります。</span></p>
+<p style="margin:0 0 12px"><input type="search" id="q" placeholder="例：講演、デザイン、司法書士" aria-label="一覧をしぼり込む言葉" style="font-family:inherit;font-size:16px;width:100%;border:1px solid #9cc9b9;border-radius:8px;padding:10px 12px;color:#1f2a2a;background:#ffffff"></p>
+<div class="tw"><table class="han">
+ <thead><tr><th>支払いの内容と、理由・根拠</th><th>源泉<br>徴収</th></tr></thead>
+ <tbody id="hb">
+ <tr class="grp"><td colspan="2" class="l">原稿・デザイン・講演など</td></tr>
+ <tr><td class="l">原稿料<small>所得税法204条1項1号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">さし絵（挿絵）の報酬<small>所得税法204条1項1号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">雑誌・広告など印刷物に載せる写真の報酬<small>所得税法施行令320条1項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">作曲・編曲の報酬<small>所得税法204条1項1号、所得税基本通達204-6</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">デザイン料（広告・ポスター・包装・工業製品・服飾・室内装飾など）<small>所得税法204条1項1号、所得税基本通達204-7</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">講演料<small>所得税法204条1項1号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">技芸・スポーツ・語学・資格講座などの講師への謝金<small>所得税法施行令320条1項、所得税基本通達204-6</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">翻訳料・通訳料<small>所得税法施行令320条1項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">手話通訳の報酬<small>所得税基本通達204-6で、通訳の報酬に当たらないとされています</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">校正料・速記料<small>所得税法施行令320条1項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">脚本料・脚色料<small>所得税法施行令320条1項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">書籍の編さん料・監修料<small>所得税基本通達204-6</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">書籍の装丁料・版下の料金<small>所得税法施行令320条1項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">製本の料金<small>所得税基本通達204-6で、装丁の報酬に当たらないとされています</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">著作権の使用料（印税）<small>所得税法204条1項1号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">特許権など工業所有権の使用料<small>所得税法204条1項1号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">テレビ・ラジオの放送謝金<small>所得税法204条1項1号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">映画フィルムのナレーションの吹き込み<small>所得税基本通達204-6</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">投資助言業務の報酬<small>所得税法施行令320条1項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">試験問題の出題料・答案の採点料<small>所得税基本通達204-6で、原稿の報酬に当たらないとされています</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">懸賞応募作品の選稿料・審査料<small>所得税基本通達204-6で、原稿の報酬に当たらないとされています</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">字や絵の看板書き料<small>所得税基本通達204-6で、デザインの報酬に当たらないとされています</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">懸賞応募作品の入選者への賞金（1回おおむね5万円以下）<small>所得税基本通達204-10。5万円を超えるものは要</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">デザインと施工をまとめて請け負った代金<small>デザイン料の部分は要。その部分がごく少額なら不要（所得税基本通達204-8）</small></td><td class="c"><span class="hj c2">場合による</span></td></tr>
+ <tr class="grp"><td colspan="2" class="l">士業・コンサルタントなど</td></tr>
+ <tr><td class="l">弁護士・公認会計士・税理士・社会保険労務士・弁理士の報酬<small>所得税法204条1項2号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">司法書士・土地家屋調査士・海事代理士の報酬<small>所得税法204条1項2号。1回の支払いから1万円を引いて計算</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">測量士・建築士・不動産鑑定士・技術士の報酬<small>所得税法204条1項2号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">中小企業診断士・経営コンサルタントの報酬<small>所得税法施行令320条2項（企業診断員）、所得税基本通達204-15</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">行政書士の報酬<small>所得税法204条1項2号と施行令320条2項の列挙に、行政書士は入っていません。建築に関する申請書類の作成や手続きの代理は、建築代理士の業務として要</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">登記・申請のための登録免許税や手数料の実費<small>所得税基本通達204-11</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">損害保険の鑑定人（火災・自動車など）の報酬<small>損害保険会社が払うものは要。それ以外の者が払うものは不要（所得税基本通達204-17）</small></td><td class="c"><span class="hj c2">場合による</span></td></tr>
+ <tr class="grp"><td colspan="2" class="l">スポーツ選手・モデル・外交員など</td></tr>
+ <tr><td class="l">プロ野球・プロサッカー・プロテニス・プロゴルフなどの選手の報酬<small>所得税法204条1項4号、施行令320条3項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">プロボクサーの報酬<small>所得税法204条1項4号。1回の支払いから5万円を引いて計算</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">競馬の騎手・競輪やボートレースの選手・自動車レーサーの報酬<small>所得税法204条1項4号、施行令320条3項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">モデルの報酬（雑誌・広告に容姿を載せる報酬を含む）<small>所得税法204条1項4号、施行令320条3項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">外交員・集金人・電力量計の検針人の報酬<small>所得税法204条1項4号。その月の支払いから12万円を引いて計算</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr class="grp"><td colspan="2" class="l">出演・芸能など</td></tr>
+ <tr><td class="l">映画・演劇・テレビ・ラジオの出演料<small>所得税法204条1項5号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">音楽・舞踊・落語・漫才・歌唱・奇術などの芸能の出演料<small>所得税法204条1項5号、施行令320条4項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">演出・指揮・監督・企画の報酬<small>所得税法204条1項5号</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">映画や演劇の製作・振付け・舞台装置・照明・撮影・録音・編集・美粧の報酬<small>所得税法204条1項5号、施行令320条4項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">自分で開いた公演の入場料など、不特定多数から受けるもの<small>所得税法204条1項5号のかっこ書き</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr class="grp"><td colspan="2" class="l">ホステス・契約金・賞金</td></tr>
+ <tr><td class="l">バー・キャバレーなどのホステスの報酬<small>所得税法204条1項6号。5,000円×計算期間の日数を引いて計算</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">宴会に派遣するコンパニオンの報酬<small>国税庁タックスアンサーNo.2807</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">専属契約などで一時に払う契約金<small>所得税法204条1項7号、施行令320条6項</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">事業の広告宣伝のための賞金・賞品<small>所得税法204条1項8号。50万円を引いて計算</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ <tr><td class="l">旅行など、金品と選べない形の賞<small>所得税法施行令320条7項のかっこ書き</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr class="grp"><td colspan="2" class="l">支払う相手・支払う側による違い</td></tr>
+ <tr><td class="l">上の報酬を法人に払う場合<small>所得税法204条は、居住者（個人）への支払いが対象です。馬主である法人に払う競馬の賞金は別です</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">給与を払っていない個人が、上の報酬を払う場合<small>所得税法204条2項2号。ホステスの報酬は除きます</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">雇用契約などで、給与に当たるもの<small>報酬ではなく、給与として源泉徴収します（所得税法204条2項1号）</small></td><td class="c"><span class="hj c2">場合による</span></td></tr>
+ <tr><td class="l">交通費・宿泊費を、交通機関やホテルに直接払った分<small>通常必要な範囲のものに限ります（所得税基本通達204-4）</small></td><td class="c"><span class="hj n">不要</span></td></tr>
+ <tr><td class="l">謝礼・取材費・車代などの名目で払うもの<small>名目が違っても、報酬の性質があれば対象です（所得税基本通達204-2）</small></td><td class="c"><span class="hj y">要</span></td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px" id="hn">一覧に名前がない支払いは、契約の中身が上のどれかに当たるかで<span class="nw">決まります。</span></p>
+<h2 id="list"><span class="nw">支払う金額で見る</span><span class="nw">源泉徴収の早見表</span></h2>
+<p>原稿料・講演料・デザイン料・弁護士や税理士の報酬などの場合です。上で入れた金額に近い行が黄色になります。単<span class="nw">位は円です。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>支払う金額</th><th>源泉徴収する額</th><th>差し引いて払う額</th></tr></thead>
+ <tbody id="tb">
+ <tr data-s="1"><td>10,000</td><td>1,021</td><td>8,979</td></tr>
+ <tr data-s="3"><td>30,000</td><td>3,063</td><td>26,937</td></tr>
+ <tr data-s="5"><td>50,000</td><td>5,105</td><td>44,895</td></tr>
+ <tr data-s="10"><td>100,000</td><td>10,210</td><td>89,790</td></tr>
+ <tr data-s="20"><td>200,000</td><td>20,420</td><td>179,580</td></tr>
+ <tr data-s="30"><td>300,000</td><td>30,630</td><td>269,370</td></tr>
+ <tr data-s="50"><td>500,000</td><td>51,050</td><td>448,950</td></tr>
+ <tr data-s="100"><td>1,000,000</td><td>102,100</td><td>897,900</td></tr>
+ <tr data-s="150"><td>1,500,000</td><td>204,200</td><td>1,295,800</td></tr>
+ <tr data-s="200"><td>2,000,000</td><td>306,300</td><td>1,693,700</td></tr>
+ <tr data-s="300"><td>3,000,000</td><td>510,500</td><td>2,489,500</td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">100万円までは支払う金額×10.21%です。100万円を超えると、超えた部分×20.42%に102,100円を足します。1円未満は切<span class="nw">り捨てます。</span></p>
+<h2 id="rate">報酬の種類ごとの計算</h2>
+<div class="tw"><table>
+ <thead><tr><th>報酬の種類</th><th>源泉徴収する額</th></tr></thead>
+ <tbody>
+  <tr><td class="l">原稿料・講演料・デザイン料<br>弁護士・税理士などの報酬<br>出演料・契約金</td><td class="l">支払う金額×10.21%<br>100万円を超える部分は20.42%</td></tr>
+  <tr><td class="l">司法書士・土地家屋調査士・<br>海事代理士の報酬</td><td class="l">（1回の支払い−1万円）×10.21%</td></tr>
+  <tr><td class="l">外交員・集金人・<br>検針人の報酬</td><td class="l">（その月の支払い−12万円）×10.21%</td></tr>
+  <tr><td class="l">ホステス・<br>コンパニオンの報酬</td><td class="l">（1回の支払い−5,000円×計算期間の日数）×10.21%</td></tr>
+  <tr><td class="l">広告宣伝の<br>ための賞金</td><td class="l">（賞金−50万円）×10.21%</td></tr>
+  <tr><td class="l">プロボクサーの<br>報酬</td><td class="l">（1回の支払い−5万円）×10.21%</td></tr>
+ </tbody>
+</table></div>
+<p style="margin-top:20px">司法書士に5万円を払うなら、1万円を引いた4万円に10.21%を掛けて4,084円です。外交員に月20万円を払うなら、12万円を引いた8万円に10.21%を掛けて8,1<span class="nw">68円です。</span></p>
+<p>外交員に同じ月の給与も払うときは、12万円から給与の額を引いた残りを、報酬から引きます。賞金を品物で渡すときは、その品物の評価額で<span class="nw">計算します。</span></p>
+<h2 id="tax">消費税と交通費の扱い</h2>
+<div class="tw"><table>
+ <thead><tr><th>項目</th><th>扱い</th></tr></thead>
+ <tbody>
+  <tr><td class="k">消費税</td><td class="l">原則は、消費税を含めた金額に税率を掛けます。請求書などで報酬と消費税がはっきり分かれていれば、報酬の額だけに掛けてかまいません</td></tr>
+  <tr><td class="k">交通費・<br>宿泊費</td><td class="l">相手に渡す分は、原則として報酬に含めます。支払う側が交通機関やホテルに直接払い、通常必要な範囲の額なら、含めなくてかまいません</td></tr>
+  <tr><td class="k">名目</td><td class="l">謝礼・取材費・車代などの名目でも、中身が報酬と同じなら対象です</td></tr>
+  <tr><td class="k">品物で<br>払うとき</td><td class="l">金銭ではなく、品物などで払う場合も報酬に含めます</td></tr>
+ </tbody>
+</table></div>
+<p style="margin-top:20px">インボイス制度が始まった後も、消費税の扱いは変わっ<span class="nw">ていません。</span></p>
+<h2 id="pay">納める期限と納期の特例</h2>
+<p>差し引いた所得税は、支払った月の翌月10日までに納めます。給与を払う人数が常に10人未満の事業者は、届け出て半年分をまとめて納める「納期の特例」を使えます。ただし、納期の特例を使える報酬<span class="nw">は一部です。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>報酬の種類</th><th>納期の特例</th></tr></thead>
+ <tbody>
+  <tr><td class="l">弁護士・税理士・司法書士などの報酬</td><td class="l">使えます（7月10日と翌年1月20日）</td></tr>
+  <tr><td class="l">原稿料・講演料</td><td class="l">使えません（翌月10日）</td></tr>
+  <tr><td class="l">外交員・集金人・検針人の報酬</td><td class="l">使えません（翌月10日）</td></tr>
+  <tr><td class="l">ホステス・<br>コンパニオンの報酬</td><td class="l">使えません（翌月10日）</td></tr>
+ </tbody>
+</table></div>
+<p class="ask">源泉徴収された側の所得税は、確定申告でいくらになるのか？<br>計算ツールで確か<span class="nw">められます。</span></p>
+<a class="cbtn nx" href="/kojin-zei/" data-cta="gensen-hoshu_next_kojin">個人事業主の手取り早見表を見る</a>
+<h2 id="qa"><span class="nw">報酬の源泉徴収で</span><span class="nw">よく聞かれること</span></h2>
+<h3>法人に報酬を払うときも、源泉徴収は要りますか？</h3>
+<p>要りません。所得税法204条の源泉徴収は、個人に払う報酬が対象です。法人に払うもので対象になるのは、馬主である法人に払う競馬<span class="nw">の賞金です。</span></p>
+<h3>個人事業主が外注先に払うときも、源泉徴収は要りますか？</h3>
+<p>従業員などに給与を払っている個人事業主は、要ります。給与を払っていない個人が払う報酬は、ホステスの報酬を除いて、源泉徴収の対象に<span class="nw">なりません。</span></p>
+<h3>支払う相手が団体で、個人か法人か分からないときは？</h3>
+<p>研究会や劇団などの団体は、相手が次のどちらかを明らかにしたときに、法人として扱います。法人税を納める義務があること。規約や活動の状況から、団体として独立していること。そうでなければ、個人として源泉<span class="nw">徴収します。</span></p>
+<h3>行政書士に払う報酬は、源泉徴収が要りますか？</h3>
+<p>所得税法204条1項2号と施行令320条2項に並んでいる資格に、行政書士は入っていません。ただし、建築に関する申請や届出の書類を作ること、その手続きを代理することを仕事にしている人は、建築代理士として対象<span class="nw">になります。</span></p>
+<h3>源泉徴収した税額に1円未満の端数が出たら？</h3>
+<p>切り捨てます。150万円の原稿料なら、100万円を超える50万円に20.42%を掛け、102,100円を足した204,2<span class="nw">00円です。</span></p>
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://laws.e-gov.go.jp/law/340AC0000000033">所得税法 第204条・第205条（e-Gov法令検索）</a></li>
+  <li><a href="https://laws.e-gov.go.jp/law/340CO0000000096">所得税法施行令 第320条・第322条（e-Gov法令検索）</a></li>
+  <li><a href="https://www.nta.go.jp/law/tsutatsu/kihon/shotoku/36/01.htm">国税庁 所得税基本通達 法第204条関係（共通関係）</a></li>
+  <li><a href="https://www.nta.go.jp/law/tsutatsu/kihon/shotoku/36/02.htm">国税庁 所得税基本通達 204-6から204-10（原稿等の報酬）</a></li>
+  <li><a href="https://www.nta.go.jp/law/tsutatsu/kihon/shotoku/36/03.htm">国税庁 所得税基本通達 204-11から204-18（弁護士等の報酬）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2792.htm">国税庁 タックスアンサー No.2792 源泉徴収が必要な報酬・料金等とは</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2795.htm">国税庁 タックスアンサー No.2795 原稿料や講演料等を支払ったとき</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2798.htm">国税庁 タックスアンサー No.2798 弁護士や税理士等に支払う報酬・料金</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2801.htm">国税庁 タックスアンサー No.2801 司法書士等に支払う報酬・料金</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2804.htm">国税庁 タックスアンサー No.2804 外交員等に支払う報酬・料金</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2807.htm">国税庁 タックスアンサー No.2807 ホステス等に支払う報酬・料金</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2813.htm">国税庁 タックスアンサー No.2813 広告宣伝のために支払う賞金等</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2505.htm">国税庁 タックスアンサー No.2505 源泉所得税及び復興特別所得税の納付期限と納期の特例</a></li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/gensen/aramashi2026/index.htm">国税庁「令和8年版 源泉徴収のあらまし」</a></li>
+ </ul></div>
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">外注費と源泉所得税の</span><span class="nw">帳簿づけも任せる</span></p><p>外注先に報酬を払うたびに、源泉徴収した額の記帳と、翌月10日までの納付が要ります。毎月の記帳から決算・申告までまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受け<span class="nw">しています。</span></p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="gensen-hoshu_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="gensen-hoshu_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+ var DED={1:10000,2:120000,4:500000,5:50000};
+ function gensen(k,a,d){if(k===0)return a<=1000000?Math.floor(a*1021/10000):Math.floor((a-1000000)*2042/10000)+102100;
+  var ded=k===3?5000*d:DED[k];return Math.floor(Math.max(0,a-ded)*1021/10000)}
+ window.__gensen=gensen;
+ var kind=document.getElementById("kind"),amt=document.getElementById("amt"),amtr=document.getElementById("amtr"),days=document.getElementById("days");
+ function fmt(n){return n.toLocaleString("ja-JP")}
+ function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
+ function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
+ function draw(){var k=parseInt(kind.value,10),a=num(amt,0,1000000000),d=num(days,1,366),t=gensen(k,a,d),fx;
+  document.getElementById("daysbox").style.display=k===3?"":"none";
+  document.getElementById("l-amt").textContent=k===2?"その月に支払う金額":(k===4?"賞金の額":"1回に支払う金額");
+  if(k===0)fx=a<=1000000?"支払う金額×10.21%":"100万円を超える部分×20.42%＋102,100円";
+  else if(k===3)fx="（支払う金額−5,000円×"+d+"日）×10.21%";
+  else fx="（支払う金額−"+fmt(DED[k])+"円）×10.21%";
+  set("o-t",t);set("o-n",a-t);document.getElementById("o-f").textContent=fx;
+  document.getElementById("o-e").textContent=(k===1)?"納期の特例を使えます":(k===0?"種類によります":"納期の特例は使えません");
+  if(k===4||k===5)document.getElementById("o-e").textContent="支払った月の翌月";
+  var rows=document.querySelectorAll("#tb tr"),best=null,bd=1e18;
+  for(var i=0;i<rows.length;i++){rows[i].className="";var x=Math.abs(rows[i].getAttribute("data-s")*10000-a);if(x<bd){bd=x;best=rows[i]}}
+  if(best&&k===0)best.className="hit"}
+ amt.addEventListener("input",function(){amtr.value=amt.value;draw()});
+ amtr.addEventListener("input",function(){amt.value=amtr.value;draw()});
+ kind.addEventListener("change",draw);days.addEventListener("input",draw);
+ var q=document.getElementById("q"),hn=document.getElementById("hn"),base=hn.textContent;
+ q.addEventListener("input",function(){var w=q.value.trim(),rows=document.querySelectorAll("#hb tr"),n=0;
+  for(var i=0;i<rows.length;i++){var r=rows[i];if(r.className==="grp"){r.style.display=w?"none":"";continue}
+   var ok=!w||r.textContent.indexOf(w)>=0;r.style.display=ok?"":"none";if(ok)n++}
+  hn.textContent=w?(n?"「"+w+"」を含む行は"+n+"件です。":"「"+w+"」を含む行はありません。別の言葉で試してください。"):base});
+ draw();
+})();
+</script>
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>個人事業主・フリーランスの手取り早見表【2026年・令和8年】利益200万〜2,000万円の税金と社会保険料</title>
+<link rel="canonical" href="https://taxtable.jp/kojin-zei/">
+
+<meta name="description" content="個人事業主・フリーランスの手取り早見表です。利益200万〜2,000万円について、所得税・住民税・個人事業税・国民健康保険・国民年金を引いた手取りを一覧にしました。利益を入れて計算もできます。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-CW5VSP86R1');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<style id="mk7">.pnl .x7pt{font-size:18px;font-weight:700;line-height:1.5;margin:0 0 12px;color:#004d3c}.pnl .x7lb2{margin-top:4px}@media(min-width:900px){#x7ways .ways{grid-template-columns:repeat(4,1fr)}}.x7more{text-align:right;margin:12px 0 0}.x7more a{font-weight:700;color:#00775a}.x7bc{font-size:12px;margin:16px 0 0;color:#5b6b66}.x7bc a{color:#00775a}.x7h1{font-family:"Noto Sans JP",sans-serif;font-weight:900;font-size:28px;line-height:1.4;margin:22px 0 10px;color:#12312a}.x7lead{font-size:16px;line-height:1.9;margin:0 0 12px}.x7safe{display:inline-block;background:#e9f0ec;border-radius:14px;padding:9px 16px;font-size:13px;font-weight:700;line-height:1.7;margin:0 0 8px}.x7q{margin:26px 0 0;padding:16px;background:#f3f6f4;border-radius:8px}.x7q b{display:block;font-size:14px;margin:0 0 6px}.x7q a{display:inline-block;margin:0 16px 4px 0;color:#00775a;font-weight:700}@media(max-width:700px){.x7h1{font-size:23px}}</style><style id="mk7k">.x7tb th,.x7tb td{white-space:nowrap;text-align:right}.x7tb th:first-child,.x7tb td:first-child{text-align:left}.x7tb tr.x7hl td{background:#eaf5d8;font-weight:700}</style><style id="mk7fit">.x7tb{width:100%;font-size:13px;border-collapse:collapse}.x7tb th{white-space:normal;line-height:1.35;padding:6px 5px;vertical-align:bottom;font-size:12px}.x7tb td{padding:7px 5px}.x7tb th:first-child,.x7tb td:first-child{position:sticky;left:0;z-index:1}.x7tb td:first-child{background:#fff}.x7tb tr.x7hl td:first-child{background:#eaf5d8}@media(max-width:700px){.x7tb th{white-space:nowrap}}</style><style id="mk7k10">.x7t10{font-size:12px}.x7t10 th{font-size:11px;padding:6px 3px}.x7t10 td{padding:7px 3px}.x7tb .x7kk{background:#fff6e0}.x7tb tr.x7hl td.x7kk{background:#e9efc4}.x7ul{margin:0 0 20px;padding:0 0 0 1.2em;line-height:1.9}.x7ul li{margin:0 0 6px}.x7ul a{color:#00775a;font-weight:700}</style><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="kojin-zei_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap"><p class="x7bc"><a href="/">トップ</a> › 経営者・個人事業の数字</p>
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="電卓"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="18" y="10" width="28" height="44" rx="4" fill="#0f3d31"></rect><rect x="22" y="14" width="20" height="9" rx="1" fill="#d8efe6"></rect><rect x="22" y="28" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="22" y="36" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="22" y="44" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="29.5" y="28" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="29.5" y="36" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="29.5" y="44" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="37" y="28" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="37" y="36" width="5" height="5" rx="1" fill="#d8efe6"></rect><rect x="37" y="44" width="5" height="5" rx="1" fill="#e08a2c"></rect></svg></div>
+ <p class="upd">更新日：2026年11月10日（令和8年度税制改正に対応）</p>
+ <h1>個人事業主・フリーランスの手取り早見表【2026年・令和8年】利益200万〜2,000万円の税金と社会保険料</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>利益を入れると、個人事業主の手取りと、引かれる税金・社会保険料が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="inc">1年の利益（売上から経費を引いた額）</label>
+   <div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="50000000" step="10000" value="5000000"><span>円</span></div>
+   <input type="range" id="incr" min="0" max="15000000" step="10000" value="5000000" aria-label="所得">
+  </div>
+  <div class="full">
+   <label>青色申告特別控除</label>
+   <div class="seg" id="s-ao" style="grid-template-columns:1fr 1fr 1fr"><button type="button" class="on" data-v="650000">65万円</button><button type="button" data-v="100000">10万円</button><button type="button" data-v="0">白色</button></div>
+  </div>
+  <div class="full">
+   <label>年齢</label>
+   <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜59歳</button></div>
+  </div>
+ </div>
+ <div class="amt">
+  <div><small>手取り（1年）</small><b id="o-n">0<i>円</i></b><em id="o-nr">利益の0%</em></div><div><small>税金の合計<br>（1年）</small><b id="o-t">0<i>円</i></b><em>3つの税金</em></div>
+  <div><small>社会保険料<br>（1年）</small><b id="o-s">0<i>円</i></b><em>国保と年金</em></div>
+  
+ </div>
+ <div class="ch" id="gch" style="margin:0 0 16px"></div>
+ <ul>
+  <li id="o-br">税金の内訳は、所得税0円・住民税0円・個人事業税0円です</li>
+  <li id="o-sh">社会保険料は、国民健康保険0円と国民年金215,040円です</li>
+  <li>単身・事業の所得だけ・大阪府で、前の年も同じ所得だった場合です</li>
+ </ul>
+</div>
+<div class="rcta"><p>この税金の元になる1年分の帳簿づけと確定申告を、まるごとお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="kojin-zei_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/kojin-zei/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/kojin-zei/">Xでポストする</a>
+</div>
+<p>利益（売上から経費を引いた額）が500万円なら、個人事業主の手取りは年3,615,257円（月あたり301,271円・手取り率72.3%）です。引かれる1,384,743円のうち、国民健康保険と国民年金が811,143円で、所得税・住民税・個人事業税の合計573,600円より多くなります。個人事業主にかかる税金は、所得税・住民税・個人事業税の3つです。ほかに国民健康保険料と国民年金を自分で払います。<span class="mk">個人事業税は、事業主控除290万円を引いた所得に5%（業種で3〜5%）かかります。</span></p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#zentei">試算の前提</a></li><li><a href="#tedori">個人事業主の手取り早見表</a></li><li><a href="#yomikata">表の読み方：手取りを決める5つの点</a></li><li><a href="#list">利益ごとの税金と社会保険料</a></li>
+ <li><a href="#three">個人事業主にかかる3つの税金</a></li>
+ <li><a href="#ao">青色申告特別控除で変わる額</a></li>
+ <li><a href="#kuraberu">会社員の手取り・法人成りと比べるとき</a></li><li><a href="#chigau">手取りが表と違ってくる場合</a></li><li><a href="#qa">個人事業主の税金でよく聞かれること</a></li>
+</ol></nav>
+<h2 id="zentei">試算の前提（令和8年分・大阪府・単身）</h2><ul class="x7ul"><li>青色申告特別控除は65万円（複式簿記の帳簿と電子申告）</li><li>所得から引くのは、基礎控除と社会保険料控除だけ。配偶者・扶養・小規模企業共済・iDeCoなどは入れていません</li><li>所得税は復興特別所得税を含みます。住民税は税率10%と均等割5,000円</li><li>国民健康保険は大阪府の令和8年度・単身。国民年金は月17,920円（年215,040円）</li><li>個人事業税は税率5%の業種。利益から事業主控除290万円を引いて計算します</li><li>消費税は入れていません</li></ul><h2 id="tedori">個人事業主の手取り早見表</h2><p>利益ごとに、税金と社会保険料を引いた手取りを1年分の金額で並べました。単位は円です。税金より大きくなりやすい国民健康保険の列と、利益500万円の行に色を付けています。</p><h3>40歳未満（介護保険料なし）</h3><div class="tw"><table class="x7tb x7t10"><thead><tr><th>事業の利益<br>（売上−経費）</th><th>所得税</th><th>住民税</th><th>個人<br>事業税</th><th class="x7kk">国民<br>健康保険</th><th>国民年金</th><th>税・社会<br>保険料の合計</th><th>手取り（年）</th><th>月あたり</th><th>手取り率</th></tr></thead><tbody><tr><td>200万円</td><td>0</td><td>51,800</td><td>0</td><td class="x7kk">210,903</td><td>215,040</td><td>477,743</td><td>1,522,257</td><td>126,855</td><td>76.1%</td></tr><tr><td>250万円</td><td>16,200</td><td>95,300</td><td>0</td><td class="x7kk">275,103</td><td>215,040</td><td>601,643</td><td>1,898,357</td><td>158,196</td><td>75.9%</td></tr><tr><td>300万円</td><td>38,500</td><td>139,000</td><td>5,000</td><td class="x7kk">339,303</td><td>215,040</td><td>736,843</td><td>2,263,157</td><td>188,596</td><td>75.4%</td></tr><tr><td>350万円</td><td>60,800</td><td>182,500</td><td>30,000</td><td class="x7kk">403,503</td><td>215,040</td><td>891,843</td><td>2,608,157</td><td>217,346</td><td>74.5%</td></tr><tr><td>400万円</td><td>83,000</td><td>226,100</td><td>55,000</td><td class="x7kk">467,703</td><td>215,040</td><td>1,046,843</td><td>2,953,157</td><td>246,096</td><td>73.8%</td></tr><tr><td>450万円</td><td>111,000</td><td>269,700</td><td>80,000</td><td class="x7kk">531,903</td><td>215,040</td><td>1,207,643</td><td>3,292,357</td><td>274,363</td><td>73.2%</td></tr><tr class="x7hl"><td>500万円</td><td>155,400</td><td>313,200</td><td>105,000</td><td class="x7kk">596,103</td><td>215,040</td><td>1,384,743</td><td>3,615,257</td><td>301,271</td><td>72.3%</td></tr><tr><td>550万円</td><td>200,000</td><td>356,800</td><td>130,000</td><td class="x7kk">660,303</td><td>215,040</td><td>1,562,143</td><td>3,937,857</td><td>328,155</td><td>71.6%</td></tr><tr><td>600万円</td><td>327,200</td><td>400,500</td><td>155,000</td><td class="x7kk">724,503</td><td>215,040</td><td>1,822,243</td><td>4,177,757</td><td>348,146</td><td>69.6%</td></tr><tr><td>650万円</td><td>416,200</td><td>444,000</td><td>180,000</td><td class="x7kk">788,703</td><td>215,040</td><td>2,043,943</td><td>4,456,057</td><td>371,338</td><td>68.6%</td></tr><tr><td>700万円</td><td>505,200</td><td>487,600</td><td>205,000</td><td class="x7kk">852,903</td><td>215,040</td><td>2,265,743</td><td>4,734,257</td><td>394,521</td><td>67.6%</td></tr><tr><td>750万円</td><td>608,200</td><td>533,000</td><td>230,000</td><td class="x7kk">898,305</td><td>215,040</td><td>2,484,545</td><td>5,015,455</td><td>417,955</td><td>66.9%</td></tr><tr><td>800万円</td><td>706,800</td><td>581,300</td><td>255,000</td><td class="x7kk">915,005</td><td>215,040</td><td>2,673,145</td><td>5,326,855</td><td>443,905</td><td>66.6%</td></tr><tr><td>850万円</td><td>805,600</td><td>629,700</td><td>280,000</td><td class="x7kk">931,705</td><td>215,040</td><td>2,862,045</td><td>5,637,955</td><td>469,830</td><td>66.3%</td></tr><tr><td>900万円</td><td>905,100</td><td>678,500</td><td>305,000</td><td class="x7kk">944,017</td><td>215,040</td><td>3,047,657</td><td>5,952,343</td><td>496,029</td><td>66.1%</td></tr><tr><td>950万円</td><td>1,010,600</td><td>728,300</td><td>330,000</td><td class="x7kk">945,417</td><td>215,040</td><td>3,229,357</td><td>6,270,643</td><td>522,554</td><td>66.0%</td></tr><tr><td>1,000万円</td><td>1,127,800</td><td>778,200</td><td>355,000</td><td class="x7kk">946,817</td><td>215,040</td><td>3,422,857</td><td>6,577,143</td><td>548,095</td><td>65.8%</td></tr><tr><td>1,100万円</td><td>1,361,900</td><td>878,000</td><td>405,000</td><td class="x7kk">949,617</td><td>215,040</td><td>3,809,557</td><td>7,190,443</td><td>599,204</td><td>65.4%</td></tr><tr><td>1,200万円</td><td>1,654,100</td><td>977,800</td><td>455,000</td><td class="x7kk">950,000</td><td>215,040</td><td>4,251,940</td><td>7,748,060</td><td>645,672</td><td>64.6%</td></tr><tr><td>1,300万円</td><td>1,991,000</td><td>1,077,800</td><td>505,000</td><td class="x7kk">950,000</td><td>215,040</td><td>4,738,840</td><td>8,261,160</td><td>688,430</td><td>63.5%</td></tr><tr><td>1,400万円</td><td>2,328,000</td><td>1,177,800</td><td>555,000</td><td class="x7kk">950,000</td><td>215,040</td><td>5,225,840</td><td>8,774,160</td><td>731,180</td><td>62.7%</td></tr><tr><td>1,500万円</td><td>2,664,900</td><td>1,277,800</td><td>605,000</td><td class="x7kk">950,000</td><td>215,040</td><td>5,712,740</td><td>9,287,260</td><td>773,938</td><td>61.9%</td></tr><tr><td>1,600万円</td><td>3,001,800</td><td>1,377,800</td><td>655,000</td><td class="x7kk">950,000</td><td>215,040</td><td>6,199,640</td><td>9,800,360</td><td>816,697</td><td>61.3%</td></tr><tr><td>1,700万円</td><td>3,338,700</td><td>1,477,800</td><td>705,000</td><td class="x7kk">950,000</td><td>215,040</td><td>6,686,540</td><td>10,313,460</td><td>859,455</td><td>60.7%</td></tr><tr><td>1,800万円</td><td>3,675,700</td><td>1,577,800</td><td>755,000</td><td class="x7kk">950,000</td><td>215,040</td><td>7,173,540</td><td>10,826,460</td><td>902,205</td><td>60.1%</td></tr><tr><td>1,900万円</td><td>4,012,600</td><td>1,677,800</td><td>805,000</td><td class="x7kk">950,000</td><td>215,040</td><td>7,660,440</td><td>11,339,560</td><td>944,963</td><td>59.7%</td></tr><tr><td>2,000万円</td><td>4,349,500</td><td>1,777,800</td><td>855,000</td><td class="x7kk">950,000</td><td>215,040</td><td>8,147,340</td><td>11,852,660</td><td>987,722</td><td>59.3%</td></tr></tbody></table></div><h3>40〜59歳（介護保険料あり）</h3><div class="tw"><table class="x7tb x7t10"><thead><tr><th>事業の利益<br>（売上−経費）</th><th>所得税</th><th>住民税</th><th>個人<br>事業税</th><th class="x7kk">国民<br>健康保険</th><th>国民年金</th><th>税・社会<br>保険料の合計</th><th>手取り（年）</th><th>月あたり</th><th>手取り率</th></tr></thead><tbody><tr><td>200万円</td><td>0</td><td>47,500</td><td>0</td><td class="x7kk">253,505</td><td>215,040</td><td>516,045</td><td>1,483,955</td><td>123,663</td><td>74.2%</td></tr><tr><td>250万円</td><td>13,400</td><td>89,800</td><td>0</td><td class="x7kk">330,705</td><td>215,040</td><td>648,945</td><td>1,851,055</td><td>154,255</td><td>74.0%</td></tr><tr><td>300万円</td><td>35,000</td><td>132,100</td><td>5,000</td><td class="x7kk">407,905</td><td>215,040</td><td>795,045</td><td>2,204,955</td><td>183,746</td><td>73.5%</td></tr><tr><td>350万円</td><td>56,600</td><td>174,300</td><td>30,000</td><td class="x7kk">485,105</td><td>215,040</td><td>961,045</td><td>2,538,955</td><td>211,580</td><td>72.5%</td></tr><tr><td>400万円</td><td>78,200</td><td>216,600</td><td>55,000</td><td class="x7kk">562,305</td><td>215,040</td><td>1,127,145</td><td>2,872,855</td><td>239,405</td><td>71.8%</td></tr><tr><td>450万円</td><td>100,000</td><td>259,000</td><td>80,000</td><td class="x7kk">639,505</td><td>215,040</td><td>1,293,545</td><td>3,206,455</td><td>267,205</td><td>71.3%</td></tr><tr class="x7hl"><td>500万円</td><td>143,200</td><td>301,200</td><td>105,000</td><td class="x7kk">716,705</td><td>215,040</td><td>1,481,145</td><td>3,518,855</td><td>293,238</td><td>70.4%</td></tr><tr><td>550万円</td><td>186,400</td><td>343,500</td><td>130,000</td><td class="x7kk">793,905</td><td>215,040</td><td>1,668,845</td><td>3,831,155</td><td>319,263</td><td>69.7%</td></tr><tr><td>600万円</td><td>297,200</td><td>385,700</td><td>155,000</td><td class="x7kk">871,105</td><td>215,040</td><td>1,924,045</td><td>4,075,955</td><td>339,663</td><td>67.9%</td></tr><tr><td>650万円</td><td>383,500</td><td>428,000</td><td>180,000</td><td class="x7kk">948,305</td><td>215,040</td><td>2,154,845</td><td>4,345,155</td><td>362,096</td><td>66.8%</td></tr><tr><td>700万円</td><td>470,500</td><td>470,600</td><td>205,000</td><td class="x7kk">1,022,903</td><td>215,040</td><td>2,384,043</td><td>4,615,957</td><td>384,663</td><td>65.9%</td></tr><tr><td>750万円</td><td>573,400</td><td>516,000</td><td>230,000</td><td class="x7kk">1,068,305</td><td>215,040</td><td>2,602,745</td><td>4,897,255</td><td>408,105</td><td>65.3%</td></tr><tr><td>800万円</td><td>672,100</td><td>564,300</td><td>255,000</td><td class="x7kk">1,085,005</td><td>215,040</td><td>2,791,445</td><td>5,208,555</td><td>434,046</td><td>65.1%</td></tr><tr><td>850万円</td><td>770,900</td><td>612,700</td><td>280,000</td><td class="x7kk">1,101,705</td><td>215,040</td><td>2,980,345</td><td>5,519,655</td><td>459,971</td><td>64.9%</td></tr><tr><td>900万円</td><td>870,400</td><td>661,500</td><td>305,000</td><td class="x7kk">1,114,017</td><td>215,040</td><td>3,165,957</td><td>5,834,043</td><td>486,170</td><td>64.8%</td></tr><tr><td>950万円</td><td>972,200</td><td>711,300</td><td>330,000</td><td class="x7kk">1,115,417</td><td>215,040</td><td>3,343,957</td><td>6,156,043</td><td>513,004</td><td>64.8%</td></tr><tr><td>1,000万円</td><td>1,087,900</td><td>761,200</td><td>355,000</td><td class="x7kk">1,116,817</td><td>215,040</td><td>3,535,957</td><td>6,464,043</td><td>538,670</td><td>64.6%</td></tr><tr><td>1,100万円</td><td>1,322,000</td><td>861,000</td><td>405,000</td><td class="x7kk">1,119,617</td><td>215,040</td><td>3,922,657</td><td>7,077,343</td><td>589,779</td><td>64.3%</td></tr><tr><td>1,200万円</td><td>1,596,800</td><td>960,800</td><td>455,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>4,347,640</td><td>7,652,360</td><td>637,697</td><td>63.8%</td></tr><tr><td>1,300万円</td><td>1,933,700</td><td>1,060,800</td><td>505,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>4,834,540</td><td>8,165,460</td><td>680,455</td><td>62.8%</td></tr><tr><td>1,400万円</td><td>2,270,700</td><td>1,160,800</td><td>555,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>5,321,540</td><td>8,678,460</td><td>723,205</td><td>62.0%</td></tr><tr><td>1,500万円</td><td>2,607,600</td><td>1,260,800</td><td>605,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>5,808,440</td><td>9,191,560</td><td>765,963</td><td>61.3%</td></tr><tr><td>1,600万円</td><td>2,944,500</td><td>1,360,800</td><td>655,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>6,295,340</td><td>9,704,660</td><td>808,722</td><td>60.7%</td></tr><tr><td>1,700万円</td><td>3,281,500</td><td>1,460,800</td><td>705,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>6,782,340</td><td>10,217,660</td><td>851,472</td><td>60.1%</td></tr><tr><td>1,800万円</td><td>3,618,400</td><td>1,560,800</td><td>755,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>7,269,240</td><td>10,730,760</td><td>894,230</td><td>59.6%</td></tr><tr><td>1,900万円</td><td>3,955,300</td><td>1,660,800</td><td>805,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>7,756,140</td><td>11,243,860</td><td>936,988</td><td>59.2%</td></tr><tr><td>2,000万円</td><td>4,292,300</td><td>1,760,800</td><td>855,000</td><td class="x7kk">1,120,000</td><td>215,040</td><td>8,243,140</td><td>11,756,860</td><td>979,738</td><td>58.8%</td></tr></tbody></table></div><p class="note">手取り率は、手取りを利益で割った割合です。国民健康保険は地域で料率が違います。この表は大阪府の料率です。</p><h2 id="yomikata">表の読み方：手取りを決める5つの点</h2><h3>1. 利益920万円までは、所得税より国民健康保険のほうが多い</h3><p>個人事業主の手取りを減らす一番大きいものは、税金ではなく国民健康保険です。税金の合計（所得税・住民税・個人事業税）が社会保険料の合計を上回るのは、利益631万円からです。</p><h3>2. 利益555万円と721万円に段差がある</h3><p>基礎控除は、所得が489万円を超えると104万円から67万円に、655万円を超えると62万円に下がります。青色申告65万円の場合、利益554万円から555万円になると所得税が年43,600円増え、手取りは年36,284円減ります。利益720万円から721万円では、手取りが年4,784円減ります。</p><h3>3. 国民健康保険は利益1,114万円で上限に届く</h3><p>大阪府の令和8年度は、単身で年95万円（40〜59歳は介護分を含めて年112万円）が上限です。それより利益が増えても、国民健康保険は増えません。</p><h3>4. 個人事業税は利益290万円を超えた分にかかる</h3><p>税率5%の業種なら、利益500万円で年105,000円です。青色申告特別控除は、個人事業税の計算では引けません。</p><h3>5. 青色申告の65万円と10万円で、手取りが年18万〜21万円違う</h3><p>利益500万円なら、65万円控除の手取りは年3,615,257円、10万円控除では年3,404,937円、白色申告では年3,365,497円です。利益800万円では、65万円控除と10万円控除の差は年180,170円です。</p><h2 id="list">利益ごとの税金と社会保険料</h2>
+<p>上で選んだ青色申告と年齢の条件で表示しています。入れた利益に近い行が黄色になります。</p>
+<p class="cap" id="t-cap">青色申告65万円・40歳未満・大阪府</p>
+<div class="tw"><table>
+ <thead><tr><th>利益<br>（万円）</th><th>税金の合計<br>（円）</th><th>社会保険料<br>（円）</th><th>手取り<br>（円）</th></tr></thead>
+ <tbody id="tb"></tbody>
+</table></div>
+<p class="note" style="margin-top:8px">所得税は令和8年分（復興特別所得税を含む）、住民税は東京23区と同じ税率と均等割5,000円、個人事業税は税率5%で計算しています。国民健康保険料は大阪府の令和8年度の料率、国民年金は令和8年度の月17,920円です。控除は基礎控除・青色申告特別控除・社会保険料控除だけです。</p>
+<h2 id="three">個人事業主にかかる3つの税金</h2>
+<h3>所得税</h3>
+<p>所得から青色申告特別控除・社会保険料・基礎控除を引いた課税所得に、5%から45%の税率をかけます。令和8年分は、合計所得489万円以下の人の基礎控除が104万円です。</p>
+<h3>住民税</h3>
+<p>課税所得のおよそ10%と均等割です。前の年の所得で決まり、6月から4回に分けて納付書で払います。</p>
+<h3>個人事業税</h3>
+<p>事業の所得から事業主控除290万円を引いた額に、業種ごとの税率をかけます。青色申告特別控除は引けません。8月と11月の2回に分けて払います。</p>
+<h2 id="ao">青色申告特別控除で変わる額</h2>
+<p>青色申告特別控除の65万円は、複式簿記で帳簿をつけ、電子申告か電子帳簿保存をした場合に受けられます。<span class="mk">所得500万円の人は、白色申告より65万円の控除のほうが、税金と国民健康保険料が合わせて年およそ25万円少なくなります。</span></p>
+<p class="ask">開業資金を借りたら、毎月いくら返すのか？<br>計算ツールで確かめてみてください。</p>
+<a class="cbtn nx" href="/hensai/" data-cta="kojin-zei_next_hensai">開業資金の借入と返済の計算</a>
+<h2 id="kuraberu">会社員の手取り・法人成りと比べるとき</h2><p>会社員の年収と個人事業主の利益は、同じ金額でも手取りが違います。会社員は社会保険料を会社と半分ずつ負担し、給与所得控除があります。個人事業主は、国民健康保険と国民年金を全額自分で払います。</p><ul class="x7ul"><li><a href="/tedori/">会社員の年収の手取り早見表と比べる</a></li><li><a href="/houjinnari/">会社にした場合との差を、法人成りの分岐点 早見表で比べる</a></li><li><a href="/yakuin-tedori/">会社にしたあとの役員報酬の手取りを見る</a></li></ul><h2 id="chigau">手取りが表と違ってくる場合</h2><ul class="x7ul"><li>家族がいる場合：国民健康保険は世帯で計算するので、表より増えます。配偶者控除・扶養控除があれば、所得税と住民税は減ります</li><li>小規模企業共済・iDeCoに入っている場合：所得税と住民税は減ります。国民健康保険は減りません</li><li>大阪府以外に住んでいる場合：国民健康保険の料率が違います</li><li>業種による違い：個人事業税の税率は業種で3〜5%に分かれ、かからない業種もあります</li><li>消費税：課税売上高が1,000万円を超える場合やインボイスの登録をしている場合は、消費税の負担が別にあります</li></ul><h2 id="qa">個人事業主の税金でよく聞かれること</h2><h3>利益500万円の個人事業主の手取りはいくらですか？</h3><p>40歳未満・単身・青色申告65万円・大阪府の場合、年3,615,257円（月あたり301,271円）です。所得税155,400円、住民税313,200円、個人事業税105,000円、国民健康保険596,103円、国民年金215,040円が引かれます。</p><h3>国民健康保険料の上限はいくらですか？</h3><p>大阪府の令和8年度は、単身で年95万円です。40〜59歳は介護分が加わり、年112万円です。利益1,114万円あたりで上限に届きます。</p><h3>開業した年に手取りが多く感じるのはなぜですか？</h3><p>住民税と国民健康保険は前の年の所得で決まり、個人事業税は翌年の8月と11月に納めます。開業した年は、その年の利益にかかるこれらの負担がまだ来ていません。表の手取りは、同じ利益が続いた場合の1年分です。</p>
+<h3>所得500万円の個人事業主の税金はいくらですか？</h3>
+<p>青色申告65万円・単身・40歳未満なら、所得税・住民税・個人事業税の合計は年およそ57万円です。社会保険料は年およそ81万円です（国民健康保険は大阪府）。</p>
+<h3>個人事業税がかからない人はいますか？</h3>
+<p>事業の所得が290万円以下の人にはかかりません。文筆業や翻訳業など、税金がかからない業種もあります。</p>
+<h3>会社員から独立すると税金は増えますか？</h3>
+<p>同じ所得でも、個人事業主には給与所得控除がなく、個人事業税もかかります。国民健康保険と国民年金は全額を自分で払うので、手元に残る割合は会社員より下がりやすくなります。</p>
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">国税庁 タックスアンサー No.2260 所得税の税率</a></li>
+  <li><a href="https://www.tax.metro.tokyo.lg.jp/kazei/work/kojin_ji">東京都主税局「個人事業税」</a></li>
+  <li><a href="https://www.tax.metro.tokyo.lg.jp/kazei/life/kojin_ju">東京都主税局「個人住民税」</a></li>
+  <li><a href="https://www.pref.osaka.lg.jp/o100080/kokuho/iryouseido/hokenryouritsu/hokenryouritsu2.html">大阪府「令和8年度の府内統一保険料率」</a></li>
+  <li><a href="https://www.city.neyagawa.osaka.jp/material/files/group/50/R8touitsuhokennryounitsuite.pdf">寝屋川市「令和8年度の統一保険料について」（軽減の基準額）</a></li>
+  <li><a href="https://www.nenkin.go.jp/service/kokunen/hokenryo/hokenryo.html">日本年金機構「国民年金保険料」</a>（令和8年度 月17,920円）</li>
+  <li>表の金額は、上の資料の控除・税率・料率から計算しています</li>
+</ul></div>
+
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">確定申告の前に、</span><span class="nw">まとめて慌てないために</span></p><p>個人事業の税金は、1年分の売上と経費がそろって初めて出ます。レシートや通帳の整理から記帳、青色申告の決算書、確定申告まで、全国どこからでもお受けしています。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="kojin-zei_close_marunage">経理丸投げの無料相談</a></div>
+<div class="x7q"><b>あわせて見る</b><a href="/houjinnari/">法人成りの分岐点 早見表</a><a href="/yakuin-tedori/">役員報酬の手取り早見表</a><a href="/#list">早見表・計算ツールの一覧</a></div><nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="kojin-zei_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+ var GC={};
+ function gser(key,lo,hi,st,fn){if(GC[key])return GC[key];var a=[];for(var x=lo;x<=hi+1;x+=st)a.push([x,fn(x)]);GC[key]=a;return a;}
+ function glc(d,cur,cv,o){var W=340,H=150,L=40,R=10,T=14,B=22,x0=d[0][0],x1=d[d.length-1][0];
+  function X(v){return L+(v-x0)/(x1-x0)*(W-L-R);}function Y(v){return T+(1-(v-o.y0)/(o.y1-o.y0))*(H-T-B);}
+  var g='<p style="font-size:13px;font-weight:700;margin:0 0 4px;color:#004d3c">'+o.t+'</p><svg viewBox="0 0 '+W+' '+H+'" style="display:block;width:100%;height:auto;background:#ffffff;border-radius:4px" role="img" aria-label="'+o.t+'">';
+  o.yt.forEach(function(t){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(t)+'" y2="'+Y(t)+'" stroke="'+(t===0&&o.zero?'#1f2a2a':'#e3e8e6')+'" stroke-width="1"/><text x="'+(L-4)+'" y="'+(Y(t)+3.5)+'" font-size="10" fill="#6b7472" text-anchor="end">'+o.yf(t)+'</text>';});
+  o.xt.forEach(function(t,i){g+='<text x="'+X(t)+'" y="'+(H-6)+'" font-size="10" fill="#6b7472" text-anchor="'+(i===0?'start':(i===o.xt.length-1?'end':'middle'))+'">'+o.xf(t)+'</text>';});
+  g+='<polyline fill="none" stroke="#00775a" stroke-width="2.2" points="'+d.map(function(p){return X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1);}).join(' ')+'"/>';
+  if(cur>=x0&&cur<=x1)g+='<circle cx="'+X(cur)+'" cy="'+Y(Math.max(o.y0,Math.min(o.y1,cv)))+'" r="5" fill="#ffffff" stroke="#b5473a" stroke-width="2.5"/>';
+  return g+'</svg>';}
+ function man(t){return (t/10000).toLocaleString("ja-JP")+'万';}
+ function pc(t){return t+'%';}
+
+
+function f(n){return Math.round(n).toLocaleString("ja-JP");}
+function seg(id,cb,r){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.remove("on");});b.classList.add("on");cb(+b.dataset.v);r();});});}
+function link(a,b,r){a.addEventListener("input",function(){b.value=a.value;r();});b.addEventListener("input",function(){a.value=b.value;r();});}
+
+function kyuyo7(x){if(x<651000)return 0;if(x<1900000)return x-650000;if(x<6600000){var A=Math.floor(x/4000)*4000;return x<3600000?Math.floor(A*0.7)-80000:Math.floor(A*0.8)-440000;}if(x<8500000)return Math.floor(x*0.9)-1100000;return x-1950000;}
+function kyuyo8(x){if(x<741000)return 0;if(x<2191000)return x-740000;if(x<2193000)return 1451000;if(x<2196000)return 1453000;if(x<2200000)return 1456000;if(x<6600000){var A=Math.floor(x/4000)*4000;return x<3600000?Math.floor(A*0.7)-80000:Math.floor(A*0.8)-440000;}if(x<8500000)return Math.floor(x*0.9)-1100000;return x-1950000;}
+var GR=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
+function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000;}return 1390000;}
+function r50(v){var q=Math.floor(v);return (v-q>0.5)?q+1:q;}
+function shahoM(m,rate,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);return r50(s*(rate+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*0.005);}
+function jumin(g,sh,kiso){if(g<=450000)return {y:0,kin:0,sho:0};var t=Math.floor(Math.max(0,g-sh-kiso)/1000)*1000,adj=t<=2000000?Math.min(50000,t):50000;
+ var a=Math.floor(Math.max(0,Math.floor(t*6/100)-Math.floor(adj*3/100))/100)*100,b=Math.floor(Math.max(0,Math.floor(t*4/100)-Math.floor(adj*2/100))/100)*100;return {y:a+b+5000,kin:5000,sho:a+b};}
+
+var C=[[950,34990,33908,660000],[306,11191,10845,260000],[260,18682,0,170000],[28,1841,0,30000]];
+function kokuho(g,meOld,fam,famOld){
+ var n=1+fam,base=Math.max(0,g-430000);
+ var red=g<=430000?0.7:(g<=430000+310000*n?0.5:(g<=430000+570000*n?0.2:0));
+ var parts=[];C.forEach(function(c,i){
+  var cnt=i===2?((meOld?1:0)+famOld):n,ib=i===2?(meOld?base:0):base,hh=(i===2&&cnt===0)?0:1;
+  var v=cnt?Math.floor(ib*c[0]/10000)+Math.floor(c[1]*cnt*(1-red))+Math.floor(c[2]*hh*(1-red)):0;parts.push(Math.min(c[3],v));});
+ return {t:parts.reduce(function(a,b){return a+b;},0),p:parts,red:red};
+}
+
+var inc=document.getElementById("inc"),incr=document.getElementById("incr"),ao=650000,old=0,NEN=17920*12;
+function kiso(g){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(g<=T[i][0])return T[i][1];}return 0;}
+function itax(g,sh){var t=Math.floor(Math.max(0,g-sh-kiso(g))/1000)*1000,B=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]],b=0;
+ for(var i=0;i<B.length;i++){if(t<=B[i][0]){b=Math.floor(t*B[i][1]/100)-B[i][2];break;}}return Math.floor(Math.floor(b*1.021)/100)*100;}
+function calc(a,ao,old){
+ var g=Math.max(0,a-Math.min(ao,a)),k=kokuho(g,old,0,0).t,sh=k+NEN;
+ var it=itax(g,sh),ju=jumin(g,sh,430000).y,jg=Math.floor(Math.floor(Math.max(0,a-2900000)/1000)*1000*5/100/100)*100;
+ return {k:k,sh:sh,it:it,ju:ju,jg:jg,tax:it+ju+jg,net:a-it-ju-jg-sh};
+}
+var ROWS=[200,300,400,500,600,700,800,900,1000,1200,1500];
+function render(){
+ var a=Math.max(0,parseInt(inc.value,10)||0),x=calc(a,ao,old);
+  document.getElementById("gch").innerHTML=glc(gser('k'+ao+old,2000000,20000000,500000,function(v){return calc(v,ao,old).net/v*100;}),a,a?x.net/a*100:0,{t:'利益ごとの手取り率（白い点がいま入れた利益）',y0:40,y1:90,yt:[40,50,60,70,80,90],yf:pc,xt:[2000000,10000000,20000000],xf:man});
+ document.getElementById("o-t").innerHTML=f(x.tax)+"<i>円</i>";
+ document.getElementById("o-s").innerHTML=f(x.sh)+"<i>円</i>";
+ document.getElementById("o-n").innerHTML=f(x.net)+"<i>円</i>";
+ document.getElementById("o-nr").textContent="利益の"+(a?Math.round(x.net/a*100):0)+"%";
+ document.getElementById("o-br").textContent="税金の内訳は、所得税"+f(x.it)+"円・住民税"+f(x.ju)+"円・個人事業税"+f(x.jg)+"円です";
+ document.getElementById("o-sh").textContent="社会保険料は、国民健康保険"+f(x.k)+"円と国民年金"+f(NEN)+"円です";
+ document.getElementById("t-cap").textContent=(ao?"青色申告"+(ao/10000)+"万円":"白色申告")+"・"+(old?"40〜59歳":"40歳未満")+"・大阪府";
+ var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});
+ var h="";ROWS.forEach(function(r,i){var y=calc(r*10000,ao,old);h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(y.tax)+"</td><td>"+f(y.sh)+"</td><td>"+f(y.net)+"</td></tr>";});
+ document.getElementById("tb").innerHTML=h;
+}
+link(inc,incr,render);seg("s-ao",function(v){ao=v;},render);seg("s-age",function(v){old=v;},render);render();
+
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var el=document.getElementById("inc");if(!el)return;var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})();</script></body></html>
