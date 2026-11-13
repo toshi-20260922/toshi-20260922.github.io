@@ -1,0 +1,39 @@
+name: import-live
+on:
+  push:
+    branches: [taxtable]
+    paths: [IMPORT]
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: taxtable
+      - name: fetch live pages
+        run: |
+          set -e
+          rm -rf live; mkdir -p live
+          UA="Mozilla/5.0 (taxtable-import)"
+          curl -sSL -A "$UA" https://taxtable.jp/sitemap.xml -o live/sitemap.xml
+          curl -sSL -A "$UA" https://taxtable.jp/robots.txt -o live/robots.txt || true
+          { grep -o '<loc>[^<]*' live/sitemap.xml | sed 's/<loc>//'; echo https://taxtable.jp/policy/; echo https://taxtable.jp/; } | sort -u > urls.txt
+          while read -r u; do
+            p=${u#https://taxtable.jp/}; p=${p%/}
+            if [ -z "$p" ]; then out=live/index.html; else mkdir -p "live/$p"; out="live/$p/index.html"; fi
+            code=$(curl -sSL -A "$UA" -o "$out" -w '%{http_code}' "$u" || echo ERR)
+            echo "$code $u $(wc -c < "$out")" >> live/_import_report.txt
+            sleep 1
+          done < urls.txt
+          for a in favicon.svg apple-touch-icon.png img/top/logo.png; do mkdir -p "live/$(dirname $a)"; curl -sSL -A "$UA" -o "live/$a" "https://taxtable.jp/$a" || true; done
+          rm -f urls.txt
+          cat live/_import_report.txt
+      - name: commit
+        run: |
+          git config user.name "taxtable-import"
+          git config user.email "taxtable-import@users.noreply.github.com"
+          git add -A live
+          git commit -q -m "import live pages" || echo "no change"
+          git push origin HEAD:taxtable
