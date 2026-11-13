@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>開業資金の返済シミュレーション【日本政策金融公庫】毎月の返済額と利息の計算</title>
+<link rel="canonical" href="https://taxtable.jp/hensai/">
+<meta name="description" content="開業資金を借りたときの毎月の返済額と利息の合計を計算します。借りる額・年利・期間・据置を入れると、元金均等と元利均等で1年ごとの返済が出ます。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="hensai_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="積み上げた硬貨"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><ellipse cx="26" cy="48" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="26" cy="43" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="26" cy="38" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="26" cy="33" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="44" cy="48" rx="10" ry="3.5" fill="#f6d3ab" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="44" cy="43" rx="10" ry="3.5" fill="#f6d3ab" stroke="#0f3d31" stroke-width="1.2"></ellipse><path d="M40 22l6-6 6 6M46 16v14" fill="none" stroke="#00775a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+ <p class="upd">更新日：2026年11月7日（日本政策金融公庫の令和8年11月2日現在の基準利率）</p>
+ <h1>開業資金の返済シミュレーション【日本政策金融公庫】毎月の返済額と利息の計算</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>借りる額と期間を入れると、毎月の返済額が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="amt">借りる額</label>
+   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="100000000" step="100000" value="5000000"><span>円</span></div>
+   <input type="range" id="amtr" min="1000000" max="30000000" step="100000" value="5000000" aria-label="借りる額">
+  </div>
+  <div>
+   <label for="rate">年利</label>
+   <div class="row"><input type="number" id="rate" inputmode="decimal" min="0" max="15" step="0.05" value="3.75" style="width:110px"><span>%</span></div>
+  </div>
+  <div>
+   <label for="yr">返す期間</label>
+   <select id="yr"><option value="3">3年</option><option value="5">5年</option><option value="7" selected="">7年</option><option value="10">10年</option><option value="15">15年</option><option value="20">20年</option></select>
+  </div>
+  <div>
+   <label for="sue">据置（元金を返さない期間）</label>
+   <select id="sue"><option value="0">なし</option><option value="3">3か月</option><option value="6" selected="">6か月</option><option value="12">1年</option><option value="24">2年</option></select>
+  </div>
+  <div>
+   <label>返し方</label>
+   <div class="seg" id="s-m"><button type="button" class="on" data-v="0">元金均等</button><button type="button" data-v="1">元利均等</button></div>
+  </div>
+ </div>
+ <div class="amt">
+  <div><small>毎月の返済<br>（最初の月）</small><b id="o-a">0<i>円</i></b><em id="o-ae">据置のあと</em></div>
+  <div><small>利息の合計</small><b id="o-b">0<i>円</i></b><em>返し終わるまで</em></div>
+  <div><small>返す総額</small><b id="o-c">0<i>円</i></b><em>元金と利息</em></div>
+ </div>
+ <ul>
+  <li id="o-1">据置の間は、毎月0円の利息だけを払います</li>
+  <li id="o-2">元金は毎月0円ずつ、0回で返します</li>
+  <li>利息は、残っている元金に年利の12分の1をかけて計算しています</li>
+ </ul>
+</div>
+<div class="rcta"><p>返済が始まってからの手元のお金を、毎月の帳簿で押さえます。</p><a href="https://oyama-toshiro.com/contact/" data-cta="hensai_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/hensai/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/hensai/">Xでポストする</a>
+</div>
+<p>開業資金を借りると、毎月の返済は元金と利息の合計です。<span class="mk">日本政策金融公庫の基準利率は、令和8年11月2日現在、無担保で申告が2期未満の場合に年3.75%から5.15%です。</span>実際の利率は、制度・使い道・期間・担保で変わります。</p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#list">1年ごとの返済の表</a></li>
+ <li><a href="#way">元金均等と元利均等の違い</a></li>
+ <li><a href="#sue">据置期間とは</a></li>
+ <li><a href="#qa">開業資金の返済でよく聞かれること</a></li>
+</ol></nav>
+<h2 id="list">1年ごとの返済の表</h2>
+<p>上で入れた条件で、借りてからの1年ごとに表示しています。</p>
+<div class="tw"><table>
+ <thead><tr><th>年目</th><th>返した元金<br>（円）</th><th>払った利息<br>（円）</th><th>年の終わりの<br>残り（円）</th></tr></thead>
+ <tbody id="tb"></tbody>
+</table></div>
+<p class="note" style="margin-top:8px">公庫の実際の利息は日割りで計算するので、毎月の額は少し違います。返済の回数は、返す期間の月数から据置の月数を引いた回数です。</p>
+<h2 id="way">元金均等と元利均等の違い</h2>
+<h3>元金均等</h3>
+<p>毎月返す元金が同じで、利息は残りの元金が減るにつれて少なくなります。最初の月の返済がいちばん多く、利息の合計は元利均等より少なくなります。日本政策金融公庫の返済は、元金均等が基本です。</p>
+<h3>元利均等</h3>
+<p>元金と利息を合わせた毎月の返済が同じです。最初のうちは利息の割合が大きく、元金がなかなか減りません。</p>
+<h2 id="sue">据置期間とは</h2>
+<p>元金を返さず、利息だけを払う期間です。開業してすぐは売上が安定しないので、据置を付けると最初の数か月の支払いが軽くなります。<span class="mk">据置を長くすると、その分だけ元金を返す期間が短くなり、毎月の返済は増えます。</span></p>
+<p class="ask">独立すると、税金はいくらになるのか？<br>計算ツールで確かめてみてください。</p>
+<a class="cbtn nx" href="/kojin-zei/" data-cta="hensai_next_kojin">個人事業主の手取り早見表</a>
+<h2 id="qa">開業資金の返済でよく聞かれること</h2>
+<h3>500万円を7年で借りると毎月いくらですか？</h3>
+<p>年3.75%・据置6か月・元金均等なら、据置の間は毎月およそ1万6千円の利息だけで、そのあと最初の月の返済はおよそ8万円です。利息の合計はおよそ71万円です。</p>
+<h3>返す期間は何年まで選べますか？</h3>
+<p>日本政策金融公庫の新規開業・スタートアップ支援資金は、設備資金が20年以内、運転資金が10年以内です（据置期間を含む）。</p>
+<h3>金利はどこで確かめればいいですか？</h3>
+<p>日本政策金融公庫の「金利情報」のページに、融資制度ごとの基準利率が載っています。金利は毎月のように見直されます。</p>
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://www.jfc.go.jp/n/rate/index.html">日本政策金融公庫「金利情報」（令和8年11月2日現在）</a></li>
+  <li><a href="https://www.jfc.go.jp/n/finance/search/04_shinkikaigyou_m.html">日本政策金融公庫「新規開業・スタートアップ支援資金」</a></li>
+</ul></div>
+
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">返済が始まったら、</span><span class="nw">手元のお金を帳簿で</span></p><p>元金の返済は経費にならないので、利益が出ていても手元のお金が減る月が出てきます。毎月の記帳から決算・申告までお任せいただき、返済と手元のお金の動きを月ごとの数字で押さえられるようにします。代表は、父の会社で財務と銀行交渉を経験してきました。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="hensai_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="hensai_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+function f(n){return Math.round(n).toLocaleString("ja-JP");}
+function seg(id,cb,r){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.remove("on");});b.classList.add("on");cb(+b.dataset.v);r();});});}
+function link(a,b,r){a.addEventListener("input",function(){b.value=a.value;r();});b.addEventListener("input",function(){a.value=b.value;r();});}
+
+var amt=document.getElementById("amt"),amtr=document.getElementById("amtr"),rate=document.getElementById("rate"),yr=document.getElementById("yr"),sue=document.getElementById("sue"),meth=0;
+function sched(P,r,Y,S,m){
+ var N=Y*12-S,i=r/100/12,bal=P,rows=[],tot=0,first=0,suePay=Math.floor(P*i),pmt=0,prin=Math.floor(P/N);
+ if(m===1)pmt=i?P*i/(1-Math.pow(1+i,-N)):P/N;
+ for(var k=1;k<=Y*12;k++){var it=Math.floor(bal*i),pr=0;
+  if(k>S){if(m===0){pr=(k===Y*12)?bal:prin;}else{pr=(k===Y*12)?bal:Math.round(pmt)-it;}}
+  pr=Math.min(pr,bal);bal-=pr;tot+=it;if(k===S+1)first=pr+it;
+  var yi=Math.floor((k-1)/12);if(!rows[yi])rows[yi]={p:0,i:0,b:0};rows[yi].p+=pr;rows[yi].i+=it;rows[yi].b=bal;}
+ return {first:first,tot:tot,rows:rows,suePay:suePay,prin:prin,N:N};
+}
+function render(){
+ var P=Math.max(0,parseInt(amt.value,10)||0),r=Math.max(0,parseFloat(rate.value)||0),Y=+yr.value,S=Math.min(+sue.value,Y*12-1),x=sched(P,r,Y,S,meth);
+ document.getElementById("o-a").innerHTML=f(x.first)+"<i>円</i>";
+ document.getElementById("o-ae").textContent=S?"据置のあと":"1回目";
+ document.getElementById("o-b").innerHTML=f(x.tot)+"<i>円</i>";
+ document.getElementById("o-c").innerHTML=f(P+x.tot)+"<i>円</i>";
+ document.getElementById("o-1").textContent=S?"据置の"+S+"か月は、毎月"+f(x.suePay)+"円の利息だけを払います":"据置はなく、1か月目から元金を返します";
+ document.getElementById("o-2").textContent=meth?"元金と利息を合わせて、毎月ほぼ同じ額を"+x.N+"回で返します":"元金は毎月"+f(x.prin)+"円ずつ、"+x.N+"回で返します";
+ var h="";x.rows.forEach(function(w,k){h+="<tr><td class=\"c\">"+(k+1)+"</td><td>"+f(w.p)+"</td><td>"+f(w.i)+"</td><td>"+f(w.b)+"</td></tr>";});
+ document.getElementById("tb").innerHTML=h;
+}
+link(amt,amtr,render);[rate,yr,sue].forEach(function(e){e.addEventListener("input",render);e.addEventListener("change",render);});
+seg("s-m",function(v){meth=v;},render);render();
+
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

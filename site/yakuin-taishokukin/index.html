@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>役員退職金の税金と手取りの早見表｜功績倍率での計算といくらまで出せるか【2026年・令和8年】</title>
+<link rel="canonical" href="https://taxtable.jp/yakuin-taishokukin/">
+<meta name="description" content="役員退職金1,000万円から1億円までの所得税・住民税・手取りを早見表にしました。報酬の月額・勤続年数・功績倍率を入れると、退職金の額と手取りが出ます。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 行の終わりに1〜2文字だけ残さない */
+p,li,td,th,.amt small,.amt em{text-wrap:pretty}
+td.k{white-space:nowrap;text-align:left}
+td,th{word-break:auto-phrase}
+
+/* 役員退職金ページだけの部品 */
+.amt{grid-template-columns:1fr 1fr}.amt div{min-width:0}.amt div.tot{order:-1;grid-column:1/3}.amt div.tot b{font-size:30px}
+tr.hit td{background:#fff3c4}
+#tb td small{color:#5b7a70;font-size:11px}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="yakuin-taishokukin_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="会社と退職金の袋"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="10" y="18" width="20" height="32" fill="#0f3d31"></rect><rect x="14" y="23" width="4" height="4" fill="#d8efe6"></rect><rect x="22" y="23" width="4" height="4" fill="#d8efe6"></rect><rect x="14" y="31" width="4" height="4" fill="#d8efe6"></rect><rect x="22" y="31" width="4" height="4" fill="#d8efe6"></rect><rect x="14" y="39" width="4" height="4" fill="#d8efe6"></rect><rect x="22" y="39" width="4" height="4" fill="#d8efe6"></rect><path d="M38 30c-5 5-7 10-7 14a7 7 0 007 7h10a7 7 0 007-7c0-4-2-9-7-14z" fill="#e3b465" stroke="#0f3d31" stroke-width="3" stroke-linejoin="round"></path><path d="M38 30l-2-6h14l-2 6" fill="#ffffff" stroke="#0f3d31" stroke-width="3" stroke-linejoin="round"></path><path d="M39 38l4 5 4-5M43 43v5M40 44.5h6" fill="none" stroke="#0f3d31" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+ <p class="upd">更新日：2026年11月10日（令和8年4月1日現在の法令）</p>
+ <h1>役員退職金の税金と手取りの早見表｜功績倍率での計算といくらまで出せるか【2026年・令和8年】</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>報酬の月額・勤続年数・倍率を入れると、退職金の額と手取りが出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="mon">退職する直前の役員報酬（月額）</label>
+   <div class="row"><input type="number" id="mon" inputmode="numeric" min="0" max="10000000" step="10000" value="1000000"><span>円</span></div>
+   <input type="range" id="monr" min="100000" max="3000000" step="10000" value="1000000" aria-label="役員報酬の月額">
+  </div>
+  <div>
+   <label for="yrs">役員としての勤続年数</label>
+   <div class="row"><input type="number" id="yrs" inputmode="numeric" min="1" max="60" step="1" value="30" style="width:96px"><span>年</span></div>
+  </div>
+  <div>
+   <label for="bai">功績倍率（会社の規程で決めた数字）</label>
+   <select id="bai"><option value="10">1.0</option><option value="15">1.5</option><option value="20">2.0</option><option value="25">2.5</option><option value="30" selected="">3.0</option></select>
+  </div>
+ </div>
+ <div class="amt">
+  <div class="tot"><small>受け取った人の手取り</small><b id="o-n">0<i>円</i></b><em id="o-g">退職金の額</em></div>
+  <div><small>所得税<br>（復興特別所得税を含む）</small><b id="o-t">0<i>円</i></b><em id="o-k">退職所得控除</em></div>
+  <div><small>住民税<br>（市区町村と都道府県）</small><b id="o-z">0<i>円</i></b><em id="o-h">2分の1にして計算</em></div>
+ </div>
+ <ul>
+  <li>退職金の額は、報酬の月額×勤続年数×功績倍率で計<span class="nw">算しています</span></li>
+  <li>「退職所得の受給に関する申告書」を会社に出している場<span class="nw">合の税額です</span></li>
+  <li>ほかに受け取った退職金がない場<span class="nw">合の計算です</span></li>
+ </ul>
+</div>
+<div class="rcta"><p>役員退職金を出す期は、株主総会の決議、損金に入れる時期、源泉徴収が決算に関わります。記帳から決算・申告までまとめてお受け<span class="nw">しています。</span></p><a href="https://oyama-toshiro.com/contact/" data-cta="yakuin-taishokukin_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/yakuin-taishokukin/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/yakuin-taishokukin/">Xでポストする</a>
+</div>
+<p>役員退職金は、2つの計算をします。会社が経費にできる額と、受け取った人の手元に残る額です。<span class="mk">勤続30年で3,000万円を受け取ると、税金は1,861,869円、手取りは28,138,131円です。</span>役員の勤続年数が5年を超えていれば、控除を引いた残りの半分にだけ税金が<span class="nw">かかります。</span></p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#list">退職金の額で見る税金と手取り</a></li>
+ <li><a href="#bai">功績倍率で計算した退職金の額</a></li>
+ <li><a href="#kojo">勤続年数ごとの退職所得控除</a></li>
+ <li><a href="#how">税金の計算のしかた</a></li>
+ <li><a href="#caution">会社の経費にするときの決まり</a></li>
+ <li><a href="#qa">役員退職金でよく聞かれること</a></li>
+</ol></nav>
+<h2 id="list">退職金の額で見る税金と手取り</h2>
+<p>役員としての勤続年数が30年の場合です。上で計算した退職金の額に近い行が黄色になります。金額の単位は円、退職金<span class="nw">は万円です。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>退職金<br>（万円）</th><th>税金の合計</th><th>手取り</th></tr></thead>
+ <tbody id="tb">
+ <tr data-s="1000"><td>1,000</td><td><b>0</b><small>所得税 0</small><small>住民税 0</small></td><td><b>10,000,000</b><small>税金の割合 0.0%</small></td></tr>
+ <tr data-s="1500"><td>1,500</td><td><b>0</b><small>所得税 0</small><small>住民税 0</small></td><td><b>15,000,000</b><small>税金の割合 0.0%</small></td></tr>
+ <tr data-s="2000"><td>2,000</td><td><b>405,702</b><small>所得税 155,702</small><small>住民税 250,000</small></td><td><b>19,594,298</b><small>税金の割合 2.0%</small></td></tr>
+ <tr data-s="3000"><td>3,000</td><td><b>1,861,869</b><small>所得税 1,111,869</small><small>住民税 750,000</small></td><td><b>28,138,131</b><small>税金の割合 6.2%</small></td></tr>
+ <tr data-s="4000"><td>4,000</td><td><b>3,893,369</b><small>所得税 2,643,369</small><small>住民税 1,250,000</small></td><td><b>36,106,631</b><small>税金の割合 9.7%</small></td></tr>
+ <tr data-s="5000"><td>5,000</td><td><b>6,078,019</b><small>所得税 4,328,019</small><small>住民税 1,750,000</small></td><td><b>43,921,981</b><small>税金の割合 12.2%</small></td></tr>
+ <tr data-s="7000"><td>7,000</td><td><b>11,126,284</b><small>所得税 8,376,284</small><small>住民税 2,750,000</small></td><td><b>58,873,716</b><small>税金の割合 15.9%</small></td></tr>
+ <tr data-s="10000"><td>10,000</td><td><b>18,879,909</b><small>所得税 14,629,909</small><small>住民税 4,250,000</small></td><td><b>81,120,091</b><small>税金の割合 18.9%</small></td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">勤続30年の退職所得控除は1,500万円です。退職金から1,500万円を引き、残りを2分の1にした額に、所得税と住民税がかかります。所得税には復興特別所得税を含みます。住民税は、市区町村民税6%と道府県民<span class="nw">税4%です。</span></p>
+<h2 id="bai">功績倍率で計算した退職金の額</h2>
+<p>功績倍率法は、退職する直前の報酬の月額に、勤続年数と倍率を掛けて退職金を決める方法です。下の表は、上で選んだ倍率で計算した額です。単位<span class="nw">は万円です。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>報酬の<br>月額</th><th>勤続<br>10年</th><th>勤続<br>20年</th><th>勤続<br>30年</th><th>勤続<br>35年</th></tr></thead>
+ <tbody id="tb2"></tbody>
+</table></div>
+<p class="note" style="margin-top:8px" id="bainote">功績倍率3.0で計算<span class="nw">しています。</span></p>
+<p>法令には、倍率の数字は書かれていません。会社が出した退職金のうち、相当と認められる額を超える部分は、会社の経費（損金）になりません。相当な額かどうかは、次の3つなどに照らして判<span class="nw">断されます。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>順</th><th>判断に使われること</th></tr></thead>
+ <tbody>
+  <tr><td class="c">1</td><td class="l">その役員が会社の業務に従事した期間</td></tr>
+  <tr><td class="c">2</td><td class="l">退職の事情</td></tr>
+  <tr><td class="c">3</td><td class="l">同じ種類の事業で、規模が似ている会社の役員退職金の支給の状況</td></tr>
+ </tbody>
+</table></div>
+<h2 id="kojo">勤続年数ごとの退職所得控除</h2>
+<p>退職金がこの控除の額までなら、所得税も住民税もかかりません。右の列は、退職金が3,000万円のときの<span class="nw">手取りです。</span></p>
+<div class="tw"><table>
+ <thead><tr><th>勤続年数</th><th>退職所得控除</th><th>3,000万円の<br>手取り（円）</th></tr></thead>
+ <tbody>
+ <tr><td class="c">5年</td><td>200万円</td><td>18,619,516<small>2分の1にしない</small></td></tr>
+ <tr><td class="c">10年</td><td>400万円</td><td>25,888,166</td></tr>
+ <tr><td class="c">15年</td><td>600万円</td><td>26,325,096</td></tr>
+ <tr><td class="c">20年</td><td>800万円</td><td>26,762,026</td></tr>
+ <tr><td class="c">25年</td><td>1,150万円</td><td>27,526,654</td></tr>
+ <tr><td class="c">30年</td><td>1,500万円</td><td>28,138,131</td></tr>
+ <tr><td class="c">35年</td><td>1,850万円</td><td>28,687,328</td></tr>
+ <tr><td class="c">40年</td><td>2,200万円</td><td>29,219,678</td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">勤続20年までは1年につき40万円（80万円に満たないときは80万円）、20年を超えた分は1年につき70万円です。1年に満たない端数は、1年に切<span class="nw">り上げます。</span></p>
+<h2 id="how">税金の計算のしかた</h2>
+<div class="tw"><table>
+ <thead><tr><th>順</th><th>すること</th></tr></thead>
+ <tbody>
+  <tr><td class="c">1</td><td class="l">退職金から退職所得控除を引く</td></tr>
+  <tr><td class="c">2</td><td class="l">残りを2分の1にする<br>（1,000円未満は切り捨て）</td></tr>
+  <tr><td class="c">3</td><td class="l">所得税の税率を掛けて控除額を引き、102.1%を掛ける</td></tr>
+  <tr><td class="c">4</td><td class="l">住民税は、2の額の10%</td></tr>
+ </tbody>
+</table></div>
+<p style="margin-top:20px">勤続30年・3,000万円なら、3,000万円から1,500万円を引き、2分の1にした750万円に税金がかかります。所得税は、750万円×23%−636,000円に102.1%を掛けた1,111,869円です。住民税は750,0<span class="nw">00円です。</span></p>
+<h3>役員の勤続年数が5年以下の場合</h3>
+<p>役員としての勤続年数が5年以下の人が受け取る役員退職金は、2分の1にしません。退職金から退職所得控除を引いた額が、そのまま税金のかかる額です。勤続4年11か月は5年と数えるので、2分の1にしません。5年1か月は6年と数えるので、2分の<span class="nw">1にします。</span></p>
+<p class="ask">役員報酬を月いくらにすると、手取りはいくらか？<br>早見表で確か<span class="nw">められます。</span></p>
+<a class="cbtn nx" href="/yakuin-tedori/" data-cta="yakuin-taishokukin_next_yakuintedori">役員報酬の手取りを見る</a>
+<h2 id="caution"><span class="nw">会社の経費に</span><span class="nw">するときの決まり</span></h2>
+<div class="tw"><table>
+ <thead><tr><th>項目</th><th>決まり</th></tr></thead>
+ <tbody>
+  <tr><td class="k">経費にする<br>時期</td><td class="l">株主総会の決議などで、退職金の額が決まった日の事業年度。実際に払った事業年度に経費として処理することも認められます</td></tr>
+  <tr><td class="k">未払金に<br>計上した場合</td><td class="l">額が決まる前の事業年度に、取締役会で内定した額を未払金にしても、その時点では経費になりません</td></tr>
+  <tr><td class="k">源泉徴収</td><td class="l">会社が、払うときに所得税を差し引き、原則として翌月10日までに納めます</td></tr>
+  <tr><td class="k">申告書が<br>ない場合</td><td class="l">「退職所得の受給に関する申告書」を受け取っていないときは、退職金の20.42%を差し引きます</td></tr>
+ </tbody>
+</table></div>
+<h2 id="qa"><span class="nw">役員退職金で</span><span class="nw">よく聞かれること</span></h2>
+<h3>役員退職金はいくらまで出せますか？</h3>
+<p>相当と認められる額を超えた部分は、会社の経費になりません。相当な額かどうかは、業務に従事した期間、退職の事情、同業で規模が似た会社の支給の状況などに照らして判断されます。法令に、倍率や金額の数字は書かれ<span class="nw">ていません。</span></p>
+<h3>社長を退いて会長になる場合も、退職金を出せますか？</h3>
+<p>地位や仕事の内容が大きく変わり、実質的に退職したのと同じ事情にあるときは、退職金として扱えます。通達は、次のような例を挙げています。常勤の役員が非常勤になった。取締役が監査役になった。報酬がおおむね50%以上減った。どの例も、その後も経営の主要な地位にいる人は除かれます。未払金に計上しただけの額は、原則として含<span class="nw">まれません。</span></p>
+<h3>役員退職金に確定申告は要りますか？</h3>
+<p>「退職所得の受給に関する申告書」を会社に出していれば、会社が税金を差し引くので、原則として要りません。出していないときは、20.42%が差し引かれ、確定申告で<span class="nw">精算します。</span></p>
+<h3>役員が亡くなって払う退職金にも、所得税はかかりますか？</h3>
+<p>死亡退職で払う退職金のうち、相続税の対象になるものは、所得税の対象になりません。源泉徴収も<span class="nw">要りません。</span></p>
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1420.htm">国税庁 タックスアンサー No.1420 退職金を受け取ったとき（退職所得）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2732.htm">国税庁 タックスアンサー No.2732 退職手当等に対する源泉徴収</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2737.htm">国税庁 タックスアンサー No.2737 役員等の勤続年数が5年以下の者に対する退職手当等</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">国税庁 タックスアンサー No.2260 所得税の税率</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5208.htm">国税庁 タックスアンサー No.5208 役員の退職金の損金算入時期</a></li>
+  <li><a href="https://www.nta.go.jp/law/tsutatsu/kihon/hojin/09/09_02_07.htm">国税庁 法人税基本通達 9-2-27の3（功績倍率法）・9-2-28・9-2-32</a></li>
+  <li><a href="https://laws.e-gov.go.jp/law/340CO0000000097">法人税法施行令 第70条第2号（e-Gov法令検索）</a></li>
+  <li><a href="https://laws.e-gov.go.jp/law/325AC0000000226">地方税法 第50条の4・第328条の3（e-Gov法令検索）</a></li>
+  <li>表の金額は、上の資料の控除・税率から計<span class="nw">算しています</span></li>
+ </ul></div>
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">退職金を出す期の</span><span class="nw">決算と申告も任せる</span></p><p>役員退職金を払う期は、いつ経費にするか、源泉徴収をいくらにするかが、決算書と申告書に関わります。毎月の記帳から決算・申告までまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受け<span class="nw">しています。</span></p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="yakuin-taishokukin_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="yakuin-taishokukin_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+ var BR=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e18,45,4796000]];
+ function kojo(n){return n<=20?Math.max(800000,400000*n):8000000+700000*(n-20)}
+ function calc(g,n){var k=Math.max(0,g-kojo(n)),base=Math.floor((n<=5?k:Math.floor(k/2))/1000)*1000,it=0;
+  for(var i=0;i<BR.length;i++){if(base<=BR[i][0]){it=Math.floor(Math.max(0,Math.round(base*BR[i][1]/100)-BR[i][2])*1021/1000);break}}
+  var shi=Math.floor(Math.floor(base*6/100)/100)*100,ken=Math.floor(Math.floor(base*4/100)/100)*100;
+  return {base:base,it:it,ju:shi+ken,net:g-it-shi-ken}}
+ window.__taishoku=calc;window.__kojo=kojo;
+ var mon=document.getElementById("mon"),monr=document.getElementById("monr"),yrs=document.getElementById("yrs"),bai=document.getElementById("bai");
+ function fmt(n){return n.toLocaleString("ja-JP")}
+ function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
+ function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
+ var MS=[30,50,70,100,150],YS=[10,20,30,35];
+ function draw(){var m=num(mon,0,10000000),n=num(yrs,1,60),b=parseInt(bai.value,10),g=Math.round(m*n*b/10),c=calc(g,n);
+  set("o-n",c.net);set("o-t",c.it);set("o-z",c.ju);
+  document.getElementById("o-g").textContent="退職金の額は"+fmt(g)+"円";
+  document.getElementById("o-k").textContent="退職所得控除 "+fmt(kojo(n)/10000)+"万円";
+  document.getElementById("o-h").textContent=n<=5?"2分の1にしない":"2分の1にして計算";
+  var t="";MS.forEach(function(x){t+="<tr><td class=\"c\">"+x+"万円</td>";YS.forEach(function(y){t+="<td>"+fmt(x*y*b/10)+"</td>"});t+="</tr>"});
+  document.getElementById("tb2").innerHTML=t;
+  document.getElementById("bainote").textContent="功績倍率"+(b/10).toFixed(1)+"で計算しています。報酬の月額×勤続年数×功績倍率です。";
+  var rows=document.querySelectorAll("#tb tr"),best=null,bd=1e18;
+  for(var i=0;i<rows.length;i++){rows[i].className="";var d=Math.abs(rows[i].getAttribute("data-s")*10000-g);if(d<bd){bd=d;best=rows[i]}}
+  if(best)best.className="hit"}
+ mon.addEventListener("input",function(){monr.value=mon.value;draw()});
+ monr.addEventListener("input",function(){mon.value=monr.value;draw()});
+ yrs.addEventListener("input",draw);bai.addEventListener("change",draw);
+ draw();
+})();
+</script>
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

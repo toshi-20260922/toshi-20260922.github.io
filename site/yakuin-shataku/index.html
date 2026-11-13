@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>役員社宅の家賃はいくら受け取る？賃貸料相当額を固定資産税の課税標準額から計算【令和8年・国税庁の算式】</title>
+<meta name="description" content="建物の構造・床面積・家屋と敷地の固定資産税の課税標準額を入れると、役員から受け取る家賃（賃貸料相当額）と、足りないときに給与になる額が出ます。小規模な住宅の判定、借上げの家賃50%の決まり、従業員との違いも載せました。">
+<link rel="canonical" href="https://taxtable.jp/yakuin-shataku/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="役員社宅の家賃はいくら受け取る？賃貸料相当額を固定資産税の課税標準額から計算【令和8年・国税庁の算式】">
+<meta property="og:description" content="建物の構造・床面積・家屋と敷地の固定資産税の課税標準額を入れると、役員から受け取る家賃（賃貸料相当額）と、足りないときに給与になる額が出ます。小規模な住宅の判定、借上げの家賃50%の決まり、従業員との違いも載せました。">
+<meta property="og:url" content="https://taxtable.jp/yakuin-shataku/">
+<meta property="og:site_name" content="タックステーブル">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input[type=number],.in input[type=text]{font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+table td,table th{word-break:auto-phrase;text-wrap:pretty}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:8px 6px;min-height:48px}
+.fbar a small{font-size:11px;font-weight:700;opacity:.92;margin-bottom:2px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note,p{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+.amt b{white-space:nowrap}@media (max-width:400px){table.t5 th,table.t5 td{font-size:12.5px;padding:6px 3px}}.amt small,.amt em{word-break:auto-phrase}
+@media (max-width:560px){.amt.wide{grid-template-columns:1fr;gap:6px}.amt.wide div{display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:center;text-align:left;padding:10px 14px}.amt.wide small br{display:none}.amt.wide small{font-size:13px}.amt.wide b{grid-row:1/3;grid-column:2;font-size:22px}.amt.wide em{grid-column:1}}
+.in .unit{font-size:14px;color:#dfeee8}
+.in input.w{width:100%;max-width:220px}
+.res-msg{background:#ffffff14;border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.7;color:#ffffff;margin:0 0 12px}
+.seg button small{display:block;font-size:11px;font-weight:400;opacity:.85}.tw+p,.tw+h3{margin-top:16px}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+</head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"/><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"/><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"/><rect x="6" y="15" width="18" height="4" fill="#e3b465"/><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"/><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"/></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="yakuin-shataku_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="家"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><path d="M14 31 32 16l18 15" fill="none" stroke="#0f3d31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="19" y="29" width="26" height="20" rx="2" fill="#ffffff" stroke="#0f3d31" stroke-width="3"/><rect x="28" y="37" width="8" height="12" fill="#e3b465"/></svg></div>
+ <p class="upd">更新日：2026年11月12日（国税庁 No.2600 の令和8年4月1日現在の算式に対応）</p>
+ <h1>役員社宅の家賃はいくら受け取る？賃貸料相当額を固定資産税の課税標準額から計算【令和8年・国税庁の算式】</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>床面積70㎡の鉄筋コンクリートのマンション（家屋の課税標準額600万円・土地300万円）なら、役員から月18,855円以上を受け取れば<b class="nw">給与になりません</b></div>
+ <div class="in">
+  <div class="full">
+   <label>建物の構造</label>
+   <div class="seg" id="kozo"><button type="button" class="on" data-v="1">鉄筋コンクリートなど<small>耐用年数30年超</small></button><button type="button" data-v="0">木造・軽量鉄骨など<small>耐用年数30年以下</small></button></div>
+  </div>
+  <div><label for="m2">床面積（共用部分の持分を含む）</label><div class="row"><input id="m2" type="text" inputmode="decimal" value="70"><span class="unit">㎡</span></div></div>
+  <div><label for="ie">家屋の固定資産税の課税標準額</label><div class="row"><input id="ie" class="w" type="text" inputmode="numeric" value="6,000,000"><span class="unit">円</span></div></div>
+  <div><label for="tochi">敷地の課税標準額（マンションは持分の額）</label><div class="row"><input id="tochi" class="w" type="text" inputmode="numeric" value="3,000,000"><span class="unit">円</span></div></div>
+  <div>
+   <label>社宅の持ち方</label>
+   <div class="seg" id="own"><button type="button" class="on" data-v="0">借上げ</button><button type="button" data-v="1">会社の持ち物</button></div>
+  </div>
+  <div id="rentbox"><label for="rent">会社が家主に払う家賃（月・管理費を除く）</label><div class="row"><input id="rent" class="w" type="text" inputmode="numeric" value="200,000"><span class="unit">円</span></div></div>
+  <div><label for="get">役員から受け取る家賃（月）</label><div class="row"><input id="get" class="w" type="text" inputmode="numeric" value="18,855"><span class="unit">円</span></div></div>
+ </div>
+ <p class="res-msg" id="o-msg"></p>
+ <div class="amt">
+  <div><small>賃貸料相当額<br>（月）</small><b id="o-a">0<i>円</i></b><em id="o-ae"></em></div>
+  <div><small>役員の給与に<br>なる額（月）</small><b id="o-b">0<i>円</i></b><em>不足分</em></div>
+  <div><small>会社が持つ<br>家賃（月）</small><b id="o-c">0<i>円</i></b><em id="o-ce">家賃−受取額</em></div>
+ </div>
+ <ul>
+  <li id="o-1"></li>
+  <li>課税標準額は、市区町村が出す固定資産評価証明書（課税証明書）に載っている額です。評価額ではありません</li>
+  <li>入力した数字はブラウザの中だけで計算し、どこにも送りません。登録も要りません</li>
+ </ul>
+</div>
+<div class="rcta"><p>役員社宅にすると、賃貸借契約の名義と役員から受け取る家賃の仕訳が毎月の帳簿に入ります。記帳から決算・申告まで、まとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="yakuin-shataku_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/yakuin-shataku/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/yakuin-shataku/">Xでポストする</a>
+</div>
+<p>会社が借りた部屋や会社の持ち物の家を役員に貸すときは、国税庁の算式で出す<span class="mk">「賃貸料相当額」を役員から受け取れば、社宅は給与として課税されません。</span>受け取る額が足りないと、足りない分が役員の給与になります。賃貸料相当額は家賃の何割という決め方ではなく、固定資産税の課税標準額と床面積から計算します。</p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#siki">役員社宅の賃貸料相当額の算式</a></li>
+ <li><a href="#hantei">小規模な住宅になるかの判定</a></li>
+ <li><a href="#list">小規模な住宅の賃貸料相当額の早見表</a></li>
+ <li><a href="#kazei">受け取る家賃が足りないとき</a></li>
+ <li><a href="#shiyonin">従業員に社宅を貸すときとの違い</a></li>
+ <li><a href="#qa">役員社宅でよく聞かれること</a></li>
+</ol></nav>
+
+<h2 id="siki">役員社宅の賃貸料相当額の算式</h2>
+<p>建物の大きさで、使う算式が3つに分かれます。</p>
+<div class="tw"><table>
+ <thead><tr><th style="width:30%">社宅の大きさ</th><th>賃貸料相当額（月）</th></tr></thead>
+ <tbody>
+  <tr><td class="l">小規模な住宅<small>借上げも<br><span class="nw">会社の持ち物も同じ</span></small></td><td class="l">次の3つの合計<br>①家屋の課税標準額×0.2%<br>②12円×床面積（㎡）÷3.3㎡<br>③敷地の課税標準額×0.22%</td></tr>
+  <tr><td class="l">小規模でない住宅<small>会社の持ち物</small></td><td class="l">次の2つの合計の12分の1<br>①家屋の課税標準額×12%（耐用年数30年超の建物は10%）<br>②敷地の課税標準額×6%</td></tr>
+  <tr><td class="l">小規模でない住宅<small>借上げ</small></td><td class="l">会社が払う家賃の50%と、上の会社の持ち物の算式で出した額の多いほう</td></tr>
+  <tr><td class="l">豪華社宅</td><td class="l">算式は使わず、ふつうに借りたときの家賃</td></tr>
+ </tbody>
+</table></div>
+<p>豪華社宅は、床面積が240㎡を超えるもののうち取得価額・家賃・内外装などから見て判定します。240㎡以下でも、プールなど一般の住宅にない設備があるものは豪華社宅になります。</p>
+
+<h2 id="hantei">小規模な住宅になるかの判定</h2>
+<div class="tw"><table>
+ <thead><tr><th style="width:20%">法定<br>耐用年数</th><th>主な構造（住宅用）</th><th style="width:22%">小規模な<br>住宅</th></tr></thead>
+ <tbody>
+  <tr><td class="c">30年以下</td><td class="l"><span class="nw">木造（22年）</span><br><span class="nw">木骨モルタル（20年）</span><br><span class="nw">肉厚4mm以下の鉄骨</span><br><span class="nw">（27年・19年）</span></td><td class="c">132㎡<br>以下</td></tr>
+  <tr><td class="c">30年超</td><td class="l"><span class="nw">鉄筋コンクリート（47年）</span><br><span class="nw">れんが・ブロック（38年）</span><br><span class="nw">肉厚4mm超の鉄骨（34年）</span></td><td class="c">99㎡<br>以下</td></tr>
+ </tbody>
+</table></div>
+<p>マンションの1室を借りるときは、廊下などの共用部分の床面積を持分で按分して部屋の床面積に足して判定します。</p>
+<p class="ask">社宅のほか通勤手当や食事の非課税の額は？<br>早見表で確かめてみてください。</p>
+<a class="cbtn nx" href="/genbutsu-kyuyo/" data-cta="yakuin-shataku_next_genbutsu">通勤手当・食事・社宅の非課税限度額</a>
+
+<h2 id="list">小規模な住宅の賃貸料相当額の早見表</h2>
+<p>床面積70㎡の場合の1か月の額です。床面積の部分（12円×70㎡÷3.3㎡）は255円です。</p>
+<div class="tw"><table class="t5">
+ <thead><tr><th>家屋の<br>課税標準額</th><th>敷地<br>200万円</th><th>敷地<br>300万円</th><th>敷地<br>400万円</th><th>敷地<br>600万円</th></tr></thead>
+ <tbody>
+<tr><td>300万円</td><td>10,655</td><td>12,855</td><td>15,055</td><td>19,455</td></tr>
+<tr><td>400万円</td><td>12,655</td><td>14,855</td><td>17,055</td><td>21,455</td></tr>
+<tr><td>500万円</td><td>14,655</td><td>16,855</td><td>19,055</td><td>23,455</td></tr>
+<tr class="hit"><td>600万円</td><td>16,655</td><td>18,855</td><td>21,055</td><td>25,455</td></tr>
+<tr><td>800万円</td><td>20,655</td><td>22,855</td><td>25,055</td><td>29,455</td></tr>
+<tr><td>1,000万円</td><td>24,655</td><td>26,855</td><td>29,055</td><td>33,455</td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">単位は円です。各項目の1円未満を四捨五入して足しています。</p>
+
+<h2 id="kazei">受け取る家賃が足りないとき</h2>
+<p>役員から賃貸料相当額より少ない家賃しか受け取っていないときは、賃貸料相当額との差が給与として課税されます。無償で貸すと、賃貸料相当額の全部が給与になります。</p>
+<p>現金で渡す住宅手当は、社宅の貸与とは認められず給与として課税されます。役員が自分で家主と契約して家賃を払っている部屋も同じです。会社の名義で借りて、会社から役員に貸す形にします。</p>
+<h3>会社を経営している方は、契約の名義と毎月の仕訳を確かめてください</h3>
+<p>役員社宅は、会社が払う家賃と役員から受け取る家賃を毎月それぞれ帳簿に入れます。契約の名義や受け取り方が算式の前提と違うと、社宅として扱えません。帳簿づけと決算の整え方は、専門家に相談してください。</p>
+<a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="yakuin-shataku_mid_marunage">経理丸投げの無料相談</a>
+<p class="ask">社宅の家賃を差し引いたあと、役員報酬の手取りは？<br>早見表で確かめてみてください。</p>
+<a class="cbtn nx" href="/yakuin-tedori/" data-cta="yakuin-shataku_next_yakuintedori">役員報酬の手取り</a>
+
+<h2 id="shiyonin"><span class="nw">従業員に社宅を</span><span class="nw">貸すときとの違い</span></h2>
+<p>従業員（役員でない人）に貸すときは、建物の大きさにかかわらず小規模な住宅と同じ算式で賃貸料相当額を出します。従業員から賃貸料相当額の50%以上を受け取っていれば、給与として課税されません。50%に足りないときは、受け取った家賃と賃貸料相当額との差が給与になります。</p>
+<div class="tw"><table>
+ <thead><tr><th style="width:28%"></th><th>役員</th><th>従業員</th></tr></thead>
+ <tbody>
+  <tr><td class="l">算式</td><td class="l">大きさで<br>算式が3つ</td><td class="l">小規模な<br>住宅の算式</td></tr>
+  <tr><td class="l">課税され<br>ない受取額</td><td class="l">賃貸料相当額以上</td><td class="l">賃貸料相当額の<br>50%以上</td></tr>
+ </tbody>
+</table></div>
+
+<h2 id="qa">役員社宅でよく聞かれること</h2>
+<h3>家賃の何割を受け取ればよいのですか？</h3>
+<p>決まった割合はありません。小規模な住宅なら固定資産税の課税標準額と床面積から出した額を受け取ります。小規模でない借上げの社宅は、会社が払う家賃の50%か会社の持ち物の算式の額の多いほうです。</p>
+<h3>課税標準額はどこで分かりますか？</h3>
+<p>市区町村が出す固定資産評価証明書に載っています。借上げの部屋は、家主に写しを頼んでください。評価額ではなく課税標準額を使います。</p>
+<h3>現金で住宅手当を払うのと何が違いますか？</h3>
+<p>現金の住宅手当は、全額が給与として課税されます。会社が借りて役員に貸して賃貸料相当額を受け取る形なら、その社宅は給与として課税されません。</p>
+
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2600.htm">国税庁 No.2600「役員に社宅などを貸したとき」（令和8年4月1日現在法令等）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2597.htm">国税庁 No.2597「使用人に社宅や寮などを<span class="nw">貸したとき」</span></a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/pdf/2100_01.pdf">国税庁「主な減価償却資産の耐用年数表」（建物の住宅用）</a></li>
+  <li>所得税法第36条／所得税法施行令第84条の2／所得税基本通達36-15・36-40・36-41・36-45・36-47／平成7年課法8-1（豪華社宅）</li>
+</ul></div>
+
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">社宅の家賃も役員報酬も、</span><span class="nw">まとめて任せる</span></p><p>役員社宅を入れると、家賃の支払い・役員からの受け取り・役員報酬の額が決算につながります。会社を経営している方と個人で事業をしている方の、記帳から決算・申告までをまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="yakuin-shataku_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="yakuin-shataku_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+function f(n){return Math.round(n).toLocaleString("ja-JP");}
+function num(id){var v=document.getElementById(id).value.replace(/[^0-9.]/g,"");return v?+v:0;}
+var own=0,kozo=1;
+function calc(k,m2,ie,tochi,o,rent){
+ var lim=k===1?99:132,r={};
+ r.p1=Math.round(ie*0.002);r.p2=Math.round(12*m2/3.3);r.p3=Math.round(tochi*0.0022);
+ r.big=m2>240;
+ if(m2<=lim){r.kind="s";r.v=r.p1+r.p2+r.p3;}
+ else{var y=Math.round((ie*(k===1?0.10:0.12)+tochi*0.06)/12);r.y=y;
+  if(o===1){r.kind="o";r.v=y;}else{r.half=Math.round(rent*0.5);r.kind="r";r.v=Math.max(y,r.half);}}
+ r.lim=lim;return r;}
+function render(){
+ var k=kozo,m2=num("m2"),ie=num("ie"),tochi=num("tochi"),rent=num("rent"),get=num("get");
+ var r=calc(k,m2,ie,tochi,own,rent);
+ document.getElementById("rentbox").style.display=own===1?"none":"";
+ var msg;
+ if(r.kind==="s")msg="床面積"+m2+"㎡は"+r.lim+"㎡以下なので、小規模な住宅の算式で計算しました。";
+ else if(r.kind==="o")msg="床面積"+m2+"㎡は"+r.lim+"㎡を超えるので、小規模でない住宅（会社の持ち物）の算式で計算しました。";
+ else msg="床面積"+m2+"㎡は"+r.lim+"㎡を超えるので、家賃の50%（"+f(r.half)+"円）と会社の持ち物の算式（"+f(r.y)+"円）の多いほうにしました。";
+ if(r.big)msg+="240㎡を超えるので、豪華社宅に当たるかを先に確かめてください。";
+ document.getElementById("o-msg").textContent=msg;
+ document.getElementById("o-a").innerHTML=f(r.v)+"<i>円</i>";
+ document.getElementById("o-ae").textContent="1年で"+f(r.v*12)+"円";
+ document.getElementById("o-b").innerHTML=f(Math.max(r.v-get,0))+"<i>円</i>";
+ if(own===1){document.getElementById("o-c").innerHTML="—";document.getElementById("o-ce").textContent="借上げのとき";}
+ else{document.getElementById("o-c").innerHTML=f(Math.max(rent-get,0))+"<i>円</i>";document.getElementById("o-ce").textContent="家賃−受取額";}
+ document.getElementById("o-1").textContent=r.kind==="s"?"内訳：家屋"+f(r.p1)+"円＋床面積"+f(r.p2)+"円＋敷地"+f(r.p3)+"円":"会社の持ち物の算式：（家屋×"+(k===1?"10":"12")+"%＋敷地×6%）÷12＝"+f(r.y)+"円";
+}
+function fmt(e){var t=e.target;if(t.id==="m2")return;var v=t.value.replace(/[^0-9]/g,"");t.value=v?(+v).toLocaleString("ja-JP"):"";}
+["ie","tochi","rent","get"].forEach(function(id){var el=document.getElementById(id);el.addEventListener("input",function(e){fmt(e);render();});});
+document.getElementById("m2").addEventListener("input",render);
+document.querySelectorAll("#kozo button").forEach(function(b){b.addEventListener("click",function(){kozo=+b.dataset.v;document.querySelectorAll("#kozo button").forEach(function(x){x.classList.toggle("on",x===b);});render();});});
+document.querySelectorAll("#own button").forEach(function(b){b.addEventListener("click",function(){own=+b.dataset.v;document.querySelectorAll("#own button").forEach(function(x){x.classList.toggle("on",x===b);});render();});});
+render();
+window.__sh={calc:calc};
+})();
+</script>
+</body>
+</html>

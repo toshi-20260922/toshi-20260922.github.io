@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>学生アルバイトの年収の壁 早見表【2026年・令和8年分】年収10万円ごとの親の控除と自分の税金</title>
+<link rel="canonical" href="https://taxtable.jp/gakusei-kabe/">
+<meta name="description" content="大学生・専門学校生（19〜22歳）のアルバイトの年収の壁を1枚の早見表にしました。親の扶養控除は136万円まで、特定親族特別控除は159万円まで満額で197万円でゼロ、親の社会保険の扶養は150万円未満。年収10万円ごとに親の控除額と自分の税金を一覧にしています。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#2d3a3a}
+body{margin:0;background:#ffffff;color:#2d3a3a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{white-space:nowrap;display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#2d3a3a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#6b7676;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;color:#2d3a3a;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+.by{font-size:14px;color:#00775a;margin:0 0 20px}
+
+/* 要点の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#4f5b5b}
+.amt b{display:block;font-size:28px;line-height:1.25;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:13px}
+.amt .s b{color:#d0661c}
+.amt em{display:block;font-style:normal;font-size:12px;color:#6b7676}
+.sum ul{margin:0;padding:0 0 0 1.2em}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+.toc a{color:#00775a}
+
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#2d3a3a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 立場を選ぶ */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 12px}
+.tabs button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;line-height:1.4;cursor:pointer}
+.tabs button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.pnl{display:none;background:#e8f4ef;border-radius:4px;padding:24px}
+.pnl.on{display:block}
+.pnl .ti{font-size:18px;font-weight:700;line-height:1.5;margin:0 0 4px}
+.pnl .su{font-size:13px;color:#5b6666}
+.ruler{position:relative;height:118px;margin:6px 8px 10px}
+.ruler .ln{position:absolute;left:0;right:0;top:54px;height:8px;background:#ffffff;border-radius:4px}
+.ruler .tk{position:absolute;top:98px;font-size:12px;color:#6b7676;white-space:nowrap;transform:translateX(-50%)}
+.ruler .tk.l{transform:none}.ruler .tk.r{transform:translateX(-100%)}
+.ruler .m{position:absolute;top:46px;width:4px;height:24px;margin-left:-2px;border-radius:2px;background:#00775a}
+.ruler .m.s{background:#d0661c}
+.ruler .m b{position:absolute;left:50%;transform:translateX(-50%);top:-26px;font-size:15px;font-weight:700;color:#00775a;white-space:nowrap}
+.ruler .m.s b{color:#d0661c}
+.ruler .m.d b{top:auto;bottom:-26px}
+dl.st{margin:0}
+dl.st div{display:grid;grid-template-columns:84px 1fr;gap:8px;margin:0 0 12px}
+dl.st dt{font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+dl.st div.s dt{color:#d0661c}
+dl.st dd{margin:0;font-size:15px;line-height:1.75}
+.pnl .lk{display:inline-block;margin-top:4px;font-size:15px}
+
+/* 表 */
+.legend{font-size:14px;margin:0 0 8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin:0 4px 0 0;vertical-align:-1px}
+.legend span{margin-right:16px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:8px;border:1px solid #666666;font-size:15px;line-height:1.6}
+table td{padding:8px;border:1px solid #666666;font-size:15px;line-height:1.6;vertical-align:middle}
+table.wl tr.g td{background:#f4f7f6;font-weight:700;color:#004d3c}
+table.wl tr.g.s td{background:#fdf2e8;color:#9a4b12}
+table.wl td.w small{display:block;font-size:13px;color:#5b6666;line-height:1.55;margin-top:2px}
+table.wl td.o{text-align:right;color:#6b7676;white-space:nowrap;width:76px}
+table.wl td.n{text-align:right;font-weight:700;color:#00775a;white-space:nowrap;width:84px}
+table.wl tr.sh td.n{color:#d0661c}
+table.wl td.n small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table.dd td{text-align:right}
+table.dd td:first-child{text-align:left}
+
+/* しくみ */
+.eq{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center;text-align:center;margin:0 0 8px}
+.eq div{background:#f4f7f6;border-radius:4px;padding:12px 4px}
+.eq div small{display:block;font-size:12px;color:#5b6666;line-height:1.45}
+.eq div b{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.eq div.r{background:#00775a;color:#ffffff}
+.eq div.r small{color:#d4ece5}
+.eq span{font-size:18px;font-weight:700;color:#6b7676}
+.was{font-size:14px;color:#5b6666;text-align:center;margin:0 0 20px}
+
+/* 出口 */
+.exit{border:2px solid #00775a;border-radius:4px;padding:24px 16px;margin:40px 0 0;text-align:center}
+.exit .t{font-size:18px;font-weight:700;color:#004d3c;margin:0 0 6px}
+.exit p{font-size:15px;margin:0 0 16px}
+.btn{display:block;border-radius:999px;padding:13px 16px;font-size:16px;font-weight:700;text-decoration:none;margin:0 0 12px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.btn.a{background:#ffa31a;color:#1a1a1a}
+.btn.b{background:#ffffff;color:#004d3c;border:2px solid #00775a;box-shadow:none}
+.btn small{display:block;font-size:12px;font-weight:400}
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8}
+.auth{border-top:1px solid #e6eaea;padding-top:20px}.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#2d3a3a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.more{margin:24px 0 0}
+.more a{display:inline-block;margin:0 16px 8px 0;font-size:15px}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+
+/* 経営サポートプラスアルファ型のCTA */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#2d3a3a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+body{padding-bottom:68px}
+@media (min-width:700px){
+  h1{font-size:28px}
+  .exit .bs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .exit .btn{margin:0}
+}
+@media (max-width:400px){
+  .amt b{font-size:24px}
+}
+.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.gk th small{display:block;font-weight:400;font-size:11px}.wl td.n.x{color:#d0661c}.gk td.o{width:auto}.gk td.n{width:auto}.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}.gk .k{display:block;font-size:11px;font-weight:400;color:#5b6666;line-height:1.3;margin-top:2px}.gk .k:first-child{margin-top:0}.gk td{padding:7px 6px}.gk td.w{width:26%}.note{font-size:13px;color:#5b6666;line-height:1.7;margin-top:10px}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="tblfit">@media(max-width:374px){table:not(:has(tr>:nth-child(7))) :is(td,th){padding-left:3px!important;padding-right:3px!important;letter-spacing:-.03em}}</style>
+</head>
+<body>
+
+<header class="hd"><div class="wrap">
+  <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+  <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="gakusei-kabe_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="学生の年収の壁"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><path d="M12 26l20-9 20 9-20 9z" fill="#0f3d31"></path><path d="M20 30v9c0 3 5 6 12 6s12-3 12-6v-9" fill="none" stroke="#00775a" stroke-width="3"></path><path d="M50 27v12" stroke="#e08a2c" stroke-width="3" stroke-linecap="round"></path><circle cx="50" cy="42" r="3" fill="#e08a2c"></circle></svg></div>
+  <p class="upd">更新日：2026年11月8日（令和8年分に対応）</p>
+  <h1>学生アルバイトの年収の壁 早見表【2026年・令和8年分】年収10万円ごとの親の控除と自分の税金</h1>
+</div>
+
+<div class="sum">
+  <div class="h"><span>結論</span>19〜22歳の学生アルバイトの壁は、この3つです</div>
+  <div class="amt">
+    <div><small>親の扶養控除に<br>入れる上限</small><b>136<i>万円</i></b><em>去年は123万円</em></div>
+    <div class="s"><small>親の社会保険の<br>扶養から外れる</small><b>150<i>万円</i></b><em>変わらず</em></div>
+    <div><small>自分に所得税が<br>かかり始める</small><b>178<i>万円</i></b><em>去年は160万円</em></div>
+  </div>
+  <ul>
+    <li>親の控除は159万円まで満額の63万円、そこから減って197万円でなくなります</li>
+    <li>150万円は23歳になる年の前まで。23歳になる年からは130万円です</li>
+    <li>どれも給与だけの場合の年収です</li>
+  </ul>
+</div>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/gakusei-kabe/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/gakusei-kabe/">Xでポストする</a>
+</div>
+
+<p><span class="mk">学生の年収の壁は、自分の税金より先に、親の税金と親の社会保険で決まります。</span>136万円を超えても親の控除はすぐには減りません。減り始めるのは159万円、なくなるのは197万円です。社会保険だけは150万円で外れます。</p>
+
+<nav class="toc">
+  <div class="t">目次</div>
+  <ol>
+    <li><a href="#ruler">学生の年収の壁を物差しで見る</a></li>
+    <li><a href="#list">年収ごとの早見表</a></li>
+    <li><a href="#oya">親の税金はいくら増えるか</a></li>
+    <li><a href="#why">136万・159万・197万円の内訳</a></li>
+    <li><a href="#qa">学生の年収の壁でよく聞かれること</a></li>
+  </ol>
+</nav>
+
+<h2 id="ruler">学生の年収の壁を物差しで見る</h2>
+<div class="pnl on">
+  <div class="ti">大学生・専門学校生のアルバイト（19〜22歳）</div>
+  <div class="su">緑は税金の壁、オレンジは社会保険の壁（令和8年の年収）</div>
+  <div class="ruler"><div class="ln"></div>
+    <span class="tk l" style="left:0">100万</span><span class="tk" style="left:50%">160万</span><span class="tk r" style="left:100%">220万</span>
+    <span class="m" style="left:15.8%"><b>119</b></span><span class="m d" style="left:30%"><b>136</b></span><span class="m s" style="left:41.7%"><b>150</b></span><span class="m d" style="left:49.2%"><b>159</b></span><span class="m" style="left:65%"><b>178</b></span><span class="m d" style="left:80.8%"><b>197</b></span>
+  </div>
+  <dl class="st">
+    <div><dt>119万円</dt><dd>自分に住民税がかかり始める（令和9年度・1級地の目安）</dd></div>
+    <div><dt>136万円</dt><dd>親の控除が、扶養控除から特定親族特別控除に変わる（控除額63万円は同じ）</dd></div>
+    <div class="s"><dt>150万円</dt><dd>親の社会保険の扶養から外れる。自分で国民年金・国民健康保険に入る</dd></div>
+    <div><dt>159万円</dt><dd>親の控除（特定親族特別控除）が減り始める</dd></div>
+    <div><dt>178万円</dt><dd>自分に所得税がかかり始める</dd></div>
+    <div><dt>197万円</dt><dd>親の控除（特定親族特別控除）がなくなる</dd></div>
+  </dl>
+</div>
+
+<h2 id="list">年収ごとの早見表</h2>
+<p>年収は1月から12月の給与の合計です。親の控除は親の所得税と住民税で分けて書いています。自分の税金は、所得税は令和8年分、住民税は令和9年度（東京23区などの1級地の目安）です。</p>
+<div class="tw"><table class="wl gk">
+  <thead><tr><th>学生の年収</th><th>親の控除</th><th>親の社会保険<br><small>の扶養</small></th><th>自分の<br>税金<small>住民税は目安</small></th></tr></thead>
+  <tbody>
+<tr><td class="w">100万円</td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n">入れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>0円</td></tr>
+<tr><td class="w">110万円</td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n">入れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>0円</td></tr>
+<tr><td class="w">119万円<small>ここまで住民税0</small></td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n">入れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>0円</td></tr>
+<tr><td class="w">120万円</td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n">入れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>6,000円</td></tr>
+<tr><td class="w">130万円</td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n">入れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>6,000円</td></tr>
+<tr class="g"><td class="w">136万円<small>扶養控除から特定親族特別控除に</small></td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n">入れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>6,000円</td></tr>
+<tr><td class="w">140万円</td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n">入れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>6,000円</td></tr>
+<tr class="g s"><td class="w">150万円<small>親の社会保険から外れる</small></td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>10,000円</td></tr>
+<tr class="g"><td class="w">159万円<small>ここまで満額</small></td><td class="n"><span class="k">所得税</span>63万円<span class="k">住民税</span>45万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>19,000円</td></tr>
+<tr><td class="w">160万円</td><td class="n"><span class="k">所得税</span>61万円<span class="k">住民税</span>45万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>46,500円</td></tr>
+<tr><td class="w">163万円<small>勤労学生控除の上限</small></td><td class="n"><span class="k">所得税</span>61万円<span class="k">住民税</span>45万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>49,500円</td></tr>
+<tr><td class="w">170万円</td><td class="n"><span class="k">所得税</span>41万円<span class="k">住民税</span>41万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>56,500円</td></tr>
+<tr class="g"><td class="w">178万円<small>自分に所得税がかかる</small></td><td class="n"><span class="k">所得税</span>31万円<span class="k">住民税</span>31万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>0円<span class="k">住民税</span>64,500円</td></tr>
+<tr><td class="w">180万円</td><td class="n"><span class="k">所得税</span>21万円<span class="k">住民税</span>21万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>1,000円<span class="k">住民税</span>66,500円</td></tr>
+<tr><td class="w">190万円</td><td class="n"><span class="k">所得税</span>6万円<span class="k">住民税</span>6万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>6,100円<span class="k">住民税</span>76,500円</td></tr>
+<tr class="g"><td class="w">197万円<small>親の控除なし</small></td><td class="n"><span class="k">所得税</span>3万円<span class="k">住民税</span>3万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>9,600円<span class="k">住民税</span>83,500円</td></tr>
+<tr><td class="w">200万円</td><td class="n"><span class="k">所得税</span>0万円<span class="k">住民税</span>0万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>11,200円<span class="k">住民税</span>86,500円</td></tr>
+<tr><td class="w">210万円</td><td class="n"><span class="k">所得税</span>0万円<span class="k">住民税</span>0万円</td><td class="n x">外れる</td><td class="o"><span class="k">所得税</span>16,300円<span class="k">住民税</span>96,500円</td></tr>
+  </tbody>
+</table></div>
+<p class="note">自分の税金は、勤労学生控除（所得税27万円は合計所得89万円以下＝給与163万円以下、住民税26万円は合計所得85万円以下）を使って計算しています。住民税には均等割5,000円と森林環境税1,000円を含めています。親の社会保険の扶養は、健康保険組合によって判定のしかたが違うことがあります。</p>
+
+<h2 id="oya">親の税金はいくら増えるか</h2>
+<p>学生の年収が197万円を超えて親の控除（所得税63万円・住民税45万円）がなくなると、親の税金は次の分だけ増えます。親の所得税率で変わります。</p>
+<div class="tw"><table class="wl">
+  <thead><tr><th>親の所得税率</th><th>所得税の増加</th><th>住民税の増加</th><th>合計</th></tr></thead>
+  <tbody>
+<tr><td class="w">5%<small>課税所得195万円以下</small></td><td class="o">32,161円</td><td class="o">45,000円</td><td class="n">約8万円</td></tr>
+<tr><td class="w">10%<small>195万円超〜330万円</small></td><td class="o">64,322円</td><td class="o">45,000円</td><td class="n">約11万円</td></tr>
+<tr><td class="w">20%<small>330万円超〜695万円</small></td><td class="o">128,645円</td><td class="o">45,000円</td><td class="n">約17万円</td></tr>
+<tr><td class="w">23%<small>695万円超〜900万円</small></td><td class="o">147,942円</td><td class="o">45,000円</td><td class="n">約19万円</td></tr>
+  </tbody>
+</table></div>
+<p class="note">所得税の増加は控除63万円に税率と復興特別所得税（2.1%）をかけたもの、住民税の増加は控除45万円の10%です。159万円から197万円の間は、控除が段階的に減るので増加額もその分だけです。</p>
+
+<h2 id="why">136万・159万・197万円の内訳</h2>
+<p>令和8年分から、給与所得控除の最低額が74万円になりました。学生の給与から74万円を引いた額が「合計所得金額」で、親の控除はこの合計所得で決まります。</p>
+<div class="tw"><table>
+  <thead><tr><th>学生の合計所得金額</th><th>学生の給与の年収</th><th>親の控除（所得税）</th></tr></thead>
+  <tbody>
+    <tr><td>62万円以下</td><td style="text-align:right">136万円以下</td><td style="text-align:right">扶養控除<br>63万円</td></tr>
+    <tr><td>62万円超〜85万円以下</td><td style="text-align:right">136万円超〜159万円以下</td><td style="text-align:right">特定親族特別控除<br>63万円</td></tr>
+    <tr><td>85万円超〜90万円以下</td><td style="text-align:right">〜164万円</td><td style="text-align:right">61万円</td></tr>
+    <tr><td>90万円超〜95万円以下</td><td style="text-align:right">〜169万円</td><td style="text-align:right">51万円</td></tr>
+    <tr><td>95万円超〜100万円以下</td><td style="text-align:right">〜174万円</td><td style="text-align:right">41万円</td></tr>
+    <tr><td>100万円超〜105万円以下</td><td style="text-align:right">〜179万円</td><td style="text-align:right">31万円</td></tr>
+    <tr><td>105万円超〜110万円以下</td><td style="text-align:right">〜184万円</td><td style="text-align:right">21万円</td></tr>
+    <tr><td>110万円超〜115万円以下</td><td style="text-align:right">〜189万円</td><td style="text-align:right">11万円</td></tr>
+    <tr><td>115万円超〜120万円以下</td><td style="text-align:right">〜194万円</td><td style="text-align:right">6万円</td></tr>
+    <tr><td>120万円超〜123万円以下</td><td style="text-align:right">〜197万円</td><td style="text-align:right">3万円</td></tr>
+    <tr><td>123万円超</td><td style="text-align:right">197万円超</td><td style="text-align:right">0円</td></tr>
+  </tbody>
+</table></div>
+<p class="note">住民税の特定親族特別控除は、合計所得95万円以下が45万円で、それより上は所得税と同じ額です。令和7年分（去年）は給与所得控除が65万円だったので、同じ区分が123万円・150万円・188万円でした。</p>
+
+<h2 id="qa">学生の年収の壁でよく聞かれること</h2>
+<h3>103万円を超えると親の扶養から外れますか？</h3>
+<p>外れません。親の扶養控除の上限は、令和7年分で123万円、令和8年分で136万円に上がっています。給与だけなら136万円までは扶養控除の対象です。</p>
+<h3>136万円を超えると親の税金はすぐ増えますか？</h3>
+<p>19〜22歳なら増えません。扶養控除63万円が特定親族特別控除63万円に名前を変えるだけで、額は同じです。減り始めるのは159万円を超えてからです。</p>
+<h3>社会保険の150万円は、誰にあてはまりますか？</h3>
+<p>19歳以上23歳未満の人で、親の勤め先の健康保険の扶養に入っている場合です。23歳になる年からは130万円に戻ります。配偶者の扶養に入っている人は年齢に関係なく130万円です。</p>
+<h3>交通費は年収に入りますか？</h3>
+<p>税金の年収には、非課税の通勤手当は入りません。社会保険の扶養の判定では、通勤手当も収入に数えます。</p>
+<h3>年の途中で150万円を超えそうなときは？</h3>
+<p>社会保険の扶養は、これから1年間の見込みで判断します。月の給料が12万5千円を超える状態が続くと、年の途中でも扶養から外れることがあります。税金は12月までに実際にもらった額で決まります。</p>
+<h3>親の会社の家族手当はどうなりますか？</h3>
+<p>家族手当の条件は会社ごとに決まっていて、税金や社会保険の壁とは別です。親の勤め先の規程で確かめてください。</p>
+<p class="ask">自分が扶養から外れたら、保険料はいくらになるのか？<br>国民健康保険料の計算で確かめられます。</p>
+<a class="cbtn nx" href="/kokuho-keisan/">国民健康保険料の計算</a>
+
+<div class="src">出典・参考（2026年11月確認）
+  <ul>
+    <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1177.htm">国税庁 タックスアンサー No.1177 特定親族特別控除</a></li>
+    <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1180.htm">No.1180 扶養控除</a>・<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1175.htm">No.1175 勤労学生控除</a></li>
+    <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
+    <li><a href="https://www.mof.go.jp/tax_policy/tax_reform/outline/fy2026/20251226taikou.pdf">財務省「令和8年度税制改正の大綱」</a></li>
+    <li><a href="https://www.nenkin.go.jp/service/kounen/jigyosho-hiho/hihokensha1/20141204-02.html">日本年金機構「従業員（被保険者）が家族を被扶養者にするとき」</a></li>
+  </ul>
+</div>
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">学生アルバイトがいる会社の、</span><span class="nw">帳簿と申告を</span></p><p>扶養の確認やシフトの調整に加えて、帳簿づけと申告まで抱える必要はありません。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="gakusei-kabe_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="gakusei_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）　mkv1</div></footer>
+
+<script>
+(function(){
+  var bs=document.querySelectorAll(".tabs button");
+  bs.forEach(function(b){b.addEventListener("click",function(){
+    bs.forEach(function(x){x.classList.remove("on");});
+    document.querySelectorAll(".pnl").forEach(function(p){p.classList.remove("on");});
+    b.classList.add("on");document.getElementById(b.dataset.p).classList.add("on");
+  });});
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+</body></html>

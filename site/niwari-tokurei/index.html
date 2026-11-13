@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>2割特例が終わったら消費税はいくら？簡易課税・3割特例・本則課税の納税額と届出の期限【決算月別】</title>
+<meta name="description" content="業種と次の期の売上・仕入れを入れると、2割特例のあとに簡易課税・本則課税・3割特例で納める消費税を比べられます。決算月ごとの2割特例の最後の期と簡易課税の届出の期限、個人事業者の3割特例も載せました。">
+<link rel="canonical" href="https://taxtable.jp/niwari-tokurei/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2割特例が終わったら消費税はいくら？簡易課税・3割特例・本則課税の納税額と届出の期限【決算月別】">
+<meta property="og:description" content="業種と次の期の売上・仕入れを入れると、2割特例のあとに簡易課税・本則課税・3割特例で納める消費税を比べられます。決算月ごとの2割特例の最後の期と簡易課税の届出の期限、個人事業者の3割特例も載せました。">
+<meta property="og:url" content="https://taxtable.jp/niwari-tokurei/">
+<meta property="og:site_name" content="タックステーブル">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input[type=number],.in input[type=text]{font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+table td,table th{word-break:auto-phrase;text-wrap:pretty}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:8px 6px;min-height:48px}
+.fbar a small{font-size:11px;font-weight:700;opacity:.92;margin-bottom:2px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+.amt b{font-size:21px}@media (max-width:380px){.amt b{font-size:18px}}.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.rcta{display:flex;align-items:center;gap:14px;background:#0f3d31;border:1px solid #0f3d31;border-radius:10px;padding:14px 16px;margin:16px 0 8px}.rcta p{margin:0;font-size:14px;line-height:1.7;color:#ffffff;flex:1}.rcta a{flex:none;background:#e3b465;color:#0f3d31;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px;white-space:nowrap}@media (max-width:560px){.rcta{flex-direction:column;align-items:stretch}.rcta a{text-align:center}}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note,p{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+.amt b{white-space:nowrap}@media (max-width:400px){table.t5 th,table.t5 td{font-size:12.5px;padding:6px 3px}}.amt small,.amt em{word-break:auto-phrase}
+@media (max-width:560px){.amt.wide{grid-template-columns:1fr;gap:6px}.amt.wide div{display:grid;grid-template-columns:1fr auto;column-gap:10px;align-items:center;text-align:left;padding:10px 14px}.amt.wide small br{display:none}.amt.wide small{font-size:13px}.amt.wide b{grid-row:1/3;grid-column:2;font-size:22px}.amt.wide em{grid-column:1}}
+.in .unit{font-size:14px;color:#dfeee8}
+.in input.w{width:100%;max-width:220px}
+.res-msg{background:#ffffff14;border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.7;color:#ffffff;margin:0 0 12px}
+.tw+p,.tw+h3{margin-top:16px}@media (max-width:420px){.amt b{font-size:17px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+</head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"/><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"/><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"/><rect x="6" y="15" width="18" height="4" fill="#e3b465"/><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"/><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"/></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="niwari-tokurei_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="計算"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="18" y="12" width="28" height="40" rx="4" fill="#ffffff" stroke="#0f3d31" stroke-width="3"/><rect x="23" y="17" width="18" height="8" rx="1.5" fill="#e3b465"/><g fill="#0f3d31"><circle cx="25" cy="32" r="2.2"/><circle cx="32" cy="32" r="2.2"/><circle cx="39" cy="32" r="2.2"/><circle cx="25" cy="39" r="2.2"/><circle cx="32" cy="39" r="2.2"/><circle cx="39" cy="39" r="2.2"/><circle cx="25" cy="46" r="2.2"/><circle cx="32" cy="46" r="2.2"/><circle cx="39" cy="46" r="2.2"/></g></svg></div>
+ <p class="upd">更新日：2026年11月12日（令和8年度税制改正の3割特例・届出の特例・控除割合に対応）</p>
+ <h1>2割特例が終わったら消費税はいくら？簡易課税・3割特例・本則課税の納税額と届出の期限【決算月別】</h1>
+</div>
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>2割特例は2026年9月30日を含む期で終わります。3月決算の会社なら2027年3月期が最後で、次の期を簡易課税にする届出は<b class="nw">2028年5月31日まで</b>です</div>
+ <div class="in">
+  <div><label>事業者</label><div class="seg" id="kei"><button type="button" class="on" data-v="0">法人</button><button type="button" data-v="1">個人事業者</button></div></div>
+  <div id="fybox"><label for="fy">決算月</label><select id="fy"><option value="1">1月</option><option value="2">2月</option><option value="3" selected>3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></div>
+  <div class="full"><label for="gy">主な業種（簡易課税の事業区分）</label><select id="gy"><option value="90">第1種 卸売業（90%）</option><option value="80">第2種 小売業・農林水産業（飲食料品）（80%）</option><option value="70">第3種 製造業・建設業・農林水産業（飲食料品以外）など（70%）</option><option value="60">第4種 飲食店業など（60%）</option><option value="50" selected>第5種 サービス業・運輸通信業・金融保険業（50%）</option><option value="40">第6種 不動産業（40%）</option></select></div>
+  <div><label for="uri">次の期の売上（税抜）</label><div class="row"><input id="uri" class="w" type="text" inputmode="numeric" value="9,000,000"><span class="unit">円</span></div></div>
+  <div><label for="shi">仕入れ・経費（税抜・消費税のかかるもの）</label><div class="row"><input id="shi" class="w" type="text" inputmode="numeric" value="3,000,000"><span class="unit">円</span></div></div>
+  <div class="full"><label for="men">うちインボイスのない相手（免税事業者など）から</label><div class="row"><input id="men" class="w" type="text" inputmode="numeric" value="300,000"><span class="unit">円</span></div></div>
+ </div>
+ <p class="res-msg" id="o-msg"></p>
+ <div class="amt">
+  <div><small>簡易課税</small><b id="o-a">0<i>円</i></b><em id="o-ae">届出が要る</em></div>
+  <div><small>本則課税</small><b id="o-b">0<i>円</i></b><em>届出は要らない</em></div>
+  <div><small>3割特例</small><b id="o-c">0<i>円</i></b><em id="o-ce">個人だけ</em></div>
+ </div>
+ <ul>
+  <li id="o-1"></li>
+  <li>金額は国税と地方消費税の合計です。税率10%の売上と仕入れだけで計算しています</li>
+  <li>入力した数字はブラウザの中だけで計算し、どこにも送りません。登録も要りません</li>
+ </ul>
+</div>
+<div class="rcta"><p>2割特例が終わる期は、簡易課税にするか本則課税にするかで届出と帳簿のつけ方が変わります。記帳から決算・申告まで、まとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="niwari-tokurei_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/niwari-tokurei/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/niwari-tokurei/">Xでポストする</a>
+</div>
+<p>インボイスの登録で課税事業者になった人の2割特例は、<span class="mk">法人も個人も2026年9月30日を含む課税期間まで</span>です。その次の期からは、簡易課税か本則課税で消費税を計算します。個人事業者は2027年分と2028年分に限り、売上の消費税の3割を納める3割特例も使えます。</p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#list">決算月ごとの2割特例の最後の期と届出の期限</a></li>
+ <li><a href="#kojin">個人事業者の2割特例と3割特例</a></li>
+ <li><a href="#gyoshu">業種ごとの簡易課税と3割特例の比べ方</a></li>
+ <li><a href="#siki">納める消費税の計算のしかた</a></li>
+ <li><a href="#kimari">届出と選んだあとの決まり</a></li>
+ <li><a href="#qa">2割特例のあとでよく聞かれること</a></li>
+</ol></nav>
+
+<h2 id="list"><span class="nw">決算月ごとの2割特例の</span><span class="nw">最後の期と</span><span class="nw">届出の期限</span></h2>
+<p>法人の場合です。次の期を簡易課税にする届出書は次の期の確定申告の期限までに出せば、その期から簡易課税を使えます。</p>
+<div class="tw"><table class="t5">
+ <thead><tr><th>決算月</th><th>2割特例の<br>最後の期</th><th>簡易課税の<br>届出の期限</th><th>申告期限の<br>延長がある法人</th></tr></thead>
+ <tbody>
+<tr><td class="c">1月</td><td class="l">2027年1月期</td><td class="l">2028年3月31日<br>（金）</td><td class="l">2028年5月1日<br>（月）※</td></tr>
+<tr><td class="c">2月</td><td class="l">2027年2月期</td><td class="l">2028年5月1日<br>（月）※</td><td class="l">2028年5月31日<br>（水）</td></tr>
+<tr><td class="c">3月</td><td class="l">2027年3月期</td><td class="l">2028年5月31日<br>（水）</td><td class="l">2028年6月30日<br>（金）</td></tr>
+<tr><td class="c">4月</td><td class="l">2027年4月期</td><td class="l">2028年6月30日<br>（金）</td><td class="l">2028年7月31日<br>（月）</td></tr>
+<tr><td class="c">5月</td><td class="l">2027年5月期</td><td class="l">2028年7月31日<br>（月）</td><td class="l">2028年8月31日<br>（木）</td></tr>
+<tr><td class="c">6月</td><td class="l">2027年6月期</td><td class="l">2028年8月31日<br>（木）</td><td class="l">2028年10月2日<br>（月）※</td></tr>
+<tr><td class="c">7月</td><td class="l">2027年7月期</td><td class="l">2028年10月2日<br>（月）※</td><td class="l">2028年10月31日<br>（火）</td></tr>
+<tr><td class="c">8月</td><td class="l">2027年8月期</td><td class="l">2028年10月31日<br>（火）</td><td class="l">2028年11月30日<br>（木）</td></tr>
+<tr><td class="c">9月</td><td class="l">2026年9月期</td><td class="l">2027年11月30日<br>（火）</td><td class="l">2028年1月4日<br>（火）※</td></tr>
+<tr><td class="c">10月</td><td class="l">2026年10月期</td><td class="l">2028年1月4日<br>（火）※</td><td class="l">2028年1月31日<br>（月）</td></tr>
+<tr><td class="c">11月</td><td class="l">2026年11月期</td><td class="l">2028年1月31日<br>（月）</td><td class="l">2028年2月29日<br>（火）</td></tr>
+<tr><td class="c">12月</td><td class="l">2026年12月期</td><td class="l">2028年2月29日<br>（火）</td><td class="l">2028年3月31日<br>（金）</td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">※は本来の期限が土日・祝日・年末年始に当たり、次の平日にずれた日です。「申告期限の延長がある法人」は、消費税の申告期限を1か月延ばす届出を出している法人です。</p>
+
+<h2 id="kojin">個人事業者の2割特例と3割特例</h2>
+<div class="tw"><table>
+ <thead><tr><th style="width:24%">年分</th><th>選べる計算</th><th style="width:34%">簡易課税にする<br>届出の期限</th></tr></thead>
+ <tbody>
+  <tr><td class="l">2026年分</td><td class="l">2割特例（最後）・簡易課税・本則課税</td><td class="l">—</td></tr>
+  <tr><td class="l">2027年分<br>2028年分</td><td class="l">3割特例・簡易課税・本則課税</td><td class="l">2028年3月31日<small>2026年分に2割特例を使った人</small></td></tr>
+  <tr><td class="l">2029年分から</td><td class="l">簡易課税・本則課税</td><td class="l">2030年4月1日<small>2028年分に3割特例を使った人</small></td></tr>
+ </tbody>
+</table></div>
+<p>3割特例を使えるのは、インボイスの登録で免税事業者から課税事業者になった個人事業者です。2年前の課税売上高が1,000万円以下であることも条件です。法人は使えません。届出は要らず、確定申告書に3割特例を使うことを書きます。</p>
+<p class="ask">個人で事業をしていて、手取りはいくら残る？<br>早見表で確かめてみてください。</p>
+<a class="cbtn nx" href="/kojin-zei/" data-cta="niwari-tokurei_next_kojinzei">個人事業主の手取り早見表</a>
+
+<h2 id="gyoshu">業種ごとの簡易課税と3割特例の比べ方</h2>
+<p>簡易課税は売上の消費税から「みなし仕入率」をかけた額を差し引きます。納める割合は100%からみなし仕入率を引いた割合です。</p>
+<div class="tw"><table>
+ <thead><tr><th>事業区分</th><th>みなし<br>仕入率</th><th>納める割合</th><th>3割特例と<br>比べると</th></tr></thead>
+ <tbody>
+<tr><td class="l">第1種<small>卸売業</small></td><td class="c">90%</td><td class="c">10%</td><td class="l">簡易課税が少ない</td></tr>
+<tr><td class="l">第2種<small>小売業・農林水産業（飲食料品）</small></td><td class="c">80%</td><td class="c">20%</td><td class="l">簡易課税が少ない</td></tr>
+<tr><td class="l">第3種<small>製造業・建設業・農林水産業（飲食料品以外）など</small></td><td class="c">70%</td><td class="c">30%</td><td class="l">同じ</td></tr>
+<tr><td class="l">第4種<small>飲食店業など</small></td><td class="c">60%</td><td class="c">40%</td><td class="l">3割特例が少ない</td></tr>
+<tr><td class="l">第5種<small>サービス業・運輸通信業・金融保険業</small></td><td class="c">50%</td><td class="c">50%</td><td class="l">3割特例が少ない</td></tr>
+<tr><td class="l">第6種<small>不動産業</small></td><td class="c">40%</td><td class="c">60%</td><td class="l">3割特例が少ない</td></tr>
+ </tbody>
+</table></div>
+<p>第3種は簡易課税も3割特例も売上の消費税の30%で同じです。3割特例は届出が要らず、簡易課税のような2年間の縛りもありません。</p>
+
+<h2 id="siki">納める消費税の計算のしかた</h2>
+<div class="tw"><table>
+ <thead><tr><th style="width:26%">計算</th><th>納める消費税（国税）</th></tr></thead>
+ <tbody>
+  <tr><td class="l">本則課税</td><td class="l">売上の消費税−仕入れの消費税<small>インボイスのない相手からの仕入れは<br>2026年10月から2028年9月まで70%だけ差し引ける</small></td></tr>
+  <tr><td class="l">簡易課税</td><td class="l">売上の消費税−売上の消費税×みなし仕入率</td></tr>
+  <tr><td class="l">3割特例</td><td class="l">売上の消費税×30%</td></tr>
+  <tr><td class="l">2割特例</td><td class="l">売上の消費税×20%</td></tr>
+ </tbody>
+</table></div>
+<p>売上の消費税（国税）は、税抜の売上の1,000円未満を切り捨てて7.8%をかけます。納める国税の100円未満を切り捨て、地方消費税はその国税の78分の22で100円未満を切り捨てます。</p>
+<h3>計算の例（第5種・売上900万円）</h3>
+<p>売上の消費税（国税）は702,000円です。簡易課税は702,000円×50%を差し引いて国税351,000円、地方消費税99,000円で合計450,000円です。仕入れ300万円（うちインボイスのない相手から30万円）で本則課税にすると、差し引けるのは210,600円と16,380円で合計608,900円です。</p>
+<h3>会社を経営している方は、次の期の届出の期限を先に確かめてください</h3>
+<p>簡易課税にするか本則課税にするかで、次の期の帳簿のつけ方と申告書が変わります。届出の期限を過ぎると、その期は簡易課税を使えません。帳簿づけと決算の整え方は、専門家に相談してください。</p>
+<a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="niwari-tokurei_mid_marunage">経理丸投げの無料相談</a>
+<p class="ask">消費税を払ったあと、法人税はいくら？<br>計算で確かめてみてください。</p>
+<a class="cbtn nx" href="/houjinzei-keisan/" data-cta="niwari-tokurei_next_houjinzei">法人税の計算シミュレーション</a>
+
+<h2 id="kimari">届出と選んだあとの決まり</h2>
+<div class="tw"><table>
+ <thead><tr><th style="width:26%"></th><th>簡易課税</th><th>本則課税</th></tr></thead>
+ <tbody>
+  <tr><td class="l">届出</td><td class="l">簡易課税制度選択届出書</td><td class="l">要らない</td></tr>
+  <tr><td class="l">使える条件</td><td class="l">2年前の課税売上高が5,000万円以下</td><td class="l">条件なし</td></tr>
+  <tr><td class="l">やめるとき</td><td class="l">2年間はやめる届出を出せない</td><td class="l">—</td></tr>
+ </tbody>
+</table></div>
+<p>2年前の課税売上高が5,000万円を超える期は、届出を出していても本則課税で計算します。</p>
+
+<h2 id="qa"><span class="nw">2割特例のあとで</span><span class="nw">よく聞かれること</span></h2>
+<h3>法人も3割特例を使えますか？</h3>
+<p>使えません。3割特例は個人事業者だけの決まりです。法人は2割特例のあと、簡易課税か本則課税のどちらかです。</p>
+<h3>届出を出さないとどうなりますか？</h3>
+<p>本則課税で計算します。本則課税は仕入れや経費の消費税を差し引くので、インボイスの保存などが要ります。</p>
+<h3>2割特例の最後の期にも届出が要りますか？</h3>
+<p>2割特例は届出が要りません。確定申告書に2割特例を使うことを書いて申告します。</p>
+
+<div class="src">出典・参考（2026年11月確認）<ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice-review/index.htm">国税庁「インボイス制度 令和8年度税制改正特集」（2割特例の期限・3割特例・控除割合・届出の特例）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice-review/pdf/0026002-095.pdf">国税庁「3割特例の創設」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_2tokurei.htm">国税庁「2割特例 特設ページ」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6505.htm">国税庁 No.6505「簡易課税制度」</a></li>
+  <li>消費税法第37条・第45条・第45条の2／消費税法施行令第57条／平成28年改正法附則第51条の2・第52条・第53条／国税通則法第10条第2項</li>
+</ul></div>
+
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験したのち、父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">消費税の届出も申告も、</span><span class="nw">まとめて任せる</span></p><p>2割特例が終わると、届出の期限と次の期の計算方法が決算と申告につながります。会社を経営している方と個人で事業をしている方の、記帳から決算・申告までをまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="niwari-tokurei_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃（賃貸料相当額）の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数と減価償却の計算</a>
+ <a href="/niwari-tokurei/">2割特例のあとの消費税（簡易課税・3割特例）</a>
+ <a href="/kakutei-shinkoku/">確定申告はいつからいつまで（期限の早見表）</a>
+ <a href="/yatou-hiyou/">従業員を1人雇う費用（会社負担）</a>
+ <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>
+ <a href="/hoteifukurihi/">法定福利費の計算（会社負担と預り金）</a>
+ <a href="/shotokuzei/">所得税の計算と税率の早見表</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税と算出率の表</a>
+ <a href="/genbutsu-kyuyo/">通勤手当・食事・社宅の非課税限度額</a>
+ <a href="/gensen-hoshu/">報酬・料金の源泉徴収の一覧と計算</a>
+ <a href="/kojin-zei/">個人事業主の手取り早見表</a>
+ <a href="/fukugyo/">副業の税金と20万円ルール</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/zoyozei/">贈与税の早見表と計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の税金と手取り</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の早見表</a>
+ <a href="/iryohi-kojo/">医療費控除の還付金の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取り</a>
+ <a href="/houjinnari/">法人成りの分岐点 早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料率の早見表</a>
+ <a href="/taishokukin/">退職金の税金と手取り</a>
+ <a href="/tedori/">年収の手取り早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁 早見表</a>
+ <a href="/furusato/">ふるさと納税シミュレーション（限度額の計算）</a>
+ <a href="/gakusei-kabe/">学生アルバイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの月収早見表</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算（大阪府）</a>
+ <a href="/taishoku-jumin/">退職した翌年の住民税</a>
+ <a href="/hensai/">開業資金の借入と返済の計算</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="niwari-tokurei_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+<script>
+(function(){
+var TBL={"1": ["2027年1月期", "2028年1月期", "2028年3月31日（金）", "2028年5月1日（月）"], "2": ["2027年2月期", "2028年2月期", "2028年5月1日（月）", "2028年5月31日（水）"], "3": ["2027年3月期", "2028年3月期", "2028年5月31日（水）", "2028年6月30日（金）"], "4": ["2027年4月期", "2028年4月期", "2028年6月30日（金）", "2028年7月31日（月）"], "5": ["2027年5月期", "2028年5月期", "2028年7月31日（月）", "2028年8月31日（木）"], "6": ["2027年6月期", "2028年6月期", "2028年8月31日（木）", "2028年10月2日（月）"], "7": ["2027年7月期", "2028年7月期", "2028年10月2日（月）", "2028年10月31日（火）"], "8": ["2027年8月期", "2028年8月期", "2028年10月31日（火）", "2028年11月30日（木）"], "9": ["2026年9月期", "2027年9月期", "2027年11月30日（火）", "2028年1月4日（火）"], "10": ["2026年10月期", "2027年10月期", "2028年1月4日（火）", "2028年1月31日（月）"], "11": ["2026年11月期", "2027年11月期", "2028年1月31日（月）", "2028年2月29日（火）"], "12": ["2026年12月期", "2027年12月期", "2028年2月29日（火）", "2028年3月31日（金）"]};
+function f(n){return Math.floor(n).toLocaleString("ja-JP");}
+function num(id){var v=document.getElementById(id).value.replace(/[^0-9]/g,"");return v?+v:0;}
+function h100(x){return Math.floor(x/100)*100;}
+/* 国税の納付額から地方消費税を足して合計を返す */
+function tot(k){k=Math.max(k,0);var kk=h100(k);return kk+h100(kk*22/78);}
+function calc(uri,shi,men,rate){var base=Math.floor(uri/1000)*1000,ut=base*0.078;
+ var ko=(Math.max(shi-men,0))*0.078+Math.min(men,shi)*0.078*0.7;
+ return {ut:ut,kan:tot(ut-ut*rate/100),hon:tot(ut-ko),san:tot(ut*0.3),ni:tot(ut*0.2),ko:ko};}
+var kojin=0;
+function render(){
+ var r=calc(num("uri"),num("shi"),num("men"),+document.getElementById("gy").value);
+ document.getElementById("fybox").style.display=kojin?"none":"";
+ var msg;
+ if(kojin)msg="個人事業者の2割特例は2026年分が最後です。2027年分から簡易課税にする届出は2028年3月31日までです。";
+ else{var t=TBL[document.getElementById("fy").value];msg="2割特例の最後の期は"+t[0]+"です。次の"+t[1]+"を簡易課税にする届出は"+t[2]+"まで（申告期限の延長がある法人は"+t[3]+"まで）です。";}
+ var c=[["簡易課税",r.kan],["本則課税",r.hon]];if(kojin)c.push(["3割特例",r.san]);
+ c.sort(function(a,b){return a[1]-b[1];});
+ msg+="この売上と仕入れなら、いちばん少ないのは"+c[0][0]+"です。";
+ document.getElementById("o-msg").textContent=msg;
+ document.getElementById("o-a").innerHTML=f(r.kan)+"<i>円</i>";
+ document.getElementById("o-b").innerHTML=f(r.hon)+"<i>円</i>";
+ if(kojin){document.getElementById("o-c").innerHTML=f(r.san)+"<i>円</i>";document.getElementById("o-ce").textContent="2027・2028年分";}
+ else{document.getElementById("o-c").innerHTML="—";document.getElementById("o-ce").textContent="法人は使えない";}
+ document.getElementById("o-1").textContent="売上の消費税（国税）"+f(r.ut)+"円・本則課税で差し引く仕入れの消費税"+f(r.ko)+"円・参考：2割特例なら"+f(r.ni)+"円";
+}
+document.querySelectorAll("#kei button").forEach(function(b){b.addEventListener("click",function(){kojin=+b.dataset.v;document.querySelectorAll("#kei button").forEach(function(x){x.classList.toggle("on",x===b);});render();});});
+["fy","gy"].forEach(function(id){document.getElementById(id).addEventListener("change",render);});
+["uri","shi","men"].forEach(function(id){document.getElementById(id).addEventListener("input",function(e){var t=e.target,x=t.value.replace(/[^0-9]/g,"");t.value=x?(+x).toLocaleString("ja-JP"):"";render();});});
+render();
+window.__nw={calc:calc,TBL:TBL};
+})();
+</script>
+</body>
+</html>
