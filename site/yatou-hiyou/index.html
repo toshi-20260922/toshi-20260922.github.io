@@ -154,7 +154,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="人と円"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><circle cx="25" cy="24" r="8" fill="#0f3d31"/><path d="M11 50c1-10 7-15 14-15s13 5 14 15z" fill="#0f3d31"/><circle cx="46" cy="40" r="10" fill="#e3b465"/><text x="46" y="45" font-size="13" font-weight="700" text-anchor="middle" fill="#0f3d31" font-family="sans-serif">円</text></svg></div>
- <p class="upd">更新日：2026年11月11日（令和8年度の料率に対応）</p>
+ <p class="upd">更新日：2026年11月16日（令和8年度の料率に対応）</p>
  <h1>従業員を1人雇うといくらかかる？会社が払う社会保険料と月給別の総額【2026年度・令和8年度】</h1>
 </div>
 <div class="sum" id="calc">
@@ -177,6 +177,10 @@ body{overflow-x:clip}
    <label>従業員の年齢</label>
    <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満・65歳以上</button><button type="button" data-v="1">40〜64歳</button></div>
   </div>
+  <div class="full">
+   <label for="pref">会社がある都道府県（協会けんぽ）</label>
+   <select id="pref"><option value="0">北海道（10.28%）</option><option value="1">青森県（9.85%）</option><option value="2">岩手県（9.51%）</option><option value="3">宮城県（10.10%）</option><option value="4">秋田県（10.01%）</option><option value="5">山形県（9.75%）</option><option value="6">福島県（9.50%）</option><option value="7">茨城県（9.52%）</option><option value="8">栃木県（9.82%）</option><option value="9">群馬県（9.68%）</option><option value="10">埼玉県（9.67%）</option><option value="11">千葉県（9.73%）</option><option value="12" selected>東京都（9.85%）</option><option value="13">神奈川県（9.92%）</option><option value="14">新潟県（9.21%）</option><option value="15">富山県（9.59%）</option><option value="16">石川県（9.70%）</option><option value="17">福井県（9.71%）</option><option value="18">山梨県（9.55%）</option><option value="19">長野県（9.63%）</option><option value="20">岐阜県（9.80%）</option><option value="21">静岡県（9.61%）</option><option value="22">愛知県（9.93%）</option><option value="23">三重県（9.77%）</option><option value="24">滋賀県（9.88%）</option><option value="25">京都府（9.89%）</option><option value="26">大阪府（10.13%）</option><option value="27">兵庫県（10.12%）</option><option value="28">奈良県（9.91%）</option><option value="29">和歌山県（10.06%）</option><option value="30">鳥取県（9.86%）</option><option value="31">島根県（9.94%）</option><option value="32">岡山県（10.05%）</option><option value="33">広島県（9.78%）</option><option value="34">山口県（10.15%）</option><option value="35">徳島県（10.24%）</option><option value="36">香川県（10.02%）</option><option value="37">愛媛県（9.98%）</option><option value="38">高知県（10.05%）</option><option value="39">福岡県（10.11%）</option><option value="40">佐賀県（10.55%）</option><option value="41">長崎県（10.06%）</option><option value="42">熊本県（10.08%）</option><option value="43">大分県（10.08%）</option><option value="44">宮崎県（9.77%）</option><option value="45">鹿児島県（10.13%）</option><option value="46">沖縄県（9.44%）</option></select>
+  </div>
  </div>
  <div class="amt wide">
   <div><small>会社が払う<br>保険料（月）</small><b id="o-a">0<i>円</i></b><em id="e-a">月給の0%</em></div>
@@ -186,7 +190,7 @@ body{overflow-x:clip}
  <ul>
   <li id="o-1">健康保険0円・厚生年金0円・子ども・子育て拠出金0円・子ども・子育て支援金0円</li>
   <li id="o-2">雇用保険0円・労災保険0円</li>
-  <li>東京都の協会けんぽ・労災保険率1000分の3（卸売業・小売業・飲食店・宿泊業・その他の各種事業）で計算しています</li>
+  <li id="o-3">東京都の協会けんぽ・労災保険率1000分の3（卸売業・小売業・飲食店・宿泊業・その他の各種事業）で計算しています</li>
  </ul>
 </div>
 <div class="rcta"><p>人を雇うと、毎月の源泉所得税や社会保険料の計算が増えます。記帳から決算・申告まで、まとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="yatou_result_marunage">経理丸投げの無料相談</a></div>
@@ -225,7 +229,7 @@ body{overflow-x:clip}
   <tr><td class="l">労災保険<small>業種で変わる</small></td><td>0.3%</td><td>なし</td></tr>
  </tbody>
 </table></div>
-<p class="note" style="margin-top:8px">健康保険の料率は都道府県で違います。東京都は9.85%で、会社と本人が半分ずつ払います。雇用保険は2026年4月から2027年3月までの料率です。労災保険の0.3%は、卸売業・小売業・飲食店・宿泊業とその他の各種事業の料率です。</p>
+<p class="note" style="margin-top:8px">健康保険の料率は都道府県で違い、会社と本人が半分ずつ払います。上の計算では都道府県を選べます。雇用保険は2026年4月から2027年3月までの料率です。労災保険の0.3%は、卸売業・小売業・飲食店・宿泊業とその他の各種事業の料率です。</p>
 <p class="ask">本人の手取りはいくらになるのか？<br>早見表で確かめてみてください。</p>
 <a class="cbtn nx" href="/shakaihoken/" data-cta="yatou_next_shakaihoken">社会保険料の早見表</a>
 
@@ -341,6 +345,7 @@ function fmt(el){var v=num(el);el.value=v.toLocaleString("ja-JP");}
 var GR=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
 function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000;}return 1390000;}
 /* 会社の負担の率（%） */
+var PF=[["北海道",1028],["青森県",985],["岩手県",951],["宮城県",1010],["秋田県",1001],["山形県",975],["福島県",950],["茨城県",952],["栃木県",982],["群馬県",968],["埼玉県",967],["千葉県",973],["東京都",985],["神奈川県",992],["新潟県",921],["富山県",959],["石川県",970],["福井県",971],["山梨県",955],["長野県",963],["岐阜県",980],["静岡県",961],["愛知県",993],["三重県",977],["滋賀県",988],["京都府",989],["大阪府",1013],["兵庫県",1012],["奈良県",991],["和歌山県",1006],["鳥取県",986],["島根県",994],["岡山県",1005],["広島県",978],["山口県",1015],["徳島県",1024],["香川県",1002],["愛媛県",998],["高知県",1005],["福岡県",1011],["佐賀県",1055],["長崎県",1006],["熊本県",1008],["大分県",1008],["宮崎県",977],["鹿児島県",1013],["沖縄県",944]],pref=document.getElementById("pref");
 var KEN=9.85/2,KAI=1.62/2,SIEN=0.23/2,NEN=18.3/2,KYO=0.36,KOY=0.85,ROU=0.3;
 function month(m,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);
  var r={ken:s*(KEN+(old?KAI:0))/100,sien:s*SIEN/100,nen:p*NEN/100,kyo:p*KYO/100,koy:m*KOY/100,rou:m*ROU/100};
@@ -348,7 +353,7 @@ function month(m,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);
 function bonus(b,n,old){if(!b||!n)return 0;var t=0,cum=0;for(var i=0;i<n;i++){var sb=Math.floor(b/1000)*1000,hk=Math.max(0,Math.min(sb,5730000-cum));cum+=hk;var pn=Math.min(sb,1500000);
  t+=hk*(KEN+(old?KAI:0)+SIEN)/100+pn*(NEN+KYO)/100+b*(KOY+ROU)/100;}return t;}
 var pay=document.getElementById("pay"),payr=document.getElementById("payr"),bon=document.getElementById("bon"),old=0,bn=0;
-function render(){var m=num(pay),r=month(m,old),mt=Math.round(r.t),y=mt*12+Math.round(bonus(num(bon),bn,old))+num(bon)*bn+m*12;
+function render(){KEN=PF[+pref.value][1]/200;document.getElementById("o-3").textContent=PF[+pref.value][0]+"の協会けんぽ・労災保険率1000分の3（卸売業・小売業・飲食店・宿泊業・その他の各種事業）で計算しています";var m=num(pay),r=month(m,old),mt=Math.round(r.t),y=mt*12+Math.round(bonus(num(bon),bn,old))+num(bon)*bn+m*12;
  document.getElementById("o-a").innerHTML=f(mt)+"<i>円</i>";
  document.getElementById("e-a").textContent="月給の"+(m?(Math.round(mt/m*1000)/10):0)+"%";
  document.getElementById("o-b").innerHTML=f(m+mt)+"<i>円</i>";
@@ -361,7 +366,7 @@ function render(){var m=num(pay),r=month(m,old),mt=Math.round(r.t),y=mt*12+Math.
 pay.addEventListener("input",function(){payr.value=Math.min(800000,num(pay));render();});
 pay.addEventListener("blur",function(){fmt(pay);});
 payr.addEventListener("input",function(){pay.value=(+payr.value).toLocaleString("ja-JP");render();});
-bon.addEventListener("input",render);bon.addEventListener("blur",function(){fmt(bon);});
+bon.addEventListener("input",render);pref.addEventListener("change",render);bon.addEventListener("blur",function(){fmt(bon);});
 function seg(id,cb){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.remove("on");});b.classList.add("on");cb(+b.dataset.v);render();});});}
 seg("s-age",function(v){old=v;});seg("s-bn",function(v){bn=v;});
 render();
