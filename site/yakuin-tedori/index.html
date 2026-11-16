@@ -150,7 +150,7 @@ body{overflow-x:clip}
 <main class="wrap"><p class="x7bc"><a href="/">トップ</a> › <a href="/#list">早見表の一覧</a> › 経営者・個人事業の数字</p>
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="社長のかばん"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="12" y="22" width="40" height="26" rx="4" fill="#0f3d31"></rect><path d="M25 22v-4a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4" fill="none" stroke="#0f3d31" stroke-width="3"></path><rect x="12" y="31" width="40" height="3" fill="#00775a"></rect><rect x="28" y="29" width="8" height="7" rx="1.5" fill="#e08a2c"></rect></svg></div>
- <p class="upd">更新日：2026年11月10日（令和8年分の税金・令和8年度の料率）</p>
+ <p class="upd">更新日：2026年11月16日（令和8年分の税金・令和8年度の料率）</p>
  <h1>役員報酬の手取り早見表<br>【令和8年版】月10万〜150万円</h1>
 </div>
 
@@ -166,6 +166,10 @@ body{overflow-x:clip}
    <label>年齢</label>
    <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜64歳</button></div>
   </div>
+  <div class="full">
+   <label for="pref">勤め先の都道府県（協会けんぽ）</label>
+   <select id="pref"><option value="0">北海道（10.28%）</option><option value="1">青森県（9.85%）</option><option value="2">岩手県（9.51%）</option><option value="3">宮城県（10.10%）</option><option value="4">秋田県（10.01%）</option><option value="5">山形県（9.75%）</option><option value="6">福島県（9.50%）</option><option value="7">茨城県（9.52%）</option><option value="8">栃木県（9.82%）</option><option value="9">群馬県（9.68%）</option><option value="10">埼玉県（9.67%）</option><option value="11">千葉県（9.73%）</option><option value="12" selected>東京都（9.85%）</option><option value="13">神奈川県（9.92%）</option><option value="14">新潟県（9.21%）</option><option value="15">富山県（9.59%）</option><option value="16">石川県（9.70%）</option><option value="17">福井県（9.71%）</option><option value="18">山梨県（9.55%）</option><option value="19">長野県（9.63%）</option><option value="20">岐阜県（9.80%）</option><option value="21">静岡県（9.61%）</option><option value="22">愛知県（9.93%）</option><option value="23">三重県（9.77%）</option><option value="24">滋賀県（9.88%）</option><option value="25">京都府（9.89%）</option><option value="26">大阪府（10.13%）</option><option value="27">兵庫県（10.12%）</option><option value="28">奈良県（9.91%）</option><option value="29">和歌山県（10.06%）</option><option value="30">鳥取県（9.86%）</option><option value="31">島根県（9.94%）</option><option value="32">岡山県（10.05%）</option><option value="33">広島県（9.78%）</option><option value="34">山口県（10.15%）</option><option value="35">徳島県（10.24%）</option><option value="36">香川県（10.02%）</option><option value="37">愛媛県（9.98%）</option><option value="38">高知県（10.05%）</option><option value="39">福岡県（10.11%）</option><option value="40">佐賀県（10.55%）</option><option value="41">長崎県（10.06%）</option><option value="42">熊本県（10.08%）</option><option value="43">大分県（10.08%）</option><option value="44">宮崎県（9.77%）</option><option value="45">鹿児島県（10.13%）</option><option value="46">沖縄県（9.44%）</option></select>
+  </div>
  </div>
  <div class="amt">
   <div class="tot"><small>手取り（月あたり）</small><b id="o-m">390,500<i>円</i></b><em id="o-r">手取り率 78.1%</em></div>
@@ -175,7 +179,7 @@ body{overflow-x:clip}
  <div class="ch" id="gch" style="margin:0 0 16px"></div>
  <ul>
   <li id="o-br">年に引かれる額は、社会保険料851,400円・所得税152,400円・住民税310,200円です</li>
-  <li>単身・賞与なし・協会けんぽ東京都の場合です。役員は雇用保険に入らないので、雇用保険料は入れていません</li>
+  <li>単身・賞与なしで、協会けんぽに入っている場合です。役員は雇用保険に入らないので、雇用保険料は入れていません</li>
   <li>住民税は、前の年も同じ報酬だった場合の額です</li>
  </ul>
 </div>
@@ -208,7 +212,7 @@ body{overflow-x:clip}
  <tbody id="ttb"></tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">社会保険料は、協会けんぽ東京都の令和8年度の料率（子ども・子育て支援金を含む。40〜64歳は介護保険も含む）と厚生年金18.3%で計算した本人負担です。所得税は令和8年分（復興特別所得税を含む）、住民税は東京23区で、控除は基礎控除と社会保険料控除だけです。会社の総額は、報酬に会社負担の健康保険・厚生年金と子ども・子育て拠出金を足した額です。月あたりの額は、年の額を12で割って円未満を切り捨てています。</p>
+<p class="note" style="margin-top:8px">社会保険料は、選んだ都道府県の協会けんぽの令和8年度の料率（子ども・子育て支援金を含む。40〜64歳は介護保険も含む）と厚生年金18.3%で計算した本人負担です。所得税は令和8年分（復興特別所得税を含む）、住民税は東京23区で、控除は基礎控除と社会保険料控除だけです。会社の総額は、報酬に会社負担の健康保険・厚生年金と子ども・子育て拠出金を足した額です。月あたりの額は、年の額を12で割って円未満を切り捨てています。</p>
 
 <h2 id="cost">会社が払う総額</h2>
 <p>社長に報酬を払うと、会社は本人と同じ額の健康保険料と厚生年金保険料を負担します。さらに子ども・子育て拠出金（厚生年金の標準報酬月額の0.36%）を会社だけが払います。</p>
@@ -300,6 +304,7 @@ body{overflow-x:clip}
 
 <script>
 (function(){
+ var PF=[["北海道",1028],["青森県",985],["岩手県",951],["宮城県",1010],["秋田県",1001],["山形県",975],["福島県",950],["茨城県",952],["栃木県",982],["群馬県",968],["埼玉県",967],["千葉県",973],["東京都",985],["神奈川県",992],["新潟県",921],["富山県",959],["石川県",970],["福井県",971],["山梨県",955],["長野県",963],["岐阜県",980],["静岡県",961],["愛知県",993],["三重県",977],["滋賀県",988],["京都府",989],["大阪府",1013],["兵庫県",1012],["奈良県",991],["和歌山県",1006],["鳥取県",986],["島根県",994],["岡山県",1005],["広島県",978],["山口県",1015],["徳島県",1024],["香川県",1002],["愛媛県",998],["高知県",1005],["福岡県",1011],["佐賀県",1055],["長崎県",1006],["熊本県",1008],["大分県",1008],["宮崎県",977],["鹿児島県",1013],["沖縄県",944]];var pref=document.getElementById("pref");
  var GC={};
  function gser(key,lo,hi,st,fn){if(GC[key])return GC[key];var a=[];for(var x=lo;x<=hi+1;x+=st)a.push([x,fn(x)]);GC[key]=a;return a;}
  function glc(d,cur,cv,o){var W=340,H=150,L=40,R=10,T=14,B=22,x0=d[0][0],x1=d[d.length-1][0];
@@ -330,7 +335,7 @@ body{overflow-x:clip}
 
  function kiso(g){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(g<=T[i][0])return T[i][1];}return 0;}
  function shaho(a,old){var m=Math.floor(a/12),s=std(m),p=Math.min(Math.max(s,88000),650000);
-  return {me:(r50(s*(985+23+(old?162:0))/20000)+r50(p*1830/20000))*12,kyo:Math.round(p*36/10000)*12};}
+  return {me:(r50(s*(PF[+pref.value][1]+23+(old?162:0))/20000)+r50(p*1830/20000))*12,kyo:Math.round(p*36/10000)*12};}
  function itax(a,sh){var g=kyuyo(a),t=Math.floor(Math.max(0,g-sh-kiso(g))/1000)*1000;
   var B=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]],b=0;
   for(var i=0;i<B.length;i++){if(t<=B[i][0]){b=Math.floor(t*B[i][1]/100)-B[i][2];break;}}
@@ -347,13 +352,13 @@ body{overflow-x:clip}
  [110,120,130,140,150].forEach(function(v){ROWS.push(v);});
  function render(){
   var mon=Math.max(0,parseInt(inc.value,10)||0),x=all(mon,old);
-  document.getElementById("gch").innerHTML=glc(gser('y'+old,100000,1500000,50000,function(v){var z=all(v,old);return z.t/z.a*100;}),mon,x.t/x.a*100,{t:'報酬月額ごとの手取り率（白い点がいま入れた額）',y0:60,y1:90,yt:[60,70,80,90],yf:pc,xt:[100000,500000,1000000,1500000],xf:man});
+  document.getElementById("gch").innerHTML=glc(gser('t'+old+pref.value,100000,1500000,50000,function(v){var z=all(v,old);return z.t/z.a*100;}),mon,x.t/x.a*100,{t:'報酬月額ごとの手取り率（白い点がいま入れた額）',y0:60,y1:90,yt:[60,70,80,90],yf:pc,xt:[100000,500000,1000000,1500000],xf:man});
   document.getElementById("o-m").innerHTML=f(Math.round(x.t/12))+"<i>円</i>";
   document.getElementById("o-y").innerHTML=f(x.t)+"<i>円</i>";
   document.getElementById("o-c").innerHTML=f(x.c)+"<i>円</i>";
   document.getElementById("o-r").textContent="手取り率 "+(x.a?(Math.round(x.t/x.a*1000)/10).toFixed(1):"0.0")+"%";
   document.getElementById("o-br").textContent="年に引かれる額は、社会保険料"+f(x.s)+"円・所得税"+f(x.i)+"円・住民税"+f(x.j)+"円です";
-  document.getElementById("t-cap").textContent="単身・協会けんぽ東京都・"+(old?"40〜64歳":"40歳未満");
+  document.getElementById("t-cap").textContent="単身・協会けんぽ"+PF[+pref.value][0]+"・"+(old?"40〜64歳":"40歳未満");
   var hit=-1;ROWS.forEach(function(r,i){if(mon>=r*10000)hit=i;});
   var h="";ROWS.forEach(function(r,i){var y=all(r*10000,old);
    h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+r+"</td><td>"+f(Math.round(y.t/12))+"</td><td>"+(Math.round(y.t/y.a*1000)/10).toFixed(1)+"%</td><td>"+f(y.c)+"</td></tr>";});
@@ -365,6 +370,7 @@ body{overflow-x:clip}
  inc.addEventListener("input",function(){incr.value=inc.value;render();});
  incr.addEventListener("input",function(){inc.value=incr.value;render();});
  document.querySelectorAll("#s-age button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("#s-age button").forEach(function(z){z.classList.remove("on");});b.classList.add("on");old=+b.dataset.v;render();});});
+ pref.addEventListener("change",render);
  render();
 })();
 </script>
