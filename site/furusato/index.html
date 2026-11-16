@@ -147,7 +147,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="ギフト"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="28" width="36" height="22" rx="2" fill="#e08a2c"></rect><rect x="12" y="22" width="40" height="8" rx="2" fill="#f6d3ab"></rect><rect x="29" y="22" width="6" height="28" fill="#00775a"></rect><path d="M32 22c-6-9-14-6-10-1M32 22c6-9 14-6 10-1" fill="none" stroke="#00775a" stroke-width="3" stroke-linecap="round"></path></svg></div>
- <p class="upd">更新日：2026年11月10日（令和8年度税制改正に対応）</p>
+ <p class="upd">更新日：2026年11月16日（令和8年度税制改正に対応）</p>
  <h1>ふるさと納税シミュレーション｜限度額（上限額）の計算と年収・家族で分かる早見表【2026年・令和8年】</h1>
 </div>
 <div class="sum" id="calc">
@@ -202,7 +202,7 @@ body{overflow-x:clip}
 <p class="note" style="margin-top:8px">夫婦は収入のない配偶者、高校生は16〜18歳の子1人の場合です。2026年の寄附の上限で、令和8年分の所得税と令和9年度の住民税で計算しています。</p>
 <h2 id="how">上限額の計算のしかた</h2>
 <p>上限額＝住民税の所得割×20%÷（90%−所得税の税率×1.021）＋2,000円</p>
-<p>所得税の税率は、課税所得にかかるいちばん上の段の税率です。住民税の所得割は、課税所得の10%から調整控除を引いた額です。医療費控除・住宅ローン控除・iDeCoなどがあると上限は変わります。</p>
+<p>この式の所得税の税率は、住民税の課税所得から人的控除差調整額を引いた金額で判定します。人的控除差調整額は、所得税と住民税の控除の差で、本人は5万円です。所得税の確定申告で使う税率と違うことがあります。住民税の所得割は、課税所得の10%から調整控除を引いた額です。医療費控除・住宅ローン控除・iDeCoなどがあると上限は変わります。</p>
 <h3>ワンストップ特例と確定申告</h3>
 <p>確定申告をしない会社員は、寄附先が5か所以内ならワンストップ特例の申請で済みます。6か所以上に寄附した人や、確定申告をする人は、確定申告でふるさと納税を申告します。</p>
 <h2 id="change">令和10年度からの上限193万円</h2>
@@ -211,7 +211,7 @@ body{overflow-x:clip}
 <a class="cbtn nx" href="/juminzei/" data-cta="furusato_next_jumin">住民税の早見表</a>
 <h2 id="qa">ふるさと納税でよく聞かれること</h2>
 <h3>年収500万円の単身の上限はいくらですか？</h3>
-<p id="qa1">この早見表の条件で、2026年の寄附の上限はおよそ6万円です。</p>
+<p id="qa1">この早見表の条件で、2026年の寄附の上限はおよそ6万2千円です。</p>
 <h3>令和8年の改正で上限は変わりましたか？</h3>
 <p>給与所得控除の最低額と所得税の基礎控除が上がったので、年収の低い人ほど、住民税の所得割と上限額が少し変わります。年収およそ200万円を超える人の住民税の所得割は、ほとんど変わりません。</p>
 <h3>上限を超えて寄附するとどうなりますか？</h3>
@@ -294,7 +294,8 @@ function limit(a,sp,n1,n2){
  var tr=Math.floor(Math.max(0,g-sh-430000-spR-330000*n1-450000*n2)/1000)*1000;
  var diff=50000+(spR?50000:0)+50000*n1+180000*n2,adj=tr<=2000000?Math.min(diff,tr)*0.05:Math.max(diff-(tr-2000000),50000)*0.05;
  if(g<=450000)return {lim:0,sho:0,rate:0};
- var sho=Math.max(0,Math.floor(tr*0.1-adj)),rate=rateOf(ti);
+ var spD=sp?(g<=9000000?50000:g<=9500000?40000:g<=10000000?20000:0):0,jsa=50000+spD+50000*n1+180000*n2;
+ var sho=Math.max(0,Math.floor(tr*0.1-adj)),rate=rateOf(tr-jsa);
  var lim=sho?Math.floor(sho*0.2/(0.9-rate/100*1.021))+2000:0;return {lim:lim,sho:sho,rate:rate};
 }
 var ROWS=[200,250,300,350,400,450,500,550,600,700,800,900,1000,1200,1500,2000];
