@@ -154,7 +154,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="病院の領収書と戻るお金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="13" y="13" width="27" height="36" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><path d="M26.5 19v10M21.5 24h10" stroke="#e08a2c" stroke-width="3.4" stroke-linecap="round"></path><path d="M19 36h15M19 42h9" stroke="#9fc4b6" stroke-width="3" stroke-linecap="round"></path><circle cx="45" cy="42" r="11" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M41 38l4 5 4-5M45 43v6M41.5 44.5h7" fill="none" stroke="#0f3d31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月10日（令和8年分の所得税・令和9年度の住民税）</p>
+ <p class="upd">更新日：2026年11月16日（令和8年分の所得税・令和9年度の住民税）</p>
  <h1>医療費控除でいくら戻る？年収と医療費で分かる還付金の早見表と計算【2026年分】</h1>
 </div>
 <div class="sum" id="calc">
@@ -319,8 +319,8 @@ body{overflow-x:clip}
   return Math.floor(Math.max(t,0)/10+0.5)*10}
  function ksh(s){
   if(s<2200000){if(s<741000)return 0;if(s<2191000)return s-740000;if(s<2193000)return 1451000;if(s<2196000)return 1453000;return 1456000}
-  if(s<6600000){var a=Math.floor(s/4000)*1000;if(s<3600000)return Math.round(a*2.8-80000);return Math.round(a*3.2-440000)}
-  if(s<8500000)return Math.round(s*0.9-1100000);return s-1950000}
+  if(s<6600000){var a=Math.floor(s/4000)*1000;if(s<3600000)return a/1000*2800-80000;return a/1000*3200-440000}
+  if(s<8500000)return Math.floor(s*9/10)-1100000;return s-1950000}
  function kiso(x){return x<=4890000?1040000:x<=6550000?670000:x<=23500000?620000:x<=24000000?480000:x<=24500000?320000:x<=25000000?160000:0}
  function hk(x){return x<=9000000?380000:x<=9500000?260000:x<=10000000?130000:0}
  function zei(k){k=Math.floor(k/1000)*1000;var T=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[1e18,.45,4796000]];
