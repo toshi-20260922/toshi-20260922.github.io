@@ -159,6 +159,11 @@ body{overflow-x:clip}
 .amt.jdg b{white-space:nowrap}
 .jdg div{background:#ffffff1f}
 .jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
 </style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
@@ -211,9 +216,7 @@ body{overflow-x:clip}
    <div class="row"><input type="number" id="days" inputmode="numeric" min="1" max="366" step="1" value="30" style="width:96px"><span>日</span></div>
   </div>
  </div>
- <div class="amt jdg">
-  <div class="tot"><small>源泉徴収</small><b id="o-need">要る</b><em id="o-why">所得税法204条の報酬</em></div>
- </div>
+ <div class="vd" id="vd"><b id="o-need">源泉徴収が必要です</b><span id="o-why">所得税法204条に並んでいる報酬です</span></div>
  <div class="amt">
   <div class="tot"><small>源泉徴収する額（所得税と復興特別所得税）</small><b id="o-t">0<i>円</i></b><em id="o-f">計算式</em></div>
   <div><small>差し引いて<br>相手に払う額</small><b id="o-n">0<i>円</i></b><em>支払う金額−源泉徴収</em></div>
@@ -444,7 +447,7 @@ body{overflow-x:clip}
  function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
  function draw(){var k=parseInt(kind.value,10),a=num(amt,0,1000000000),d=num(days,1,366),wh=+document.getElementById("who").value,py=+document.getElementById("payer").value,fx;
   var why=k===9?"所得税法204条に無い仕事":(wh===1?"法人への支払い":(py===1&&k!==3?"給与を払っていない個人の支払い":"所得税法204条の報酬")),need=why==="所得税法204条の報酬",t=need?gensen(k,a,d):0;
-  document.getElementById("o-need").textContent=need?"要る":"要らない";document.getElementById("o-why").textContent=why;
+  document.getElementById("o-need").textContent=need?"源泉徴収が必要です":"源泉徴収は不要です";document.getElementById("o-why").textContent=need?"所得税法204条に並んでいる報酬です。支払った月の翌月10日までに納めます":why+"なので、源泉徴収はしません";document.getElementById("vd").className=need?"vd":"vd no";
   document.getElementById("daysbox").style.display=k===3?"":"none";
   document.getElementById("l-amt").textContent=k===2?"その月に支払う金額":(k===4?"賞金の額":"1回に支払う金額");
   if(k===0)fx=a<=1000000?"支払う金額×10.21%":"100万円を超える部分×20.42%＋102,100円";

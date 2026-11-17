@@ -145,6 +145,11 @@ body{overflow-x:clip}
 .amt.jdg b{white-space:nowrap}
 .jdg div{background:#ffffff1f}
 .jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
 </style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
@@ -180,10 +185,7 @@ body{overflow-x:clip}
    <input type="range" id="sidr" min="0" max="5000000" step="10000" value="300000" aria-label="副業の所得">
   </div>
  </div>
- <div class="amt jdg">
-  <div><small>所得税の確定申告</small><b id="o-sk">要る</b><em id="o-skn">副業の所得が20万円超</em></div>
-  <div><small>住民税の申告</small><b id="o-jk">要らない</b><em id="o-jkn">確定申告で済む</em></div>
- </div>
+ <div class="vd" id="vd"><b id="o-vd">確定申告が必要です</b><span id="o-vds">副業の所得が20万円を超えるためです。住民税の申告は確定申告で済みます</span></div>
  <div class="amt">
   <div class="tot"><small>副業で増える税金の合計</small><b id="o-all">52,800<i>円</i></b><em id="o-net">手元に残るのは約24.7万円</em></div>
   <div><small>所得税</small><b id="o-i">22,800<i>円</i></b><em id="o-ie">令和8年分</em></div>
@@ -362,10 +364,9 @@ body{overflow-x:clip}
   document.getElementById("o-j").innerHTML=f(x.j)+"<i>円</i>";
   document.getElementById("o-net").textContent="手元に残るのは約"+(Math.round((s-xt)/1000)/10)+"万円";
   var need=a>20000000||s>200000;
-  document.getElementById("o-sk").textContent=need?"要る":"要らない";
-  document.getElementById("o-skn").textContent=a>20000000?"本業の年収が2,000万円超":(s>200000?"副業の所得が20万円超":"副業の所得が20万円以下");
-  document.getElementById("o-jk").textContent=need?"要らない":"要る";
-  document.getElementById("o-jkn").textContent=need?"確定申告で済む":"3月15日までに市区町村へ";
+  document.getElementById("o-vd").textContent=need?"確定申告が必要です":"確定申告は不要です";
+  document.getElementById("o-vds").textContent=need?(a>20000000?"本業の年収が2,000万円を超えるためです。":"副業の所得が20万円を超えるためです。")+"住民税の申告は確定申告で済みます":"副業の所得が20万円以下のためです。住民税の申告は必要です（翌年3月15日までに市区町村へ）";
+  document.getElementById("vd").className=need?"vd":"vd no";
   document.getElementById("o-1").textContent=need?"確定申告は翌年3月15日までです。確定申告をすれば住民税の申告は別に要りません":"住民税には20万円の決まりがありません。所得税の確定申告をしないなら、住んでいる市区町村に住民税の申告をします";
   document.getElementById("o-2").textContent="副業を足したあとの所得税率は"+itax(a,s).r+"%です。住民税は10%です";
   var hit=-1;ROWS.forEach(function(r,i){if(s>=r*10000)hit=i;});

@@ -154,6 +154,11 @@ body{overflow-x:clip}
 .amt.jdg b{white-space:nowrap}
 .jdg div{background:#ffffff1f}
 .jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
 </style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
@@ -192,9 +197,10 @@ body{overflow-x:clip}
    <div class="row"><input type="number" id="park" inputmode="numeric" min="0" max="100000" step="100" value="0"><span>円</span></div>
   </div>
  </div>
+ <div class="vd no" id="vd1"><b id="o-tj">通勤手当は全額非課税です</b><span id="o-l">非課税の限度</span></div>
  <div class="amt jdg">
-  <div><small>非課税の限度（月）</small><b id="o-lim">0<i>円</i></b><em id="o-l">非課税の限度</em></div>
-  <div><small>課税される額（月）</small><b id="o-t">0<i>円</i></b><em id="o-tj">全額非課税</em></div>
+  <div><small>非課税の限度（月）</small><b id="o-lim">0<i>円</i></b><em>令和8年4月以後</em></div>
+  <div><small>課税される額（月）</small><b id="o-t">0<i>円</i></b><em>給与に足す額</em></div>
  </div>
  <div class="in" style="border-top:1px solid #ffffff33;padding-top:16px">
   <div>
@@ -206,9 +212,9 @@ body{overflow-x:clip}
    <div class="row"><input type="number" id="futan" inputmode="numeric" min="0" max="1000000" step="100" value="6500"><span>円</span></div>
   </div>
  </div>
+ <div class="vd no" id="vd2"><b id="o-sj">食事の補助は非課税です</b><span id="o-m">判定</span></div>
  <div class="amt jdg">
-  <div><small>食事の補助は</small><b id="o-sj">非課税</b><em>会社の負担は月7,500円まで</em></div>
-  <div><small>課税される額（月）</small><b id="o-s">0<i>円</i></b><em id="o-m">判定</em></div>
+  <div class="tot"><small>食事の補助のうち課税される額（月）</small><b id="o-s">0<i>円</i></b><em>給与に足す額</em></div>
  </div>
  <ul>
   <li>令和8年4月1日以後に支払う通勤手当と、同じ日以後に支給する食事の限度額で計<span class="nw">算しています</span></li>
@@ -393,11 +399,11 @@ body{overflow-x:clip}
  function num(el,hi){return Math.min(Math.max(parseInt(el.value,10)||0,0),hi)}
  function draw(){var p=num(pay,1000000),k=Math.min(Math.max(parseFloat(km.value)||0,0),500),pk=num(park,100000),r=tsukin(mode,k,p,pk);
   document.getElementById("kmbox").style.display=mode?"":"none";document.getElementById("pkbox").style.display=mode?"":"none";
-  set("o-t",r[2]);set("o-lim",r[0]);document.getElementById("o-tj").textContent=r[2]>0?"限度を超えた分が給与":"全額非課税";
-  document.getElementById("o-l").textContent=mode===0?"合理的な経路の運賃まで":(k<2?"片道2km未満は全額課税":"片道"+k+"km"+(pk>0?"・駐車場を含む":""));
+  set("o-t",r[2]);set("o-lim",r[0]);document.getElementById("o-tj").textContent=r[2]>0?"通勤手当のうち月"+fmt(r[2])+"円は課税されます":"通勤手当は全額非課税です";document.getElementById("vd1").className=r[2]>0?"vd":"vd no";
+  document.getElementById("o-l").textContent=mode===0?"電車・バスは合理的な経路の運賃で月150,000円まで非課税です":(k<2?"片道2km未満のマイカー・自転車通勤は全額課税です":"片道"+k+"kmの非課税の限度は月"+fmt(r[0])+"円です"+(pk>0?"（駐車場を含む）":""));
   var rows=document.querySelectorAll("#tb tr"),h=mode?idx(k):-1;for(var i=0;i<rows.length;i++)rows[i].className=(i===h)?"hit":"";
   var pr=num(price,1000000),fu=num(futan,1000000),s=shokuji(pr,fu),co=Math.max(0,pr-fu);
-  set("o-s",s);document.getElementById("o-sj").textContent=s===0?"非課税":"課税";
+  set("o-s",s);document.getElementById("o-sj").textContent=s===0?"食事の補助は非課税です":"食事の補助は月"+fmt(s)+"円が課税されます";document.getElementById("vd2").className=s===0?"vd no":"vd";
   document.getElementById("o-m").textContent=s===0?"会社の負担は"+fmt(co)+"円。2つの条件を満たしています":(fu*2<pr?"本人の負担が半分に届いていません":"会社の負担が月7,500円を超えています")}
  [pay,km,park,price,futan].forEach(function(e){e.addEventListener("input",draw)});
  var bs=document.querySelectorAll("#s-mode button");

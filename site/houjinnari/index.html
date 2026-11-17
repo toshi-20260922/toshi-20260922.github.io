@@ -144,6 +144,11 @@ body{overflow-x:clip}
 .amt.jdg b{white-space:nowrap}
 .jdg div{background:#ffffff1f}
 .jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
 </style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
@@ -202,10 +207,7 @@ body{overflow-x:clip}
    <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜59歳</button></div>
   </div>
  </div>
- <div class="amt jdg">
-  <div><small>多く残るのは</small><b id="o-win">法人</b><em id="o-wd">年0円多い</em></div>
-  <div><small>分岐点の利益</small><b id="o-cx">0万円</b><em>これを超えると法人が多い</em></div>
- </div>
+ <div class="vd" id="vd"><b id="o-win">法人のほうが多く残ります</b><span id="o-wd">年0円多く残ります</span></div>
  <div class="amt">
   <div><small>個人事業で<br>手元に残る額</small><b id="o-k">0<i>円</i></b><em>青色申告65万円</em></div>
   <div><small>法人で<br>手元に残る額</small><b id="o-h">0<i>円</i></b><em>役員報酬で受け取る</em></div>
@@ -402,9 +404,10 @@ function render(){
  document.getElementById("o-h").innerHTML=f(h.net)+"<i>円</i>";
  document.getElementById("o-d").innerHTML=(d>=0?"+":"−")+f(Math.abs(d))+"<i>円</i>";
  document.getElementById("o-w").textContent=d>=0?"法人のほうが多い":"個人事業のほうが多い";
- document.getElementById("o-win").textContent=d>=0?"法人":"個人事業";
- document.getElementById("o-wd").textContent="年"+f(Math.abs(d))+"円多い";
- var cx=cross(old);document.getElementById("o-cx").textContent=cx?f((cx+100000)/10000)+"万円":"3,000万円超";
+ var cx=cross(old),cxs=cx?f((cx+100000)/10000)+"万円":"3,000万円超";
+ document.getElementById("o-win").textContent=d>=0?"法人のほうが多く残ります":"個人事業のままのほうが多く残ります";
+ document.getElementById("o-wd").textContent="年"+f(Math.abs(d))+"円多く残ります。この条件で法人のほうが多く残るのは、利益が"+cxs+"からです";
+ document.getElementById("vd").className=d>=0?"vd no":"vd";
  document.getElementById("o-1").textContent="法人は役員報酬を月"+f(h.m)+"円とし、会社に残る利益をゼロにしています";
  document.getElementById("o-2").textContent="法人の社会保険料は、本人負担と会社負担を合わせて年"+f(h.shAll)+"円です";
 
