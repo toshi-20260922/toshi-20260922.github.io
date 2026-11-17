@@ -1,0 +1,138 @@
+[
+ {
+  "path": "/yakuin-shataku/",
+  "label": "役員社宅の家賃（賃貸料相当額）の計算"
+ },
+ {
+  "path": "/chukosha-taiyonensu/",
+  "label": "中古車の耐用年数と減価償却の計算"
+ },
+ {
+  "path": "/niwari-tokurei/",
+  "label": "2割特例のあとの消費税（簡易課税・3割特例）"
+ },
+ {
+  "path": "/kakutei-shinkoku/",
+  "label": "確定申告はいつからいつまで（期限の早見表）"
+ },
+ {
+  "path": "/yatou-hiyou/",
+  "label": "従業員を1人雇う費用（会社負担）"
+ },
+ {
+  "path": "/houjinzei-keisan/",
+  "label": "法人税の計算シミュレーション（住民税・事業税まで）"
+ },
+ {
+  "path": "/soneki-bunkiten/",
+  "label": "損益分岐点の計算"
+ },
+ {
+  "path": "/hoteifukurihi/",
+  "label": "法定福利費の計算（会社負担と預り金）"
+ },
+ {
+  "path": "/zoyozei/",
+  "label": "贈与税の計算と早見表"
+ },
+ {
+  "path": "/shotokuzei/",
+  "label": "所得税の計算と税率の早見表"
+ },
+ {
+  "path": "/taishokukin/",
+  "label": "退職金の税金と手取り"
+ },
+ {
+  "path": "/yakuin-taishokukin/",
+  "label": "役員退職金の税金と手取り"
+ },
+ {
+  "path": "/iryohi-kojo/",
+  "label": "医療費控除の還付金の早見表"
+ },
+ {
+  "path": "/nenmatsu-chosei/",
+  "label": "年末調整の還付金の早見表"
+ },
+ {
+  "path": "/furusato/",
+  "label": "ふるさと納税シミュレーション（限度額の計算）"
+ },
+ {
+  "path": "/shoyo-shotokuzei/",
+  "label": "賞与の所得税と算出率の表"
+ },
+ {
+  "path": "/gensen-hoshu/",
+  "label": "報酬・料金の源泉徴収の一覧と計算"
+ },
+ {
+  "path": "/genbutsu-kyuyo/",
+  "label": "通勤手当・食事・社宅の非課税限度額"
+ },
+ {
+  "path": "/houjinzei/",
+  "label": "法人税の早見表"
+ },
+ {
+  "path": "/yakuin-tedori/",
+  "label": "役員報酬の手取り"
+ },
+ {
+  "path": "/houjinnari/",
+  "label": "法人成りの分岐点 早見表"
+ },
+ {
+  "path": "/kojin-zei/",
+  "label": "個人事業主の手取り早見表"
+ },
+ {
+  "path": "/shakaihoken/",
+  "label": "社会保険料の早見表"
+ },
+ {
+  "path": "/koyohoken/",
+  "label": "雇用保険料率の早見表"
+ },
+ {
+  "path": "/tedori/",
+  "label": "年収の手取り早見表"
+ },
+ {
+  "path": "/juminzei/",
+  "label": "住民税の早見表"
+ },
+ {
+  "path": "/nenshu-kabe/",
+  "label": "年収の壁 早見表"
+ },
+ {
+  "path": "/fukugyo/",
+  "label": "副業の税金と20万円ルール"
+ },
+ {
+  "path": "/gakusei-kabe/",
+  "label": "学生アルバイトの年収の壁"
+ },
+ {
+  "path": "/part-fuyou/",
+  "label": "パートの月収早見表"
+ },
+ {
+  "path": "/kokuho/",
+  "label": "国民健康保険と任意継続の比較"
+ },
+ {
+  "path": "/kokuho-keisan/",
+  "label": "国民健康保険料の計算"
+ },
+ {
+  "path": "/taishoku-jumin/",
+  "label": "退職した翌年の住民税"
+ },
+ {
+  "path": "/hensai/",
+  "label": "開業資金の借入と返済の計算"
+ }
+]
