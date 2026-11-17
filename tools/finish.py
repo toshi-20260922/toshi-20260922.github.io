@@ -38,12 +38,4 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
         open(f, 'w', encoding='utf-8').write(s)
         changed += 1
 
-# トップの検索の一覧(var L)も tools/pages.json から作り直す。新しいページが検索に出ないのを防ぐ(2026/11/18 本人「最低賃金で検索して出ないってことは・・・」)
-top = os.path.join(SITE, 'index.html')
-t = open(top, encoding='utf-8').read()
-L = json.dumps([[p['path'], p['label'], p.get('kw', '')] for p in PAGES], ensure_ascii=False, separators=(',', ':'))
-t2 = re.sub(r'var L=\[\[.*?\]\];', lambda m: 'var L=' + L + ';', t, count=1, flags=re.S)
-if t2 != t:
-    open(top, 'w', encoding='utf-8').write(t2)
-    changed += 1
 print('finish.py: 書き換えたページ', changed)
