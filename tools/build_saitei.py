@@ -96,7 +96,7 @@ STYLE = OSAKA[OSAKA.index('<style>'):OSAKA.index('</head>')]
 HEAD_END = '</head>'
 AUTH = re.search(r'<div class="auth" id="auth">.*?</div>', OSAKA, re.S).group(0)
 TOOLS_NAV = re.search(r'<nav class="tools">.*?</nav>', OSAKA, re.S).group(0)
-FOOT = OSAKA[OSAKA.index('</main>\n<footer>'):OSAKA.index('<div class="fbar one">')]
+FOOT = OSAKA[OSAKA.index('</main>\n<footer'):OSAKA.index('<div class="fbar one">')]
 TAIL = OSAKA[OSAKA.index('<script id="fbzj">'):]
 LOGO = re.search(r'<a class="logo" href="/">.*?</a>', OSAKA, re.S).group(0)
 PIC = re.search(r'<div class="pic">.*?</div>', OSAKA, re.S).group(0)
