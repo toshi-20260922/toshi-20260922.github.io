@@ -1,166 +1,207 @@
 [
  {
   "path": "/yakuin-shataku/",
-  "label": "役員社宅の家賃の計算"
+  "label": "役員社宅の家賃の計算",
+  "kw": "社宅 しゃたく 賃貸料相当額"
  },
  {
   "path": "/chukosha-taiyonensu/",
-  "label": "中古車の耐用年数の計算"
+  "label": "中古車の耐用年数の計算",
+  "kw": "中古車 耐用年数 減価償却"
  },
  {
   "path": "/niwari-tokurei/",
-  "label": "消費税の計算"
+  "label": "消費税の計算",
+  "kw": "2割特例 インボイス 簡易課税 しょうひぜい"
  },
  {
   "path": "/kakutei-shinkoku/",
-  "label": "確定申告の期限の早見表"
+  "label": "確定申告の期限の早見表",
+  "kw": "確定申告 いつまで 期限"
  },
  {
   "path": "/yatou-hiyou/",
-  "label": "人を雇う費用の計算"
+  "label": "人を雇う費用の計算",
+  "kw": "人件費 従業員 雇う"
  },
  {
   "path": "/houjinzei-keisan/",
-  "label": "法人税の計算"
+  "label": "法人税の計算",
+  "kw": "法人税 シミュレーション"
  },
  {
   "path": "/soneki-bunkiten/",
-  "label": "損益分岐点の計算"
+  "label": "損益分岐点の計算",
+  "kw": "損益分岐点 赤字"
  },
  {
   "path": "/hoteifukurihi/",
-  "label": "法定福利費の計算"
+  "label": "法定福利費の計算",
+  "kw": "法定福利費 会社負担"
  },
  {
   "path": "/zoyozei/",
-  "label": "贈与税の計算"
+  "label": "贈与税の計算",
+  "kw": "ぞうよ 贈与税の早見表と計算"
  },
  {
   "path": "/shotokuzei/",
-  "label": "所得税の計算"
+  "label": "所得税の計算",
+  "kw": "所得税 税率 しょとくぜい"
  },
  {
   "path": "/taishokukin/",
-  "label": "退職金の税金の計算"
+  "label": "退職金の税金の計算",
+  "kw": "たいしょくきん 退職金の税金と手取り"
  },
  {
   "path": "/yakuin-taishokukin/",
-  "label": "役員退職金の計算"
+  "label": "役員退職金の計算",
+  "kw": "功績倍率 役員退職金の税金と手取り"
  },
  {
   "path": "/iryohi-kojo/",
-  "label": "医療費控除の計算"
+  "label": "医療費控除の計算",
+  "kw": "いりょうひ 医療費控除の還付金の早見表"
  },
  {
   "path": "/nenmatsu-chosei/",
-  "label": "年末調整の還付金の計算"
+  "label": "年末調整の還付金の計算",
+  "kw": "ねんまつちょうせい 還付 年末調整の還付金の早見表"
  },
  {
   "path": "/furusato/",
-  "label": "ふるさと納税の限度額の計算"
+  "label": "ふるさと納税の限度額の計算",
+  "kw": "ふるさとのうぜい ふるさと納税の上限額"
  },
  {
   "path": "/shoyo-shotokuzei/",
-  "label": "賞与の所得税の計算"
+  "label": "賞与の所得税の計算",
+  "kw": "ボーナス 賞与の所得税と算出率の表"
  },
  {
   "path": "/gensen-hoshu/",
-  "label": "源泉徴収の早見表"
+  "label": "源泉徴収の早見表",
+  "kw": "げんせん 外注 10.21 報酬・料金の源泉徴収の一覧と計算"
  },
  {
   "path": "/genbutsu-kyuyo/",
-  "label": "非課税の限度額の早見表"
+  "label": "非課税の限度額の早見表",
+  "kw": "現物給与 通勤手当・食事・社宅の非課税限度額"
  },
  {
   "path": "/houjinzei/",
-  "label": "法人税の早見表"
+  "label": "法人税の早見表",
+  "kw": "ほうじんぜい 法人税の早見表"
  },
  {
   "path": "/yakuin-tedori/",
-  "label": "役員報酬の手取りの早見表"
+  "label": "役員報酬の手取りの早見表",
+  "kw": "社長 役員報酬の手取り"
  },
  {
   "path": "/houjinnari/",
-  "label": "法人成りの計算"
+  "label": "法人成りの計算",
+  "kw": "法人成り 会社設立 個人事業と法人の比べ方 法人成りの分岐点 早見表"
  },
  {
   "path": "/kojin-zei/",
-  "label": "個人事業主の手取りの早見表"
+  "label": "個人事業主の手取りの早見表",
+  "kw": "税金 計算 フリーランス 確定申告 個人事業主の手取り早見表"
  },
  {
   "path": "/shakaihoken/",
-  "label": "社会保険料の早見表"
+  "label": "社会保険料の早見表",
+  "kw": "健康保険 厚生年金 標準報酬 社会保険料の早見表"
  },
  {
   "path": "/koyohoken/",
-  "label": "雇用保険料の早見表"
+  "label": "雇用保険料の早見表",
+  "kw": "こようほけん 雇用保険料率の早見表"
  },
  {
   "path": "/tedori/",
-  "label": "年収の手取りの早見表"
+  "label": "年収の手取りの早見表",
+  "kw": "てどり 給料 月給 年収の手取り早見表"
  },
  {
   "path": "/juminzei/",
-  "label": "住民税の早見表"
+  "label": "住民税の早見表",
+  "kw": "非課税 住民税の早見表"
  },
  {
   "path": "/nenshu-kabe/",
-  "label": "年収の壁の早見表"
+  "label": "年収の壁の早見表",
+  "kw": "103万 106万 130万 178万 扶養 年収の壁 早見表"
  },
  {
   "path": "/fukugyo/",
-  "label": "副業の税金の計算"
+  "label": "副業の税金の計算",
+  "kw": "ふくぎょう 副業の税金と20万円ルール"
  },
  {
   "path": "/gakusei-kabe/",
-  "label": "学生バイトの年収の壁"
+  "label": "学生バイトの年収の壁",
+  "kw": "バイト 学生アルバイトの年収の壁"
  },
  {
   "path": "/part-fuyou/",
-  "label": "パートの扶養の計算"
+  "label": "パートの扶養の計算",
+  "kw": "扶養 パートの月収早見表"
  },
  {
   "path": "/kokuho/",
-  "label": "国民健康保険と任意継続の比較"
+  "label": "国民健康保険と任意継続の比較",
+  "kw": "こくほ 退職 国民健康保険と任意継続の比較"
  },
  {
   "path": "/kokuho-keisan/",
-  "label": "国民健康保険料の計算"
+  "label": "国民健康保険料の計算",
+  "kw": "こくほ 国民健康保険料の計算"
  },
  {
   "path": "/taishoku-jumin/",
-  "label": "退職後の住民税の計算"
+  "label": "退職後の住民税の計算",
+  "kw": "たいしょく 退職した翌年の住民税"
  },
  {
   "path": "/hensai/",
-  "label": "借入の返済の計算"
+  "label": "借入の返済の計算",
+  "kw": "融資 ローン 開業資金の借入と返済の計算"
  },
  {
   "path": "/saitei-chingin/",
-  "label": "最低賃金の一覧"
+  "label": "最低賃金の一覧",
+  "kw": "さいていちんぎん 時給 都道府県 ランキング"
  },
  {
   "path": "/saitei-chingin-tokyo/",
-  "label": "東京の最低賃金"
+  "label": "東京の最低賃金",
+  "kw": "さいていちんぎん 時給 とうきょう"
  },
  {
   "path": "/saitei-chingin-kanagawa/",
-  "label": "神奈川県の最低賃金"
+  "label": "神奈川県の最低賃金",
+  "kw": "さいていちんぎん 時給 かながわ 横浜"
  },
  {
   "path": "/saitei-chingin-aichi/",
-  "label": "愛知県の最低賃金"
+  "label": "愛知県の最低賃金",
+  "kw": "さいていちんぎん 時給 あいち 名古屋"
  },
  {
   "path": "/saitei-chingin-hokkaido/",
-  "label": "北海道の最低賃金"
+  "label": "北海道の最低賃金",
+  "kw": "さいていちんぎん 時給 ほっかいどう 札幌"
  },
  {
   "path": "/saitei-chingin-osaka/",
-  "label": "大阪の最低賃金"
+  "label": "大阪の最低賃金",
+  "kw": "さいていちんぎん 時給 おおさか"
  },
  {
   "path": "/tsukin-teate/",
-  "label": "通勤手当の非課税限度額"
+  "label": "通勤手当の非課税限度額",
+  "kw": "通勤手当 通勤費 つうきん 非課税"
  }
 ]
