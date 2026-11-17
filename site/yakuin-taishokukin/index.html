@@ -184,11 +184,12 @@ body{overflow-x:clip}
   </div>
  </div>
  <div class="amt">
-  <div class="tot"><small>受け取った人の手取り</small><b id="o-n">0<i>円</i></b><em id="o-g">退職金の額</em></div>
-  <div><small>所得税<br>（復興特別所得税を含む）</small><b id="o-t">0<i>円</i></b><em id="o-k">退職所得控除</em></div>
-  <div><small>住民税<br>（市区町村と都道府県）</small><b id="o-z">0<i>円</i></b><em id="o-h">2分の1にして計算</em></div>
+  <div class="tot"><small>功績倍率で計算した退職金の額</small><b id="o-g2">0<i>円</i></b><em id="o-g">退職金の額</em></div>
+  <div><small>受け取った人の<br>手取り</small><b id="o-n">0<i>円</i></b><em id="o-k">退職所得控除</em></div>
+  <div><small>税金の合計<br>（所得税＋住民税）</small><b id="o-tz">0<i>円</i></b><em id="o-h">2分の1にして計算</em><b id="o-t" style="display:none"></b><b id="o-z" style="display:none"></b></div>
  </div>
  <ul>
+  <li id="o-tzl">税金の内訳</li>
   <li>退職金の額は、報酬の月額×勤続年数×功績倍率で計<span class="nw">算しています</span></li>
   <li>「退職所得の受給に関する申告書」を会社に出している場<span class="nw">合の税額です</span></li>
   <li>ほかに受け取った退職金がない場<span class="nw">合の計算です</span></li>
@@ -359,8 +360,9 @@ body{overflow-x:clip}
  function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
  var MS=[30,50,70,100,150],YS=[10,20,30,35];
  function draw(){var m=num(mon,0,10000000),n=num(yrs,1,60),b=parseInt(bai.value,10),g=Math.round(m*n*b/10),c=calc(g,n);
-  set("o-n",c.net);set("o-t",c.it);set("o-z",c.ju);
-  document.getElementById("o-g").textContent="退職金の額は"+fmt(g)+"円";
+  set("o-n",c.net);set("o-t",c.it);set("o-z",c.ju);set("o-g2",g);set("o-tz",c.it+c.ju);
+  document.getElementById("o-tzl").textContent="税金の内訳は、所得税"+fmt(c.it)+"円（復興特別所得税を含む）・住民税"+fmt(c.ju)+"円です";
+  document.getElementById("o-g").textContent="報酬月額×"+n+"年×倍率"+(b/10).toFixed(1);
   document.getElementById("o-k").textContent="退職所得控除 "+fmt(kojo(n)/10000)+"万円";
   document.getElementById("o-h").textContent=n<=5?"2分の1にしない":"2分の1にして計算";
   var t="";MS.forEach(function(x){t+="<tr><td class=\"c\">"+x+"万円</td>";YS.forEach(function(y){t+="<td>"+fmt(x*y*b/10)+"</td>"});t+="</tr>"});

@@ -153,6 +153,12 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
 </style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
@@ -173,10 +179,18 @@ body{overflow-x:clip}
  <h1>報酬・料金の源泉徴収は必要？不要？職種で引ける一覧と10.21%の計算【2026年・令和8年】</h1>
 </div>
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>支払う相手と金額を入れると、源泉徴収する額が出ます</div>
+ <div class="h"><span>結論</span>支払う相手と仕事と金額を入れると、源泉徴収が要るかと差し引く額が出ます</div>
  <div class="in">
+  <div>
+   <label for="who">支払う相手</label>
+   <select id="who"><option value="0">個人</option><option value="1">法人（会社）</option></select>
+  </div>
+  <div>
+   <label for="payer">支払う側</label>
+   <select id="payer"><option value="0">会社・給与を払っている個人</option><option value="1">給与を払っていない個人</option></select>
+  </div>
   <div class="full">
-   <label for="kind">支払う報酬の種類</label>
+   <label for="kind">支払う仕事の種類</label>
    <select id="kind">
     <option value="0">原稿料・講演料・デザイン料・弁護士や税理士の報酬・出演料・契約金</option>
     <option value="1">司法書士・土地家屋調査士・海事代理士の報酬</option>
@@ -184,6 +198,7 @@ body{overflow-x:clip}
     <option value="3">ホステス・コンパニオンの報酬</option>
     <option value="4">広告宣伝のための賞金</option>
     <option value="5">プロボクサーの報酬</option>
+    <option value="9">システム開発・プログラミング・大工・運送・清掃など（所得税法204条に無い仕事）</option>
    </select>
   </div>
   <div class="full">
@@ -195,6 +210,9 @@ body{overflow-x:clip}
    <label for="days">報酬の計算期間の日数（営業日数ではなく、期間の全日数）</label>
    <div class="row"><input type="number" id="days" inputmode="numeric" min="1" max="366" step="1" value="30" style="width:96px"><span>日</span></div>
   </div>
+ </div>
+ <div class="amt jdg">
+  <div class="tot"><small>源泉徴収</small><b id="o-need">要る</b><em id="o-why">所得税法204条の報酬</em></div>
  </div>
  <div class="amt">
   <div class="tot"><small>源泉徴収する額（所得税と復興特別所得税）</small><b id="o-t">0<i>円</i></b><em id="o-f">計算式</em></div>
@@ -424,21 +442,25 @@ body{overflow-x:clip}
  function fmt(n){return n.toLocaleString("ja-JP")}
  function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
  function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
- function draw(){var k=parseInt(kind.value,10),a=num(amt,0,1000000000),d=num(days,1,366),t=gensen(k,a,d),fx;
+ function draw(){var k=parseInt(kind.value,10),a=num(amt,0,1000000000),d=num(days,1,366),wh=+document.getElementById("who").value,py=+document.getElementById("payer").value,fx;
+  var why=k===9?"所得税法204条に無い仕事":(wh===1?"法人への支払い":(py===1&&k!==3?"給与を払っていない個人の支払い":"所得税法204条の報酬")),need=why==="所得税法204条の報酬",t=need?gensen(k,a,d):0;
+  document.getElementById("o-need").textContent=need?"要る":"要らない";document.getElementById("o-why").textContent=why;
   document.getElementById("daysbox").style.display=k===3?"":"none";
   document.getElementById("l-amt").textContent=k===2?"その月に支払う金額":(k===4?"賞金の額":"1回に支払う金額");
   if(k===0)fx=a<=1000000?"支払う金額×10.21%":"100万円を超える部分×20.42%＋102,100円";
   else if(k===3)fx="（支払う金額−5,000円×"+d+"日）×10.21%";
-  else fx="（支払う金額−"+fmt(DED[k])+"円）×10.21%";
+  else if(DED[k])fx="（支払う金額−"+fmt(DED[k])+"円）×10.21%";
   set("o-t",t);set("o-n",a-t);document.getElementById("o-f").textContent=fx;
   document.getElementById("o-e").textContent=(k===1)?"納期の特例を使えます":(k===0?"種類によります":"納期の特例は使えません");
   if(k===4||k===5)document.getElementById("o-e").textContent="支払った月の翌月";
+  document.getElementById("o-d").textContent=need?"翌月10日":"なし";
+  if(!need){document.getElementById("o-f").textContent="源泉徴収しないので0円";document.getElementById("o-e").textContent="納める税金はありません";}
   var rows=document.querySelectorAll("#tb tr"),best=null,bd=1e18;
   for(var i=0;i<rows.length;i++){rows[i].className="";var x=Math.abs(rows[i].getAttribute("data-s")*10000-a);if(x<bd){bd=x;best=rows[i]}}
   if(best&&k===0)best.className="hit"}
  amt.addEventListener("input",function(){amtr.value=amt.value;draw()});
  amtr.addEventListener("input",function(){amt.value=amtr.value;draw()});
- kind.addEventListener("change",draw);days.addEventListener("input",draw);
+ kind.addEventListener("change",draw);document.getElementById("who").addEventListener("change",draw);document.getElementById("payer").addEventListener("change",draw);days.addEventListener("input",draw);
  var q=document.getElementById("q"),hn=document.getElementById("hn"),base=hn.textContent;
  q.addEventListener("input",function(){var w=q.value.trim(),rows=document.querySelectorAll("#hb tr"),n=0;
   for(var i=0;i<rows.length;i++){var r=rows[i];if(r.className==="grp"){r.style.display=w?"none":"";continue}

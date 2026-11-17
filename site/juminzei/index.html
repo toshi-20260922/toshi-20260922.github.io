@@ -137,6 +137,12 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
 </style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
@@ -173,6 +179,9 @@ body{overflow-x:clip}
    <label>年齢</label>
    <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜64歳</button></div>
   </div>
+ </div>
+ <div class="amt jdg">
+  <div class="tot"><small>この年収の令和9年度の住民税</small><b id="o-kk">かかる</b><em id="o-kke">均等割と所得割の両方</em></div>
  </div>
  <div class="amt">
   <div><small>住民税<br>（年額）</small><b id="o-y">0<i>円</i></b><em>令和9年度</em></div>
@@ -361,6 +370,8 @@ body{overflow-x:clip}
  function render(){
   var a=Math.max(0,parseInt(inc.value,10)||0),sh=hasSh?shaho(a,old):0,j=jumin(a,sh);
   document.getElementById("o-y").innerHTML=f(j.y)+"<i>円</i>";
+  document.getElementById("o-kk").textContent=j.y===0?"かからない":(j.sho===0?"均等割だけかかる":"かかる");
+  document.getElementById("o-kke").textContent=j.y===0?"非課税の年収の範囲内":(j.sho===0?"所得割はかからない":"均等割と所得割の両方");
   document.getElementById("o-m").innerHTML=f(Math.floor(j.y/12))+"<i>円</i>";
   document.getElementById("o-br").textContent=j.y===0?"この年収なら、令和9年度の住民税はかかりません":"内訳は、均等割"+f(j.kin)+"円・所得割"+f(j.sho)+"円です";
   document.getElementById("t-cap").textContent="令和9年度・東京23区・単身・"+(hasSh?"社会保険に入っている・"+(old?"40〜64歳":"40歳未満"):"社会保険に入っていない");
