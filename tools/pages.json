@@ -136,7 +136,31 @@
   "label": "借入の返済の計算"
  },
  {
+  "path": "/saitei-chingin/",
+  "label": "最低賃金の一覧"
+ },
+ {
+  "path": "/saitei-chingin-tokyo/",
+  "label": "東京の最低賃金"
+ },
+ {
+  "path": "/saitei-chingin-kanagawa/",
+  "label": "神奈川県の最低賃金"
+ },
+ {
+  "path": "/saitei-chingin-aichi/",
+  "label": "愛知県の最低賃金"
+ },
+ {
+  "path": "/saitei-chingin-hokkaido/",
+  "label": "北海道の最低賃金"
+ },
+ {
   "path": "/saitei-chingin-osaka/",
   "label": "大阪の最低賃金"
+ },
+ {
+  "path": "/tsukin-teate/",
+  "label": "通勤手当の非課税限度額"
  }
 ]

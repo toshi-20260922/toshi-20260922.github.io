@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>【通勤手当の非課税限度額】2026年はいくら？距離別の早見表と課税になる額の計算【令和8年4月改正】</title>
+<link rel="canonical" href="https://taxtable.jp/tsukin-teate/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://taxtable.jp/tsukin-teate/">
+<meta property="og:title" content="【通勤手当の非課税限度額】2026年はいくら？距離別の早見表と課税になる額の計算【令和8年4月改正】">
+<meta property="og:site_name" content="タックステーブル">
+<meta property="og:description" content="通勤手当の非課税限度額は、電車・バスの定期代なら月15万円まで、車・自転車なら片道の距離で月4,200円〜66,400円です。2026年4月から片道65km以上の区分と駐車場代の加算が足されました。手当の額と距離を入れると、非課税の額と課税になる額が分かります。">
+<meta name="description" content="通勤手当の非課税限度額は、電車・バスの定期代なら月15万円まで、車・自転車なら片道の距離で月4,200円〜66,400円です。2026年4月から片道65km以上の区分と駐車場代の加算が足されました。手当の額と距離を入れると、非課税の額と課税になる額が分かります。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.seg3{grid-template-columns:1fr 1fr 1fr}
+.seg3 button{font-size:13px;line-height:1.4}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="tsukin_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="電車と車"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="10" y="14" width="22" height="26" rx="5" fill="#0f3d31"/><rect x="14" y="19" width="14" height="8" rx="1.5" fill="#d8efe6"/><circle cx="15.5" cy="34" r="2" fill="#e3b465"/><circle cx="26.5" cy="34" r="2" fill="#e3b465"/><path d="M34 40h20l-3-8H37z" fill="#e08a2c"/><rect x="32" y="40" width="24" height="7" rx="2" fill="#e08a2c"/><circle cx="38" cy="49" r="3" fill="#0f3d31"/><circle cx="50" cy="49" r="3" fill="#0f3d31"/></svg></div>
+ <p class="upd">更新日：2026年11月17日（国税庁 No.2582・No.2585 令和8年4月1日現在法令等）</p>
+ <h1>【通勤手当の非課税限度額】2026年はいくら？距離別の早見表と課税になる額の計算【令和8年4月改正】</h1>
+</div>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>電車・バスは月15万円まで、車・自転車は片道の距離で月4,200円〜66,400円まで非課税です</div>
+ <div class="in">
+  <div class="full">
+   <label>通勤の方法</label>
+   <div class="seg seg3"><button type="button" class="on" data-k="0">電車・バス</button><button type="button" data-k="1">車・自転車</button><button type="button" data-k="2">両方</button></div>
+  </div>
+  <div class="full">
+   <label for="pay">会社が払う通勤手当（1か月）</label>
+   <div class="row"><input type="number" id="pay" inputmode="numeric" min="0" max="10000000" step="1" value="20000"><span>円</span></div>
+  </div>
+  <div class="full" id="w-pas">
+   <label for="pas">一番安く合理的な経路の定期代（1か月）</label>
+   <div class="row"><input type="number" id="pas" inputmode="numeric" min="0" max="10000000" step="1" value="18000"><span>円</span></div>
+  </div>
+  <div class="full hide" id="w-car">
+   <label for="km">車・自転車で通う片道の距離</label>
+   <div class="row"><input type="number" id="km" inputmode="decimal" min="0" max="500" step="0.1" value="12"><span>km</span></div>
+   <label for="park">駐車場代（勤務先か駅の近く・本人が払う分・1か月）</label>
+   <div class="row"><input type="number" id="park" inputmode="numeric" min="0" max="1000000" step="1" value="0"><span>円</span></div>
+   <label for="toll">有料道路の料金（合理的な経路・1か月）</label>
+   <div class="row"><input type="number" id="toll" inputmode="numeric" min="0" max="10000000" step="1" value="0"><span>円</span></div>
+  </div>
+ </div>
+ <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="amt jdg">
+  <div><small>非課税の限度額</small><b id="o-l"></b><em>1か月あたり</em></div>
+  <div><small>課税になる額</small><b id="o-t"></b><em id="o-tn"></em></div>
+ </div>
+ <ul>
+  <li id="o-how"></li>
+  <li>非課税の判定は所得税の決まりです。社会保険料の計算では、通勤手当も全額が報酬に入ります</li>
+ </ul>
+</div>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/tsukin-teate/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/tsukin-teate/">Xでポストする</a>
+</div>
+
+<p>通勤手当は、1か月の限度額までは所得税がかかりません。電車・バスの人は一番安く合理的な経路の定期代で、月15万円が上限です。<span class="mk">車・自転車の人は片道の距離で決まり、片道12kmなら月7,300円までです。</span>2026年4月1日以後に払う分から片道65km以上の区分が引き上げられ、駐車場代を月5,000円まで足せるようになりました。</p>
+
+<nav class="toc">
+ <div class="t">目次</div>
+ <ol>
+  <li><a href="#kyori">車・自転車の距離別の限度額</a></li>
+  <li><a href="#densha">電車・バスの限度額（月15万円）</a></li>
+  <li><a href="#rei">月2万円の手当なら課税はいくらか</a></li>
+  <li><a href="#kaisei">2026年4月の改正で変わったこと</a></li>
+  <li><a href="#chui">間違えやすいところ</a></li>
+  <li><a href="#rel">次に確かめること</a></li>
+  <li><a href="#qa">通勤手当でよく聞かれること</a></li>
+ </ol>
+</nav>
+
+<h2 id="kyori">車・自転車の距離別の限度額</h2>
+<p>マイカー・自転車・バイクで通う人は、片道の通勤距離で1か月の限度額が決まります。片道2km未満の人は全額が課税されます。</p>
+<p class="cap">2026年4月1日以後に払う通勤手当・1か月</p>
+<div class="tw">
+<table>
+ <thead><tr><th>片道の通勤距離</th><th>月の限度額<br>（円）</th><th>駐車場代を<br>足した上限<br>（円）</th><th>区分</th></tr></thead>
+ <tbody><tr><td class="l">2km未満</td><td>全額課税</td><td>全額課税</td><td class="c"></td></tr><tr><td class="l">2km以上10km未満</td><td>4,200</td><td>9,200</td><td class="c"></td></tr><tr><td class="l">10km以上15km未満</td><td>7,300</td><td>12,300</td><td class="c"></td></tr><tr><td class="l">15km以上25km未満</td><td>13,500</td><td>18,500</td><td class="c"></td></tr><tr><td class="l">25km以上35km未満</td><td>19,700</td><td>24,700</td><td class="c"></td></tr><tr><td class="l">35km以上45km未満</td><td>25,900</td><td>30,900</td><td class="c"></td></tr><tr><td class="l">45km以上55km未満</td><td>32,300</td><td>37,300</td><td class="c"></td></tr><tr><td class="l">55km以上65km未満</td><td>38,700</td><td>43,700</td><td class="c"></td></tr><tr><td class="l">65km以上75km未満</td><td>45,700</td><td>50,700</td><td class="c">2026年4月から</td></tr><tr><td class="l">75km以上85km未満</td><td>52,700</td><td>57,700</td><td class="c">2026年4月から</td></tr><tr><td class="l">85km以上95km未満</td><td>59,600</td><td>64,600</td><td class="c">2026年4月から</td></tr><tr><td class="l">95km以上</td><td>66,400</td><td>71,400</td><td class="c">2026年4月から</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">駐車場代を足せるのは、勤務先か通勤に使う駅などの近くの駐車場で本人が料金を払うのが通例の場合です。有料道路を使う人は、合理的な経路の料金を足して月15万円までです。</p>
+
+<h2 id="densha">電車・バスの限度額（月15万円）</h2>
+<p>電車・バスで通う人は、一番安く合理的な経路と方法で通うときの定期代が非課税です。月15万円を超えるときは15万円までです。</p>
+<ul>
+ <li>新幹線や特急を使っても、グリーン料金は含めません</li>
+ <li>電車と車を両方使う人は、定期代と車の距離の限度額を足して月15万円までです</li>
+ <li>6か月定期を払う会社は、1か月あたりの額で判定します</li>
+</ul>
+
+<h2 id="rei">月2万円の手当なら課税はいくらか</h2>
+<p>車通勤の人に毎月2万円の通勤手当を払う場合です。限度額を超える分は給与として課税され、その月の給与に足して源泉徴収します。</p>
+<p class="cap">車・自転車・駐車場代なし・手当月20,000円</p>
+<div class="tw">
+<table>
+ <thead><tr><th>片道の<br>距離</th><th>限度額<br>（円）</th><th>非課税<br>（円）</th><th>課税<br>（円）</th><th>1年で<br>課税（円）</th></tr></thead>
+ <tbody><tr><td>5km</td><td>4,200</td><td>4,200</td><td>15,800</td><td>189,600</td></tr><tr><td>12km</td><td>7,300</td><td>7,300</td><td>12,700</td><td>152,400</td></tr><tr><td>20km</td><td>13,500</td><td>13,500</td><td>6,500</td><td>78,000</td></tr><tr><td>30km</td><td>19,700</td><td>19,700</td><td>300</td><td>3,600</td></tr><tr><td>40km</td><td>25,900</td><td>20,000</td><td>0</td><td>0</td></tr><tr><td>50km</td><td>32,300</td><td>20,000</td><td>0</td><td>0</td></tr><tr><td>60km</td><td>38,700</td><td>20,000</td><td>0</td><td>0</td></tr><tr><td>70km</td><td>45,700</td><td>20,000</td><td>0</td><td>0</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">片道25km以上なら月2万円は全額非課税です。片道12kmでは毎月12,700円・1年で152,400円が給与として課税されます。</p>
+
+<h2 id="kaisei">2026年4月の改正で変わったこと</h2>
+<p>令和8年度の税制改正で、車・自転車で通う人の限度額が変わりました。2026年4月1日以後に払うべき通勤手当から使います。</p>
+<ul>
+ <li>片道65km以上の区分を足し、65km以上75km未満は45,700円・95km以上は66,400円に引き上げた</li>
+ <li>勤務先や駅の近くの駐車場代を、月5,000円まで限度額に足せるようにした</li>
+</ul>
+<p>2026年3月31日までに払うべきだった分を、あとから差額として払うときは改正前の限度額で判定します。</p>
+
+<h2 id="chui">間違えやすいところ</h2>
+<h3>パート・アルバイトも同じ限度額</h3>
+<p>短い時間で働く人も、1か月あたりの限度額で判定します。出勤した日数が少なくても限度額は減りません。</p>
+<h3>最低賃金には含めない</h3>
+<p>通勤手当は、最低賃金と比べる賃金に含めません。基本給と毎月決まって払う手当だけで最低賃金を満たしているかを確かめます。</p>
+<h3>社会保険料は全額が対象</h3>
+<p>非課税になるのは所得税と住民税です。健康保険・厚生年金の標準報酬月額を決めるときは、通勤手当も全額を報酬に入れます。</p>
+
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>食事代・社宅など、通勤手当のほかの非課税の限度もまとめています。<a href="/genbutsu-kyuyo/" data-cta="rel_tsukin-teate_genbutsu-kyuyo">非課税の限度額の早見表</a></li><li>限度額を超えた分は給与に足して源泉徴収します。<a href="/gensen-hoshu/" data-cta="rel_tsukin-teate_gensen-hoshu">源泉徴収の早見表</a></li><li>課税になった通勤手当も、年末調整で1年分の給与に入ります。<a href="/nenmatsu-chosei/" data-cta="rel_tsukin-teate_nenmatsu-chosei">年末調整の還付金の計算</a></li><li>通勤手当は全額が標準報酬月額の報酬に入ります。<a href="/shakaihoken/" data-cta="rel_tsukin-teate_shakaihoken">社会保険料の早見表</a></li><li>人を1人雇うと、給料のほかに会社の負担がかかります。<a href="/yatou-hiyou/" data-cta="rel_tsukin-teate_yatou-hiyou">人を雇う費用の計算</a></li><li>会社が払う社会保険料は、法定福利費として経費になります。<a href="/hoteifukurihi/" data-cta="rel_tsukin-teate_hoteifukurihi">法定福利費の計算</a></li><li>通勤手当を除いた給料で、最低賃金を満たしているかを確かめます。<a href="/saitei-chingin/" data-cta="rel_tsukin-teate_saitei-chingin">最低賃金の一覧</a></li><li>年収から税金と社会保険料を引いた手取りを、年収ごとに見られます。<a href="/tedori/" data-cta="rel_tsukin-teate_tedori">年収の手取りの早見表</a></li><li>社会保険の扶養の判定では、通勤手当も年収に入ります。<a href="/part-fuyou/" data-cta="rel_tsukin-teate_part-fuyou">パートの扶養の計算</a></li><li>雇用保険料も通勤手当を含めた賃金で計算します。<a href="/koyohoken/" data-cta="rel_tsukin-teate_koyohoken">雇用保険料の早見表</a></li><li>社宅の家賃も、決まった額を払えば給与として課税されません。<a href="/yakuin-shataku/" data-cta="rel_tsukin-teate_yakuin-shataku">役員社宅の家賃の計算</a></li></ul>
+
+<h2 id="qa">通勤手当でよく聞かれること</h2>
+<h3>通勤手当はいくらまで非課税ですか？</h3>
+<p>電車・バスは一番安く合理的な経路の定期代で月15万円までです。車・自転車は片道の距離で決まり、2km以上10km未満の月4,200円から95km以上の月66,400円までです。</p>
+<h3>片道2km未満の自転車通勤の手当は課税ですか？</h3>
+<p>はい。車・自転車で片道2km未満の人に払う通勤手当は、全額が給与として課税されます。</p>
+<h3>ガソリン代を実費で払うと非課税ですか？</h3>
+<p>実費でも距離の限度額までが非課税です。限度額を超えた分は給与として課税されます。</p>
+<h3>駐車場代の加算はいつからですか？</h3>
+<p>2026年4月1日以後に払うべき通勤手当からです。勤務先か駅などの近くの駐車場で、月5,000円が上限です。</p>
+<h3>非課税の通勤手当は社会保険料にかかりますか？</h3>
+<p>かかります。所得税が非課税でも、標準報酬月額を決める報酬には全額を入れます。雇用保険料の計算でも賃金に入ります。</p>
+
+<div class="src">出典・参考（2026年11月確認）
+ <ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2585.htm">国税庁 No.2585「マイカー・自転車通勤者の通勤手当」</a>（令和8年4月1日現在法令等）</li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2582.htm">国税庁 No.2582「電車・バス通勤者の通勤手当」</a>（令和8年4月1日現在法令等）</li>
+  <li><a href="https://www.nta.go.jp/users/gensen/2026tsukin/index.htm">国税庁「通勤手当の非課税限度額の改正について」</a></li>
+  <li><a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/chingin/newpage_43875.html">厚生労働省「最低賃金の対象となる賃金」</a></li>
+  <li>所得税法第9条第1項第5号・所得税法施行令第20条の2</li>
+ </ul>
+</div>
+
+<div class="auth" id="auth"><p class="auth-h">この早見表を作った税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">通勤手当を含めた給与計算と、</span><span class="nw">帳簿と申告も</span></p><p>通勤手当の非課税と課税の分け方は、毎月の源泉徴収と年末調整に響きます。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="tsukin_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>
+ <a href="/niwari-tokurei/">消費税の計算</a>
+ <a href="/kakutei-shinkoku/">確定申告の期限の早見表</a>
+ <a href="/yatou-hiyou/">人を雇う費用の計算</a>
+ <a href="/houjinzei-keisan/">法人税の計算</a>
+ <a href="/soneki-bunkiten/">損益分岐点の計算</a>
+ <a href="/hoteifukurihi/">法定福利費の計算</a>
+ <a href="/zoyozei/">贈与税の計算</a>
+ <a href="/shotokuzei/">所得税の計算</a>
+ <a href="/taishokukin/">退職金の税金の計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の計算</a>
+ <a href="/iryohi-kojo/">医療費控除の計算</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の計算</a>
+ <a href="/furusato/">ふるさと納税の限度額の計算</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税の計算</a>
+ <a href="/gensen-hoshu/">源泉徴収の早見表</a>
+ <a href="/genbutsu-kyuyo/">非課税の限度額の早見表</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取りの早見表</a>
+ <a href="/houjinnari/">法人成りの計算</a>
+ <a href="/kojin-zei/">個人事業主の手取りの早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料の早見表</a>
+ <a href="/tedori/">年収の手取りの早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁の早見表</a>
+ <a href="/fukugyo/">副業の税金の計算</a>
+ <a href="/gakusei-kabe/">学生バイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの扶養の計算</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算</a>
+ <a href="/taishoku-jumin/">退職後の住民税の計算</a>
+ <a href="/hensai/">借入の返済の計算</a>
+ <a href="/saitei-chingin/">最低賃金の一覧</a>
+ <a href="/saitei-chingin-tokyo/">東京の最低賃金</a>
+ <a href="/saitei-chingin-kanagawa/">神奈川県の最低賃金</a>
+ <a href="/saitei-chingin-aichi/">愛知県の最低賃金</a>
+ <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
+ <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="display:block;font-size:10px;line-height:1.4;opacity:.55;margin-top:6px">mkv1</span></div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="tsukin_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script>
+(function(){
+ var BANDS=[[2, 0], [10, 4200], [15, 7300], [25, 13500], [35, 19700], [45, 25900], [55, 32300], [65, 38700], [75, 45700], [85, 52700], [95, 59600], [99999, 66400]];
+ var k=0,$=function(i){return document.getElementById(i)};
+ function f(n){return Math.round(n).toLocaleString("ja-JP");}
+ function num(i){var v=parseFloat($(i).value);return isNaN(v)?0:v;}
+ function band(d){if(d<2)return 0;for(var i=0;i<BANDS.length;i++){if(d<BANDS[i][0])return BANDS[i][1];}return 66400;}
+ function render(){
+  $("w-pas").classList.toggle("hide",k===1);$("w-car").classList.toggle("hide",k===0);
+  var pay=num("pay"),pas=num("pas"),d=num("km"),park=num("park"),toll=num("toll"),L,how;
+  var b=band(d),pk=d>=2?Math.min(park,5000):0,car=d>=2?b+pk+toll:0;
+  if(k===0){L=Math.min(pas,150000);how="定期代"+f(pas)+"円"+(pas>150000?"（月15万円が上限）":"")+"までが非課税です";}
+  else if(k===1){L=Math.min(car,150000);how=d<2?"片道2km未満なので全額が課税されます":"片道"+d+"kmの限度額"+f(b)+"円"+(pk?"＋駐車場代"+f(pk)+"円":"")+(toll&&d>=2?"＋有料道路"+f(toll)+"円":"")+"です";}
+  else{L=Math.min(pas+car,150000);how="定期代"+f(pas)+"円＋車・自転車の分"+f(car)+"円"+(pas+car>150000?"（月15万円が上限）":"")+"です";}
+  var t=Math.max(0,pay-L);
+  $("o-l").innerHTML=f(L)+"<i>円</i>";
+  $("o-t").innerHTML=f(t)+"<i>円</i>";
+  $("o-tn").textContent=t>0?"1年で"+f(t*12)+"円":"1か月あたり";
+  var vd=$("vd");vd.className="vd"+(t>0?"":" no");
+  if(t>0){$("o-vd").textContent="限度額を超えています";$("o-vds").textContent="毎月"+f(t)+"円が給与として課税されます。その月の給与に足して源泉徴収します";}
+  else{$("o-vd").textContent="全額非課税です";$("o-vds").textContent="通勤手当"+f(pay)+"円は限度額"+f(L)+"円以内なので所得税はかかりません";}
+  $("o-how").textContent=how;
+ }
+ ["pay","pas","km","park","toll"].forEach(function(i){$(i).addEventListener("input",render);});
+ document.querySelectorAll(".seg button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll(".seg button").forEach(function(y){y.classList.remove("on");});b.classList.add("on");k=+b.dataset.k;render();});});
+ render();
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>
