@@ -192,7 +192,7 @@ body{overflow-x:clip}
  <thead><tr><th>辞める月</th><th>残りの月数</th><th>令和8年度の残り<br>（円）</th><th>令和9年度<br>（円）</th></tr></thead>
  <tbody id="tb"></tbody>
 </table></div>
-<p class="note" style="margin-top:8px">令和8年度の住民税は、2025年の給与所得（令和7年分の給与所得控除）から社会保険料と基礎控除43万円を引いて計算しています。給料から引く毎月の額は年額を12で割って100円未満を切り捨てた額で、端数は6月分に入ります。社会保険料は協会けんぽ東京都の令和8年度の料率・40歳未満で計算しています。</p>
+<p class="note" style="margin-top:8px">令和8年度の住民税は、2025年の給与所得（令和7年分の給与所得控除）から社会保険料と基礎控除43万円を引いて計算しています。給料から引く毎月の額は年額を12で割って100円未満を切り捨てた額で、端数は6月分に入ります。社会保険料は各月の料率で計算しています。協会けんぽ東京都・雇用保険は一般の事業・40歳未満です（2025年は令和6・7年度、2026年は令和7・8年度の料率）。</p>
 <h2 id="how">退職したときの住民税の払い方</h2>
 <div class="tw"><table>
  <thead><tr><th>辞める時期</th><th>残りの住民税の払い方</th></tr></thead>
@@ -274,15 +274,16 @@ function kyuyo8(x){if(x<741000)return 0;if(x<2191000)return x-740000;if(x<219300
 var GR=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
 function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000;}return 1390000;}
 function r50(v){var q=Math.floor(v);return (v-q>0.5)?q+1:q;}
-function shahoM(m,rate,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);return r50(s*(rate+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*0.005);}
+function shahoM(m,rate,old,ko){var s=std(m),p=Math.min(Math.max(s,88000),650000);return r50(s*(rate+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*ko/1000);}
+function shahoY(m,y,n){var t=0;for(var k=1;k<=n;k++){var hr,ko;if(y===2025){hr=k<=2?998:991;ko=k<=3?6:5.5;}else{hr=k<=2?991:(k===3?985:985+23);ko=k<=3?5.5:5;}t+=shahoM(m,hr,0,ko);}return t;}
 function jumin(g,sh,kiso){if(g<=450000)return {y:0,kin:0,sho:0};var t=Math.floor(Math.max(0,g-sh-kiso)/1000)*1000,adj=t<=2000000?Math.min(50000,t):50000;
  var a=Math.floor(Math.max(0,Math.floor(t*6/100)-Math.floor(adj*3/100))/100)*100,b=Math.floor(Math.max(0,Math.floor(t*4/100)-Math.floor(adj*2/100))/100)*100;return {y:a+b+5000,kin:5000,sho:a+b};}
 
 var inc=document.getElementById("inc"),incr=document.getElementById("incr"),mon=document.getElementById("mon");
 function calc(a,m){
- var mm=Math.floor(a/12),y8=jumin(kyuyo7(a),shahoM(mm,985,0)*12,430000).y;
+ var mm=Math.floor(a/12),y8=jumin(kyuyo7(a),shahoY(mm,2025,12),430000).y;
  var per=Math.floor(y8/12/100)*100,first=y8-per*11,paid=first+per*(m-6),rest=y8-paid;
- var a9=mm*m,y9=jumin(kyuyo8(a9),shahoM(mm,985,0)*m,430000).y;
+ var a9=mm*m,y9=jumin(kyuyo8(a9),shahoY(mm,2026,m),430000).y;
  return {y8:y8,paid:paid,rest:rest,n:17-m,a9:a9,y9:y9};
 }
 function render(){
