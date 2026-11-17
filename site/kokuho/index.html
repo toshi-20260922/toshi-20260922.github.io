@@ -149,6 +149,14 @@ body{overflow-x:clip}
 .cg{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:6px;align-items:center;font-size:12px;line-height:1.4;color:#dfeee8;margin:6px 0 0}
 .in .cg input:is([type=number],.cmn){width:100%;min-width:0;font-size:15px;font-weight:700;padding:6px 4px;border-radius:6px}
 .cn{font-size:12px;line-height:1.6;color:#dfeee8;margin:8px 0 0}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap;font-size:22px}
 </style>
 </head>
 <body>
@@ -205,10 +213,11 @@ body{overflow-x:clip}
    <select id="fam"><option value="0">いない</option><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option></select>
   </div>
  </div>
- <div class="amt">
+ <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="amt jdg">
   <div><small>国民健康保険<br>（1年）</small><b id="o-k">0<i>円</i></b><em id="e-k">東京23区</em></div>
   <div><small>任意継続<br>（1年）</small><b id="o-n">0<i>円</i></b><em id="e-n">協会けんぽ東京都</em></div>
-  <div><small>安いほう</small><b id="o-w" style="font-size:18px">任意継続</b><em id="o-d">年0円安い</em></div>
+  <div style="display:none"><small>安いほう</small><b id="o-w" style="font-size:18px">任意継続</b><em id="o-d">年0円安い</em></div>
  </div>
  <ul>
   <li id="o-note">任意継続の保険料は、標準報酬月額0円で計算しています</li>
@@ -436,6 +445,9 @@ function curR(){
   document.getElementById("o-n").innerHTML=f(nn.y)+"<i>円</i>";
   document.getElementById("o-w").textContent=k<nn.y?"国民健康保険":(k>nn.y?"任意継続":"同じ");
   document.getElementById("o-d").textContent="年"+f(d)+"円安い";
+  document.getElementById("vd").className="vd no";
+  document.getElementById("o-vd").textContent=d?(k<nn.y?"国民健康保険":"任意継続")+"のほうが年"+f(d)+"円安いです":"どちらも同じ額です";
+  document.getElementById("o-vds").textContent="国民健康保険は年"+f(k)+"円・任意継続は年"+f(nn.y)+"円です";
   document.getElementById("o-note").textContent="任意継続の保険料は、標準報酬月額"+f(nn.s)+"円（月給を年収÷12とした場合）で計算しています";
   document.getElementById("e-k").textContent=R.s;document.getElementById("e-n").textContent="協会けんぽ"+PF[+pref.value][0];
   document.getElementById("r-cap").textContent=R.s+"・令和8年度";

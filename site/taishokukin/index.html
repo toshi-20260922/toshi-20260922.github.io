@@ -143,7 +143,15 @@ body{overflow-x:clip}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
 <style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="tblfit">@media(max-width:374px){table:not(:has(tr>:nth-child(7))) :is(td,th){padding-left:3px!important;padding-right:3px!important;letter-spacing:-.03em}}@media(max-width:374px){.amt{grid-template-columns:1fr 1fr!important}.amt>div:first-child{grid-column:1/-1}}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="tblfit">@media(max-width:374px){table:not(:has(tr>:nth-child(7))) :is(td,th){padding-left:3px!important;padding-right:3px!important;letter-spacing:-.03em}}@media(max-width:374px){.amt{grid-template-columns:1fr 1fr!important}.amt>div:first-child{grid-column:1/-1}}.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap;font-size:22px}
+</style>
 </head>
 <body>
 <header class="hd"><div class="wrap">
@@ -174,6 +182,7 @@ body{overflow-x:clip}
    <div class="seg" id="s-y"><button type="button" class="on" data-v="0">従業員</button><button type="button" data-v="1">役員</button></div>
   </div>
  </div>
+ <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
  <div class="amt">
   <div><small>手取り</small><b id="o-n">0<i>円</i></b><em id="o-nr">退職金の0%</em></div>
   <div><small>税金の合計</small><b id="o-t">0<i>円</i></b><em>所得税と住民税</em></div>
@@ -307,6 +316,9 @@ function render(){
  document.getElementById("o-k").innerHTML=f(x.k)+"<i>円</i>";
  document.getElementById("o-br").textContent="税金の内訳は、所得税"+f(x.it)+"円・住民税"+f(x.ju)+"円です";
  document.getElementById("o-sh").textContent="税金がかかる退職所得は"+f(x.inc)+"円です";
+ var tz=x.it+x.ju;document.getElementById("vd").className=tz?"vd":"vd no";
+ document.getElementById("o-vd").textContent=tz?"手取りは"+f(x.net)+"円です":"退職金に税金はかかりません";
+ document.getElementById("o-vds").textContent=tz?"税金は所得税"+f(x.it)+"円・住民税"+f(x.ju)+"円です。退職所得の受給に関する申告書を出せば受け取るときに差し引かれ、確定申告は要りません":"退職金が退職所得控除の"+f(x.k)+"円以下なので、手取りは退職金と同じ額です";
  var hit=-1;ROWS.forEach(function(r,i){if(A>=r*10000)hit=i;});
  var h="";ROWS.forEach(function(r,i){var B=r*10000;h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(retire(B,20,0).net)+"</td><td>"+f(retire(B,30,0).net)+"</td><td>"+f(retire(B,38,0).net)+"</td></tr>";});
  document.getElementById("tb").innerHTML=h;

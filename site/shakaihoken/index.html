@@ -141,7 +141,15 @@ body{overflow-x:clip}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
 <style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
-<style id="sh9c">.sh9ul{margin:0 0 18px;padding-left:1.3em}.sh9ul li{margin:6px 0;line-height:1.8}.sh9 th,.sh9 td{white-space:nowrap}.sh9 td.sh9m{font-weight:700}@media(min-width:900px){.sh9{font-size:13px;width:100%}.sh9 th{font-size:11.5px;padding:6px 3px}.sh9 td{padding:6px 4px}.sh9 td small{font-size:10.5px}}@media(max-width:899px){.sh9 th:first-child,.sh9 td:first-child{position:sticky;left:0;background:#fff;z-index:1}.sh9 thead th:first-child{background:#d8efe6}}</style><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<style id="sh9c">.sh9ul{margin:0 0 18px;padding-left:1.3em}.sh9ul li{margin:6px 0;line-height:1.8}.sh9 th,.sh9 td{white-space:nowrap}.sh9 td.sh9m{font-weight:700}@media(min-width:900px){.sh9{font-size:13px;width:100%}.sh9 th{font-size:11.5px;padding:6px 3px}.sh9 td{padding:6px 4px}.sh9 td small{font-size:10.5px}}@media(max-width:899px){.sh9 th:first-child,.sh9 td:first-child{position:sticky;left:0;background:#fff;z-index:1}.sh9 thead th:first-child{background:#d8efe6}}.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap;font-size:22px}
+</style><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
@@ -173,6 +181,7 @@ body{overflow-x:clip}
    <div class="seg"><button type="button" class="on" data-a="0">40歳未満</button><button type="button" data-a="1">40〜64歳</button></div>
   </div>
  </div>
+ <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
  <div class="amt">
   <div><small>本人負担<br>（給料から引く）</small><b id="o-me">42,570<i>円</i></b><em>月額</em></div>
   <div><small>会社負担</small><b id="o-co">43,650<i>円</i></b><em>月額</em></div>
@@ -339,7 +348,10 @@ body{overflow-x:clip}
   document.getElementById("o-co").innerHTML=f(x.co)+"<i>円</i>";
   document.getElementById("o-all").innerHTML=f(x.me+x.co)+"<i>円</i>";
   document.getElementById("o-year").textContent="年間 約"+Math.round((x.me+x.co)*12/10000)+"万円";
-  document.getElementById("o-grade").textContent="標準報酬月額は"+f(g[1]*1000)+"円（"+g[0]+"等級）です。下の早見表の黄色の行です";
+  document.getElementById("vd").className="vd no";
+  document.getElementById("o-vd").textContent="本人負担は毎月"+f(x.me)+"円です";
+  document.getElementById("o-vds").textContent="標準報酬月額は"+f(g[1]*1000)+"円（"+g[0]+"等級）です。会社負担は毎月"+f(x.co)+"円です";
+  document.getElementById("o-grade").textContent=g[0]+"等級は、下の早見表の黄色の行です";
   document.getElementById("o-break").textContent="本人負担の内訳は、健康保険"+f(x.ken)+"円・厚生年金"+f(x.nen)+"円です";
   document.getElementById("t-cap").textContent="協会けんぽ "+PREFS[sel.value][0]+"・月額・単位は円";
   var h="";

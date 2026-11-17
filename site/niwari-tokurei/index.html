@@ -144,6 +144,14 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap;font-size:22px}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
@@ -172,6 +180,7 @@ body{overflow-x:clip}
   <div class="full"><label for="men">うちインボイスのない相手（免税事業者など）から</label><div class="row"><input id="men" class="w" type="text" inputmode="numeric" value="300,000"><span class="unit">円</span></div></div>
  </div>
  <p class="res-msg" id="o-msg"></p>
+ <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
  <div class="amt">
   <div><small>簡易課税</small><b id="o-a">0<i>円</i></b><em id="o-ae">届出が要る</em></div>
   <div><small>本則課税</small><b id="o-b">0<i>円</i></b><em>届出は要らない</em></div>
@@ -356,8 +365,10 @@ function render(){
  else{var t=TBL[document.getElementById("fy").value];msg="2割特例の最後の期は"+t[0]+"です。次の"+t[1]+"を簡易課税にする届出は"+t[2]+"まで（申告期限の延長がある法人は"+t[3]+"まで）です。";}
  var c=[["簡易課税",r.kan],["本則課税",r.hon]];if(kojin)c.push(["3割特例",r.san]);
  c.sort(function(a,b){return a[1]-b[1];});
- msg+="この売上と仕入れなら、いちばん少ないのは"+c[0][0]+"です。";
  document.getElementById("o-msg").textContent=msg;
+ document.getElementById("vd").className="vd no";
+ document.getElementById("o-vd").textContent="いちばん少ないのは"+c[0][0]+"です";
+ document.getElementById("o-vds").textContent=c[1][1]>c[0][1]?"次に少ない"+c[1][0]+"より"+f(c[1][1]-c[0][1])+"円少なくなります（1年間の納税額）":c[0][0]+"と"+c[1][0]+"は同じ額です";
  document.getElementById("o-a").innerHTML=f(r.kan)+"<i>円</i>";
  document.getElementById("o-b").innerHTML=f(r.hon)+"<i>円</i>";
  if(kojin){document.getElementById("o-c").innerHTML=f(r.san)+"<i>円</i>";document.getElementById("o-ce").textContent="2027・2028年分";}

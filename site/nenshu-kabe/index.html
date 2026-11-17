@@ -218,7 +218,29 @@ body{overflow-x:clip}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
 <style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="nk9c">.nk9ul{margin:0 0 18px;padding-left:1.3em}.nk9ul li{margin:6px 0;line-height:1.8}.nk9t th,.nk9t td{white-space:nowrap}.nk9t td:first-child,.nk9t th:first-child{text-align:left}@media(max-width:700px){.nk9t{font-size:13px}.nk9t th{white-space:normal;font-size:11.5px}.nk9t td,.nk9t th{padding-left:6px;padding-right:6px}}</style></head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="nk9c">.nk9ul{margin:0 0 18px;padding-left:1.3em}.nk9ul li{margin:6px 0;line-height:1.8}.nk9t th,.nk9t td{white-space:nowrap}.nk9t td:first-child,.nk9t th:first-child{text-align:left}@media(max-width:700px){.nk9t{font-size:13px}.nk9t th{white-space:normal;font-size:11.5px}.nk9t td,.nk9t th{padding-left:6px;padding-right:6px}}.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}
+.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
+.vd.no{border-left-color:#00775a}
+.vd.no b{color:#00775a}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap;font-size:22px}
+.chk{border-top:1px solid #ffffff33;margin:16px 0 0;padding:16px 0 0}
+.chk .ct{font-weight:700;font-size:18px;margin:0 0 12px;color:#ffffff}
+.chk .cn{font-size:13px;line-height:1.6;color:#dfeee8;margin:8px 0 0}
+.in{display:grid;gap:12px;margin:0 0 16px;grid-template-columns:1fr 1fr}
+.in .full{grid-column:1/3}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px;color:#dfeee8}
+.in .row{display:flex;align-items:center;gap:8px}
+.in .row span{color:#dfeee8}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#e3b465;margin:8px 0 0}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg.s3{grid-template-columns:1fr 1fr 1fr}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;line-height:1.4;color:#ffffff;background:#ffffff14;border:1.5px solid #ffffff55;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+</style></head>
 <body>
 
 <header class="hd"><div class="wrap">
@@ -246,6 +268,21 @@ body{overflow-x:clip}
     <li>社会保険は19〜22歳が150万円・60歳以上が180万円です</li>
     <li>税金の壁は上がり、社会保険の壁は上がっていません</li>
   </ul>
+<div class="chk" id="calc">
+ <div class="ct">自分の年収で確かめる</div>
+ <div class="in">
+  <div class="full"><label for="inc">1月から12月の給与の年収</label><div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="10000000" step="1000" value="1300000"><span>円</span></div><input type="range" id="incr" min="500000" max="2500000" step="1000" value="1300000" aria-label="1月から12月の給与の年収"></div>
+  <div class="full"><label>働く人</label><div class="seg s3" id="s-who"><button type="button" class="on" data-v="0">配偶者</button><button type="button" data-v="1">19〜22歳の子</button><button type="button" data-v="2">60歳以上</button></div></div>
+ </div>
+ <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="amt jdg">
+  <div><small>自分の所得税</small><b id="j1"></b><em>178万円まで0円</em></div>
+  <div><small>自分の住民税</small><b id="j2"></b><em>119万円まで0円（目安）</em></div>
+  <div><small>家族の税金の扶養</small><b id="j3"></b><em id="j3e"></em></div>
+  <div class="s"><small>家族の社会保険の扶養</small><b id="j4"></b><em id="j4e"></em></div>
+ </div>
+ <p class="cn">従業員51人以上の会社で週20時間以上働く人（学生を除く）は、年収にかかわらず勤め先の社会保険に入ります。</p>
+</div>
 </div>
 
 <div class="share">
@@ -587,4 +624,30 @@ body{overflow-x:clip}
 <script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
 
 
+<script>
+(function(){
+function f(n){return n.toLocaleString("ja-JP")}
+function T(id,t){document.getElementById(id).textContent=t}
+function V(on,b,sp){document.getElementById("vd").className=on?"vd":"vd no";T("o-vd",b);T("o-vds",sp)}
+function TOK(sh){var T=[[620000,63],[850000,63],[900000,61],[950000,51],[1000000,41],[1050000,31],[1100000,21],[1150000,11],[1200000,6],[1230000,3]];for(var i=0;i<T.length;i++)if(sh<=T[i][0])return T[i][1];return 0}
+function SPO(x){if(x<=1360000)return 38;var T=[[1690000,38],[1740000,36],[1790000,31],[1840000,26],[1890000,21],[1940000,16],[1990000,11],[2040000,6],[2070000,3]];for(var i=0;i<T.length;i++)if(x<=T[i][0])return T[i][1];return 0}
+function sho(x){return Math.max(0,x-740000)}
+var who=0;
+function draw(){var x=Math.max(0,parseInt(document.getElementById("inc").value,10)||0),lim=[1300000,1500000,1800000][who],si=x<lim,ti=x<=1360000,a=0,tx;
+ T("j1",x>1780000?"かかる":"かからない");T("j2",x>1190000?"かかる":"かからない");
+ if(ti){T("j3","入れる");T("j3e",["配偶者控除38万円","扶養控除63万円","扶養控除の対象"][who])}
+ else if(who===0&&(a=SPO(x))>0){T("j3","特別控除に");T("j3e","配偶者特別控除"+a+"万円")}
+ else if(who===1&&(a=TOK(sho(x)))>0){T("j3","特別控除に");T("j3e","特定親族特別控除"+a+"万円")}
+ else{T("j3","外れる");T("j3e","家族の控除なし")}
+ T("j4",si?"入れる":"外れる");T("j4e",(lim/10000)+"万円未満まで");
+ if(!si)V(1,"社会保険の扶養から外れます","年収が"+(lim/10000)+"万円以上なので自分で社会保険に入ります。勤め先の社会保険に入らないなら国民年金と国民健康保険です");
+ else if(ti)V(0,"扶養のままでいられます","税金の扶養にも社会保険の扶養にも入れます");
+ else V(0,"社会保険の扶養には入れます",a?"家族の控除は"+(who?"特定親族特別控除":"配偶者特別控除")+a+"万円になります":"家族の扶養控除は使えなくなります");
+}
+function seg(id,cb){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.remove("on")});b.classList.add("on");cb(+b.dataset.v);draw()})})}
+var inc=document.getElementById("inc"),incr=document.getElementById("incr");inc.addEventListener("input",function(){incr.value=inc.value;draw()});incr.addEventListener("input",function(){inc.value=incr.value;draw()});
+seg("s-who",function(v){who=v});draw();
+})();
+</script>
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script>
 </body></html>
