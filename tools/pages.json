@@ -134,5 +134,9 @@
  {
   "path": "/hensai/",
   "label": "借入の返済の計算"
+ },
+ {
+  "path": "/saitei-chingin-osaka/",
+  "label": "大阪の最低賃金"
  }
 ]
