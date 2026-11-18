@@ -107,7 +107,7 @@ def page(slug, title, desc, upd, body, script, cta, pic=PIC_YEN):
     url = 'https://taxtable.jp/%s/' % slug
     return ('<!doctype html>\n<html lang="ja"><head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="color-scheme" content="light">\n'
             '<title>%s</title>\n<link rel="canonical" href="%s">\n<meta name="description" content="%s">\n%s</head>\n<body>\n'
-            '<header class="hd"><div class="wrap">\n %s\n <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">作った税理士</a></nav>\n'
+            '<header class="hd"><div class="wrap">\n %s\n <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>\n'
             ' <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="%s_head_marunage">経理丸投げの無料相談 →</a></div>\n</div></header>\n\n'
             '<main class="wrap">\n<div class="top">\n %s\n <p class="upd">%s</p>\n <h1>%s</h1>\n</div>\n\n%s\n%s\n%s\n%s'
             '<div class="fbar one">\n <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="%s_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>\n</div>\n\n'
