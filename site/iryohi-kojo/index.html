@@ -312,6 +312,12 @@ body{overflow-x:clip}
  <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
  <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
  <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
  <a href="/">トップへ</a>
 </nav>
 </main>
@@ -341,10 +347,10 @@ body{overflow-x:clip}
  function zei(k){k=Math.floor(k/1000)*1000;var T=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[1e18,.45,4796000]];
   for(var i=0;i<T.length;i++){if(k<=T[i][0])return Math.round(k*T[i][1]-T[i][2])}}
  function calc(s,hg){var m=s/12,sh=ksh(s),sa=Math.round(sha(m)*12),ki=kiso(sh),ko=sa+ki+(hg?hk(sh):0);
-  var z=Math.floor(Math.floor(zei(Math.max(sh-ko,0))*1.021)/100)*100,t=gen(m,(hg&&sh<=9000000)?1:0)*12;return {t:t,z:z,k:t-z,ki:ki,sh:sh}}
+  var z=Math.floor(Math.floor(zei(Math.max(sh-ko,0))*1021/1000)/100)*100,t=gen(m,(hg&&sh<=9000000)?1:0)*12;return {t:t,z:z,k:t-z,ki:ki,sh:sh}}
 
- function iryo(s,med,hot){var sh=ksh(s),sa=Math.round(sha(s/12)*12),ashi=sh>=2000000?100000:Math.floor(sh*0.05);
-  var kj=Math.min(Math.max(med-hot-ashi,0),2000000),base=calc(s,0).z,t=zei(Math.max(sh-sa-kiso(sh)-kj,0)),af=t+Math.floor(t*0.021);
+ function iryo(s,med,hot){var sh=ksh(s),sa=Math.round(sha(s/12)*12),ashi=sh>=2000000?100000:Math.floor(sh*5/100);
+  var kj=Math.min(Math.max(med-hot-ashi,0),2000000),base=calc(s,0).z,t=zei(Math.max(sh-sa-kiso(sh)-kj,0)),af=t+Math.floor(t*21/1000);
   var st=kj>0?Math.max(base-af,0):0,jm=Math.floor(kj/10);return {kojo:kj,shotoku:st,jumin:jm,total:st+jm}}
  window.__iryo=iryo;
  var inc=document.getElementById("inc"),incr=document.getElementById("incr"),med=document.getElementById("med"),medr=document.getElementById("medr"),hot=document.getElementById("hot");

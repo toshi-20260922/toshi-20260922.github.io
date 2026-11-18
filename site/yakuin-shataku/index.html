@@ -324,6 +324,12 @@ body{overflow-x:clip}
  <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
  <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
  <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
  <a href="/">トップへ</a>
 </nav>
 </main>
@@ -338,7 +344,7 @@ function num(id){var v=document.getElementById(id).value.replace(/[^0-9.]/g,"");
 var own=0,kozo=1;
 function calc(k,m2,ie,tochi,o,rent){
  var lim=k===1?99:132,r={};
- r.p1=Math.round(ie*0.002);r.p2=Math.round(12*m2/3.3);r.p3=Math.round(tochi*0.0022);
+ r.p1=Math.round(ie*2/1000);r.p2=Math.round(12*m2/3.3);r.p3=Math.round(tochi*22/10000);
  r.big=m2>240;
  if(m2<=lim){r.kind="s";r.v=r.p1+r.p2+r.p3;}
  else{var y=Math.round((ie*(k===1?0.10:0.12)+tochi*0.06)/12);r.y=y;

@@ -321,6 +321,12 @@ body{overflow-x:clip}
  <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
  <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
  <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
  <a href="/">トップへ</a>
 </nav>
 </main>
@@ -381,7 +387,7 @@ function curR(){
 var inc=document.getElementById("inc"),incr=document.getElementById("incr"),ao=650000,old=0,NEN=17920*12;
 function kiso(g){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(g<=T[i][0])return T[i][1];}return 0;}
 function itax(g,sh){var t=Math.floor(Math.max(0,g-sh-kiso(g))/1000)*1000,B=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]],b=0;
- for(var i=0;i<B.length;i++){if(t<=B[i][0]){b=Math.floor(t*B[i][1]/100)-B[i][2];break;}}return Math.floor(Math.floor(b*1.021)/100)*100;}
+ for(var i=0;i<B.length;i++){if(t<=B[i][0]){b=Math.floor(t*B[i][1]/100)-B[i][2];break;}}return Math.floor(Math.floor(b*1021/1000)/100)*100;}
 function calc(a,ao,old){
  var g=Math.max(0,a-Math.min(ao,a)),k=kokuho(curR(),g,old,0,0).t,sh=k+NEN;
  var it=itax(g,sh),ju=jumin(g,sh,430000).y,jg=Math.floor(Math.floor(Math.max(0,a-2900000)/1000)*1000*5/100/100)*100;

@@ -316,6 +316,12 @@ body{overflow-x:clip}
  <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
  <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
  <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
  <a href="/">トップへ</a>
 </nav>
 </main>
@@ -360,7 +366,7 @@ body{overflow-x:clip}
  function itax(a,sh){var g=kyuyo(a),t=Math.floor(Math.max(0,g-sh-kiso(g))/1000)*1000;
   var B=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]],b=0;
   for(var i=0;i<B.length;i++){if(t<=B[i][0]){b=Math.floor(t*B[i][1]/100)-B[i][2];break;}}
-  return Math.floor(Math.floor(b*1.021)/100)*100;}
+  return Math.floor(Math.floor(b*1021/1000)/100)*100;}
  function jumin(a,sh){var g=kyuyo(a);if(g<=450000)return 0;
   var t=Math.floor(Math.max(0,g-sh-430000)/1000)*1000,adj=t<=2000000?Math.min(50000,t):50000;
   var shi=Math.floor(Math.max(0,Math.floor(t*6/100)-Math.floor(adj*3/100))/100)*100;

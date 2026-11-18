@@ -203,5 +203,35 @@
   "path": "/tsukin-teate/",
   "label": "通勤手当の非課税限度額",
   "kw": "通勤手当 通勤費 つうきん 非課税"
+ },
+ {
+  "path": "/shotoku-kingaku/",
+  "label": "所得金額の計算",
+  "kw": "所得金額 合計所得金額 しょとく 扶養 62万"
+ },
+ {
+  "path": "/saitei-chingin-saitama/",
+  "label": "埼玉県の最低賃金",
+  "kw": "さいていちんぎん 時給 さいたま"
+ },
+ {
+  "path": "/saitei-chingin-fukuoka/",
+  "label": "福岡県の最低賃金",
+  "kw": "さいていちんぎん 時給 ふくおか 北九州"
+ },
+ {
+  "path": "/saitei-chingin-chiba/",
+  "label": "千葉県の最低賃金",
+  "kw": "さいていちんぎん 時給 ちば"
+ },
+ {
+  "path": "/saitei-chingin-hyogo/",
+  "label": "兵庫県の最低賃金",
+  "kw": "さいていちんぎん 時給 ひょうご 神戸"
+ },
+ {
+  "path": "/saitei-chingin-kyoto/",
+  "label": "京都府の最低賃金",
+  "kw": "さいていちんぎん 時給 きょうと"
  }
 ]
