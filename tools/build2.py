@@ -69,7 +69,7 @@ def kojin():
             a=int(m.group(2).replace(',',''))*10000;x=V['rows'][str(old)][str(a)]
             tot=x['tax']+x['sh'];net=x['net']
             assert net==a-tot
-            return '<tr%s><td>%s万円</td><td>%s</td><td>%s</td><td>%s</td><td class="x7kk">%s</td><td>215,040</td><td>%s</td><td>%s</td><td>%s</td><td>%.1f%%</td></tr>'%(m.group(1),m.group(2),f(x['it']),f(x['ju']),f(x['jg']),f(x['k']),f(tot),f(net),f(round(net/12)),net/a*100)
+            return '<tr%s><td>%s万円</td><td>%s</td><td>%s</td><td>%s</td><td class="x7kk">%s</td><td>215,040</td><td>%s</td><td>%s</td><td>%s</td><td>%.1f%%</td></tr>'%(m.group(1) or '',m.group(2),f(x['it']),f(x['ju']),f(x['jg']),f(x['k']),f(tot),f(net),f(round(net/12)),net/a*100)
         return one
     parts=s.split('<table class="x7tb x7t10">');assert len(parts)==3
     for n in (1,2):

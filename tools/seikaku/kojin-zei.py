@@ -1,0 +1,203 @@
+# /kojin-zei/ 個人事業主の手取りの早見表。
+# 原本:
+# 国税庁 No.1199 基礎控除(令和8年分・令和9年分:合計所得489万円以下104万円・655万円以下67万円・2,350万円以下62万円・以後48万/32万/16万/0。令和8年4月1日現在法令等)
+#   https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm
+#   https://www.nta.go.jp/users/gensen/nencho/index/kyuyosyotokusya.htm (令和8年分の基礎控除の表)
+# 国税庁 No.2072 青色申告特別控除(55万円・65万円・10万円) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2072.htm
+# 国税庁 No.2260 所得税の税率(速算表・課税される所得金額は1,000円未満切り捨て・復興特別所得税2.1%)
+#   https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm
+# 東京都主税局 個人事業税(事業主控除290万円・税率3〜5%・青色申告特別控除は適用なし・8月と11月)
+#   https://www.tax.metro.tokyo.lg.jp/kazei/work/kojin_ji
+# 東京都主税局 個人住民税(都民税4%・区市町村民税6%・均等割1,000円+3,000円・森林環境税1,000円・調整控除・45万円以下は非課税)
+#   https://www.tax.metro.tokyo.lg.jp/kazei/life/kojin_ju
+# 中央区 基礎控除(住民税。2,400万円以下43万円・2,450万円以下29万円・2,500万円以下15万円・超は0円)
+#   https://www.city.chuo.lg.jp/a0009/kurashi/zeikin/juuminzei/shotokukoujo/zintekikozyo.html
+# 日本年金機構 国民年金保険料(令和8年度 月17,920円) https://www.nenkin.go.jp/service/kokunen/hokenryo/hokenryo.html
+# 国民健康保険(令和8年度。料率は tools/regions.py。2026-11-19 に公式ページで確かめたのは次の3つ)
+#   東京23区:世田谷区「保険料の計算方法」 https://www.city.setagaya.lg.jp/02060/297.html
+#            世田谷区「保険料の軽減・減免について」(7割43万円・5割+31万円×人数・2割+57万円×人数) https://www.city.setagaya.lg.jp/02060/300.html
+#   横浜市「令和8年度保険料の料率等について」 https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/kokuho/hokenryo/r7hokennryouritu.html
+#   大阪府「令和8年度大阪府市町村標準保険料率等の算定結果について」(医療分の上限は66万円) https://www.pref.osaka.lg.jp/o100080/kokuho/iryouseido/hokenryouritsu/hokenryouritsu2.html
+# 照らすもの:画面の結果(22の市区町村×青色3通り×年齢2通り×利益)・JS の料率と regions.py・HTML に手で書いた表2つの全行・JS が作る表・本文の数字
+# 税額の端数:所得税と復興特別所得税の合計は100円未満切り捨て(申告納税額)・住民税の所得割は区市町村分と都道府県分でそれぞれ100円未満切り捨て・個人事業税は課税標準1,000円未満と税額100円未満を切り捨て
+# 最後に原本を確かめた日:2026-11-19
+import os, sys, re, json
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from fractions import Fraction
+from _lib import run, SITE
+import regions
+
+NEN = 17920 * 12
+SOKUSAN = [(1949000, 5, 0), (3299000, 10, 97500), (6949000, 20, 427500), (8999000, 23, 636000),
+           (17999000, 33, 1536000), (39999000, 40, 2796000), (None, 45, 4796000)]
+KISO = [(4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000), (24500000, 320000), (25000000, 160000)]
+JKISO = [(24000000, 430000), (24500000, 290000), (25000000, 150000)]
+CAPS = [670000, 260000, 170000, 30000]
+
+def step(tbl, g):
+    for top, v in tbl:
+        if g <= top:
+            return v
+    return 0
+
+def shotokuzei(g, sh):
+    t = max(0, g - sh - step(KISO, g)) // 1000 * 1000
+    for top, r, d in SOKUSAN:
+        if top is None or t <= top:
+            b = t * r // 100 - d
+            break
+    return max(0, b) * 1021 // 1000 // 100 * 100
+
+def juminzei(g, sh):
+    if g <= 450000:
+        return 0
+    t = max(0, g - sh - step(JKISO, g)) // 1000 * 1000
+    if g > 25000000:
+        sa = 0
+    elif t <= 2000000:
+        sa = min(50000, t)
+    else:
+        sa = 50000          # {5万円-(課税所得-200万円)}の5%は2,500円未満になるので2,500円
+    shi = max(0, t * 6 // 100 - sa * 3 // 100) // 100 * 100
+    ken = max(0, t * 4 // 100 - sa * 2 // 100) // 100 * 100
+    return shi + ken + 5000
+
+def jigyozei(a):
+    return max(0, a - 2900000) // 1000 * 1000 * 5 // 100 // 100 * 100
+
+def kokuho(R, g, old):
+    """単身。R は regions.py の1件。"""
+    base = max(0, g - 430000)
+    kei = 7 if g <= 430000 else 5 if g <= 430000 + 310000 else 2 if g <= 430000 + 570000 else 0
+    tot = 0
+    for i, (ritsu, kinto, byodo, cap) in enumerate(R['p']):
+        if i == 2 and not old:
+            continue
+        v = base * ritsu // 10000 + kinto * (10 - kei) // 10 + byodo * (10 - kei) // 10
+        if R['nag'] and i == 0 and kei:
+            v = max(0, v - 2000)
+        tot += min(cap, v // R['r'] * R['r'])
+    return tot
+
+def ref(R, a, ao, old):
+    g = max(0, a - min(ao, a))
+    k = kokuho(R, g, old)
+    sh = k + NEN
+    it, ju, jg = shotokuzei(g, sh), juminzei(g, sh), jigyozei(a)
+    return dict(k=k, sh=sh, it=it, ju=ju, jg=jg, tax=it + ju + jg, net=a - it - ju - jg - sh)
+
+def half_up(fr):
+    return (fr.numerator * 2 + fr.denominator) // (2 * fr.denominator)
+
+def d(t):
+    return int(''.join(c for c in t if c.isdigit()) or 0)
+
+READ = '''([ri,ao,old,as])=>{var reg=document.getElementById("reg");reg.value=String(ri);reg.dispatchEvent(new Event("change"));
+ document.querySelector('#s-ao button[data-v="'+ao+'"]').click();document.querySelector('#s-age button[data-v="'+old+'"]').click();
+ var inc=document.getElementById("inc"),o=[];as.forEach(function(a){inc.value=a;inc.dispatchEvent(new Event("input"));
+  o.push(["o-n","o-t","o-s","o-br","o-sh","o-nr"].map(function(i){return document.getElementById(i).textContent;}));});return o;}'''
+
+async def body(pg):
+    n = bad = 0
+    def chk(label, got, want):
+        nonlocal n, bad
+        n += 1
+        if got != want:
+            bad += 1; print('NG', label, '画面', got, '原本から', want)
+    html = open(os.path.join(SITE, 'kojin-zei', 'index.html'), encoding='utf-8').read()
+    # 1 JS の料率と regions.py
+    RG = json.loads(re.search(r'var RG=(\[.*?\]);\n', html).group(1))
+    chk('市区町村の数', len(RG), len(regions.REG))
+    for a, b in zip(RG, regions.REG):
+        chk('料率 ' + b['s'], (a['p'], a['r'], a['g']), (b['p'], b['r'], b['nag']))
+    # 2026-11-19 に公式ページで確かめた3つ
+    OFF = {'東京23区': [[751, 47600, 0, 670000], [280, 17600, 0, 260000], [243, 17800, 0, 170000], [27, 1873, 0, 30000]],
+           '横浜市': [[833, 40870, 0, 670000], [262, 13380, 0, 260000], [284, 16200, 0, 170000], [34, 1770, 0, 30000]],
+           '大阪市・堺市': [[950, 34990, 33908, 660000], [306, 11191, 10845, 260000], [260, 18682, 0, 170000], [28, 1841, 0, 30000]]}
+    for a in RG:
+        if a['s'] in OFF:
+            chk('公式ページの料率 ' + a['s'], a['p'], OFF[a['s']])
+    # 2 画面の結果
+    GS = [430000, 740000, 1000000, 4890000, 6550000, 23500000, 24000000, 24500000, 25000000]
+    for ri, R in enumerate(regions.REG):
+        for ao in (650000, 100000, 0):
+            for old in (0, 1):
+                As = [0, 1, 99999, 2000000, 2899999, 2900000, 2900999, 2901000, 2999999, 3000000, 5000000, 5540000, 5550000,
+                      7200000, 7210000, 8000000, 8890000, 8900000, 11490000, 11500000, 15000000, 20000000, 30000000, 50000000]
+                for g in GS:
+                    As += [g + ao - 1, g + ao, g + ao + 1, g + ao + 1000]
+                As += list(range(1830000, 20000000, 371000))
+                got = await pg.evaluate(READ, [ri, ao, old, As])
+                for a, t in zip(As, got):
+                    e = ref(R, a, ao, old); n += 1
+                    br = [d(x) for x in re.findall(r'[0-9,]+円', t[3])]
+                    sh = [d(x) for x in re.findall(r'[0-9,]+円', t[4])]
+                    pct = half_up(Fraction(e['net'] * 100, a)) if a else 0
+                    g2 = (-d(t[0]) if t[0].startswith('-') else d(t[0]), d(t[1]), d(t[2]), br, sh, t[5])
+                    w2 = (e['net'], e['tax'], e['sh'], [e['it'], e['ju'], e['jg']], [e['k'], NEN], '利益の%d%%' % pct)
+                    if g2 != w2:
+                        bad += 1
+                        if bad < 40: print('NG', R['s'], a, ao, old, g2, w2)
+    # 3 はじめの形に戻して、JS が作る表(11行)
+    await pg.evaluate(READ, [0, 650000, 0, [5000000]])
+    TK = regions.REG[0]
+    rows = await pg.evaluate('()=>[].map.call(document.querySelectorAll("#tb tr"),function(r){return [].map.call(r.cells,function(c){return c.textContent;});})')
+    chk('JS の表の行数', len(rows), 11)
+    for r in rows:
+        e = ref(TK, d(r[0]) * 10000, 650000, 0)
+        chk('JS の表 %s万円' % r[0], [d(x) for x in r[1:]], [e['tax'], e['sh'], e['net']])
+    chk('表の見出し', await pg.inner_text('#t-cap'), '青色申告65万円・40歳未満・東京23区')
+    # 4 手で書いた表2つ(各27行)
+    tbs = await pg.evaluate('()=>[].map.call(document.querySelectorAll("table.x7t10"),function(t){return [].map.call(t.tBodies[0].rows,function(r){return [].map.call(r.cells,function(c){return c.textContent;});});})')
+    chk('手で書いた表の数', len(tbs), 2)
+    want_a = list(range(200, 1000, 50)) + list(range(1000, 2001, 100))
+    for old, tb in enumerate(tbs):
+        chk('表%d の利益の並び' % old, [d(r[0]) for r in tb], want_a)
+        for r in tb:
+            a = d(r[0]) * 10000; e = ref(TK, a, 650000, old)
+            tot = e['tax'] + e['sh']
+            p10 = half_up(Fraction(e['net'] * 1000, a))
+            want = [e['it'], e['ju'], e['jg'], e['k'], NEN, tot, e['net'], half_up(Fraction(e['net'], 12)), '%d.%d%%' % (p10 // 10, p10 % 10)]
+            chk('表%d %s' % (old, r[0]), [d(x) for x in r[1:9]] + [r[9]], want)
+    chk('trNone の残り', html.count('trNone'), 0)
+    # 5 本文の数字(東京23区・青色65万円・40歳未満)
+    text = await pg.inner_text('main')
+    def has(label, s):
+        chk(label + ' 「' + s + '」', s in text, True)
+    f = lambda v: format(v, ',')
+    R5 = lambda ao, old=0, a=5000000: ref(TK, a, ao, old)
+    a5 = R5(650000)
+    has('冒頭', '手取りは年%s円（月あたり%s円・手取り率%s%%）' % (f(a5['net']), f(half_up(Fraction(a5['net'], 12))), '%.1f' % (half_up(Fraction(a5['net'] * 1000, 5000000)) / 10)))
+    has('冒頭', '引かれる%s円のうち国民健康保険と国民年金が%s円で、所得税・住民税・個人事業税の合計%s円より%s' % (
+        f(a5['tax'] + a5['sh']), f(a5['sh']), f(a5['tax']), '多くなります' if a5['sh'] > a5['tax'] else '少なくなります'))
+    man = range(2000000, 20000001, 10000)
+    kit = max(a for a in man if (lambda x: x['k'] > x['it'])(ref(TK, a, 650000, 0)))
+    has('読み方1', '利益%s万円までは、所得税より国民健康保険のほうが多い' % f(kit // 10000))
+    ts = min(a for a in man if (lambda x: x['tax'] > x['sh'])(ref(TK, a, 650000, 0)))
+    chk('税金が社会保険料を上回ったあとに戻らない', all((lambda x: x['tax'] > x['sh'])(ref(TK, a, 650000, 0)) for a in man if a >= ts), True)
+    has('読み方1', '上回るのは、利益%s万円からです' % f(ts // 10000))
+    x554, x555, x720, x721 = [ref(TK, a, 650000, 0) for a in (5540000, 5550000, 7200000, 7210000)]
+    has('読み方2', '所得税が年%s円増えて手取りは年%s円減ります' % (f(x555['it'] - x554['it']), f(x554['net'] - x555['net'])))
+    has('読み方2', '利益720万円から721万円では、手取りが年%s円減ります' % f(x720['net'] - x721['net']))
+    cap = min(a for a in man if ref(TK, a, 650000, 0)['k'] >= 960000)
+    capo = min(a for a in man if ref(TK, a, 650000, 1)['k'] >= 1130000)
+    has('読み方3', '国民健康保険は利益%s万円で上限に届く' % f(cap // 10000))
+    chk('40〜59歳も同じ利益で上限', capo, cap)
+    has('問い', '利益%s万円あたりで上限に届きます' % f(cap // 10000))
+    chk('上限の合計', (sum(CAPS) - CAPS[2], sum(CAPS)), (960000, 1130000))
+    has('読み方3', '単身で年96万円（40〜59歳は介護分を含めて年113万円）が上限です')
+    has('読み方4', '利益500万円で年%s円です' % f(a5['jg']))
+    ds = [ref(TK, a, 650000, 0)['net'] - ref(TK, a, 100000, 0)['net'] for a in range(2000000, 20000001, 500000)]
+    has('読み方5', '手取りが年%d万〜%d万円違う' % (half_up(Fraction(min(ds), 10000)), half_up(Fraction(max(ds), 10000))))
+    b5, w5 = R5(100000), R5(0)
+    has('読み方5', '65万円控除の手取りは年%s円です。10万円控除では年%s円・白色申告では年%s円です' % (f(a5['net']), f(b5['net']), f(w5['net'])))
+    has('読み方5', '65万円控除と10万円控除の差は年%s円です' % f(R5(650000, 0, 8000000)['net'] - R5(100000, 0, 8000000)['net']))
+    has('青色', '合わせて年およそ%d万円少なくなります' % half_up(Fraction(a5['net'] - w5['net'], 10000)))
+    has('問い', '年%s円（月あたり%s円）です。所得税%s円・住民税%s円・個人事業税%s円・国民健康保険%s円・国民年金215,040円が引かれます' % (
+        f(a5['net']), f(half_up(Fraction(a5['net'], 12))), f(a5['it']), f(a5['ju']), f(a5['jg']), f(a5['k'])))
+    has('問い', '合計は年およそ%d万円です。社会保険料は年およそ%d万円です' % (half_up(Fraction(a5['tax'], 10000)), half_up(Fraction(a5['sh'], 10000))))
+    has('前提', '国民年金は月17,920円（年%s円）' % f(NEN))
+    return n, bad
+
+run('kojin-zei', body)
