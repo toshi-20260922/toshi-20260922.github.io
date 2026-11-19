@@ -154,7 +154,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="ビルと電卓"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="12" y="14" width="18" height="36" fill="#0f3d31"/><rect x="15" y="18" width="4" height="4" fill="#d8efe6"/><rect x="23" y="18" width="4" height="4" fill="#d8efe6"/><rect x="15" y="26" width="4" height="4" fill="#d8efe6"/><rect x="23" y="26" width="4" height="4" fill="#d8efe6"/><rect x="15" y="34" width="4" height="4" fill="#d8efe6"/><rect x="23" y="34" width="4" height="4" fill="#d8efe6"/><rect x="34" y="24" width="20" height="26" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="2.5"/><rect x="38" y="28" width="12" height="5" fill="#e3b465"/><path d="M39 38h2M44 38h2M49 38h0M39 43h2M44 43h2" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"/></svg></div>
- <p class="upd">更新日：2026年11月11日（令和8年度税制改正・防衛特別法人税に対応）</p>
+ <p class="upd">更新日：2026年11月19日（令和8年度税制改正・防衛特別法人税に対応）</p>
  <h1>【法人税の計算】住民税・事業税まで合わせていくら？所得を入れて計算【令和8年度】</h1>
 </div>
 <div class="sum" id="calc">
@@ -268,7 +268,7 @@ body{overflow-x:clip}
 <h3>繰越欠損金はどう入れますか？</h3>
 <p>前の期までの赤字で、まだ使っていない額を入れます。今期の所得から差し引いて計算します。所得より多く入れても、差し引けるのは所得の額までです。</p>
 <h3>防衛特別法人税はいくらの所得からかかりますか？</h3>
-<p>法人税額が年500万円を超える会社にかかります。12か月の中小法人なら、所得がおよそ2,440万円を超えるとかかり始めます。2026年3月31日以前に始まった事業年度にはかかりません。</p>
+<p>法人税額が年500万円を超える会社にかかります。12か月の中小法人なら、所得がおよそ2,438万円を超えるとかかり始めます。2026年3月31日以前に始まった事業年度にはかかりません。</p>
 <h3>この計算で扱っていないものは何ですか？</h3>
 <p>資本金1億円を超える会社（外形標準課税）・大きな会社の100%子会社・2つ以上の市区町村に事務所がある会社は扱っていません。賃上げ促進税制などの税額控除と中間申告も扱っていません。</p>
 
@@ -355,13 +355,14 @@ function h1(x){return Math.floor(x/100)*100;}
 var KIN=[[[20000,50000],[20000,120000]],[[50000,130000],[50000,150000]]];
 function calc(I,K,m,st,cap,emp,om){
  var A=k1(Math.max(0,I-Math.min(K,I)));
- var L=k1(8000000*m/12),hz=h1(Math.min(A,L)*0.15+Math.max(0,A-L)*0.232);
- var bo=st?h1(Math.max(0,k1(hz-5000000*m/12))*0.04):0;
- var ch=h1(k1(hz)*0.103);
+ /* 税率は1,000円単位の金額に整数でかけて、小数の誤差を出さない */
+ var L=k1(8000000*m/12),hr=Math.min(A,L)/1000*(A>1000000000?170:150)+Math.max(0,A-L)/1000*232,hz=h1(hr);
+ var bo=st?h1(k1(Math.max(0,hr-5000000*m/12))/1000*40):0;
+ var ch=h1(k1(hr)/1000*103);
  var t1=k1(4000000*m/12),t2=k1(8000000*m/12);
- var jg=h1(Math.min(A,t1)*0.035+Math.max(0,Math.min(A,t2)-t1)*0.053+Math.max(0,A-t2)*0.07);
- var tk=h1(jg*0.37);
- var kp=h1(k1(hz)*0.01),sp=h1(k1(hz)*0.06);
+ var jg=h1(Math.min(A,t1)/1000*35+Math.max(0,Math.min(A,t2)-t1)/1000*53+Math.max(0,A-t2)/1000*70);
+ var tk=h1(Math.floor(jg*37/100));
+ var kp=h1(k1(hr)/1000*10),sp=h1(k1(hr)/1000*60);
  var kk=KIN[cap][emp],kq=h1(kk[0]*om/12),sq=h1(kk[1]*om/12);
  var kuni=hz+ch+bo,ken=jg+tk+kp+kq,shi=sp+sq;
  return {A:A,L:L,hz:hz,bo:bo,ch:ch,jg:jg,tk:tk,kp:kp,kq:kq,sp:sp,sq:sq,kuni:kuni,ken:ken,shi:shi,t:kuni+ken+shi};}
