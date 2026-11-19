@@ -213,7 +213,7 @@ body{overflow-x:clip}
  <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/saitei-chingin-okinawa/">Xでポストする</a>
 </div>
 
-<p>沖縄県の最低賃金は、2026年12月2日から時給1,086円になりました。前の年度の1,023円から63円の引上げで、全国で45番目に高い額です。<span class="mk">年間休日120日・1日8時間の月給なら、月17万7,380円が最低ラインです。</span>12月1日までに働いた分は前の年度の1,023円で判定します。沖縄県の特定最低賃金はどれも県の最低賃金より低い額です。</p>
+<p>沖縄県の最低賃金は、2026年12月2日から時給1,086円になります。前の年度の1,023円から63円の引上げで、全国で45番目に高い額です。<span class="mk">年間休日120日・1日8時間の月給なら、月17万7,380円が最低ラインです。</span>12月1日までに働いた分は前の年度の1,023円で判定します。沖縄県の特定最低賃金はどれも県の最低賃金より低い額です。</p>
 
 <nav class="toc">
  <div class="t">目次</div>
@@ -405,7 +405,7 @@ body{overflow-x:clip}
   if(k===1){div=Math.max(0.25,num("dh"));}
   if(k===2){div=Math.max(1,(365-Math.min(300,num("hol")))*Math.max(0.25,num("mh"))/12);}
   var h=base/div,ix=$("ind")?+$("ind").value:0,x=IND[ix],fut=x.length>3&&new Date()<new Date(x[3]),cur=ix===0?NB:(fut?x[4]:x[1]),M=Math.max(NB,cur),sp=ix>0&&cur>NB;
-  var ok=h>=M,gap=M-h;
+  var ok=h>=M-1e-9,gap=Math.max(0,M-h);
   $("o-h").innerHTML=f1(h)+"<i>円</i>";
   $("o-hn").textContent=k===0?"含めない手当を除く":k===1?"日給÷"+div+"時間":"月給÷"+f1(div)+"時間";
   $("o-m").innerHTML=f(M)+"<i>円</i>";
@@ -414,7 +414,7 @@ body{overflow-x:clip}
   if(ok){$("o-vd").textContent="満たしています";$("o-vds").textContent=(h-M<0.05)?"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円と同じ額です":"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円より"+f1(h-M)+"円高い額です";}
   else{var per=k===0?"":(k===1?"1日あたり":"1か月あたり")+f(Math.ceil(gap*div-1e-9))+"円足りません。";
    $("o-vd").textContent="下回っています";$("o-vds").textContent="最低賃金"+f(M)+"円より時給あたり"+f1(gap)+"円足りません。"+per+"差額を払う必要があります";}
-  $("o-old").textContent=PRE?DATE+"からの"+f(BASE)+"円と比べると"+(h>=BASE?"満たしています":"下回っています（時給あたり"+f1(BASE-h)+"円）"):"改定前の"+f(OLD)+"円と比べると"+(h>=OLD?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
+  $("o-old").textContent=PRE?DATE+"からの"+f(BASE)+"円と比べると"+(h>=BASE-1e-9?"満たしています":"下回っています（時給あたり"+f1(BASE-h)+"円）"):"改定前の"+f(OLD)+"円と比べると"+(h>=OLD-1e-9?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
  }
  ["pay","ex","dh","hol","mh"].forEach(function(i){$(i).addEventListener("input",render);});
  if($("ind"))$("ind").addEventListener("change",render);

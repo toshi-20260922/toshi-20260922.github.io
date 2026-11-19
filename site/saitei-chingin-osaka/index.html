@@ -402,7 +402,7 @@ body{overflow-x:clip}
   if(k===1){div=Math.max(0.25,num("dh"));}
   if(k===2){div=Math.max(1,(365-Math.min(300,num("hol")))*Math.max(0.25,num("mh"))/12);}
   var h=base/div,x=IND[+$("ind").value],M=Math.max(1231,x[1]),sp=+$("ind").value>0;
-  var ok=h>=M,gap=M-h;
+  var ok=h>=M-1e-9,gap=Math.max(0,M-h);
   $("o-h").innerHTML=f1(h)+"<i>円</i>";
   $("o-hn").textContent=k===0?"含めない手当を除く":k===1?"日給÷"+div+"時間":"月給÷"+f1(div)+"時間";
   $("o-m").innerHTML=f(M)+"<i>円</i>";
@@ -411,7 +411,7 @@ body{overflow-x:clip}
   if(ok){$("o-vd").textContent="満たしています";$("o-vds").textContent=(h-M<0.05)?"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円と同じ額です":"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円より"+f1(h-M)+"円高い額です";}
   else{var per=k===0?"":k===1?"1日あたり"+f(Math.ceil(gap*div))+"円・":"1か月あたり"+f(Math.ceil(gap*div))+"円・";
    $("o-vd").textContent="下回っています";$("o-vds").textContent="最低賃金"+f(M)+"円より時給あたり"+f1(gap)+"円足りません。"+(per?per.replace(/・$/,"")+"足りません。":"")+"差額を払う必要があります";}
-  $("o-old").textContent="2026年9月30日までの1,177円と比べると"+(h>=1177?"満たしています":"下回っています（時給あたり"+f1(1177-h)+"円）");
+  $("o-old").textContent="2026年9月30日までの1,177円と比べると"+(h>=1177-1e-9?"満たしています":"下回っています（時給あたり"+f1(1177-h)+"円）");
   $("o-mid").textContent=sp?"特定最低賃金の発効前の11月30日までは、1,231円と改定前の特定最低賃金の高い方と比べます":"大阪府の最低賃金1,231円は2026年10月1日からの額です";
  }
  ["pay","ex","dh","hol","mh"].forEach(function(i){$(i).addEventListener("input",render);});

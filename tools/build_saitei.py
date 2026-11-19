@@ -1,7 +1,10 @@
 # 最低賃金のページ(全国と都道府県)を作る。2026/11/17 夜。
 # 使い方:リポジトリの直下で python3 tools/build_saitei.py
 # 金額:厚生労働省「令和8年度地域別最低賃金額答申状況」(001745621.pdf)
-import math, os, re, json
+import math, os, re, json, datetime
+# 作る日(日本時間)。発効日がこの日より後のページは「になります」と書く
+_t = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+TODAY = (_t.year, _t.month, _t.day)
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, 'site')
 OSAKA = open(os.path.join(SITE, 'saitei-chingin-osaka', 'index.html'), encoding='utf-8').read()
@@ -175,7 +178,7 @@ JS_PREF = r'''(function(){
   if(k===1){div=Math.max(0.25,num("dh"));}
   if(k===2){div=Math.max(1,(365-Math.min(300,num("hol")))*Math.max(0.25,num("mh"))/12);}
   var h=base/div,ix=$("ind")?+$("ind").value:0,x=IND[ix],fut=x.length>3&&new Date()<new Date(x[3]),cur=ix===0?NB:(fut?x[4]:x[1]),M=Math.max(NB,cur),sp=ix>0&&cur>NB;
-  var ok=h>=M,gap=M-h;
+  var ok=h>=M-1e-9,gap=Math.max(0,M-h);
   $("o-h").innerHTML=f1(h)+"<i>円</i>";
   $("o-hn").textContent=k===0?"含めない手当を除く":k===1?"日給÷"+div+"時間":"月給÷"+f1(div)+"時間";
   $("o-m").innerHTML=f(M)+"<i>円</i>";
@@ -184,7 +187,7 @@ JS_PREF = r'''(function(){
   if(ok){$("o-vd").textContent="満たしています";$("o-vds").textContent=(h-M<0.05)?"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円と同じ額です":"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円より"+f1(h-M)+"円高い額です";}
   else{var per=k===0?"":(k===1?"1日あたり":"1か月あたり")+f(Math.ceil(gap*div-1e-9))+"円足りません。";
    $("o-vd").textContent="下回っています";$("o-vds").textContent="最低賃金"+f(M)+"円より時給あたり"+f1(gap)+"円足りません。"+per+"差額を払う必要があります";}
-  $("o-old").textContent=PRE?DATE+"からの"+f(BASE)+"円と比べると"+(h>=BASE?"満たしています":"下回っています（時給あたり"+f1(BASE-h)+"円）"):"改定前の"+f(OLD)+"円と比べると"+(h>=OLD?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
+  $("o-old").textContent=PRE?DATE+"からの"+f(BASE)+"円と比べると"+(h>=BASE-1e-9?"満たしています":"下回っています（時給あたり"+f1(BASE-h)+"円）"):"改定前の"+f(OLD)+"円と比べると"+(h>=OLD-1e-9?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
  }
  ["pay","ex","dh","hol","mh"].forEach(function(i){$(i).addEventListener("input",render);});
  if($("ind"))$("ind").addEventListener("change",render);
@@ -252,7 +255,7 @@ def pref_page(cfg):
  </ul>
 </div>
 ''' % dict(n=n, ds=ds(p), m=c(m), o=c(o), up=up, exh=ex_h, sel=sel, mid=cfg['mid'])
-    intro = '<p>%sの最低賃金は、%sから時給%s円になりました。前の年度の%s円から%d円の引上げで、全国で%d番目に高い額です。<span class="mk">年間休日120日・1日8時間の月給なら、月%sが最低ラインです。</span>%s</p>\n' % (n, ds(p), c(m), c(o), up, rank(n), man(m120), cfg['intro'])
+    intro = '<p>%sの最低賃金は、%sから時給%s円%s。前の年度の%s円から%d円の引上げで、全国で%d番目に高い額です。<span class="mk">年間休日120日・1日8時間の月給なら、月%sが最低ラインです。</span>%s</p>\n' % (n, ds(p), c(m), 'になります' if (2026, p['mo'], p['da']) > TODAY else 'になりました', c(o), up, rank(n), man(m120), cfg['intro'])
     toc = '''<nav class="toc">
  <div class="t">目次</div>
  <ol>
@@ -564,7 +567,7 @@ PREFS += [
           [td('電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業', 'l'), td('1,063円'), td('令和8年1月1日')],
           [td('自動車・同附属品製造業・船舶製造・修理業・舶用機関製造業', 'l'), td('1,074円'), td('令和8年1月1日')],
           [td('百貨店・総合スーパー', 'l'), td('855円'), td('―')]]) +
-          '<p class="note" style="margin-top:8px">令和8年度の特定最低賃金の改正は、熊本地方最低賃金審議会が10月30日に答申しています。決まった額と発効日を労働局の原本で確かめたら、この欄と計算に入れます。百貨店・総合スーパーの855円は県の最低賃金より低いので、県の最低賃金で判定します。</p>\n',
+          '<p class="note" style="margin-top:8px">令和8年度の特定最低賃金の改正は、熊本地方最低賃金審議会が10月30日に答申しています。改正後の額と発効日は、官報で公示されたあとにこの表へ反映します。百貨店・総合スーパーの855円は県の最低賃金より低いので、県の最低賃金で判定します。</p>\n',
       near=['熊本県', '福岡県', '佐賀県', '長崎県', '大分県', '宮崎県', '鹿児島県'],
       near_lead='熊本県と九州の県の令和8年度の最低賃金です。熊本県は12月1日からの引上げで、九州では沖縄県に次いで遅い発効日です。',
       near_note='熊本県は島根県と同じ額です。福岡県とは22円の差があり、鹿児島県より2円・宮崎県より7円高い額です。',
@@ -663,7 +666,7 @@ JS_ALL = r'''(function(){
   $("w-day").classList.toggle("hide",k!==1);$("w-mon").classList.toggle("hide",k!==2);
   if(k===1){div=Math.max(0.25,num("dh"));}
   if(k===2){div=Math.max(1,(365-Math.min(300,num("hol")))*Math.max(0.25,num("mh"))/12);}
-  var x=PR[+$("pref").value],M=x[1],h=base/div,ok=h>=M,gap=M-h;
+  var x=PR[+$("pref").value],M=x[1],h=base/div,ok=h>=M-1e-9,gap=Math.max(0,M-h);
   var now=new Date(),eff=new Date(2026,x[3]-1,x[4]),pre=now<eff;
   $("o-h").innerHTML=f1(h)+"<i>円</i>";
   $("o-hn").textContent=k===0?"含めない手当を除く":k===1?"日給÷"+div+"時間":"月給÷"+f1(div)+"時間";
@@ -673,7 +676,7 @@ JS_ALL = r'''(function(){
   if(ok){$("o-vd").textContent="満たしています";$("o-vds").textContent=(h-M<0.05)?"時給に直すと"+f1(h)+"円で、"+x[0]+"の最低賃金"+f(M)+"円と同じ額です":"時給に直すと"+f1(h)+"円で、"+x[0]+"の最低賃金"+f(M)+"円より"+f1(h-M)+"円高い額です";}
   else{var per=k===0?"":(k===1?"1日あたり":"1か月あたり")+f(Math.ceil(gap*div-1e-9))+"円足りません。";
    $("o-vd").textContent="下回っています";$("o-vds").textContent=x[0]+"の最低賃金"+f(M)+"円より時給あたり"+f1(gap)+"円足りません。"+per+"差額を払う必要があります";}
-  $("o-old").textContent=pre?"まだ発効前です。2026年"+x[3]+"月"+x[4]+"日の前日までは改定前の"+f(x[2])+"円と比べます（"+(h>=x[2]?"満たしています":"下回っています")+"）":"改定前の"+f(x[2])+"円から"+(M-x[2])+"円上がりました";
+  $("o-old").textContent=pre?"まだ発効前です。2026年"+x[3]+"月"+x[4]+"日の前日までは改定前の"+f(x[2])+"円と比べます（"+(h>=x[2]-1e-9?"満たしています":"下回っています")+"）":"改定前の"+f(x[2])+"円から"+(M-x[2])+"円上がりました";
  }
  ["pay","ex","dh","hol","mh"].forEach(function(i){$(i).addEventListener("input",render);});
  $("pref").addEventListener("change",render);
