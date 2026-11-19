@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>【中古車の耐用年数の計算】何年で経費になる？4年落ちは2年・減価償却費の早見表</title>
-<meta name="description" content="車の種類・初度登録年月・納車月・決算月を入れると、中古車の耐用年数と今期・次の期の減価償却費が出ます。何年落ちで耐用年数が2年になるかの早見表、簡便法の計算、法人の定率法と個人事業主の定額法の違いも載せました。">
+<meta name="description" content="車の種類・初度登録年月・納車月・決算月を入れると、中古車の耐用年数と今期・次の期の減価償却費が出ます。何年落ちで耐用年数が2年になるかの早見表と簡便法の計算、法人の定率法と個人事業主の定額法の違いも載せました。">
 <link rel="canonical" href="https://taxtable.jp/chukosha-taiyonensu/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://taxtable.jp/chukosha-taiyonensu/">
 <meta property="og:title" content="【中古車の耐用年数の計算】何年で経費になる？4年落ちは2年・減価償却費の早見表">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="車の種類・初度登録年月・納車月・決算月を入れると、中古車の耐用年数と今期・次の期の減価償却費が出ます。何年落ちで耐用年数が2年になるかの早見表、簡便法の計算、法人の定率法と個人事業主の定額法の違いも載せました。">
+<meta property="og:description" content="車の種類・初度登録年月・納車月・決算月を入れると、中古車の耐用年数と今期・次の期の減価償却費が出ます。何年落ちで耐用年数が2年になるかの早見表と簡便法の計算、法人の定率法と個人事業主の定額法の違いも載せました。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -158,7 +158,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="車"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><path d="M14 38v-6l5-9h22l7 9v6z" fill="#ffffff" stroke="#0f3d31" stroke-width="3" stroke-linejoin="round"/><path d="M21 30h21" stroke="#0f3d31" stroke-width="2.5"/><circle cx="22" cy="40" r="5" fill="#e3b465" stroke="#0f3d31" stroke-width="2.5"/><circle cx="42" cy="40" r="5" fill="#e3b465" stroke="#0f3d31" stroke-width="2.5"/></svg></div>
- <p class="upd">更新日：2026年11月12日（国税庁 No.5404 の令和8年4月1日現在の法令等に対応）</p>
+ <p class="upd">更新日：2026年11月19日（国税庁 No.5404 の令和8年4月1日現在の法令等に対応）</p>
  <h1>【中古車の耐用年数の計算】何年で経費になる？4年落ちは2年・減価償却費の早見表</h1>
 </div>
 <div class="sum" id="calc">
@@ -273,8 +273,8 @@ body{overflow-x:clip}
 
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5404.htm">国税庁 No.5404「中古資産の耐用年数」（令和8年4月1日現在法令等）</a></li>
-  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2108.htm">国税庁 No.2108「中古資産の耐用年数」（個人）</a></li>
-  <li><a href="https://www.keisan.nta.go.jp/r5yokuaru/aoiroshinkoku/hitsuyokeihi/genkashokyakuhi/taiyonensusharyo.html">国税庁 確定申告書等作成コーナー「耐用年数（車両・運搬具）」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2108.htm">国税庁 No.2108「中古資産を非業務用から業務用に転用した場合の減価償却」（個人）</a></li>
+  <li><a href="https://www.keisan.nta.go.jp/r5yokuaru/aoiroshinkoku/hitsuyokeihi/genkashokyakuhi/taiyonensusharyo.html">国税庁 確定申告書等作成コーナー「耐用年数（車両・運搬具／工具）」</a></li>
   <li><a href="https://www.nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2011/pdf/1112kaisei_faq.pdf">国税庁「法人の減価償却制度の改正に関するQ&amp;A」（200%定率法の償却率・改定償却率・保証率）</a></li>
   <li>減価償却資産の耐用年数等に関する省令第3条・別表第一・別表第八・別表第十／耐用年数の適用等に関する取扱通達1-5-1・1-5-4／法人税法施行令第53条・第58条・第59条・第61条／所得税法施行令第96条・第120条の2・第125条・第132条</li>
 </ul></div>
@@ -344,14 +344,15 @@ body{overflow-x:clip}
 <script>
 (function(){
 function f(n){return Math.floor(n).toLocaleString("ja-JP");}
-var TEI={2:[1.000,0,0],3:[0.667,1.000,0.11089],4:[0.500,1.000,0.12499],5:[0.400,0.500,0.10800],6:[0.333,0.334,0.09911]};
-var GAKU={2:0.500,3:0.334,4:0.250,5:0.200,6:0.167};
-function life(L,m){if(m<=0)return L;var Lm=L*12,y=m>=Lm?Lm*0.2:(Lm-m)+m*0.2;return Math.max(Math.floor(y/12+1e-9),2);}
+/* 償却率・改定償却率は1000倍、保証率は100000倍の整数で持つ（小数の掛け算の誤差を出さない） */
+var TEI={2:[1000,0,0],3:[667,1000,11089],4:[500,1000,12499],5:[400,500,10800],6:[333,334,9911]};
+var GAKU={2:500,3:334,4:250,5:200,6:167};
+function life(L,m){if(m<=0)return L;var Lm=L*12,y5=m>=Lm?Lm:(Lm-m)*5+m;return Math.max(Math.floor(y5/60),2);}
 /* 期ごとの償却費（最初の期は月数で按分、帳簿に1円を残す） */
 function sched(cost,n,corp,mon1){var out=[],book=cost,rev=null;
  for(var i=0;i<n+2&&book>1;i++){var mo=i===0?mon1:12,a;
-  if(corp){var t=TEI[n],ann=book*t[0];if(rev!==null)ann=rev*t[1];else if(t[2]&&ann<cost*t[2]){rev=book;ann=rev*t[1];}a=Math.floor(ann*mo/12);}
-  else{a=Math.floor(cost*GAKU[n]*mo/12);}
+  if(corp){var t=TEI[n],base=book,k=t[0];if(rev!==null){base=rev;k=t[1];}else if(t[2]&&book*t[0]*100<cost*t[2]){rev=book;base=rev;k=t[1];}a=Math.floor(base*k*mo/12000);}
+  else{a=Math.floor(cost*GAKU[n]*mo/12000);}
   if(a>book-1)a=book-1;book-=a;out.push(a);}
  return out;}
 var corp=1;
@@ -372,7 +373,7 @@ function render(){
  document.getElementById("o-be").textContent=mon1+"か月分";
  document.getElementById("o-c").innerHTML=f(s[1]||0)+"<i>円</i>";
  document.getElementById("o-ce").textContent="12か月分";
- var rate=corp?TEI[n][0].toFixed(3):GAKU[n].toFixed(3);
+ var rate=((corp?TEI[n][0]:GAKU[n])/1000).toFixed(3);
  document.getElementById("o-1").textContent=(corp?"定率法・償却率"+rate:"定額法・償却率"+rate)+"で計算しました。期ごとの額："+s.map(function(x){return f(x)+"円";}).join("→");
 }
 document.querySelectorAll("#kei button").forEach(function(b){b.addEventListener("click",function(){corp=b.dataset.v==="0"?1:0;document.querySelectorAll("#kei button").forEach(function(x){x.classList.toggle("on",x===b);});render();});});

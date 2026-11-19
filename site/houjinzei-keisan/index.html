@@ -206,7 +206,7 @@ body{overflow-x:clip}
  <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/houjinzei-keisan/">LINEで送る</a>
  <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/houjinzei-keisan/">Xでポストする</a>
 </div>
-<p>会社の利益にかかる税金は、法人税だけではありません。国には法人税・地方法人税・防衛特別法人税を納めます。都道府県には法人事業税・特別法人事業税・法人住民税を、市区町村には法人住民税を納めます。<span class="mk">所得が800万円以下の中小企業なら、合計はおよそ所得の24%から25%です。</span></p>
+<p>会社の利益にかかる税金は、法人税だけではありません。国には法人税・地方法人税・防衛特別法人税を納めます。都道府県には法人事業税・特別法人事業税・法人住民税を、市区町村には法人住民税を納めます。<span class="mk">所得が300万円から800万円の中小企業なら、合計はおよそ所得の24%から25%です。</span></p>
 <nav class="toc"><div class="t">目次</div><ol>
  <li><a href="#utiwake">税金ごとの内訳と納める先</a></li>
  <li><a href="#list">所得ごとの税金の合計と負担率</a></li>
@@ -239,7 +239,7 @@ body{overflow-x:clip}
 <div class="tw"><table>
  <thead><tr><th style="width:40%">税金</th><th>税率</th></tr></thead>
  <tbody>
-  <tr><td class="l">法人税</td><td class="l">所得の年800万円以下の部分15%、超える部分23.2%</td></tr>
+  <tr><td class="l">法人税</td><td class="l">所得の年800万円以下の部分15%、超える部分23.2%<small>所得が年10億円を超える事業年度は、年800万円以下の部分が17%</small></td></tr>
   <tr><td class="l">地方法人税</td><td class="l">法人税額の10.3%</td></tr>
   <tr><td class="l">防衛特別法人税</td><td class="l">（法人税額−年500万円）の4%<small>2026年4月1日以後に始まる事業年度から</small></td></tr>
   <tr><td class="l">法人事業税<small>所得割・標準税率</small></td><td class="l">所得の年400万円以下3.5%・年800万円以下5.3%・超える部分7.0%</td></tr>
@@ -251,7 +251,7 @@ body{overflow-x:clip}
 <p class="note" style="margin-top:8px">均等割は資本金等1,000万円以下・50人超で年14万円です。1,000万円超1億円以下なら、50人以下で年18万円・50人超で年20万円です。東京都など標準税率より高い税率をかけている地域では、法人住民税と法人事業税が表より多くなります。</p>
 
 <h2 id="tuki">設立1期目など12か月に満たない事業年度</h2>
-<p>事業年度が12か月に満たないときは、法人税の15%がかかる年800万円と法人事業税の年400万円・年800万円の区切りを月数で割ります。たとえば7か月なら、法人税の15%は800万円×7÷12＝4,666,000円（1,000円未満切り捨て）までです。均等割は、事務所を置いていた月数で割ります。上の計算の「事業年度の月数」と「事務所を置いていた月数」を選ぶと、月割りで計算します。</p>
+<p>事業年度が12か月に満たないときは、法人税の15%がかかる年800万円と法人事業税の年400万円・年800万円の区切りを月数で割ります。たとえば7か月なら、法人税の15%は800万円×7÷12＝4,666,666円の1,000円未満を切り捨てた4,666,000円までです。切り捨てた端数が所得の1,000円未満の端数より多いときは、切り上げて4,667,000円までになります（法人税基本通達16-4-1）。均等割は、事務所を置いていた月数で割ります。上の計算の「事業年度の月数」と「事務所を置いていた月数」を選ぶと、月割りで計算します。</p>
 
 <h2 id="aka">赤字の年にかかる税金</h2>
 <p>所得がゼロや赤字の年でも、法人住民税の均等割はかかります。資本金等1,000万円以下・従業者50人以下なら、年7万円です。<span class="mk">2018年4月1日以後に始まった事業年度の赤字は、繰越欠損金として次の期から10年間の所得から差し引けます。</span>資本金1億円以下の中小法人は、所得の全額まで差し引けます。</p>
@@ -359,16 +359,18 @@ function calc(I,K,m,st,cap,emp,om){
  /* 800万円の月割は1,000円未満切捨て。ただし切り捨てる端数が所得の1,000円未満の端数より多いときは切上げ（法人税基本通達16-4-1） */
  var L=k1(8000000*m/12);if(8000000*m-L*12>(Ib%1000)*12)L+=1000;
  /* 17%になる「年10億円」も、12か月に満たない年度は月割（措置法42条の3の2第3項） */
- var hr=Math.min(A,L)/1000*(Ib*12>1000000000*m?170:150)+Math.max(0,A-L)/1000*232,hz=h1(hr);
+ var r17=Ib*12>1000000000*m;
+ var hr=Math.min(A,L)/1000*(r17?170:150)+Math.max(0,A-L)/1000*232,hz=h1(hr);
  var bo=st?h1(k1(Math.max(0,hr-5000000*m/12))/1000*40):0;
  var ch=h1(k1(hr)/1000*103);
- var t1=k1(4000000*m/12),t2=k1(8000000*m/12);
- var jg=h1(Math.min(A,t1)/1000*35+Math.max(0,Math.min(A,t2)-t1)/1000*53+Math.max(0,A-t2)/1000*70);
+ /* 法人事業税は第6号様式の記載要領どおり。月割した年400万円・年800万円は端数を切り捨てずに所得を3つに分け、欄ごとに課税標準は1,000円未満・税額は100円未満を切り捨てる */
+ var i12=Ib*12,a12=Math.min(i12,4000000*m),b12=Math.min(i12,8000000*m)-a12,c12=i12-a12-b12;
+ var jg=h1(Math.floor(a12/12000)*35)+h1(Math.floor(b12/12000)*53)+h1(Math.floor(c12/12000)*70);
  var tk=h1(Math.floor(jg*37/100));
  var kp=h1(k1(hr)/1000*10),sp=h1(k1(hr)/1000*60);
  var kk=KIN[cap][emp],kq=h1(kk[0]*om/12),sq=h1(kk[1]*om/12);
  var kuni=hz+ch+bo,ken=jg+tk+kp+kq,shi=sp+sq;
- return {A:A,L:L,hz:hz,bo:bo,ch:ch,jg:jg,tk:tk,kp:kp,kq:kq,sp:sp,sq:sq,kuni:kuni,ken:ken,shi:shi,t:kuni+ken+shi};}
+ return {A:A,L:L,r17:r17,hz:hz,bo:bo,ch:ch,jg:jg,tk:tk,kp:kp,kq:kq,sp:sp,sq:sq,kuni:kuni,ken:ken,shi:shi,t:kuni+ken+shi};}
 var inc=document.getElementById("inc"),incr=document.getElementById("incr"),ks=document.getElementById("ks"),mo=document.getElementById("mo"),om=document.getElementById("om"),st=document.getElementById("st"),cap=document.getElementById("cap"),emp=document.getElementById("emp");
 for(var i=12;i>=1;i--){var o=document.createElement("option");o.value=i;o.textContent=i+"か月"+(i===12?"（通常）":"");mo.appendChild(o);var p=document.createElement("option");p.value=i;p.textContent=i+"か月";om.appendChild(p);}
 var omTouched=false;
@@ -378,7 +380,7 @@ function render(){var I=num(inc),m=+mo.value;if(!omTouched||+om.value>m)om.value
  document.getElementById("o-b").innerHTML=(I?(Math.round(r.t/I*1000)/10):0)+"<i>%</i>";
  document.getElementById("o-c").innerHTML=(I-r.t<0?"−":"")+f(Math.abs(I-r.t))+"<i>円</i>";
  document.getElementById("o-1").textContent="国（税務署）"+f(r.kuni)+"円・都道府県"+f(r.ken)+"円・市区町村"+f(r.shi)+"円";
- document.getElementById("o-2").textContent=(m<12?"事業年度が"+m+"か月なので、法人税の15%は所得"+f(r.L)+"円までです":"所得のうち800万円までは法人税15%、超えた分は23.2%です")+(r.bo>0?"。防衛特別法人税が"+f(r.bo)+"円かかります":"");
+ document.getElementById("o-2").textContent=(m<12?"事業年度が"+m+"か月なので、法人税の"+(r.r17?"17":"15")+"%は所得"+f(r.L)+"円までです":(r.r17?"所得が10億円を超えるので、法人税は800万円までが17%で超えた分が23.2%です":"所得のうち800万円までは法人税15%、超えた分は23.2%です"))+(r.bo>0?"。防衛特別法人税が"+f(r.bo)+"円かかります":"");
  var U=[["法人税","国",r.hz],["地方法人税","国",r.ch],["防衛特別法人税","国",r.bo],["法人事業税","都道府県",r.jg],["特別法人事業税","都道府県",r.tk],["法人住民税（法人税割）","都道府県",r.kp],["法人住民税（均等割）","都道府県",r.kq],["法人住民税（法人税割）","市区町村",r.sp],["法人住民税（均等割）","市区町村",r.sq]];
  var u="";U.forEach(function(x){u+="<tr><td class=\"l\">"+x[0]+"</td><td class=\"c\">"+x[1]+"</td><td>"+f(x[2])+"</td></tr>";});
  u+="<tr><td class=\"l\"><b>合計</b></td><td class=\"c\">—</td><td><b>"+f(r.t)+"</b></td></tr>";

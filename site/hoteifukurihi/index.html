@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>【法定福利費の計算】社会保険料の会社負担はいくら？人数分まとめて計算【令和8年度】</title>
-<meta name="description" content="都道府県と従業員の標準報酬月額・年齢・人数を入れると、会社負担の法定福利費と給与から差し引く預り金、毎月の納付額が出ます。年金機構の端数の決まりで計算し、仕訳の例も載せました。">
+<meta name="description" content="都道府県と従業員の標準報酬月額・年齢・人数を入れると、会社負担の法定福利費と給与から差し引く預り金と毎月の納付額が出ます。年金機構の端数の決まりで計算し、仕訳の例も載せました。">
 <link rel="canonical" href="https://taxtable.jp/hoteifukurihi/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://taxtable.jp/hoteifukurihi/">
 <meta property="og:title" content="【法定福利費の計算】社会保険料の会社負担はいくら？人数分まとめて計算【令和8年度】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="都道府県と従業員の標準報酬月額・年齢・人数を入れると、会社負担の法定福利費と給与から差し引く預り金、毎月の納付額が出ます。年金機構の端数の決まりで計算し、仕訳の例も載せました。">
+<meta property="og:description" content="都道府県と従業員の標準報酬月額・年齢・人数を入れると、会社負担の法定福利費と給与から差し引く預り金と毎月の納付額が出ます。年金機構の端数の決まりで計算し、仕訳の例も載せました。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -256,11 +256,11 @@ body{overflow-x:clip}
 <h3>保険料はいつ納めますか？</h3>
 <p>前の月の分を、その月の末日までに納めます。たとえば10月分の保険料は、11月末までに納めます。</p>
 <h3>賞与にも社会保険料はかかりますか？</h3>
-<p>かかります。賞与の1,000円未満を切り捨てた標準賞与額に、月の保険料と同じ料率をかけます。健康保険は年度の合計573万円、厚生年金は1回150万円が上限です。</p>
+<p>かかります。賞与の1,000円未満を切り捨てた標準賞与額に、月の保険料と同じ料率をかけます。健康保険は年度の合計573万円、厚生年金は1か月150万円が上限です。</p>
 
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08">全国健康保険協会「令和8年度の都道府県単位保険料率」（介護保険料率・子ども・子育て支援金率を含む）</a></li>
-  <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8.10_13%E6%9D%B1%E4%BA%AC.pdf">全国健康保険協会「令和8年10月分からの健康保険・厚生年金保険の保険料額表（東京都）」</a></li>
+  <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf">全国健康保険協会「令和8年3月分（4月納付分）からの健康保険・厚生年金保険の保険料額表（東京都）」</a></li>
   <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/nofu/20121026.html">日本年金機構「保険料の計算方法について」（端数の処理と事業主負担分）</a></li>
   <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.files/R08ryougaku.pdf">日本年金機構「厚生年金保険料額表（令和8年度版）」（子ども・子育て拠出金率0.36%・令和8年4月1日から）</a></li>
   <li>健康保険法第40条・第164条／厚生年金保険法第9条・第20条・第83条（標準報酬月額・70歳未満の被保険者・保険料の納付期限）／介護保険法第9条（40〜64歳の第2号被保険者）／健康保険法第45条・厚生年金保険法第24条の4（標準賞与額）</li>
@@ -363,7 +363,7 @@ rows.addEventListener("change",render);
 rows.addEventListener("click",function(e){if(e.target.classList.contains("rd")){var w=e.target.closest(".rw");if(rows.querySelectorAll(".rw").length>1)w.remove();else w.querySelector(".rc").value="0";render();}});
 pref.addEventListener("change",render);
 document.getElementById("add").addEventListener("click",function(){addRow(300000,0,1);render();});
-document.getElementById("rst").addEventListener("click",function(){rows.innerHTML="";addRow(300000,0,1);pref.value="985";render();});
+document.getElementById("rst").addEventListener("click",function(){rows.innerHTML="";addRow(300000,0,1);pref.selectedIndex=12;render();});
 addRow(300000,0,1);render();
 window.__hf={calc:calc};
 })();

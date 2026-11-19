@@ -166,7 +166,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="計算"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="18" y="12" width="28" height="40" rx="4" fill="#ffffff" stroke="#0f3d31" stroke-width="3"/><rect x="23" y="17" width="18" height="8" rx="1.5" fill="#e3b465"/><g fill="#0f3d31"><circle cx="25" cy="32" r="2.2"/><circle cx="32" cy="32" r="2.2"/><circle cx="39" cy="32" r="2.2"/><circle cx="25" cy="39" r="2.2"/><circle cx="32" cy="39" r="2.2"/><circle cx="39" cy="39" r="2.2"/><circle cx="25" cy="46" r="2.2"/><circle cx="32" cy="46" r="2.2"/><circle cx="39" cy="46" r="2.2"/></g></svg></div>
- <p class="upd">更新日：2026年11月12日（令和8年度税制改正の3割特例・届出の特例・控除割合に対応）</p>
+ <p class="upd">更新日：2026年11月19日（令和8年度税制改正の3割特例・届出の特例・控除割合に対応）</p>
  <h1>【消費税の計算】2割特例が終わったらどれが得？簡易課税・3割特例と届出期限【2026年】</h1>
 </div>
 <div class="sum" id="calc">
@@ -292,7 +292,7 @@ body{overflow-x:clip}
 <h3>法人も3割特例を使えますか？</h3>
 <p>使えません。3割特例は個人事業者だけの決まりです。法人は2割特例のあと、簡易課税か本則課税のどちらかです。</p>
 <h3>届出を出さないとどうなりますか？</h3>
-<p>本則課税で計算します。本則課税は仕入れや経費の消費税を差し引くので、インボイスの保存などが要ります。</p>
+<p>本則課税で計算します。個人事業者は2027年分と2028年分に限り、3割特例も使えます。本則課税は仕入れや経費の消費税を差し引くので、インボイスの保存などが要ります。</p>
 <h3>2割特例の最後の期にも届出が要りますか？</h3>
 <p>2割特例は届出が要りません。確定申告書に2割特例を使うことを書いて申告します。</p>
 
@@ -374,9 +374,12 @@ function num(id){var v=document.getElementById(id).value.replace(/[^0-9]/g,"");r
 function h100(x){return Math.floor(x/100)*100;}
 /* 国税の納付額から地方消費税を足して合計を返す */
 function tot(k){k=Math.max(k,0);var kk=h100(k);return kk+h100(kk*22/78);}
-function calc(uri,shi,men,rate){var base=Math.floor(uri/1000)*1000,ut=base*0.078;
- var ko=(Math.max(shi-men,0))*0.078+Math.min(men,shi)*0.078*0.7;
- return {ut:ut,kan:tot(ut-ut*rate/100),hon:tot(ut-ko),san:tot(ut*0.3),ni:tot(ut*0.2),ko:ko};}
+/* 整数で掛けて割る。計算の途中の1円未満はその都度切り捨てる(申告書の付表の決まり) */
+function calc(uri,shi,men,rate){var base=Math.floor(uri/1000)*1000,ut=base*78/1000;
+ var m=Math.min(men,shi);
+ var ko=Math.floor((shi-m)*78/1000)+Math.floor(Math.floor(m*78/1000)*70/100);
+ function sa(p){return ut-Math.floor(ut*p/100);}
+ return {ut:ut,kan:tot(sa(rate)),hon:tot(ut-ko),san:tot(sa(70)),ni:tot(sa(80)),ko:ko};}
 var kojin=0;
 function render(){
  var r=calc(num("uri"),num("shi"),num("men"),+document.getElementById("gy").value);

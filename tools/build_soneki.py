@@ -19,7 +19,7 @@ auth=b[b.index('<div class="auth" id="auth">'):b.index('<div class="close">')]
 MAIN='''<main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="損益分岐点のグラフ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><path d="M14 48V14M14 48h36" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"/><path d="M14 36h36" stroke="#9fc4b6" stroke-width="2.5"/><path d="M14 48L48 16" stroke="#e3b465" stroke-width="3" stroke-linecap="round"/><path d="M14 36L48 26" stroke="#0f3d31" stroke-width="3" stroke-linecap="round"/><circle cx="35" cy="29" r="4" fill="#ffffff" stroke="#b5473a" stroke-width="2.5"/></svg></div>
- <p class="upd">更新日：2026年11月16日</p>
+ <p class="upd">更新日：2026年11月19日</p>
  <h1>'''+T+'''</h1>
 </div>
 <div class="sum" id="calc">
@@ -119,7 +119,7 @@ MAIN='''<main class="wrap">
  <li>変動費率を下げる：仕入先・外注先と条件を見直し、売上高に対する原価の割合を下げます</li>
  <li>販売価格を上げる：同じ数量でも売上高が増えるので、変動費率が下がります</li>
 </ul>
-<p>売上高を増やしても、損益分岐点売上高は変わりません。売上高を増やすと下がるのは損益分岐点比率です。</p>
+<p>変動費率と固定費が同じまま売上高を増やしても、損益分岐点売上高は変わりません。売上高を増やすと下がるのは損益分岐点比率です。</p>
 <p class="ask">人を1人雇うと、固定費はいくら増えるか？<br>計算ツールで確かめてみてください。</p>
 <a class="cbtn nx" href="/yatou-hiyou/" data-cta="soneki_next_yatou">従業員を1人雇う費用</a>
 
@@ -146,17 +146,18 @@ JS='''<script>
 function f(n){return Math.round(n).toLocaleString("ja-JP");}
 function num(el){return Math.max(0,parseInt(String(el.value).replace(/[^0-9]/g,""),10)||0);}
 function fmt(el){el.value=num(el).toLocaleString("ja-JP");}
-function sg(n){return (n<0?"−":"")+f(Math.abs(n));}
-function p1(x){return (Math.round(x*10)/10).toFixed(1);}
+function sg(n){var a=Math.round(Math.abs(n));return (n<0&&a>0?"−":"")+a.toLocaleString("ja-JP");}
+function t10(a,b){return Math.round(Math.abs(a)*1000/b)*(a<0?-1:1);}
+function pt(t){return (t<0?"−":"")+(Math.abs(t)/10).toFixed(1);}
 var sal=document.getElementById("sal"),vc=document.getElementById("vc"),fc=document.getElementById("fc");
-function calc(S,V,F){var m=S-V,mr=S>0?m/S:0,ok=S>0&&m>0,bep=ok?F/mr:0;return {m:m,mr:mr,ok:ok,bep:bep,br:ok?bep/S*100:0,pf:m-F};}
-function render(){var S=num(sal),V=num(vc),F=num(fc),r=calc(S,V,F);
+function calc(S,V,F){var m=S-V,mr=S>0?m/S:0,ok=S>0&&m>0,bep=ok?F*S/m:0;return {m:m,mr:mr,ok:ok,bep:bep,br:ok?F*100/m:0,pf:m-F};}
+function render(){var S=num(sal),V=num(vc),F=num(fc),r=calc(S,V,F),bt=r.ok?t10(F,r.m):0,gap=r.ok?f(Math.abs(S*r.pf/r.m)):"";
  document.getElementById("o-a").innerHTML=(r.ok?f(r.bep):"—")+"<i>円</i>";
- document.getElementById("o-b").innerHTML=(r.ok?p1(r.br):"—")+"<i>%</i>";
- document.getElementById("o-c").innerHTML=(r.ok?(r.br>100?"−":"")+p1(Math.abs(100-r.br)):"—")+"<i>%</i>";
- document.getElementById("o-1").textContent="限界利益"+sg(r.m)+"円・限界利益率"+p1(r.mr*100)+"%・利益"+sg(r.pf)+"円";
- document.getElementById("o-2").textContent=!r.ok?"変動費が売上高以上なので、売上高を増やしても黒字になりません":(r.pf>=0?"売上高が"+f(S-r.bep)+"円減ると、利益が0になります":"売上高があと"+f(r.bep-S)+"円増えると、利益が0になります");
- var t="";[-30,-20,-10,0,10,20,30].forEach(function(d){var s=S*(100+d)/100,m=s*r.mr,pf=m-F;
+ document.getElementById("o-b").innerHTML=(r.ok?pt(bt):"—")+"<i>%</i>";
+ document.getElementById("o-c").innerHTML=(r.ok?pt(1000-bt):"—")+"<i>%</i>";
+ document.getElementById("o-1").textContent="限界利益"+sg(r.m)+"円・限界利益率"+pt(S>0?t10(r.m,S):0)+"%・利益"+sg(r.pf)+"円";
+ document.getElementById("o-2").textContent=!r.ok?"変動費が売上高以上なので、売上高を増やしても黒字になりません":(r.pf>=0?"売上高が"+gap+"円減ると、利益が0になります":"売上高があと"+gap+"円増えると、利益が0になります");
+ var t="";[-30,-20,-10,0,10,20,30].forEach(function(d){var s=S*(100+d)/100,m=r.m*(100+d)/100,pf=(r.m*(100+d)-F*100)/100;
   t+="<tr"+(d===0?" class=\\"hit\\"":"")+"><td>"+(d>0?"+":(d<0?"−":""))+Math.abs(d)+"%</td><td>"+f(s)+"</td><td>"+sg(m)+"</td><td>"+sg(pf)+"</td></tr>";});
  document.getElementById("tb").innerHTML=t;}
 [sal,vc,fc].forEach(function(e){e.addEventListener("input",render);e.addEventListener("blur",function(){fmt(e);});});

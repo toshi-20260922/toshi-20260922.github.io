@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>【役員社宅の家賃の計算】会社がいくら受け取る？固定資産税の課税標準額から計算</title>
-<meta name="description" content="建物の構造・床面積・家屋と敷地の固定資産税の課税標準額を入れると、役員から受け取る家賃（賃貸料相当額）と、足りないときに給与になる額が出ます。小規模な住宅の判定、借上げの家賃50%の決まり、従業員との違いも載せました。">
+<meta name="description" content="建物の構造・床面積・家屋と敷地の固定資産税の課税標準額を入れると、役員から受け取る家賃（賃貸料相当額）と足りないときに給与になる額が出ます。小規模な住宅の判定と借上げの家賃50%の決まり、従業員との違いも載せました。">
 <link rel="canonical" href="https://taxtable.jp/yakuin-shataku/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://taxtable.jp/yakuin-shataku/">
 <meta property="og:title" content="【役員社宅の家賃の計算】会社がいくら受け取る？固定資産税の課税標準額から計算">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="建物の構造・床面積・家屋と敷地の固定資産税の課税標準額を入れると、役員から受け取る家賃（賃貸料相当額）と、足りないときに給与になる額が出ます。小規模な住宅の判定、借上げの家賃50%の決まり、従業員との違いも載せました。">
+<meta property="og:description" content="建物の構造・床面積・家屋と敷地の固定資産税の課税標準額を入れると、役員から受け取る家賃（賃貸料相当額）と足りないときに給与になる額が出ます。小規模な住宅の判定と借上げの家賃50%の決まり、従業員との違いも載せました。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -158,11 +158,11 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="家"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><path d="M14 31 32 16l18 15" fill="none" stroke="#0f3d31" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="19" y="29" width="26" height="20" rx="2" fill="#ffffff" stroke="#0f3d31" stroke-width="3"/><rect x="28" y="37" width="8" height="12" fill="#e3b465"/></svg></div>
- <p class="upd">更新日：2026年11月12日（国税庁 No.2600 の令和8年4月1日現在の算式に対応）</p>
+ <p class="upd">更新日：2026年11月19日（国税庁 No.2600 の令和8年4月1日現在の算式に対応）</p>
  <h1>【役員社宅の家賃の計算】会社がいくら受け取る？固定資産税の課税標準額から計算</h1>
 </div>
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>床面積70㎡の鉄筋コンクリートのマンション（家屋の課税標準額600万円・土地300万円）なら、役員から月18,855円以上を受け取れば<b class="nw">給与になりません</b></div>
+ <div class="h"><span>結論</span>床面積70㎡の鉄筋コンクリートのマンション（家屋の課税標準額600万円・敷地300万円）なら、役員から月18,855円以上を受け取れば<b class="nw">給与になりません</b></div>
  <div class="in">
   <div class="full">
    <label>建物の構造</label>
@@ -186,7 +186,7 @@ body{overflow-x:clip}
  </div>
  <ul>
   <li id="o-1"></li>
-  <li>課税標準額は、市区町村が出す固定資産評価証明書（課税証明書）に載っている額です。評価額ではありません</li>
+  <li>課税標準額は、市区町村が出す固定資産の公課証明書（課税証明書）に載っている額です。評価額ではありません</li>
   <li>入力した数字はブラウザの中だけで計算し、どこにも送りません。登録も要りません</li>
  </ul>
 </div>
@@ -270,7 +270,7 @@ body{overflow-x:clip}
 <h3>家賃の何割を受け取ればよいのですか？</h3>
 <p>決まった割合はありません。小規模な住宅なら固定資産税の課税標準額と床面積から出した額を受け取ります。小規模でない借上げの社宅は、会社が払う家賃の50%か会社の持ち物の算式の額の多いほうです。</p>
 <h3>課税標準額はどこで分かりますか？</h3>
-<p>市区町村が出す固定資産評価証明書に載っています。借上げの部屋は、家主に写しを頼んでください。評価額ではなく課税標準額を使います。</p>
+<p>市区町村が出す固定資産の公課証明書（課税証明書）に載っています。評価証明書には課税標準額が載らない市区町村があります。借上げの部屋は、家主に写しを頼んでください。評価額ではなく課税標準額を使います。</p>
 <h3>現金で住宅手当を払うのと何が違いますか？</h3>
 <p>現金の住宅手当は、全額が給与として課税されます。会社が借りて役員に貸して賃貸料相当額を受け取る形なら、その社宅は給与として課税されません。</p>
 
@@ -350,11 +350,11 @@ function num(id){var v=document.getElementById(id).value.replace(/[^0-9.]/g,"");
 var own=0,kozo=1;
 function calc(k,m2,ie,tochi,o,rent){
  var lim=k===1?99:132,r={};
- r.p1=Math.round(ie*2/1000);r.p2=Math.round(12*m2/3.3);r.p3=Math.round(tochi*22/10000);
+ r.p1=Math.floor((ie*2+500)/1000);r.p2=Math.floor((80*Math.round(m2*10000)+110000)/220000);r.p3=Math.floor((tochi*22+5000)/10000);
  r.big=m2>240;
  if(m2<=lim){r.kind="s";r.v=r.p1+r.p2+r.p3;}
- else{var y=Math.round((ie*(k===1?0.10:0.12)+tochi*0.06)/12);r.y=y;
-  if(o===1){r.kind="o";r.v=y;}else{r.half=Math.round(rent*0.5);r.kind="r";r.v=Math.max(y,r.half);}}
+ else{var y=Math.floor((ie*(k===1?10:12)+tochi*6+600)/1200);r.y=y;
+  if(o===1){r.kind="o";r.v=y;}else{r.half=Math.floor((rent+1)/2);r.kind="r";r.v=Math.max(y,r.half);}}
  r.lim=lim;return r;}
 function render(){
  var k=kozo,m2=num("m2"),ie=num("ie"),tochi=num("tochi"),rent=num("rent"),get=num("get");

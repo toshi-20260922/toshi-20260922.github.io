@@ -154,7 +154,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="人と円"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><circle cx="25" cy="24" r="8" fill="#0f3d31"/><path d="M11 50c1-10 7-15 14-15s13 5 14 15z" fill="#0f3d31"/><circle cx="46" cy="40" r="10" fill="#e3b465"/><text x="46" y="45" font-size="13" font-weight="700" text-anchor="middle" fill="#0f3d31" font-family="sans-serif">円</text></svg></div>
- <p class="upd">更新日：2026年11月16日（令和8年度の料率に対応）</p>
+ <p class="upd">更新日：2026年11月19日（令和8年度の料率に対応）</p>
  <h1>【人を雇う費用の計算】従業員1人でいくらかかる？月給別の会社負担【令和8年度】</h1>
 </div>
 <div class="sum" id="calc">
@@ -210,7 +210,7 @@ body{overflow-x:clip}
 </ol></nav>
 
 <h2 id="list">月給別の会社負担と総額の早見表</h2>
-<p>上で選んだ年齢の条件で、賞与なしで計算しています。入れた月給に近い行が黄色になります。</p>
+<p>上で選んだ年齢の条件で、賞与なしで計算しています。入れた月給を超えない中でいちばん近い行が黄色になります。</p>
 <div class="tw"><table>
  <thead><tr><th>月給<br>（万円）</th><th>会社が払う<br>保険料（円/月）</th><th>1か月の<br>総額（円）</th><th>1年の<br>総額（円）</th></tr></thead>
  <tbody id="tb"></tbody>
@@ -365,16 +365,17 @@ function num(el){return Math.max(0,parseInt(String(el.value).replace(/[^0-9]/g,"
 function fmt(el){var v=num(el);el.value=v.toLocaleString("ja-JP");}
 var GR=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
 function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000;}return 1390000;}
-/* 会社の負担の率（%） */
+/* 会社の負担の率は20000分のいくつかの整数で持ち、掛けてから割って1円未満を四捨五入する */
 var PF=[["北海道",1028],["青森県",985],["岩手県",951],["宮城県",1010],["秋田県",1001],["山形県",975],["福島県",950],["茨城県",952],["栃木県",982],["群馬県",968],["埼玉県",967],["千葉県",973],["東京都",985],["神奈川県",992],["新潟県",921],["富山県",959],["石川県",970],["福井県",971],["山梨県",955],["長野県",963],["岐阜県",980],["静岡県",961],["愛知県",993],["三重県",977],["滋賀県",988],["京都府",989],["大阪府",1013],["兵庫県",1012],["奈良県",991],["和歌山県",1006],["鳥取県",986],["島根県",994],["岡山県",1005],["広島県",978],["山口県",1015],["徳島県",1024],["香川県",1002],["愛媛県",998],["高知県",1005],["福岡県",1011],["佐賀県",1055],["長崎県",1006],["熊本県",1008],["大分県",1008],["宮崎県",977],["鹿児島県",1013],["沖縄県",944]],pref=document.getElementById("pref");
-var KEN=9.85/2,KAI=1.62/2,SIEN=0.23/2,NEN=18.3/2,KYO=0.36,KOY=0.85,ROU=0.3;
+var KEN=985,KAI=162,SIEN=23,NEN=1830,KYO=72,KOY=170,ROU=60;
+function r5(n){return Math.floor((n+10000)/20000);}
 function month(m,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);
- var r={ken:s*(KEN+(old?KAI:0))/100,sien:s*SIEN/100,nen:p*NEN/100,kyo:p*KYO/100,koy:m*KOY/100,rou:m*ROU/100};
- r.t=r.ken+r.sien+r.nen+r.kyo+r.koy+r.rou;return r;}
+ var a={ken:s*(KEN+(old?KAI:0)),sien:s*SIEN,nen:p*NEN,kyo:p*KYO,koy:m*KOY,rou:m*ROU},r={},k,t=0;
+ for(k in a){t+=a[k];r[k]=r5(a[k]);}r.t=r5(t);return r;}
 function bonus(b,n,old){if(!b||!n)return 0;var t=0,cum=0;for(var i=0;i<n;i++){var sb=Math.floor(b/1000)*1000,hk=Math.max(0,Math.min(sb,5730000-cum));cum+=hk;var pn=Math.min(sb,1500000);
- t+=hk*(KEN+(old?KAI:0)+SIEN)/100+pn*(NEN+KYO)/100+b*(KOY+ROU)/100;}return t;}
+ t+=hk*(KEN+(old?KAI:0)+SIEN)+pn*(NEN+KYO)+b*(KOY+ROU);}return r5(t);}
 var pay=document.getElementById("pay"),payr=document.getElementById("payr"),bon=document.getElementById("bon"),old=0,bn=0;
-function render(){KEN=PF[+pref.value][1]/200;document.getElementById("o-3").textContent=PF[+pref.value][0]+"の協会けんぽ・労災保険率1000分の3（卸売業・小売業・飲食店・宿泊業・その他の各種事業）で計算しています";var m=num(pay),r=month(m,old),mt=Math.round(r.t),y=mt*12+Math.round(bonus(num(bon),bn,old))+num(bon)*bn+m*12;
+function render(){KEN=PF[+pref.value][1];document.getElementById("o-3").textContent=PF[+pref.value][0]+"の協会けんぽ・労災保険率1000分の3（卸売業・小売業・飲食店・宿泊業・その他の各種事業）で計算しています";var m=num(pay),r=month(m,old),mt=Math.round(r.t),y=mt*12+Math.round(bonus(num(bon),bn,old))+num(bon)*bn+m*12;
  document.getElementById("o-a").innerHTML=f(mt)+"<i>円</i>";
  document.getElementById("e-a").textContent="月給の"+(m?(Math.round(mt/m*1000)/10):0)+"%";
  document.getElementById("o-b").innerHTML=f(m+mt)+"<i>円</i>";
