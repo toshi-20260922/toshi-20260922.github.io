@@ -370,7 +370,7 @@ body{overflow-x:clip}
   document.getElementById("o-c").innerHTML=f(x.c+x.b)+"<i>円</i>";
   document.getElementById("o-all").innerHTML=f(x.t)+"<i>円</i>";
   document.getElementById("o-rt").textContent=y>0?"所得の"+(Math.round(x.t/y*1000)/10)+"%":"所得の0%";
-  document.getElementById("o-1").textContent=cap===0?(y>1000000000?"所得が10億円を超えるので800万円までは17%で計算しています":"所得のうち800万円までは15%、超えた分は23.2%で計算しています"):"資本金1億円を超えるので、所得の全部を23.2%で計算しています";
+  document.getElementById("o-1").textContent=cap===0?(Math.floor(Math.max(0,y)/1000)*1000>1000000000?"所得が10億円を超えるので800万円までは17%で計算しています":"所得のうち800万円までは15%、超えた分は23.2%で計算しています"):"資本金1億円を超えるので、所得の全部を23.2%で計算しています";
   document.getElementById("o-2").textContent=!bou.checked?"令和8年3月31日までに始まる事業年度なので、防衛特別法人税は入れていません":(x.b>0?"防衛特別法人税"+f(x.b)+"円を含みます。地方法人税は"+f(x.c)+"円です":"防衛特別法人税は、法人税が500万円以下なのでかかりません");
   document.getElementById("t-cap").textContent=(cap===0?"資本金1億円以下":"資本金1億円超")+"・"+(bou.checked?"令和8年4月1日以後に始まる事業年度":"令和8年3月31日までに始まる事業年度");
   var h="",hit=-1;
