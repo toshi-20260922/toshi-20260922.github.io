@@ -233,5 +233,35 @@
   "path": "/saitei-chingin-kyoto/",
   "label": "京都府の最低賃金",
   "kw": "さいていちんぎん 時給 きょうと"
+ },
+ {
+  "path": "/taiyonensu/",
+  "label": "法定耐用年数の一覧",
+  "kw": "耐用年数 たいようねんすう 減価償却 償却率 定額法 定率法"
+ },
+ {
+  "path": "/saitei-chingin-okinawa/",
+  "label": "沖縄県の最低賃金",
+  "kw": "最低賃金 沖縄県 おきなわ 時給"
+ },
+ {
+  "path": "/saitei-chingin-kumamoto/",
+  "label": "熊本県の最低賃金",
+  "kw": "最低賃金 熊本県 くまもと 時給"
+ },
+ {
+  "path": "/saitei-chingin-ibaraki/",
+  "label": "茨城県の最低賃金",
+  "kw": "最低賃金 茨城県 いばらき 時給"
+ },
+ {
+  "path": "/saitei-chingin-hiroshima/",
+  "label": "広島県の最低賃金",
+  "kw": "最低賃金 広島県 ひろしま 時給"
+ },
+ {
+  "path": "/saitei-chingin-kagoshima/",
+  "label": "鹿児島県の最低賃金",
+  "kw": "最低賃金 鹿児島県 かごしま 時給"
  }
 ]

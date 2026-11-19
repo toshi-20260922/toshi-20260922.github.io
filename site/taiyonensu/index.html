@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>【法定耐用年数の一覧】減価償却の計算と毎年の償却費【2026年】</title>
+<link rel="canonical" href="https://taxtable.jp/taiyonensu/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://taxtable.jp/taiyonensu/">
+<meta property="og:title" content="【法定耐用年数の一覧】減価償却の計算と毎年の償却費【2026年】">
+<meta property="og:site_name" content="タックステーブル">
+<meta property="og:description" content="パソコンは4年・普通自動車は6年・木造の店舗は22年など、よく使う資産の法定耐用年数を一覧にしました。取得価額と使い始めた月を入れると、定額法・定率法で毎年の減価償却費と残りの額が分かります。10万円・20万円・40万円未満の扱いも出します。">
+<meta name="description" content="パソコンは4年・普通自動車は6年・木造の店舗は22年など、よく使う資産の法定耐用年数を一覧にしました。取得価額と使い始めた月を入れると、定額法・定率法で毎年の減価償却費と残りの額が分かります。10万円・20万円・40万円未満の扱いも出します。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.seg3{grid-template-columns:1fr 1fr 1fr}
+.seg3 button{font-size:13px;line-height:1.4}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="taiyo_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="年ごとに減る棒グラフ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="13" y="18" width="8" height="30" rx="1.5" fill="#0f3d31"/><rect x="24" y="26" width="8" height="22" rx="1.5" fill="#00775a"/><rect x="35" y="33" width="8" height="15" rx="1.5" fill="#00775a"/><rect x="46" y="39" width="8" height="9" rx="1.5" fill="#e08a2c"/></svg></div>
+ <p class="upd">更新日：2026年11月19日（国税庁 No.2100・No.2106 令和8年4月1日現在法令等）</p>
+ <h1>【法定耐用年数の一覧】減価償却の計算と毎年の償却費【2026年】</h1>
+</div>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>資産を選ぶと、法定耐用年数と1年目の減価償却費が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="as">資産の種類</label>
+   <select id="as"><optgroup label="建物"><option value="0">鉄筋コンクリート造の事務所（50年）</option><option value="1">鉄筋コンクリート造の住宅（47年）</option><option value="2">鉄筋コンクリート造の店舗（39年）</option><option value="3">金属造（骨格材4mm超）の事務所（38年）</option><option value="4">金属造（骨格材4mm超）の店舗・住宅（34年）</option><option value="5">金属造（3mm超4mm以下）の店舗・住宅（27年）</option><option value="6">金属造（3mm以下）の店舗・住宅（19年）</option><option value="7">木造の事務所（24年）</option><option value="8">木造の店舗・住宅（22年）</option><option value="9">木造の飲食店（20年）</option><option value="10">木骨モルタル造の店舗・住宅（20年）</option></optgroup><optgroup label="建物附属設備"><option value="11">電気設備（照明など）（15年）</option><option value="12">給排水・衛生設備・ガス設備（15年）</option><option value="13">店用簡易装備（3年）</option></optgroup><optgroup label="車両"><option value="14">普通自動車（一般用）（6年）</option><option value="15">軽自動車（総排気量0.66L以下）（4年）</option><option value="16">バイク（二輪・三輪）（3年）</option><option value="17">貨物自動車（ダンプ以外）（5年）</option><option value="18">自転車（2年）</option></optgroup><optgroup label="器具備品"><option value="19" selected>パソコン（サーバー用を除く）（4年）</option><option value="20">サーバー（5年）</option><option value="21">コピー機・レジ（5年）</option><option value="22">事務机・いす・キャビネット（金属製）（15年）</option><option value="23">事務机・いす・キャビネット（金属製以外）（8年）</option><option value="24">応接セット（接客業用）（5年）</option><option value="25">冷蔵庫・洗濯機などの家電（6年）</option><option value="26">エアコン（冷房用・暖房用機器）（6年）</option><option value="27">テレビ・音響機器（5年）</option><option value="28">カメラ（5年）</option><option value="29">看板・ネオンサイン（3年）</option><option value="30">時計（10年）</option></optgroup><optgroup label="ソフトウェア"><option value="31">ソフトウェア（自社で使うもの）（5年）</option><option value="32">ソフトウェア（販売用の原本・研究開発用）（3年）</option></optgroup><option value="-1">耐用年数を自分で入れる</option></select>
+  </div>
+  <div class="full hide" id="w-n">
+   <label for="yrs">耐用年数</label>
+   <div class="row"><input type="number" id="yrs" inputmode="numeric" min="2" max="50" step="1" value="10"><span>年</span></div>
+  </div>
+  <div class="full">
+   <label for="cost">取得価額（買った金額。消費税は経理の方式に合わせる）</label>
+   <div class="row"><input type="number" id="cost" inputmode="numeric" min="0" max="10000000000" step="1" value="500000"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label>事業をしている人</label>
+   <div class="seg" id="s-who"><button type="button" class="on" data-v="0">個人事業主</button><button type="button" data-v="1">法人</button></div>
+  </div>
+  <div class="full">
+   <label>償却方法</label>
+   <div class="seg" id="s-hoho"><button type="button" class="on" data-v="0">定額法</button><button type="button" data-v="1">定率法</button></div>
+  </div>
+  <div class="full">
+   <label for="mon">使い始めた月（法人は事業年度の何か月目か）</label>
+   <select id="mon"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4" selected>4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select>
+  </div>
+ </div>
+ <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="amt">
+  <div><small>法定耐用年数</small><b id="o-n"></b><em id="o-ne"></em></div>
+  <div><small>1年目の<br>減価償却費</small><b id="o-1"></b><em id="o-1e"></em></div>
+  <div><small>2年目の<br>減価償却費</small><b id="o-2"></b><em>1年分</em></div>
+ </div>
+ <ul>
+  <li id="o-how"></li>
+  <li>1円未満は切り捨てています。最後の年は1円を残します（ソフトウェアは0円まで）</li>
+ </ul>
+ <p class="cap" style="margin-top:12px">毎年の減価償却費</p>
+ <div class="tw"><table><thead><tr><th>年</th><th>減価償却費<br>（円）</th><th>年末の残り<br>（円）</th></tr></thead><tbody id="tb"></tbody></table></div>
+</div>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/taiyonensu/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/taiyonensu/">Xでポストする</a>
+</div>
+
+<p>法定耐用年数は、資産の種類ごとに国が決めた「何年で経費にするか」の年数です。<span class="mk">パソコンは4年・普通自動車は6年・木造の店舗は22年です。</span>買った金額を耐用年数で分けて毎年の経費にするのが減価償却で、個人事業主は届け出なければ定額法で計算します。</p>
+
+<nav class="toc">
+ <div class="t">目次</div>
+ <ol>
+  <li><a href="#list">よく使う資産の法定耐用年数</a></li>
+  <li><a href="#rate">耐用年数ごとの償却率</a></li>
+  <li><a href="#rei">50万円の資産なら毎年いくら経費になるか</a></li>
+  <li><a href="#shogaku">10万円・20万円・40万円未満の扱い</a></li>
+  <li><a href="#hoho">定額法と定率法の決まり</a></li>
+  <li><a href="#rel">次に確かめること</a></li>
+  <li><a href="#qa">耐用年数でよく聞かれること</a></li>
+ </ol>
+</nav>
+
+<h2 id="list">よく使う資産の法定耐用年数</h2>
+<p>新品で買った資産の耐用年数です。建物・建物附属設備・ソフトウェアは定額法だけで計算します。中古の資産は、残りの年数を見積もって短くできます。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>種類</th><th>資産</th><th>耐用<br>年数</th></tr></thead>
+ <tbody><tr><td class="l">建物</td><td class="l">鉄筋コンクリート造の事務所</td><td>50年</td></tr><tr><td class="l">建物</td><td class="l">鉄筋コンクリート造の住宅</td><td>47年</td></tr><tr><td class="l">建物</td><td class="l">鉄筋コンクリート造の店舗</td><td>39年</td></tr><tr><td class="l">建物</td><td class="l">金属造（骨格材4mm超）の事務所</td><td>38年</td></tr><tr><td class="l">建物</td><td class="l">金属造（骨格材4mm超）の店舗・住宅</td><td>34年</td></tr><tr><td class="l">建物</td><td class="l">金属造（3mm超4mm以下）の店舗・住宅</td><td>27年</td></tr><tr><td class="l">建物</td><td class="l">金属造（3mm以下）の店舗・住宅</td><td>19年</td></tr><tr><td class="l">建物</td><td class="l">木造の事務所</td><td>24年</td></tr><tr><td class="l">建物</td><td class="l">木造の店舗・住宅</td><td>22年</td></tr><tr><td class="l">建物</td><td class="l">木造の飲食店</td><td>20年</td></tr><tr><td class="l">建物</td><td class="l">木骨モルタル造の店舗・住宅</td><td>20年</td></tr><tr><td class="l">建物附属設備</td><td class="l">電気設備（照明など）</td><td>15年</td></tr><tr><td class="l">建物附属設備</td><td class="l">給排水・衛生設備・ガス設備</td><td>15年</td></tr><tr><td class="l">建物附属設備</td><td class="l">店用簡易装備</td><td>3年</td></tr><tr><td class="l">車両</td><td class="l">普通自動車（一般用）</td><td>6年</td></tr><tr><td class="l">車両</td><td class="l">軽自動車（総排気量0.66L以下）</td><td>4年</td></tr><tr><td class="l">車両</td><td class="l">バイク（二輪・三輪）</td><td>3年</td></tr><tr><td class="l">車両</td><td class="l">貨物自動車（ダンプ以外）</td><td>5年</td></tr><tr><td class="l">車両</td><td class="l">自転車</td><td>2年</td></tr><tr><td class="l">器具備品</td><td class="l">パソコン（サーバー用を除く）</td><td>4年</td></tr><tr><td class="l">器具備品</td><td class="l">サーバー</td><td>5年</td></tr><tr><td class="l">器具備品</td><td class="l">コピー機・レジ</td><td>5年</td></tr><tr><td class="l">器具備品</td><td class="l">事務机・いす・キャビネット（金属製）</td><td>15年</td></tr><tr><td class="l">器具備品</td><td class="l">事務机・いす・キャビネット（金属製以外）</td><td>8年</td></tr><tr><td class="l">器具備品</td><td class="l">応接セット（接客業用）</td><td>5年</td></tr><tr><td class="l">器具備品</td><td class="l">冷蔵庫・洗濯機などの家電</td><td>6年</td></tr><tr><td class="l">器具備品</td><td class="l">エアコン（冷房用・暖房用機器）</td><td>6年</td></tr><tr><td class="l">器具備品</td><td class="l">テレビ・音響機器</td><td>5年</td></tr><tr><td class="l">器具備品</td><td class="l">カメラ</td><td>5年</td></tr><tr><td class="l">器具備品</td><td class="l">看板・ネオンサイン</td><td>3年</td></tr><tr><td class="l">器具備品</td><td class="l">時計</td><td>10年</td></tr><tr><td class="l">ソフトウェア</td><td class="l">ソフトウェア（自社で使うもの）</td><td>5年</td></tr><tr><td class="l">ソフトウェア</td><td class="l">ソフトウェア（販売用の原本・研究開発用）</td><td>3年</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">国税庁「主な減価償却資産の耐用年数表」と耐用年数省令の別表第一・第三によります。建物の飲食店は、木造の内装が床面積の30%を超えるかで年数が変わります。中古車の年数は<a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>で確かめられます。</p>
+
+<h2 id="rate">耐用年数ごとの償却率</h2>
+<p>定額法は「取得価額×定額法の償却率」が毎年の償却費です。定率法は「年初の残り×定率法の償却率」で、その額が償却保証額（取得価額×保証率）を下回った年から「改定取得価額×改定償却率」に切り替えます。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>耐用<br>年数</th><th>定額法</th><th>定率法</th><th>改定<br>償却率</th><th>保証率</th></tr></thead>
+ <tbody><tr><td>2年</td><td>0.500</td><td>1.000</td><td>―</td><td>―</td></tr><tr><td>3年</td><td>0.334</td><td>0.667</td><td>1.000</td><td>0.11089</td></tr><tr><td>4年</td><td>0.250</td><td>0.500</td><td>1.000</td><td>0.12499</td></tr><tr><td>5年</td><td>0.200</td><td>0.400</td><td>0.500</td><td>0.10800</td></tr><tr><td>6年</td><td>0.167</td><td>0.333</td><td>0.334</td><td>0.09911</td></tr><tr><td>7年</td><td>0.143</td><td>0.286</td><td>0.334</td><td>0.08680</td></tr><tr><td>8年</td><td>0.125</td><td>0.250</td><td>0.334</td><td>0.07909</td></tr><tr><td>10年</td><td>0.100</td><td>0.200</td><td>0.250</td><td>0.06552</td></tr><tr><td>15年</td><td>0.067</td><td>0.133</td><td>0.143</td><td>0.04565</td></tr><tr><td>20年</td><td>0.050</td><td>0.100</td><td>0.112</td><td>0.03486</td></tr><tr><td>22年</td><td>0.046</td><td>0.091</td><td>0.100</td><td>0.03182</td></tr><tr><td>24年</td><td>0.042</td><td>0.083</td><td>0.084</td><td>0.02969</td></tr><tr><td>30年</td><td>0.034</td><td>0.067</td><td>0.072</td><td>0.02366</td></tr><tr><td>34年</td><td>0.030</td><td>0.059</td><td>0.063</td><td>0.02097</td></tr><tr><td>38年</td><td>0.027</td><td>0.053</td><td>0.056</td><td>0.01882</td></tr><tr><td>39年</td><td>0.026</td><td>0.051</td><td>0.053</td><td>0.01860</td></tr><tr><td>47年</td><td>0.022</td><td>0.043</td><td>0.044</td><td>0.01532</td></tr><tr><td>50年</td><td>0.020</td><td>0.040</td><td>0.042</td><td>0.01440</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">定率法は平成24年4月1日以後に取得した資産の率（200%定率法）です。上の計算では2年から50年までの全部の率を使っています。</p>
+
+<h2 id="rei">50万円の資産なら毎年いくら経費になるか</h2>
+<p>1月から1年間使った場合です。定率法は1年目の経費が大きく、年がたつほど少なくなります。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>耐用<br>年数</th><th>定額法<br>毎年（円）</th><th>定率法<br>1年目（円）</th><th>定率法<br>2年目（円）</th><th>定率法<br>2年の合計</th></tr></thead>
+ <tbody><tr><td>4年</td><td>125,000</td><td>250,000</td><td>125,000</td><td>375,000</td></tr><tr><td>5年</td><td>100,000</td><td>200,000</td><td>120,000</td><td>320,000</td></tr><tr><td>6年</td><td>83,500</td><td>166,500</td><td>111,055</td><td>277,555</td></tr><tr><td>8年</td><td>62,500</td><td>125,000</td><td>93,750</td><td>218,750</td></tr><tr><td>10年</td><td>50,000</td><td>100,000</td><td>80,000</td><td>180,000</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">年の途中から使ったときは、1年目の償却費を使った月数で月割りします。4月から使えば9か月分です。</p>
+
+<h2 id="shogaku">10万円・20万円・40万円未満の扱い</h2>
+<p>取得価額が小さい資産は、耐用年数で分けずに経費にできる決まりがあります。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>取得価額</th><th>扱い</th></tr></thead>
+ <tbody><tr><td class="l">10万円未満</td><td class="l">使い始めた年に全額を経費にする（少額減価償却資産）</td></tr><tr><td class="l">10万円以上<br>20万円未満</td><td class="l">3年で3分の1ずつ経費にすることも選べる（一括償却資産）</td></tr><tr><td class="l">10万円以上<br>40万円未満</td><td class="l">青色申告の中小企業者等は、年300万円まで全額を経費にできる（令和8年3月31日までの取得は30万円未満）</td></tr><tr><td class="l">上のどれにも<br>当たらない</td><td class="l">耐用年数で減価償却する</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">40万円未満の特例は、令和8年4月1日から令和11年3月31日までに取得した資産が対象です（国税庁 No.2100）。法人は従業員400人以下などの条件があります（中小企業庁）。</p>
+
+<h2 id="hoho">定額法と定率法の決まり</h2>
+<h3>届け出ないときの方法</h3>
+<p>個人事業主は、届け出なければ定額法です。法人は届け出なければ、機械・車両・器具備品などは定率法です。</p>
+<h3>定額法だけの資産</h3>
+<p>平成10年4月1日以後に取得した建物と平成28年4月1日以後に取得した建物附属設備・構築物は、定額法だけです。ソフトウェアも定額法で、最後は0円まで償却します。</p>
+<h3>届け出の期限</h3>
+<p>個人事業主は、業務を始めた年の翌年3月15日までに税務署へ届け出ます。法人は、設立した事業年度の確定申告書の提出期限までです。</p>
+
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>中古で買った車は、新車の6年より短い年数で減価償却できます。<a href="/chukosha-taiyonensu/" data-cta="rel_taiyonensu_chukosha-taiyonensu">中古車の耐用年数の計算</a></li><li>減価償却費も経費なので、所得と税金が下がります。<a href="/kojin-zei/" data-cta="rel_taiyonensu_kojin-zei">個人事業主の手取りの早見表</a></li><li>会社の利益から、法人税・住民税・事業税の合計を出せます。<a href="/houjinzei-keisan/" data-cta="rel_taiyonensu_houjinzei-keisan">法人税の計算</a></li><li>中小法人の法人税の税率は、所得800万円を境に変わります。<a href="/houjinzei/" data-cta="rel_taiyonensu_houjinzei">法人税の早見表</a></li><li>設備を買った年の消費税も、2割特例と簡易課税で比べられます。<a href="/niwari-tokurei/" data-cta="rel_taiyonensu_niwari-tokurei">消費税の計算</a></li><li>減価償却費は、売上にかかわらず出ていく固定費です。<a href="/soneki-bunkiten/" data-cta="rel_taiyonensu_soneki-bunkiten">損益分岐点の計算</a></li><li>設備を借入で買うなら、毎月の返済額を先に確かめます。<a href="/hensai/" data-cta="rel_taiyonensu_hensai">借入の返済の計算</a></li><li>減価償却の届け出と申告の期限を確かめられます。<a href="/kakutei-shinkoku/" data-cta="rel_taiyonensu_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>個人事業から会社にするかは、所得がいくらかで損得が分かれます。<a href="/houjinnari/" data-cta="rel_taiyonensu_houjinnari">法人成りの計算</a></li><li>事業の所得から、合計所得金額と扶養に入るかが分かります。<a href="/shotoku-kingaku/" data-cta="rel_taiyonensu_shotoku-kingaku">所得金額の計算</a></li><li>会社で建物を持つときは、社宅の家賃も決まりで計算します。<a href="/yakuin-shataku/" data-cta="rel_taiyonensu_yakuin-shataku">役員社宅の家賃の計算</a></li></ul>
+
+<h2 id="qa">耐用年数でよく聞かれること</h2>
+<h3>パソコンの耐用年数は何年ですか？</h3>
+<p>4年です。サーバー用は5年です。10万円未満なら耐用年数で分けずに、使い始めた年に全額を経費にします。</p>
+<h3>車の耐用年数は何年ですか？</h3>
+<p>新車の普通自動車は6年・軽自動車は4年です。中古車は残りの年数を見積もって短くでき、4年落ちの普通自動車なら2年です。</p>
+<h3>定額法と定率法はどちらが得ですか？</h3>
+<p>経費になる合計の額は同じです。定率法は早い年に多く経費になるので、利益が多い年に買った資産は定率法のほうが税金を先に減らせます。</p>
+<h3>年の途中で買ったら、1年目はいくらですか？</h3>
+<p>1年分の償却費を12で割り、使い始めた月から12月までの月数を掛けます。10月に使い始めたら3か月分です。買っただけで使っていない月は数えません。</p>
+<h3>耐用年数が過ぎたら、資産はどうなりますか？</h3>
+<p>帳簿には1円が残り、捨てたり売ったりするまで資産として載ります。そのまま使い続けても、減価償却費はもう出ません。</p>
+
+<div class="src">出典・参考（2026年11月確認）
+ <ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2106.htm">国税庁 No.2106「定額法と定率法による減価償却」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2100.htm">国税庁 No.2100「減価償却のあらまし」</a>（少額の特例・40万円未満）</li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5409.htm">国税庁 No.5409「減価償却資産の償却方法の選定」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5461.htm">国税庁 No.5461「ソフトウエアの取得価額と耐用年数」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/pdf/2100_01.pdf">国税庁「主な減価償却資産の耐用年数表」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/tebiki/2023/pdf/041.pdf">国税庁「減価償却資産の償却率等表」</a>（耐用年数省令 別表第八・第十）</li>
+  <li><a href="https://www.chusho.meti.go.jp/zaimu/zeisei/tokurei/syougaku_shisan.html">中小企業庁「中小企業者等の少額減価償却資産の取得価額の損金算入の特例」</a></li>
+ </ul>
+</div>
+
+<div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">設備を買った年の、</span><span class="nw">帳簿と申告も</span></p><p>減価償却は、買った年だけでなく耐用年数のあいだ毎年の決算に出てきます。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="taiyo_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>
+ <a href="/niwari-tokurei/">消費税の計算</a>
+ <a href="/kakutei-shinkoku/">確定申告の期限の早見表</a>
+ <a href="/yatou-hiyou/">人を雇う費用の計算</a>
+ <a href="/houjinzei-keisan/">法人税の計算</a>
+ <a href="/soneki-bunkiten/">損益分岐点の計算</a>
+ <a href="/hoteifukurihi/">法定福利費の計算</a>
+ <a href="/zoyozei/">贈与税の計算</a>
+ <a href="/shotokuzei/">所得税の計算</a>
+ <a href="/taishokukin/">退職金の税金の計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の計算</a>
+ <a href="/iryohi-kojo/">医療費控除の計算</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の計算</a>
+ <a href="/furusato/">ふるさと納税の限度額の計算</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税の計算</a>
+ <a href="/gensen-hoshu/">源泉徴収の早見表</a>
+ <a href="/genbutsu-kyuyo/">非課税の限度額の早見表</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取りの早見表</a>
+ <a href="/houjinnari/">法人成りの計算</a>
+ <a href="/kojin-zei/">個人事業主の手取りの早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料の早見表</a>
+ <a href="/tedori/">年収の手取りの早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁の早見表</a>
+ <a href="/fukugyo/">副業の税金の計算</a>
+ <a href="/gakusei-kabe/">学生バイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの扶養の計算</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算</a>
+ <a href="/taishoku-jumin/">退職後の住民税の計算</a>
+ <a href="/hensai/">借入の返済の計算</a>
+ <a href="/saitei-chingin/">最低賃金の一覧</a>
+ <a href="/saitei-chingin-tokyo/">東京の最低賃金</a>
+ <a href="/saitei-chingin-kanagawa/">神奈川県の最低賃金</a>
+ <a href="/saitei-chingin-aichi/">愛知県の最低賃金</a>
+ <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
+ <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
+ <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
+ <a href="/saitei-chingin-okinawa/">沖縄県の最低賃金</a>
+ <a href="/saitei-chingin-kumamoto/">熊本県の最低賃金</a>
+ <a href="/saitei-chingin-ibaraki/">茨城県の最低賃金</a>
+ <a href="/saitei-chingin-hiroshima/">広島県の最低賃金</a>
+ <a href="/saitei-chingin-kagoshima/">鹿児島県の最低賃金</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="position:absolute;left:4px;bottom:2px;font-size:8px;line-height:1;opacity:.5">mkv1</span></div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="taiyo_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script>
+(function(){
+ var R={"2": [500, 1000, 0, 0], "3": [334, 667, 1000, 11089], "4": [250, 500, 1000, 12499], "5": [200, 400, 500, 10800], "6": [167, 333, 334, 9911], "7": [143, 286, 334, 8680], "8": [125, 250, 334, 7909], "9": [112, 222, 250, 7126], "10": [100, 200, 250, 6552], "11": [91, 182, 200, 5992], "12": [84, 167, 200, 5566], "13": [77, 154, 167, 5180], "14": [72, 143, 167, 4854], "15": [67, 133, 143, 4565], "16": [63, 125, 143, 4294], "17": [59, 118, 125, 4038], "18": [56, 111, 112, 3884], "19": [53, 105, 112, 3693], "20": [50, 100, 112, 3486], "21": [48, 95, 100, 3335], "22": [46, 91, 100, 3182], "23": [44, 87, 91, 3052], "24": [42, 83, 84, 2969], "25": [40, 80, 84, 2841], "26": [39, 77, 84, 2716], "27": [38, 74, 77, 2624], "28": [36, 71, 72, 2568], "29": [35, 69, 72, 2463], "30": [34, 67, 72, 2366], "31": [33, 65, 67, 2286], "32": [32, 63, 67, 2216], "33": [31, 61, 63, 2161], "34": [30, 59, 63, 2097], "35": [29, 57, 59, 2051], "36": [28, 56, 59, 1974], "37": [28, 54, 56, 1950], "38": [27, 53, 56, 1882], "39": [26, 51, 53, 1860], "40": [25, 50, 53, 1791], "41": [25, 49, 50, 1741], "42": [24, 48, 50, 1694], "43": [24, 47, 48, 1664], "44": [23, 45, 46, 1664], "45": [23, 44, 46, 1634], "46": [22, 43, 44, 1601], "47": [22, 43, 44, 1532], "48": [21, 42, 44, 1499], "49": [21, 41, 42, 1475], "50": [20, 40, 42, 1440]},A=[["建物", "鉄筋コンクリート造の事務所", 50, 1], ["建物", "鉄筋コンクリート造の住宅", 47, 1], ["建物", "鉄筋コンクリート造の店舗", 39, 1], ["建物", "金属造（骨格材4mm超）の事務所", 38, 1], ["建物", "金属造（骨格材4mm超）の店舗・住宅", 34, 1], ["建物", "金属造（3mm超4mm以下）の店舗・住宅", 27, 1], ["建物", "金属造（3mm以下）の店舗・住宅", 19, 1], ["建物", "木造の事務所", 24, 1], ["建物", "木造の店舗・住宅", 22, 1], ["建物", "木造の飲食店", 20, 1], ["建物", "木骨モルタル造の店舗・住宅", 20, 1], ["建物附属設備", "電気設備（照明など）", 15, 1], ["建物附属設備", "給排水・衛生設備・ガス設備", 15, 1], ["建物附属設備", "店用簡易装備", 3, 1], ["車両", "普通自動車（一般用）", 6, 0], ["車両", "軽自動車（総排気量0.66L以下）", 4, 0], ["車両", "バイク（二輪・三輪）", 3, 0], ["車両", "貨物自動車（ダンプ以外）", 5, 0], ["車両", "自転車", 2, 0], ["器具備品", "パソコン（サーバー用を除く）", 4, 0], ["器具備品", "サーバー", 5, 0], ["器具備品", "コピー機・レジ", 5, 0], ["器具備品", "事務机・いす・キャビネット（金属製）", 15, 0], ["器具備品", "事務机・いす・キャビネット（金属製以外）", 8, 0], ["器具備品", "応接セット（接客業用）", 5, 0], ["器具備品", "冷蔵庫・洗濯機などの家電", 6, 0], ["器具備品", "エアコン（冷房用・暖房用機器）", 6, 0], ["器具備品", "テレビ・音響機器", 5, 0], ["器具備品", "カメラ", 5, 0], ["器具備品", "看板・ネオンサイン", 3, 0], ["器具備品", "時計", 10, 0], ["ソフトウェア", "ソフトウェア（自社で使うもの）", 5, 1], ["ソフトウェア", "ソフトウェア（販売用の原本・研究開発用）", 3, 1]];
+ var who=0,hoho=0,$=function(i){return document.getElementById(i)};
+ function f(n){return n.toLocaleString("ja-JP");}
+ function num(i,lo,hi){var v=parseInt($(i).value,10);if(isNaN(v))v=lo;return Math.min(Math.max(v,lo),hi);}
+ function sched(cost,n,tr,months,soft){var r=R[n],a=r[0],b=r[1],kr=r[2],hs=r[3],out=[],bv=cost,low=soft?0:1,hosho=Math.floor(cost*hs/100000),kai=-1,y=0;
+  while(bv>low&&y<80){var m=y===0?months:12,d;
+   if(!tr){d=Math.floor(cost*a*m/12000);}
+   else{if(kai<0){var pre=Math.floor(bv*b/1000);if(y>0&&pre<hosho)kai=bv;}
+    d=kai<0?Math.floor(bv*b*m/12000):Math.floor(kai*kr*m/12000);}
+   d=Math.min(d,bv-low);out.push(d);bv-=d;y++;}
+  return out;}
+ function render(){
+  var i=+$("as").value,only=0,soft=0,n,nm;
+  if(i<0){$("w-n").classList.remove("hide");n=num("yrs",2,50);nm="耐用年数"+n+"年の資産";}
+  else{$("w-n").classList.add("hide");n=A[i][2];only=A[i][3];soft=A[i][0]==="ソフトウェア";nm=A[i][1];}
+  var cost=num("cost",0,10000000000),mon=+$("mon").value,months=13-mon,tr=only?0:hoho;
+  var s=sched(cost,n,tr,months,soft),r=R[n];
+  var bs=$("s-hoho").querySelectorAll("button");bs[1].disabled=!!only;bs[0].className=tr?"":"on";bs[1].className=tr?"on":"";
+  $("o-n").innerHTML=n+"<i>年</i>";$("o-ne").textContent=(tr?"定率法 ":"定額法 ")+((tr?r[1]:r[0])/1000).toFixed(3);
+  $("o-1").innerHTML=f(s[0]||0)+"<i>円</i>";$("o-1e").textContent=months+"か月分";
+  $("o-2").innerHTML=f(s[1]||0)+"<i>円</i>";
+  $("o-how").textContent=nm+"を"+(only?"定額法だけで":(tr?"定率法で":"定額法で"))+"計算しています。"+(only?"この資産は定率法を選べません":(who?"法人は届け出なければ定率法です":"個人事業主は届け出なければ定額法です"));
+  var vd=$("vd"),t,sp;
+  if(cost<100000){t="全額をその年の経費にできます";sp="10万円未満なので少額減価償却資産です。減価償却はしません";}
+  else if(cost<200000){t="3年で3分の1ずつも選べます";sp="10万円以上20万円未満なので一括償却資産にできます。青色申告の中小企業者等は全額を経費にもできます";}
+  else if(cost<400000){t="青色申告なら全額経費にもできます";sp="40万円未満の特例（令和8年4月1日以後の取得・年300万円まで）が使えなければ、下の表で減価償却します";}
+  else{t="耐用年数で減価償却します";sp=n+"年で経費にします。"+(s.length>n?"年の途中から使ったので"+s.length+"年に分かれます":"")}
+  vd.className="vd no";$("o-vd").textContent=t;$("o-vds").textContent=sp;
+  var h="",bv=cost;for(var k=0;k<s.length;k++){bv-=s[k];h+="<tr><td>"+(k+1)+"年目</td><td>"+f(s[k])+"</td><td>"+f(bv)+"</td></tr>";}
+  $("tb").innerHTML=h;}
+ ["as","yrs","cost","mon"].forEach(function(i){$(i).addEventListener("input",render);$(i).addEventListener("change",render);});
+ function seg(id,cb){$(id).querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){if(b.disabled)return;cb(+b.dataset.v);render();});});}
+ seg("s-who",function(v){who=v;hoho=v;$("s-who").querySelectorAll("button").forEach(function(x){x.className=+x.dataset.v===v?"on":"";});});
+ seg("s-hoho",function(v){hoho=v;});
+ window.__taiyo=sched;
+ render();
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

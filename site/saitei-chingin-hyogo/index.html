@@ -377,6 +377,12 @@ body{overflow-x:clip}
  <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
  <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
  <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
+ <a href="/taiyonensu/">法定耐用年数の一覧</a>
+ <a href="/saitei-chingin-okinawa/">沖縄県の最低賃金</a>
+ <a href="/saitei-chingin-kumamoto/">熊本県の最低賃金</a>
+ <a href="/saitei-chingin-ibaraki/">茨城県の最低賃金</a>
+ <a href="/saitei-chingin-hiroshima/">広島県の最低賃金</a>
+ <a href="/saitei-chingin-kagoshima/">鹿児島県の最低賃金</a>
  <a href="/">トップへ</a>
 </nav>
 </main>
@@ -387,7 +393,7 @@ body{overflow-x:clip}
 
 <script>
 (function(){
- var BASE=1172,OLD=1116,PN="兵庫県",DATE="2026年10月1日";
+ var BASE=1172,OLD=1116,PN="兵庫県",DATE="2026年10月1日",EFF="2026-10-01T00:00:00+09:00",PRE=new Date()<new Date(EFF),NB=PRE?OLD:BASE;
  var IND=[["兵庫県最低賃金（下の業種以外）", 1172, "2026年10月1日"], ["塗料製造業", 1199, "2026年12月1日", "2026-12-01T00:00:00+09:00", 1158, "2025年12月1日"], ["鉄鋼業", 1231, "2026年12月1日", "2026-12-01T00:00:00+09:00", 1180, "2025年12月1日"], ["はん用機械器具・生産用機械器具・業務用機械器具製造業", 1206, "2026年12月1日", "2026-12-01T00:00:00+09:00", 1150, "2025年12月1日"], ["電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業", 1173, "2026年12月1日", "2026-12-01T00:00:00+09:00", 1117, "2025年12月1日"], ["輸送用機械器具製造業", 1243, "2026年12月1日", "2026-12-01T00:00:00+09:00", 1188, "2025年12月1日"], ["計量器・測定器・分析機器・試験機・測量機械器具製造業", 1173, "2026年12月1日", "2026-12-01T00:00:00+09:00", 1117, "2025年12月1日"]];
  var k=0,$=function(i){return document.getElementById(i)};
  function f(n){return Math.round(n).toLocaleString("ja-JP");}
@@ -399,17 +405,17 @@ body{overflow-x:clip}
   $("w-day").classList.toggle("hide",k!==1);$("w-mon").classList.toggle("hide",k!==2);
   if(k===1){div=Math.max(0.25,num("dh"));}
   if(k===2){div=Math.max(1,(365-Math.min(300,num("hol")))*Math.max(0.25,num("mh"))/12);}
-  var h=base/div,ix=$("ind")?+$("ind").value:0,x=IND[ix],fut=x.length>3&&new Date()<new Date(x[3]),cur=fut?x[4]:x[1],M=Math.max(BASE,cur),sp=ix>0&&cur>BASE;
+  var h=base/div,ix=$("ind")?+$("ind").value:0,x=IND[ix],fut=x.length>3&&new Date()<new Date(x[3]),cur=ix===0?NB:(fut?x[4]:x[1]),M=Math.max(NB,cur),sp=ix>0&&cur>NB;
   var ok=h>=M,gap=M-h;
   $("o-h").innerHTML=f1(h)+"<i>円</i>";
   $("o-hn").textContent=k===0?"含めない手当を除く":k===1?"日給÷"+div+"時間":"月給÷"+f1(div)+"時間";
   $("o-m").innerHTML=f(M)+"<i>円</i>";
-  $("o-mn").textContent=(sp?(fut?x[5]:x[2]):DATE)+"から"+(fut?"・"+x[2]+"から"+f(x[1])+"円":"");
+  $("o-mn").textContent=(sp?(fut?x[5]:x[2])+"から"+(fut?"・"+x[2]+"から"+f(x[1])+"円":""):(PRE?"改定前の額・"+DATE+"から"+f(BASE)+"円":DATE+"から"));
   var vd=$("vd");vd.className="vd"+(ok?" no":"");
   if(ok){$("o-vd").textContent="満たしています";$("o-vds").textContent=(h-M<0.05)?"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円と同じ額です":"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円より"+f1(h-M)+"円高い額です";}
   else{var per=k===0?"":(k===1?"1日あたり":"1か月あたり")+f(Math.ceil(gap*div-1e-9))+"円足りません。";
    $("o-vd").textContent="下回っています";$("o-vds").textContent="最低賃金"+f(M)+"円より時給あたり"+f1(gap)+"円足りません。"+per+"差額を払う必要があります";}
-  $("o-old").textContent="改定前の"+f(OLD)+"円と比べると"+(h>=OLD?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
+  $("o-old").textContent=PRE?DATE+"からの"+f(BASE)+"円と比べると"+(h>=BASE?"満たしています":"下回っています（時給あたり"+f1(BASE-h)+"円）"):"改定前の"+f(OLD)+"円と比べると"+(h>=OLD?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
  }
  ["pay","ex","dh","hol","mh"].forEach(function(i){$(i).addEventListener("input",render);});
  if($("ind"))$("ind").addEventListener("change",render);

@@ -162,7 +162,7 @@ SRC_COMMON = '''  <li><a href="https://www.mhlw.go.jp/stf/newpage_75950.html">�
 
 # ---- 都道府県のページ ----
 JS_PREF = r'''(function(){
- var BASE=%(base)d,OLD=%(old)d,PN="%(pn)s",DATE="%(date)s";
+ var BASE=%(base)d,OLD=%(old)d,PN="%(pn)s",DATE="%(date)s",EFF="%(eff)s",PRE=new Date()<new Date(EFF),NB=PRE?OLD:BASE;
  var IND=%(ind)s;
  var k=0,$=function(i){return document.getElementById(i)};
  function f(n){return Math.round(n).toLocaleString("ja-JP");}
@@ -174,17 +174,17 @@ JS_PREF = r'''(function(){
   $("w-day").classList.toggle("hide",k!==1);$("w-mon").classList.toggle("hide",k!==2);
   if(k===1){div=Math.max(0.25,num("dh"));}
   if(k===2){div=Math.max(1,(365-Math.min(300,num("hol")))*Math.max(0.25,num("mh"))/12);}
-  var h=base/div,ix=$("ind")?+$("ind").value:0,x=IND[ix],fut=x.length>3&&new Date()<new Date(x[3]),cur=fut?x[4]:x[1],M=Math.max(BASE,cur),sp=ix>0&&cur>BASE;
+  var h=base/div,ix=$("ind")?+$("ind").value:0,x=IND[ix],fut=x.length>3&&new Date()<new Date(x[3]),cur=ix===0?NB:(fut?x[4]:x[1]),M=Math.max(NB,cur),sp=ix>0&&cur>NB;
   var ok=h>=M,gap=M-h;
   $("o-h").innerHTML=f1(h)+"<i>円</i>";
   $("o-hn").textContent=k===0?"含めない手当を除く":k===1?"日給÷"+div+"時間":"月給÷"+f1(div)+"時間";
   $("o-m").innerHTML=f(M)+"<i>円</i>";
-  $("o-mn").textContent=(sp?(fut?x[5]:x[2]):DATE)+"から"+(fut?"・"+x[2]+"から"+f(x[1])+"円":"");
+  $("o-mn").textContent=(sp?(fut?x[5]:x[2])+"から"+(fut?"・"+x[2]+"から"+f(x[1])+"円":""):(PRE?"改定前の額・"+DATE+"から"+f(BASE)+"円":DATE+"から"));
   var vd=$("vd");vd.className="vd"+(ok?" no":"");
   if(ok){$("o-vd").textContent="満たしています";$("o-vds").textContent=(h-M<0.05)?"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円と同じ額です":"時給に直すと"+f1(h)+"円で、最低賃金"+f(M)+"円より"+f1(h-M)+"円高い額です";}
   else{var per=k===0?"":(k===1?"1日あたり":"1か月あたり")+f(Math.ceil(gap*div-1e-9))+"円足りません。";
    $("o-vd").textContent="下回っています";$("o-vds").textContent="最低賃金"+f(M)+"円より時給あたり"+f1(gap)+"円足りません。"+per+"差額を払う必要があります";}
-  $("o-old").textContent="改定前の"+f(OLD)+"円と比べると"+(h>=OLD?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
+  $("o-old").textContent=PRE?DATE+"からの"+f(BASE)+"円と比べると"+(h>=BASE?"満たしています":"下回っています（時給あたり"+f1(BASE-h)+"円）"):"改定前の"+f(OLD)+"円と比べると"+(h>=OLD?"満たしています":"下回っています（時給あたり"+f1(OLD-h)+"円）");
  }
  ["pay","ex","dh","hol","mh"].forEach(function(i){$(i).addEventListener("input",render);});
  if($("ind"))$("ind").addEventListener("change",render);
@@ -312,7 +312,7 @@ def pref_page(cfg):
           + '<h3>最低賃金を下回っていたらどうなりますか？</h3>\n<p>最低賃金に届かない部分の決まりは無効になり、最低賃金と同じ額で決めたものとみなされます。差額を払う必要があり、%sの最低賃金を払わなかったときは50万円以下の罰金の決まりがあります。</p>\n' % n)
     src = '<div class="src">出典・参考（2026年11月確認）\n <ul>\n%s%s </ul>\n</div>\n' % (cfg['src'], SRC_COMMON)
     body = calc + '\n' + share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + FUKUMU + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
-    js = JS_PREF % dict(base=m, old=o, pn=n, date=ds(p), ind=json.dumps(IND, ensure_ascii=False), ex_h=ex_h, ex_d=dex, ex_m=sm)
+    js = JS_PREF % dict(base=m, old=o, pn=n, date=ds(p), eff='2026-%02d-%02dT00:00:00+09:00' % (p['mo'], p['da']), ind=json.dumps(IND, ensure_ascii=False), ex_h=ex_h, ex_d=dex, ex_m=sm)
     html_ = page(slug, title, desc, upd, body, js, cta)
     os.makedirs(os.path.join(SITE, slug), exist_ok=True)
     open(os.path.join(SITE, slug, 'index.html'), 'w', encoding='utf-8').write(html_)
@@ -461,7 +461,8 @@ PREFS += [
       qa='<h3>福岡市と北九州市で最低賃金は違いますか？</h3>\n<p>違いません。福岡県の最低賃金は県内のどこでも時給1,114円です。鉄鋼業など4業種の事業場だけは、特定最低賃金がかかります。</p>\n'
          + '<h3>福岡県はなぜ10月4日からですか？</h3>\n<p>発効日は都道府県ごとに決まり、福岡県は10月4日でした。10月3日までに働いた分は前の年度の1,057円で判定します。</p>\n',
       src='  <li><a href="https://jsite.mhlw.go.jp/fukuoka-roudoukyoku/jirei_toukei/chingin_kanairoudou/toukei/saitei_chingin/chingin09_22.html">福岡労働局「福岡県の最低賃金」</a>（地域別最低賃金と特定最低賃金）</li>\n  <li><a href="https://www.pref.fukuoka.lg.jp/contents/2026saiteichngin.html">福岡県「福岡県最低賃金が改正されます」</a>（令和8年10月8日更新）</li>\n',
-      rel=[('saitei-chingin-osaka', '大阪の最低賃金', '大阪府は1,231円で、福岡県より117円高い額です。')]),
+      rel=[('saitei-chingin-osaka', '大阪の最低賃金', '大阪府は1,231円で、福岡県より117円高い額です。'),
+           ('saitei-chingin-kumamoto', '熊本県の最低賃金', '熊本県は12月1日から1,092円で、福岡県より22円低い額です。')]),
  dict(name='千葉県', slug='chiba', short='千葉', word='千葉県の最低賃金', kyoku='千葉労働局', upd='2026年11月18日',
       ind=[['鉄鋼業', 1210, '2025年12月25日']],
       mid='鉄鋼業は千葉県の特定最低賃金1,210円と比べます。業種を選ぶと切り替わります',
@@ -484,7 +485,8 @@ PREFS += [
       qa='<h3>千葉県の鉄鋼業の最低賃金はいくらですか？</h3>\n<p>いまは特定最低賃金の時給1,210円です。12月25日から1,265円にする答申が出ていて、決まるとその日から1,265円になります。</p>\n',
       src='  <li><a href="https://jsite.mhlw.go.jp/chiba-roudoukyoku/content/contents/002801978.pdf">千葉労働局「千葉県最低賃金の改正決定」</a>（令和8年9月1日公示）</li>\n  <li><a href="https://jsite.mhlw.go.jp/chiba-roudoukyoku/content/contents/002786897.pdf">千葉労働局「千葉県の最低賃金の一覧」</a>（特定最低賃金）</li>\n  <li><a href="https://jsite.mhlw.go.jp/chiba-roudoukyoku/content/contents/002862096.pdf">千葉地方最低賃金審議会「鉄鋼業最低賃金の改正決定に関する答申」</a></li>\n  <li><a href="https://jsite.mhlw.go.jp/chiba-roudoukyoku/hourei_seido_tetsuzuki/r08chibasaichin_boucyou_04_00002.html">千葉労働局「電子部品等の特定最低賃金の答申と異議の申出」</a>（令和8年10月7日）</li>\n',
       rel=[('saitei-chingin-saitama', '埼玉県の最低賃金', '埼玉県は1,196円で、千葉県より1円高い額です。'),
-           ('saitei-chingin-tokyo', '東京の最低賃金', '東京都は1,280円で、千葉県との差は85円です。')]),
+           ('saitei-chingin-tokyo', '東京の最低賃金', '東京都は1,280円で、千葉県との差は85円です。'),
+           ('saitei-chingin-ibaraki', '茨城県の最低賃金', '茨城県は1,136円で、千葉県より59円低い額です。')]),
  dict(name='兵庫県', slug='hyogo', short='兵庫', word='兵庫県の最低賃金', kyoku='兵庫労働局', upd='2026年11月18日',
       ind=[['塗料製造業', 1199, '2026年12月1日', '2026-12-01T00:00:00+09:00', 1158, '2025年12月1日'],
            ['鉄鋼業', 1231, '2026年12月1日', '2026-12-01T00:00:00+09:00', 1180, '2025年12月1日'],
@@ -531,6 +533,108 @@ PREFS += [
       src='  <li><a href="https://jsite.mhlw.go.jp/kyoto-roudoukyoku/content/contents/002816577.pdf">京都労働局「京都府最低賃金の改正決定」</a>（令和8年9月18日公示）</li>\n  <li><a href="https://jsite.mhlw.go.jp/kyoto-roudoukyoku/content/contents/002814861.pdf">京都労働局「令和8年度 特定最低賃金の改正等について」</a>（令和8年9月18日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/kyoto-roudoukyoku/content/contents/002505545.pdf">京都労働局「京都府の特定最低賃金」</a>（電気機械器具製造業 令和8年1月24日から）</li>\n  <li><a href="https://jsite.mhlw.go.jp/kyoto-roudoukyoku/content/contents/002840599.pdf">京都地方最低賃金審議会 議事録</a>（発効日の審議）</li>\n',
       rel=[('saitei-chingin-osaka', '大阪の最低賃金', '大阪府は1,231円で、京都府より51円高い額です。'),
            ('saitei-chingin-hyogo', '兵庫県の最低賃金', '兵庫県は1,172円で、京都府より8円低い額です。')]),
+ dict(name='沖縄県', slug='okinawa', short='沖縄', word='沖縄県の最低賃金', kyoku='沖縄労働局', upd='2026年11月19日',
+      mid='沖縄県の最低賃金は12月2日から変わります。12月1日までは前の年度の1,023円です',
+      intro='12月1日までに働いた分は前の年度の1,023円で判定します。沖縄県の特定最低賃金はどれも県の最低賃金より低い額です。',
+      tokutei='''<p>沖縄県には4つの特定最低賃金があります。どれも沖縄県最低賃金より低いので、業種にかかわらず12月2日からは1,086円以上が最低ラインです。</p>
+<p class="cap">沖縄県の特定最低賃金・時間額</p>
+''' + table(['業種', '特定最低<br>賃金', '決まった日'], [
+          [td('糖類製造業', 'l'), td('769円'), td('平成30年11月25日')],
+          [td('新聞業', 'l'), td('879円'), td('令和4年11月17日')],
+          [td('各種商品小売業', 'l'), td('770円'), td('平成30年11月23日')],
+          [td('自動車（新車）小売業', 'l'), td('770円'), td('平成30年11月18日')]]) +
+          '<p class="note" style="margin-top:8px">新聞業・糖類製造業・自動車（新車）小売業は令和8年度に改正の申出がありましたが、審議会は改正が必要との結論に至りませんでした（令和8年8月14日の審議会）。</p>\n',
+      near=['沖縄県', '鹿児島県', '宮崎県', '熊本県', '長崎県', '福岡県', '東京都'],
+      near_lead='沖縄県と九州の県の令和8年度の最低賃金です。沖縄県は発効日が12月2日で、全国で一番遅い日です。',
+      near_note='沖縄県は高知県と同じ額で、宮崎県より1円高く鹿児島県より4円低い額です。九州で一番高い福岡県とは28円の差があります。',
+      ex_month=180000,
+      qa='<h3>沖縄県はなぜ12月2日からですか？</h3>\n<p>発効日は審議会で労使の意見が分かれ、採決で決まりました。使用者側は1,080円・令和9年1月2日からの案を出しましたが、1,086円・12月2日からの案が賛成8名・反対6名で答申されました（令和8年9月3日の審議会）。</p>\n'
+         + '<h3>11月の給料はどちらの額で判定しますか？</h3>\n<p>11月に働いた分は、前の年度の1,023円で判定します。12月2日からの分は1,086円です。12月の途中で締める会社は、日ごとに分けて確かめてください。</p>\n',
+      src='  <li><a href="https://jsite.mhlw.go.jp/okinawa-roudoukyoku/content/contents/002840324.pdf">沖縄労働局「令和8年度沖縄県最低賃金は時間額1,086円」</a>（令和8年10月5日・12月2日から発効）</li>\n  <li><a href="https://jsite.mhlw.go.jp/okinawa-roudoukyoku/content/contents/002866931.pdf">沖縄地方最低賃金審議会 第4回 議事要旨</a>（令和8年9月3日・発効日の採決）</li>\n  <li><a href="https://jsite.mhlw.go.jp/okinawa-roudoukyoku/content/contents/002776112.pdf">沖縄地方最低賃金審議会「令和8年度 審議計画」</a>（特定最低賃金の推移）</li>\n  <li><a href="https://jsite.mhlw.go.jp/okinawa-roudoukyoku/content/contents/002816953.pdf">沖縄地方最低賃金審議会 第3回 議事要旨</a>（令和8年8月14日・特定最低賃金の必要性）</li>\n  <li><a href="https://www.pref.okinawa.jp/shigoto/koyorodo/1012030/1012038/1012041/1012040.html">沖縄県「沖縄県最低賃金」</a>（2026年10月23日更新）</li>\n',
+      rel=[('saitei-chingin-kagoshima', '鹿児島県の最低賃金', '鹿児島県は1,090円で、沖縄県より4円高い額です。'),
+           ('saitei-chingin-fukuoka', '福岡県の最低賃金', '福岡県は1,114円で、九州で一番高い額です。')]),
+ dict(name='熊本県', slug='kumamoto', short='熊本', word='熊本県の最低賃金', kyoku='熊本労働局', upd='2026年11月19日',
+      ind=[['電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業', 1063, '2026年1月1日'],
+           ['自動車・同附属品製造業・船舶製造・修理業・舶用機関製造業', 1074, '2026年1月1日']],
+      mid='熊本県の最低賃金は12月1日から変わります。11月30日までは前の年度の1,034円です',
+      intro='11月30日までに働いた分は前の年度の1,034円で判定します。電子部品などと自動車などの製造業は、11月30日まで特定最低賃金の方が高い額です。',
+      tokutei='''<p>熊本県には3つの特定最低賃金があります。電子部品などの1,063円と自動車などの1,074円は、11月30日までは熊本県最低賃金1,034円より高い額です。12月1日からは熊本県最低賃金1,092円の方が高くなります。</p>
+<p class="cap">熊本県の特定最低賃金・時間額</p>
+''' + table(['業種', 'いまの額', '発効日'], [
+          [td('電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業', 'l'), td('1,063円'), td('令和8年1月1日')],
+          [td('自動車・同附属品製造業・船舶製造・修理業・舶用機関製造業', 'l'), td('1,074円'), td('令和8年1月1日')],
+          [td('百貨店・総合スーパー', 'l'), td('855円'), td('―')]]) +
+          '<p class="note" style="margin-top:8px">令和8年度の特定最低賃金の改正は、熊本地方最低賃金審議会が10月30日に答申しています。決まった額と発効日を労働局の原本で確かめたら、この欄と計算に入れます。百貨店・総合スーパーの855円は県の最低賃金より低いので、県の最低賃金で判定します。</p>\n',
+      near=['熊本県', '福岡県', '佐賀県', '長崎県', '大分県', '宮崎県', '鹿児島県'],
+      near_lead='熊本県と九州の県の令和8年度の最低賃金です。熊本県は12月1日からの引上げで、九州では沖縄県に次いで遅い発効日です。',
+      near_note='熊本県は島根県と同じ額です。福岡県とは22円の差があり、鹿児島県より2円・宮崎県より7円高い額です。',
+      ex_month=180000,
+      qa='<h3>熊本県の新しい最低賃金はいつからですか？</h3>\n<p>令和8年12月1日からです。前の年度の1,034円は令和8年1月1日から使われていたので、11か月で58円上がります。</p>\n'
+         + '<h3>半導体の工場で働く人の最低賃金はいくらですか？</h3>\n<p>電子部品・デバイスの製造業なら、11月30日までは特定最低賃金の1,063円です。12月1日からは熊本県最低賃金の1,092円の方が高いので、1,092円以上が必要です。</p>\n',
+      src='  <li><a href="https://jsite.mhlw.go.jp/kumamoto-roudoukyoku/content/contents/002801916.pdf">熊本労働局「令和8年度熊本県最低賃金の改正答申について」</a>（令和8年9月1日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/kumamoto-roudoukyoku/content/contents/002838706.pdf">熊本労働局「第13回熊本地方最低賃金審議会の審議結果について」</a>（令和8年9月28日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/kumamoto-roudoukyoku/content/contents/002477426.pdf">熊本労働局「熊本県特定（産業別）最低賃金の改正について」</a>（令和7年12月1日官報公示・令和8年1月1日発効）</li>\n  <li><a href="https://www.pref.kumamoto.jp/soshiki/62/186613.html">熊本県「最低賃金」</a>（2026年11月9日更新）</li>\n',
+      rel=[('saitei-chingin-fukuoka', '福岡県の最低賃金', '福岡県は1,114円で、熊本県より22円高い額です。'),
+           ('saitei-chingin-kagoshima', '鹿児島県の最低賃金', '鹿児島県は1,090円で、熊本県より2円低い額です。')]),
+ dict(name='茨城県', slug='ibaraki', short='茨城', word='茨城県の最低賃金', kyoku='茨城労働局', upd='2026年11月19日',
+      ind=[['鉄鋼業', 1166, '2026年3月1日']],
+      mid='鉄鋼業の事業場は特定最低賃金の1,166円と比べます。業種を選ぶと切り替わります',
+      intro='鉄鋼業だけは特定最低賃金の1,166円がかかります。',
+      tokutei='''<p>茨城県には4つの特定最低賃金があります。10月18日からは鉄鋼業の1,166円だけが茨城県最低賃金1,136円より高い額です。ほかの3業種は1,136円で判定します。</p>
+<p class="cap">茨城県の特定最低賃金・時間額</p>
+''' + table(['業種', '特定最低<br>賃金', '発効日'], [
+          [td('鉄鋼業', 'l'), td('1,166円'), td('令和8年3月1日')],
+          [td('はん用・生産用・業務用機械器具製造業', 'l'), td('1,105円'), td('令和8年3月1日')],
+          [td('計量器・医療用機械器具・光学機械器具・電子部品・電気機械器具・情報通信機械器具・時計製造業', 'l'), td('1,115円'), td('令和8年3月19日')],
+          [td('各種商品小売業', 'l'), td('―'), td('―')]]) +
+          '<p class="note" style="margin-top:8px">機械器具の2業種は特定最低賃金が1,136円より低いので、10月18日からは茨城県最低賃金で判定します。各種商品小売業は令和7年10月12日から茨城県最低賃金で判定しています。令和8年度の特定最低賃金の改正が決まったら、この欄を直します。</p>\n',
+      near=['茨城県', '東京都', '千葉県', '埼玉県', '栃木県', '群馬県', '福島県'],
+      near_lead='茨城県と近くの都県の令和8年度の最低賃金です。茨城から東京・千葉に通う人は、働く事業場の都県の額で判定します。',
+      near_note='茨城県は全国で12番目に高い額です。千葉県とは59円・東京都とは144円の差があり、栃木県より11円・福島県より42円高い額です。',
+      ex_month=185000,
+      qa='<h3>茨城県はなぜ10月18日からですか？</h3>\n<p>発効日は都道府県ごとに決まり、茨城県は10月18日でした。10月17日までに働いた分は前の年度の1,074円で判定します。</p>\n'
+         + '<h3>つくばと水戸で最低賃金は違いますか？</h3>\n<p>違いません。茨城県の最低賃金は県内のどこでも時給1,136円です。鉄鋼業の事業場だけは特定最低賃金の1,166円がかかります。</p>\n',
+      src='  <li><a href="https://jsite.mhlw.go.jp/ibaraki-roudoukyoku/content/contents/saichin_press080918.pdf">茨城労働局「茨城県最低賃金は令和8年10月18日から時間額1,136円に」</a>（令和8年9月18日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/ibaraki-roudoukyoku/roudoukyoku/gyoumu_naiyou/kijunbu/chingin/chingin01.html">茨城労働局「茨城県の最低賃金」</a>（特定最低賃金）</li>\n  <li><a href="https://jsite.mhlw.go.jp/ibaraki-roudoukyoku/content/contents/chingin_tokutei_R080113press11p.pdf">茨城労働局「令和7年度茨城県特定（産業別）最低賃金の改正答申について」</a>（令和8年1月13日）</li>\n  <li><a href="https://www.pref.ibaraki.jp/shokorodo/rosei/rodo/saitei/tokusai.html">茨城県「茨城県特定（産業別）最低賃金改正」</a>（2026年3月27日更新）</li>\n',
+      rel=[('saitei-chingin-chiba', '千葉県の最低賃金', '千葉県は1,195円で、茨城県より59円高い額です。'),
+           ('saitei-chingin-tokyo', '東京の最低賃金', '東京都は1,280円で、茨城県との差は144円です。')]),
+ dict(name='広島県', slug='hiroshima', short='広島', word='広島県の最低賃金', kyoku='広島労働局', upd='2026年11月19日',
+      ind=[['製鉄業・鋼材・銑鉄鋳物・可鍛鋳鉄製造業など（鉄鋼業）', 1179, '2025年12月31日']],
+      mid='鉄鋼業の事業場は特定最低賃金の1,179円と比べます。業種を選ぶと切り替わります',
+      intro='鉄鋼業だけは特定最低賃金の1,179円がかかります。',
+      tokutei='''<p>広島県には8つの特定最低賃金があります。10月11日からは鉄鋼業の1,179円だけが広島県最低賃金1,141円より高い額です。ほかの7業種は1,141円で判定します。</p>
+<p class="cap">広島県の特定最低賃金・時間額</p>
+''' + table(['業種', '特定最低<br>賃金', '10月11日から<br>判定する額'], [
+          [td('製鉄業・鋼材・銑鉄鋳物・可鍛鋳鉄製造業など', 'l'), td('1,179円'), td('1,179円')],
+          [td('電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業', 'l'), td('1,110円'), td('1,141円')],
+          [td('自動車・同附属品製造業', 'l'), td('1,105円'), td('1,141円')],
+          [td('金属製品製造業・はん用など機械器具製造業・船舶製造業・自動車小売業・各種商品小売業', 'l'), td('県の額より低い'), td('1,141円')]]) +
+          '<p class="note" style="margin-top:8px">鉄鋼業・電子部品など・自動車の3業種の額は令和7年12月31日からのものです。令和8年度は8業種の改正の必要性が審議会に諮問され、船舶製造業と自動車小売業は改正しないと答申されました（令和8年10月7日）。ほかの6業種の改正が決まったら、この欄を直します。</p>\n',
+      near=['広島県', '岡山県', '山口県', '島根県', '鳥取県', '愛媛県', '大阪府'],
+      near_lead='広島県と中国・四国の近くの県の令和8年度の最低賃金です。広島県は中国地方で一番高い額です。',
+      near_note='広島県は全国で11番目に高い額です。岡山県より37円・山口県より40円・島根県より49円高く、大阪府とは90円の差があります。',
+      ex_month=185000,
+      qa='<h3>広島県はなぜ10月11日からですか？</h3>\n<p>発効日は都道府県ごとに決まり、広島県は10月11日でした。10月10日までに働いた分は前の年度の1,085円で判定します。</p>\n'
+         + '<h3>自動車の部品工場で働く人の最低賃金はいくらですか？</h3>\n<p>自動車・同附属品製造業の特定最低賃金は1,105円で、広島県最低賃金1,141円より低い額です。10月11日からは1,141円以上が必要です。</p>\n',
+      src='  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002815206.pdf">広島労働局「広島県最低賃金の改正について 令和8年10月11日から1,141円へ」</a>（令和8年9月11日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002823834.pdf">広島労働局「広島県の最低賃金」</a>（リーフレット・令和8年9月）</li>\n  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002469689.pdf">広島労働局「広島県特定（産業別）最低賃金の改正について」</a>（令和7年11月28日・令和7年12月31日発効）</li>\n  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002882326.pdf">広島労働局「広島県特定最低賃金の改正決定の必要性の有無について」</a>（令和8年10月7日答申）</li>\n',
+      rel=[('saitei-chingin-osaka', '大阪の最低賃金', '大阪府は1,231円で、広島県より90円高い額です。'),
+           ('saitei-chingin-fukuoka', '福岡県の最低賃金', '福岡県は1,114円で、広島県より27円低い額です。')]),
+ dict(name='鹿児島県', slug='kagoshima', short='鹿児島', word='鹿児島県の最低賃金', kyoku='鹿児島労働局', upd='2026年11月19日',
+      mid='鹿児島県の特定最低賃金は、10月25日からどれも鹿児島県最低賃金より低い額です',
+      intro='新車の販売店も、10月25日からは1,090円以上が最低ラインです。',
+      tokutei='''<p>鹿児島県には3つの特定最低賃金があります。自動車（新車）小売業の1,048円（令和7年12月28日から）は、10月25日からの鹿児島県最低賃金1,090円より低い額です。令和8年度はどの業種も改正がないので、業種にかかわらず1,090円以上が最低ラインです。</p>
+<ul>
+ <li>自動車（新車）小売業：1,048円。令和8年度は改正の申出がありましたが、改正は決まりませんでした</li>
+ <li>電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業：令和8年度は改正の申出がありましたが、改正は決まりませんでした</li>
+ <li>百貨店・総合スーパー：令和8年度は改正の申出がありませんでした</li>
+</ul>
+''' + '<p class="note" style="margin-top:8px">鹿児島労働局「鹿児島県の最低賃金について」と令和8年8月28日の運営小委員会の議事要旨によります。</p>\n',
+      near=['鹿児島県', '熊本県', '宮崎県', '福岡県', '大分県', '沖縄県'],
+      near_lead='鹿児島県と九州・沖縄の令和8年度の最低賃金です。鹿児島県は64円の引上げで、九州では佐賀県の65円に次ぐ上げ幅です。',
+      near_note='鹿児島県は鳥取県と同じ額です。熊本県より2円低く、宮崎県より5円・沖縄県より4円高い額です。',
+      ex_month=180000,
+      qa='<h3>鹿児島県はなぜ10月25日からですか？</h3>\n<p>発効日は都道府県ごとに決まり、鹿児島県は10月25日でした。10月24日までに働いた分は前の年度の1,026円で判定します。</p>\n'
+         + '<h3>新車の販売店の最低賃金はいくらですか？</h3>\n<p>自動車（新車）小売業の特定最低賃金は1,048円ですが、10月25日からは鹿児島県最低賃金1,090円の方が高い額です。令和8年度は特定最低賃金の改正がないので、1,090円以上が必要です。</p>\n',
+      src='  <li><a href="https://jsite.mhlw.go.jp/kagoshima-roudoukyoku/hourei_seido_tetsuzuki/kane/saitin01.html">鹿児島労働局「鹿児島県の最低賃金について」</a></li>\n  <li><a href="https://jsite.mhlw.go.jp/kagoshima-roudoukyoku/content/contents/2026-0828-1_r08_a3.pdf">鹿児島地方最低賃金審議会 第3回 議事要旨</a>（令和8年8月26日・1,090円の答申）</li>\n  <li><a href="https://jsite.mhlw.go.jp/kagoshima-roudoukyoku/content/contents/2025-1128-5_20251128.pdf">鹿児島労働局「鹿児島県自動車（新車）小売業最低賃金の改正について」</a>（令和7年11月28日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/kagoshima-roudoukyoku/content/contents/2026-0831-8_r08-c1.pdf">鹿児島地方最低賃金審議会 運営小委員会 議事要旨</a>（令和8年8月28日）</li>\n',
+      rel=[('saitei-chingin-kumamoto', '熊本県の最低賃金', '熊本県は12月1日から1,092円で、鹿児島県より2円高い額です。'),
+           ('saitei-chingin-okinawa', '沖縄県の最低賃金', '沖縄県は12月2日から1,086円で、鹿児島県より4円低い額です。')]),
 ]
 
 if __name__ == '__main__':
@@ -544,7 +648,8 @@ if __name__ == '__main__':
 
 # ---- 全国のページ /saitei-chingin/ ----
 HAVE = {'大阪府': 'osaka', '東京都': 'tokyo', '神奈川県': 'kanagawa', '北海道': 'hokkaido', '愛知県': 'aichi',
-        '埼玉県': 'saitama', '福岡県': 'fukuoka', '千葉県': 'chiba', '兵庫県': 'hyogo', '京都府': 'kyoto'}
+        '埼玉県': 'saitama', '福岡県': 'fukuoka', '千葉県': 'chiba', '兵庫県': 'hyogo', '京都府': 'kyoto',
+        '沖縄県': 'okinawa', '熊本県': 'kumamoto', '茨城県': 'ibaraki', '広島県': 'hiroshima', '鹿児島県': 'kagoshima'}
 
 JS_ALL = r'''(function(){
  var PR=%(pr)s;
