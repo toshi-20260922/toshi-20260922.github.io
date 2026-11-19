@@ -159,7 +159,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="病院の領収書と戻るお金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="13" y="13" width="27" height="36" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><path d="M26.5 19v10M21.5 24h10" stroke="#e08a2c" stroke-width="3.4" stroke-linecap="round"></path><path d="M19 36h15M19 42h9" stroke="#9fc4b6" stroke-width="3" stroke-linecap="round"></path><circle cx="45" cy="42" r="11" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M41 38l4 5 4-5M45 43v6M41.5 44.5h7" fill="none" stroke="#0f3d31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月16日（令和8年分の所得税・令和9年度の住民税）</p>
+ <p class="upd">更新日：2026年11月19日（令和8年分の所得税・令和9年度の住民税）</p>
  <h1>【医療費控除の計算】いくら戻る？年収と医療費で分かる還付金の早見表【2026年分】</h1>
 </div>
 <div class="sum" id="calc">
@@ -244,7 +244,7 @@ body{overflow-x:clip}
   <tr><td class="l">電車やバスでの通院費</td><td class="l">自家用車で通うときの<br>ガソリン代・駐車場代</td></tr>
   <tr><td class="l">入院のときの<br>部屋代・食事代<br>（通常必要なもの）</td><td class="l">タクシー代<br>（電車やバスが<br>使えない場合を除く）</td></tr>
   <tr><td class="l">治療のための<br>あん摩・はり・きゅう・<br>柔道整復</td><td class="l">疲れをとるための<br>マッサージ</td></tr>
-  <tr><td class="l">介護保険のサービスの<br>自己負担額</td><td class="l">医師などへの謝礼</td></tr>
+  <tr><td class="l">介護保険の一定のサービスの<br>自己負担額</td><td class="l">医師などへの謝礼</td></tr>
  </tbody>
 </table></div>
 <p class="note" style="margin-top:8px">国税庁のタックスアンサー No.1122 に載っているものから抜き出しています。</p>
@@ -335,7 +335,7 @@ body{overflow-x:clip}
 <script>
 (function(){
  var H=[58,68,78,88,98,104,110,118,126,134,142,150,160,170,180,190,200,220,240,260,280,300,320,340,360,380,410,440,470,500,530,560,590,620,650,680,710,750,790,830,880,930,980,1030,1090,1150,1210,1270,1330,1390];
- function hyo(m){for(var i=0;i<H.length-1;i++){if(m<(H[i]+H[i+1])*500)return H[i]*1000}return H[H.length-1]*1000}
+ function hyo(m){for(var i=0;i<H.length-1;i++){var b=(H[i]+H[i+1])*500;if(H[i]>=1030)b-=5000;if(m<b)return H[i]*1000}return H[H.length-1]*1000}
  function sha(m){var h=hyo(m),k=Math.min(Math.max(h,88000),650000);return h*(0.0985+0.0023)/2+k*0.183/2+m*0.005}
  function gen(m,hg){var a=m-sha(m),ky;
   if(a<=158333)ky=54167;else if(a<=299999)ky=a*0.3+6667;else if(a<=549999)ky=a*0.2+36667;else if(a<=708330)ky=a*0.1+91667;else ky=162500;

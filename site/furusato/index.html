@@ -152,7 +152,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="ギフト"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="28" width="36" height="22" rx="2" fill="#e08a2c"></rect><rect x="12" y="22" width="40" height="8" rx="2" fill="#f6d3ab"></rect><rect x="29" y="22" width="6" height="28" fill="#00775a"></rect><path d="M32 22c-6-9-14-6-10-1M32 22c6-9 14-6 10-1" fill="none" stroke="#00775a" stroke-width="3" stroke-linecap="round"></path></svg></div>
- <p class="upd">更新日：2026年11月16日（令和8年度税制改正に対応）</p>
+ <p class="upd">更新日：2026年11月19日（令和8年度税制改正に対応）</p>
  <h1>【ふるさと納税の限度額の計算】年収と家族でいくらまで？早見表つき【2026年】</h1>
 </div>
 <div class="sum" id="calc">
@@ -179,12 +179,12 @@ body{overflow-x:clip}
  <div class="amt">
   <div><small>上限額の目安<br>（2026年の寄附）</small><b id="o-y">0<i>円</i></b><em>自己負担2,000円</em></div>
   <div><small>住民税の<br>所得割</small><b id="o-j">0<i>円</i></b><em>令和9年度</em></div>
-  <div><small>所得税の<br>税率</small><b id="o-r">0<i>%</i></b><em>いちばん上の段</em></div>
+  <div><small>所得税の<br>税率</small><b id="o-r">0<i>%</i></b><em>式で使う税率</em></div>
  </div>
  <ul>
   <li>2026年1月から12月に寄附した分の上限です</li>
   <li>給与だけ・ほかの控除なし・協会けんぽ東京都・40歳未満で計算しています</li>
-  <li>16歳未満の子は、上限額に影響しません</li>
+  <li>16歳未満の子は、年収850万円以下なら上限額に影響しません</li>
  </ul>
 </div>
 <div class="share">
@@ -225,8 +225,8 @@ body{overflow-x:clip}
 <p>上限を超えた分は所得税と住民税から引かれず、そのまま自己負担になります。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/mechanism/deduction.html">総務省 ふるさと納税ポータルサイト「税金の控除について」</a></li>
-  <li><a href="https://www.pref.osaka.lg.jp/o050030/zei/alacarte/reiwa8_zeikai.html">大阪府「令和8年度税制改正」（特例控除額の上限193万円・令和10年度分から）</a></li>
-  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
+  <li><a href="https://www.pref.osaka.lg.jp/o050030/zei/alacarte/reiwa8_zeikai.html">大阪府「令和8年度の主な税制改正の紹介」（特例控除額の上限193万円・令和10年度分から）</a></li>
+  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正（所得税の基礎控除の引上げ等関係）Q＆A」</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">国税庁 タックスアンサー No.2260 所得税の税率</a></li>
   <li>表の金額は、上の資料の計算式・控除・税率から計算した目安です</li>
 </ul></div>
@@ -310,17 +310,19 @@ function jumin(g,sh,kiso){if(g<=450000)return {y:0,kin:0,sho:0};var t=Math.floor
 
 function kiso(g){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(g<=T[i][0])return T[i][1];}return 0;}
 var BR=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]];
-function rateOf(t){if(t<=0)return 0;for(var i=0;i<BR.length;i++){if(t<=BR[i][0])return BR[i][1];}return 45;}
+function rateOf(t){if(t<0)return 0;for(var i=0;i<BR.length;i++){if(t<=BR[i][0])return BR[i][1];}return 45;}
 function itaxT(t){t=Math.floor(Math.max(0,t)/1000)*1000;var b=0;for(var i=0;i<BR.length;i++){if(t<=BR[i][0]){b=Math.floor(t*BR[i][1]/100)-BR[i][2];break;}}return Math.floor(Math.floor(b*1021/1000)/100)*100;}
 
 var inc=document.getElementById("inc"),incr=document.getElementById("incr"),k1=document.getElementById("k1"),k2=document.getElementById("k2"),sp=0;
 function limit(a,sp,n1,n2){
  var g=kyuyo8(a),sh=shahoM(Math.floor(a/12),985,0)*12;
+ if(a>8500000&&n1+n2>0)g-=Math.ceil((Math.min(a,10000000)-8500000)/10);
+ var kisoR=g<=24000000?430000:g<=24500000?290000:g<=25000000?150000:0,nin=sp+n1+n2;
  var spI=sp?(g<=9000000?380000:g<=9500000?260000:g<=10000000?130000:0):0,spR=sp?(g<=9000000?330000:g<=9500000?220000:g<=10000000?110000:0):0;
  var ti=Math.floor(Math.max(0,g-sh-kiso(g)-spI-380000*n1-630000*n2)/1000)*1000;
- var tr=Math.floor(Math.max(0,g-sh-430000-spR-330000*n1-450000*n2)/1000)*1000;
- var diff=50000+(spR?50000:0)+50000*n1+180000*n2,adj=tr<=2000000?Math.min(diff,tr)*0.05:Math.max(diff-(tr-2000000),50000)*0.05;
- if(g<=450000)return {lim:0,sho:0,rate:0};
+ var tr=Math.floor(Math.max(0,g-sh-kisoR-spR-330000*n1-450000*n2)/1000)*1000;
+ var diff=50000+(spR?50000:0)+50000*n1+180000*n2,adj=g>25000000?0:tr<=2000000?Math.min(diff,tr)*0.05:Math.max(diff-(tr-2000000),50000)*0.05;
+ if(g<=350000*(nin+1)+100000+(nin?320000:0))return {lim:0,sho:0,rate:0};
  var spD=sp?(g<=9000000?50000:g<=9500000?40000:g<=10000000?20000:0):0,jsa=50000+spD+50000*n1+180000*n2;
  var sho=Math.max(0,Math.floor(tr/10-adj)),rate=rateOf(tr-jsa);
  var lim=sho?Math.floor(sho*20000/(90000-rate*1021))+2000:0;return {lim:lim,sho:sho,rate:rate};

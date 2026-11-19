@@ -1,8 +1,19 @@
 # /yakuin-taishokukin/ 役員退職金の手取り。
-# 原本:国税庁 No.1420(退職所得控除・2分の1・勤続5年以下の役員等は2分の1にしない)・No.2732(退職所得の源泉徴収税額の速算表)・No.2737(住民税 市6%・県4%・各100円未満切り捨て)
+# 原本:国税庁 No.1420 退職金を受け取ったとき(退職所得控除・2分の1・勤続5年以下の役員等は2分の1にしない・令和8年4月1日現在法令等)
+#   https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1420.htm
+# 国税庁 No.2732 別紙 退職所得の源泉徴収税額の速算表(課税退職所得は1,000円未満切り捨て・税額は1円未満切り捨て・令和8年4月1日現在法令等)
+#   https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2732_besshi.htm
+#   https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/18.pdf (令和8年分)
+# 国税庁 役員等勤続年数(1年未満の端数は1年に切り上げ) https://www.nta.go.jp/publication/pamph/hotei/yakuin_taishoku.pdf
+# 総務省 退職所得に対する住民税の特別徴収(市町村民税6%・道府県民税4%・それぞれ100円未満切り捨て)
+#   https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/65871.html
+# 国税庁 法人税基本通達 9-2-27の3(功績倍率法=退職の直前の給与の額×業務に従事した期間×職責に応じた倍率)
+#   https://www.nta.go.jp/law/tsutatsu/kihon/hojin/09/09_02_07.htm
+# 照らすもの:window.__taishoku と __kojo・結果の箱・HTML に手で書いた表1と表3の全行・JS が作る表2(5つの倍率)・本文の例の数字・JS が書き換える前の文
 # 最後に原本を確かめた日:2026-11-19
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from fractions import Fraction
 from _lib import run
 SOKUSAN = [(1950000, 5, 0), (3300000, 10, 97500), (6950000, 20, 427500), (9000000, 23, 636000),
            (18000000, 33, 1536000), (40000000, 40, 2796000), (None, 45, 4796000)]
@@ -39,5 +50,98 @@ async def body(pg):
     shown = int(''.join(c for c in await pg.inner_text('#o-n') if c.isdigit()))
     if shown != exp['net']:
         bad += 1; print('NG 既定の手取りの表示', shown, exp['net'])
+
+    def chk(label, got, want):
+        nonlocal n, bad
+        n += 1
+        if got != want:
+            bad += 1; print('NG', label, got, want)
+    def d(t):
+        return int(''.join(c for c in t if c.isdigit()) or 0)
+    def man(v):
+        return '{:,}'.format(v // 10000)
+
+    # 退職所得控除(No.1420:20年以下は40万円×年数で80万円が下限・20年超は800万円+70万円×(年数-20)) 1年から60年まで
+    for y in range(1, 61):
+        chk('控除 %d年' % y, await pg.evaluate('n=>window.__kojo(n)', y), kojo(y))
+
+    # HTML に手で書いた表1(勤続30年・退職金ごとの税金と手取り)の全行
+    rows = await pg.eval_on_selector_all('#tb tr', """rs=>rs.map(r=>({s:r.getAttribute('data-s'),
+        c:[...r.children].map(td=>[...td.querySelectorAll('b,small')].map(e=>e.textContent))
+        ,t:r.children[0].textContent}))""")
+    chk('表1の行の数', [r['s'] for r in rows], ['1000', '1500', '2000', '3000', '4000', '5000', '7000', '10000'])
+    for r in rows:
+        g = int(r['s']) * 10000; e = ref(g, 30)
+        tax = g - e['net']
+        wari = (Fraction(tax * 1000, g) + Fraction(1, 2)).__floor__()      # 0.1%の位に四捨五入
+        chk('表1 %s 退職金の列' % r['s'], d(r['t']), int(r['s']))
+        chk('表1 %s 税金の合計' % r['s'], d(r['c'][1][0]), tax)
+        chk('表1 %s 所得税' % r['s'], r['c'][1][1], '所得税 {:,}'.format(e['it']))
+        chk('表1 %s 住民税' % r['s'], r['c'][1][2], '住民税 {:,}'.format(e['ju']))
+        chk('表1 %s 手取り' % r['s'], d(r['c'][2][0]), e['net'])
+        chk('表1 %s 税金の割合' % r['s'], r['c'][2][1], '税金の割合 %d.%d%%' % (wari // 10, wari % 10))
+
+    # HTML に手で書いた表3(勤続年数ごとの控除と3,000万円の手取り)の全行
+    rows = await pg.eval_on_selector_all('#kojo + p + .tw tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
+    chk('表3の行の数', [r[0] for r in rows], ['%d年' % y for y in (5, 10, 15, 20, 25, 30, 35, 40)])
+    for r in rows:
+        y = d(r[0]); e = ref(30000000, y)
+        chk('表3 %d年 控除' % y, r[1], man(kojo(y)) + '万円')
+        chk('表3 %d年 手取り' % y, r[2], '{:,}'.format(e['net']) + ('2分の1にしない' if y <= 5 else ''))
+
+    # 本文の例の数字(勤続30年・3,000万円)
+    e = ref(30000000, 30); kazei = (30000000 - kojo(30)) // 2
+    txt = await pg.inner_text('main')
+    flat = ''.join(txt.split())
+    for label, want in [
+        ('冒頭の文', '勤続30年で3,000万円を受け取ると、税金は{:,}円で手取りは{:,}円です。'.format(30000000 - e['net'], e['net'])),
+        ('表1の注の控除', '勤続30年の退職所得控除は%s万円です。退職金から%s万円を引いて' % (man(kojo(30)), man(kojo(30)))),
+        ('例の課税の額', '3,000万円から%s万円を引いて2分の1にした%s万円に税金がかかります。' % (man(kojo(30)), man(kazei))),
+        ('例の所得税', '所得税は、%s万円×23%%−636,000円に102.1%%を掛けた%s円です。' % (man(kazei), '{:,}'.format(e['it']))),
+        ('例の住民税', '住民税は{:,}円です。'.format(e['ju'])),
+        ('控除の注', '勤続20年までは1年につき40万円（80万円に満たないときは80万円）、20年を超えた分は1年につき70万円です。'),
+        ('申告書がない場合', '退職金の20.42%を差し引きます'),
+        ('計算のしかたの住民税', '住民税は、2の額の6%と4%の合計（それぞれ100円未満は切り捨て）'),
+    ]:
+        chk('本文 ' + label, want in flat, True)
+    chk('例の速算表の段', (6950000 < kazei <= 9000000, kazei * 23 // 100 - 636000), (True, e['it'] * 1000 // 1021 + (1 if (e['it'] * 1000) % 1021 else 0)))
+    chk('20.42%=20%×102.1%', Fraction(20, 100) * Fraction(1021, 1000), Fraction(2042, 10000))
+
+    # JS が書き換える前の元の文(ファイルの中身)と、既定の選び方
+    raw = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'site', 'yakuin-taishokukin', 'index.html'), encoding='utf-8').read()
+    chk('元の文 倍率の注', '功績倍率3.0で計算' in raw, True)
+    chk('元の文 既定の倍率', '<option value="30" selected' in raw, True)
+    chk('元の文 既定の月額と年数', ('id="mon" inputmode="numeric" min="0" max="10000000" step="10000" value="1000000"' in raw, 'step="1" value="30"' in raw), (True, True))
+    chk('説明の文 8行の範囲', '役員退職金1,000万円から1億円まで' in raw, True)
+
+    # 功績倍率法の式(最終報酬月額×勤続年数×功績倍率)と結果の箱・表2・黄色の行
+    BAI = [('10', Fraction(1)), ('15', Fraction(3, 2)), ('20', Fraction(2)), ('25', Fraction(5, 2)), ('30', Fraction(3))]
+    chk('倍率の選択肢', await pg.eval_on_selector_all('#bai option', 'os=>os.map(o=>[o.value,o.textContent])'),
+        [[v, '%d.%d' % (f.numerator * 10 // f.denominator // 10, f.numerator * 10 // f.denominator % 10)] for v, f in BAI])
+    TB1 = [1000, 1500, 2000, 3000, 4000, 5000, 7000, 10000]
+    for bv, bf in BAI:
+        await pg.select_option('#bai', bv)
+        bs = '%d.%d' % (bf.numerator * 10 // bf.denominator // 10, bf.numerator * 10 // bf.denominator % 10)
+        t2 = await pg.eval_on_selector_all('#tb2 tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
+        want = [['%d万円' % x] + ['{:,}'.format(int(x * y * bf)) for y in (10, 20, 30, 35)] for x in (30, 50, 70, 100, 150)]
+        chk('表2 倍率' + bs, t2, want)
+        chk('表2の注 倍率' + bs, await pg.inner_text('#bainote'), '功績倍率%sで計算しています。報酬の月額×勤続年数×功績倍率です。' % bs)
+        for m, y in [(300000, 1), (300000, 5), (500000, 6), (800000, 10), (1000000, 20), (1000000, 30), (1500000, 35),
+                     (2000000, 40), (3000000, 45), (10000000, 60), (0, 30), (650000, 21)]:
+            await pg.fill('#mon', str(m)); await pg.fill('#yrs', str(y))
+            gq = m * y * bf
+            if gq.denominator != 1:
+                continue
+            g = int(gq); e = ref(g, y)
+            chk('箱 退職金 %d %d %s' % (m, y, bs), d(await pg.inner_text('#o-g2')), g)
+            chk('箱 手取り %d %d %s' % (m, y, bs), d(await pg.inner_text('#o-n')), e['net'])
+            chk('箱 税金 %d %d %s' % (m, y, bs), d(await pg.inner_text('#o-tz')), e['it'] + e['ju'])
+            chk('箱 内訳 %d %d %s' % (m, y, bs), await pg.inner_text('#o-tzl'),
+                '税金の内訳は、所得税{:,}円（復興特別所得税を含む）・住民税{:,}円です'.format(e['it'], e['ju']))
+            chk('箱 式 %d %d %s' % (m, y, bs), await pg.inner_text('#o-g'), '報酬月額×%d年×倍率%s' % (y, bs))
+            chk('箱 控除 %d %d %s' % (m, y, bs), await pg.inner_text('#o-k'), '退職所得控除 %s万円' % man(kojo(y)))
+            chk('箱 2分の1 %d %d %s' % (m, y, bs), await pg.inner_text('#o-h'), '2分の1にしない' if y <= 5 else '2分の1にして計算')
+            near = min(TB1, key=lambda s: (abs(s * 10000 - g), TB1.index(s)))
+            chk('黄色の行 %d %d %s' % (m, y, bs), await pg.eval_on_selector_all('#tb tr.hit', "rs=>rs.map(r=>r.getAttribute('data-s'))"), [str(near)])
     return n, bad
 run('yakuin-taishokukin', body)

@@ -164,7 +164,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="12月の給与明細と戻るお金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="14" width="26" height="34" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><path d="M20 23h14M20 30h14M20 37h8" stroke="#9fc4b6" stroke-width="3" stroke-linecap="round"></path><circle cx="44" cy="42" r="11" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M40 38l4 5 4-5M44 43v6M40.5 44.5h7" fill="none" stroke="#0f3d31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月16日（国税庁「令和8年分 年末調整のしかた」に対応）</p>
+ <p class="upd">更新日：2026年11月19日（国税庁「令和8年分 年末調整のしかた」に対応）</p>
  <h1>【年末調整の還付金の計算】いくら戻る？年収別の早見表と変更点【2026年】</h1>
 </div>
 <div class="sum" id="calc">
@@ -308,7 +308,7 @@ body{overflow-x:clip}
 <p>給与の収入が2,000万円を超える方は、年末調整の対象になりません。副業の所得が20万円を超える方や個人で事業をしている方は、年末調整とは別に確定申告が必要です。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.nta.go.jp/users/gensen/nencho/index/shikata.htm">国税庁「令和8年分 年末調整のしかた」（昨年と比べて変わった点・算出所得税額の速算表・給与所得控除後の給与等の金額の表）</a></li>
-  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
+  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正（所得税の基礎控除の引上げ等関係）Q&amp;A」</a></li>
   <li><a href="https://www.mof.go.jp/tax_policy/tax_reform/outline/fy2026/08taikou_01.htm">財務省「令和8年度税制改正の大綱」</a></li>
   <li><a href="https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/denshi_01.pdf">国税庁「令和8年分 月額表の甲欄を適用する給与等に対する税額の電算機計算の特例について」</a></li>
   <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf">全国健康保険協会「令和8年3月分からの健康保険・厚生年金保険の保険料額表（東京都）」</a></li>
@@ -382,7 +382,7 @@ body{overflow-x:clip}
 (function(){
  var H=[58,68,78,88,98,104,110,118,126,134,142,150,160,170,180,190,200,220,240,260,280,300,320,340,360,380,410,440,470,500,530,560,590,620,650,680,710,750,790,830,880,930,980,1030,1090,1150,1210,1270,1330,1390];
  var R=[0, 2042, 4084, 6126, 8168, 10210, 12252, 14294, 16336, 18378, 20420, 22462, 24504, 26546, 28588, 30630, 32672, 35735, 38798, 41861, 45945],UP=[[82, 94, 260, 309, 342, 372, 402, 433, 520, 605, 684, 715, 752, 795, 854, 922, 1318, 1521, 2621, 3495], [107, 250, 289, 346, 373, 401, 430, 463, 520, 621, 705, 739, 778, 821, 882, 952, 1342, 1526, 2645, 3527]];
- function hyo(m){for(var i=0;i<H.length-1;i++){if(m<(H[i]+H[i+1])*500)return H[i]*1000}return H[H.length-1]*1000}
+ function hyo(m){for(var i=0;i<H.length-1;i++){if(m<(H[i]+H[i+1])*500-(H[i]>=1030?5000:0))return H[i]*1000}return H[H.length-1]*1000}
  function r50(x){var f=Math.floor(x);return x-f>0.5+1e-9?f+1:f}
  function kr(kg){return 0.0985+0.0023+(kg?0.0162:0)}
  function sha(m,kg){var h=hyo(m),k=Math.min(Math.max(h,88000),650000);return h*kr(kg)/2+k*0.183/2+m*0.005}
