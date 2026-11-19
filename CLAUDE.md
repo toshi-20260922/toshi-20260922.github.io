@@ -2,9 +2,20 @@
 
 このリポジトリで作業を始めるときに、毎回読む。
 
-## 文章をGeminiに書かせるとき(2026-11-19 追加)
+## ページに載せる文章はClaudeが書かない(2026-11-19 追加)
 
-taxtable.jp の文章(ツールの説明文・注記・FAQ・記事など)をGeminiに書かせるときは、Geminiの一番上のモデル Gemini 4 Carbon(gemini-4-carbon)を使う。考える深さは「高」(thinkingLevel = "high")にする。
+taxtable.jp のページに載せる文章(結論の一文・説明文・注記・FAQ・記事)を、Claudeは自分で書かない。
+
+- 文章は必ず Gemini 4 Carbon(gemini-4-carbon)の思考レベル「高」(thinkingLevel = "high")に書かせる。
+- Geminiが書いた文をそのまま使う。直してよいのは、数字・金額・法令名を計算や原文と合わせる所だけ。
+- Claudeの担当は、計算の仕組みと、数字・原文の確認。
+- Geminiで書かせられないときは、文章の欄を空けたまま公開しない。このことを作業記録に書いて止める。
+
+理由(T O様の指摘): Claudeの文章は、主語・述語・大事な言葉が抜け、原型をとどめていない。例は耐用年数ページの「資産を選ぶと、法定耐用年数と1年目の減価償却費が出ます」で、何をどこで選ぶのかが伝わらない。
+
+## Geminiのモデルと設定(2026-11-19 追加)
+
+Geminiは一番上のモデル Gemini 4 Carbon(gemini-4-carbon)を使う。考える深さは「高」(thinkingLevel = "high")にする。
 
 - gemini.google.com(Gemini Ultraの契約)で使える。
 - ほかのモデルや低い設定には落とさない。
