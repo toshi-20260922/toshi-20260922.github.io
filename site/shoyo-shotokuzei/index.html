@@ -209,6 +209,14 @@ body{overflow-x:clip}
    <label>賞与が支払われる日</label>
    <div class="seg" id="s-y"><button type="button" class="on" data-v="0">2026年12月まで</button><button type="button" data-v="1">2027年1月から</button></div>
   </div>
+  <div class="full">
+   <details id="more"><summary>社会保険料を自分で入力する（給与明細の額を使う）</summary>
+    <label for="skin">前月の給与から引いた社会保険料（空欄なら自動で計算）</label>
+    <div class="row"><input type="number" id="skin" inputmode="numeric" min="0" max="2000000" step="1" value="" placeholder="自動"><span>円</span></div>
+    <label for="sbin">賞与から引く社会保険料（空欄なら自動で計算）</label>
+    <div class="row"><input type="number" id="sbin" inputmode="numeric" min="0" max="10000000" step="1" value="" placeholder="自動"><span>円</span></div>
+   </details>
+  </div>
  </div>
  <div class="amt">
   <div class="tot"><small>賞与から引かれる所得税</small><b id="o-k">0<i>円</i></b><em id="o-e">率</em></div>
@@ -218,7 +226,7 @@ body{overflow-x:clip}
  <ul>
   <li>率は前月の給与から社会保険料を引いた額と、扶養親族等の数で決まります</li>
   <li>扶養控除等申告書をお勤め先に出している方（甲欄）の計算です</li>
-  <li>社会保険料は、協会けんぽ東京・40歳未満・雇用保険ありで計算しています</li>
+  <li id="o-sk">社会保険料は、協会けんぽ東京・40歳未満・雇用保険ありで計算しています</li>
  </ul>
 </div>
 <div class="rcta"><p>給与や賞与の支払いがある会社の、記帳から決算・申告までまとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="shoyo-shotokuzei_result_marunage">経理丸投げの無料相談</a></div>
@@ -230,6 +238,8 @@ body{overflow-x:clip}
 <nav class="toc"><div class="t">目次</div><ol>
  <li><a href="#list">前月の給与で見る率の早見表</a></li>
  <li><a href="#how">賞与の所得税の計算のしかた</a></li>
+ <li><a href="#getsugaku">月額表で計算する場合</a></li>
+ <li><a href="#shaho">賞与から引く社会保険料</a></li>
  <li><a href="#rate">算出率の表（令和8年分）</a></li>
  <li><a href="#rate9">算出率の表（令和9年分）</a></li>
  <li><a href="#rel">次に確かめること</a></li>
@@ -247,6 +257,20 @@ body{overflow-x:clip}
 <p>前月の給与が30万円・扶養0人・賞与50万円の場合です。前月の社会保険料は44,070円で、引いた残りは255,930円です。表に当てはめると率は4.084%です。賞与の社会保険料は73,450円なので、（500,000円−73,450円）×4.084%で所得税は17,420円になります。</p>
 <p>同じ条件で扶養が1人なら、率は4.084%で所得税は17,420円です。</p>
 <p>扶養親族等の数は、扶養控除等申告書に書いた人数です。本人が障害者・寡婦・ひとり親・勤労学生に当たるときは、当たるごとに1人を足します。</p>
+<h2 id="getsugaku">月額表で計算する場合</h2>
+<p>次の2つの場合は算出率の表を使わず、毎月の給与と同じ月額表で計算します。</p>
+<div class="tw"><table>
+ <thead><tr><th>場合</th><th>計算のしかた</th></tr></thead>
+ <tbody>
+  <tr><td class="l">前月に給与の支払いがない</td><td class="l">1 賞与から社会保険料を引く<br>2 1の額を6で割る（計算期間が6か月を超えるときは12で割る）<br>3 2の額を月額表に当てはめて税額を出す<br>4 3の税額に6（または12）を掛ける</td></tr>
+  <tr><td class="l">社会保険料を引いた賞与が、社会保険料を引いた前月の給与の10倍を超える</td><td class="l">1 賞与から社会保険料を引き、6（または12）で割る<br>2 1の額に前月の給与（社会保険料を引いた額）を足し、月額表で税額を出す<br>3 2の税額から前月の給与の税額を引く<br>4 3の額に6（または12）を掛ける</td></tr>
+ </tbody>
+</table></div>
+<p class="note">上の計算ツールはこの2つの場合に当たると、税額の代わりに「別の計算になります」と表示します。</p>
+<h2 id="shaho">賞与から引く社会保険料</h2>
+<p>賞与の健康保険料と厚生年金保険料は、賞与の額の1,000円未満を切り捨てた標準賞与額に料率を掛けて計算します。標準賞与額には上限があり、上限を超えた部分には保険料がかかりません。</p>
+<p>雇用保険料は、切り捨てをせずに賞与の額そのものに率を掛けます。役員は雇用保険に入らないので、役員の賞与から雇用保険料は引きません。</p>
+<p>給与明細に書かれた社会保険料が分かる人は、上の計算ツールの「社会保険料を自分で入力する」に入れると明細どおりの額で計算できます。</p>
 <h2 id="rate">算出率の表（令和8年分）</h2>
 <p>前月の給与から社会保険料を引いた額（千円）が入る行の率を使います。「82〜94」は、82千円以上94千円未満のことです。</p>
 <h3>扶養親族等の数が0人〜3人</h3>
@@ -371,6 +395,18 @@ body{overflow-x:clip}
 <p>社会保険料を引いた後の賞与が社会保険料を引いた後の前月の給与の10倍を超えるときも、算出率の表は使いません。賞与を6で割った額と前月の給与を合わせて月額表に当てはめ、前月の給与の税額との差に6を掛けます。</p>
 <h3>12月の賞与の所得税は、年末調整でどうなりますか？</h3>
 <p>賞与から引かれた所得税も毎月の給与から引かれた分と合わせて、年末調整で1年分をまとめて精算します。</p>
+<h3>役員に払う賞与も、同じ計算ですか？</h3>
+<p>所得税の計算は、従業員の賞与と同じです。前月の給与と扶養親族等の数で率を決めて、賞与に掛けます。役員は雇用保険に入らないので、引く社会保険料に雇用保険料は含めません。</p>
+<h3>扶養控除等申告書を出していない人の賞与は？</h3>
+<p>算出率の表の乙欄の率を使います。乙欄の率は甲欄より高く、扶養親族等の数も数えません。2か所から給与をもらっている人の、2か所目の賞与が当たります。</p>
+<h3>「前月の給与」は前月分の給与ですか、前月に支払った給与ですか？</h3>
+<p>賞与を支払う月の前の月に支払った給与です。たとえば月末締め翌月25日払いの会社が7月に賞与を払うなら、6月25日に払った給与を使います。</p>
+<h3>入社した月に払う賞与は、どう計算しますか？</h3>
+<p>前月に給与を払っていないので、月額表で計算します。賞与から社会保険料を引いた額を6で割り、月額表で出した税額に6を掛けます。</p>
+<h3>住民税は賞与から引きますか？</h3>
+<p>引きません。会社員の住民税は、1年分を12回に分けて毎月の給与から引きます。</p>
+<h3>賞与から引いた所得税は、いつまでに納めますか？</h3>
+<p>賞与を払った月の翌月10日までに納めます。納期の特例を受けている会社は、1月から6月に払った分を7月10日までに納めます。7月から12月に払った分は、翌年1月20日までです。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/15-16.pdf">国税庁「賞与に対する源泉徴収税額の算出率の表（令和8年分）」</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2523.htm">国税庁 タックスアンサー No.2523 賞与に対する源泉徴収</a></li>
@@ -457,15 +493,18 @@ body{overflow-x:clip}
  function r50(x){var f=Math.floor(x);return x-f>0.5+1e-9?f+1:f}
  function sk(m){var h=hyo(m),k=Math.min(Math.max(h,88000),650000);return r50(h*(0.0985+0.0023)/2)+r50(k*0.183/2)+r50(m*0.005)}
  function sb(b){var s=Math.floor(b/1000)*1000;return r50(Math.min(s,5730000)*(0.0985+0.0023)/2)+r50(Math.min(s,1500000)*0.183/2)+r50(b*0.005)}
- function shoyo(m,b,fu,n9){var k=sk(m),a=m-k,c=(n9?UP9:UP)[Math.min(fu,7)],i=20;for(var j=0;j<c.length;j++){if(a<c[j]*1000){i=j;break}}
-  var s=sb(b),z=Math.floor(Math.floor((b-s)*Math.round(RATE[i]*1000)+1e-6)/100000);
+ function shoyo(m,b,fu,n9,o){o=o||{};var k=o.sk>=0?Math.min(o.sk,m):sk(m),a=m-k,c=(n9?UP9:UP)[Math.min(fu,7)],i=20;for(var j=0;j<c.length;j++){if(a<c[j]*1000){i=j;break}}
+  var s=o.sb>=0?Math.min(o.sb,b):sb(b),z=Math.floor(Math.floor((b-s)*Math.round(RATE[i]*1000)+1e-6)/100000);
   return {sk:k,a:a,i:i,rate:RATE[i],sb:s,zei:z,tedori:b-s-z,ten:(b-s)>a*10}}
  window.__shoyo=shoyo;
  var inc=document.getElementById("inc"),incr=document.getElementById("incr"),bon=document.getElementById("bon"),bonr=document.getElementById("bonr"),fu=document.getElementById("fu");
  function fmt(n){return n.toLocaleString("ja-JP")}
  function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
  function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
- function draw(){var m=num(inc,0,5000000),b=num(bon,0,50000000),f=num(fu,0,7),r=shoyo(m,b,f,y9),e=document.getElementById("o-e"),te=document.getElementById("o-te");
+ var skin=document.getElementById("skin"),sbin=document.getElementById("sbin");
+ function opt(el){return el.value===""?-1:Math.max(0,parseInt(el.value,10)||0)}
+ function draw(){var o={sk:opt(skin),sb:opt(sbin)},m=num(inc,0,5000000),b=num(bon,0,50000000),f=num(fu,0,7),r=shoyo(m,b,f,y9,o),e=document.getElementById("o-e"),te=document.getElementById("o-te");
+  document.getElementById("o-sk").textContent=(o.sk>=0||o.sb>=0)?"社会保険料は入力した額を使っています（前月"+fmt(r.sk)+"円・賞与"+fmt(r.sb)+"円）":"社会保険料は、協会けんぽ東京・40歳未満・雇用保険ありで計算しています";
   if(m<=r.sk||m===0){document.getElementById("o-k").innerHTML="―";e.textContent="前月の給与が無い場合は、別の計算になります";te.textContent="社会保険料だけを引いた額";set("o-t",b-r.sb);set("o-z",r.sb)}
   else if(r.ten){document.getElementById("o-k").innerHTML="―";e.textContent="前月の給与の10倍を超える賞与は、別の計算になります";te.textContent="社会保険料だけを引いた額";set("o-t",b-r.sb);set("o-z",r.sb)}
   else{set("o-k",r.zei);e.textContent="率は"+r.rate.toFixed(3)+"%（前月の給与−社会保険料＝"+fmt(r.a)+"円）";te.textContent="税と保険料を引いた額";set("o-t",r.tedori);set("o-z",r.sb)}
@@ -476,7 +515,7 @@ body{overflow-x:clip}
  incr.addEventListener("input",function(){inc.value=incr.value;draw()});
  bon.addEventListener("input",function(){bonr.value=bon.value;draw()});
  bonr.addEventListener("input",function(){bon.value=bonr.value;draw()});
- fu.addEventListener("change",draw);
+ fu.addEventListener("change",draw);skin.addEventListener("input",draw);sbin.addEventListener("input",draw);
  var seg=document.getElementById("s-y");
  seg.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;y9=+b.getAttribute("data-v");var bs=seg.querySelectorAll("button");for(var i=0;i<bs.length;i++)bs[i].className=bs[i]===b?"on":"";draw()});
  draw();
