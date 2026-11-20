@@ -136,7 +136,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -163,6 +163,20 @@ body{overflow-x:clip}
  <p class="upd">更新日：2026年11月20日（協会けんぽ 令和8年度の料率）</p>
  <h1>【社会保険料の早見表】月給でいくら引かれる？本人負担と会社負担【令和8年度・都道府県別】</h1>
 </div>
+
+<section class="hy1">
+<h2 id="list">社会保険料 早見表（全50等級）</h2>
+<p>報酬月額が入る行を見てください。下で入力した条件の金額で表示しています。</p>
+<p class="cap" id="t-cap">協会けんぽ 東京都・月額・単位は円</p>
+<div class="tw">
+<table class="sh9">
+ <thead><tr><th>等級</th><th>報酬月額</th><th>標準報酬<br>月額</th><th>健康保険<br>（本人）</th><th>厚生年金<br>（本人）</th><th>本人合計<br>40歳未満</th><th>本人合計<br>40〜64歳</th><th>会社負担<br>40歳未満</th><th>会社負担<br>40〜64歳</th></tr></thead>
+ <tbody id="gtb"></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">本人負担は健康保険（子ども・子育て支援金を含む。40〜64歳は介護保険も含む）と厚生年金の合計です。円未満は50銭以下を切り捨て、50銭を超えると切り上げています。会社負担は保険料の全額（円未満切り捨て）から本人負担を引き、子ども・子育て拠出金（厚生年金の標準報酬月額×0.36%・円未満切り捨て）を足した額です。事業所では全員分をまとめて端数を処理するので、1人分を足した額と合わないことがあります。厚生年金は1〜3等級と36等級以上で頭打ちです。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
 
 <div class="sum" id="calc">
  <div class="h"><span>結論</span>月給を入力すると、毎月の社会保険料を表示します</div>
@@ -214,18 +228,7 @@ body{overflow-x:clip}
  </ol>
 </nav>
 
-<h2 id="zentei">早見表の前提（令和8年度）</h2><ul class="sh9ul"><li>健康保険：協会けんぽの都道府県ごとの料率（東京都は9.85%）。本人と会社で半分ずつ</li><li>子ども・子育て支援金：0.23%。本人と会社で半分ずつ。表の「健康保険」に含めています</li><li>介護保険：1.62%。40歳から64歳の人だけ。本人と会社で半分ずつ</li><li>厚生年金：18.3%。本人と会社で半分ずつ。標準報酬月額は8万8,000円から65万円まで</li><li>子ども・子育て拠出金：0.36%。会社だけが負担。表の「会社負担」に含めています</li><li>本人負担の1円未満は50銭以下を切り捨て、50銭を超えると切り上げ</li><li>会社負担は、保険料の全額（円未満切り捨て）から本人負担を引いた額</li><li>雇用保険料と労災保険料は、この表に入っていません</li></ul><h2 id="list">社会保険料 早見表（全50等級）</h2>
-<p>報酬月額が入る行を見てください。上で入力した条件の金額で表示しています。</p>
-<p class="cap" id="t-cap">協会けんぽ 東京都・月額・単位は円</p>
-<div class="tw">
-<table class="sh9">
- <thead><tr><th>等級</th><th>報酬月額</th><th>標準報酬<br>月額</th><th>健康保険<br>（本人）</th><th>厚生年金<br>（本人）</th><th>本人合計<br>40歳未満</th><th>本人合計<br>40〜64歳</th><th>会社負担<br>40歳未満</th><th>会社負担<br>40〜64歳</th></tr></thead>
- <tbody id="gtb"></tbody>
-</table>
-</div>
-<p class="note" style="margin-top:8px">本人負担は健康保険（子ども・子育て支援金を含む。40〜64歳は介護保険も含む）と厚生年金の合計です。円未満は50銭以下を切り捨て、50銭を超えると切り上げています。会社負担は保険料の全額（円未満切り捨て）から本人負担を引き、子ども・子育て拠出金（厚生年金の標準報酬月額×0.36%・円未満切り捨て）を足した額です。事業所では全員分をまとめて端数を処理するので、1人分を足した額と合わないことがあります。厚生年金は1〜3等級と36等級以上で頭打ちです。</p>
-
-<h2 id="pref-rate">都道府県別の健康保険料率</h2>
+<h2 id="zentei">早見表の前提（令和8年度）</h2><ul class="sh9ul"><li>健康保険：協会けんぽの都道府県ごとの料率（東京都は9.85%）。本人と会社で半分ずつ</li><li>子ども・子育て支援金：0.23%。本人と会社で半分ずつ。表の「健康保険」に含めています</li><li>介護保険：1.62%。40歳から64歳の人だけ。本人と会社で半分ずつ</li><li>厚生年金：18.3%。本人と会社で半分ずつ。標準報酬月額は8万8,000円から65万円まで</li><li>子ども・子育て拠出金：0.36%。会社だけが負担。表の「会社負担」に含めています</li><li>本人負担の1円未満は50銭以下を切り捨て、50銭を超えると切り上げ</li><li>会社負担は、保険料の全額（円未満切り捨て）から本人負担を引いた額</li><li>雇用保険料と労災保険料は、この表に入っていません</li></ul><h2 id="pref-rate">都道府県別の健康保険料率</h2>
 <p>令和8年度は、いちばん低いのが新潟県9.21%・いちばん高いのが佐賀県10.55%です。料率は住んでいる所ではなく、勤め先の所在地で決まります。</p>
 <div class="tw">
 <table>

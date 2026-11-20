@@ -139,7 +139,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -158,6 +158,20 @@ body{overflow-x:clip}
  <p class="upd">更新日：2026年11月19日（令和8年分の税金・令和8年度の料率）</p>
  <h1>【役員報酬の手取りの早見表】月10万〜150万円の手取りと会社負担【2026年】</h1>
 </div>
+
+<section class="hy1">
+<h2 id="list">役員報酬の手取り早見表</h2>
+<p>下で選んだ年齢の条件で表示しています。入力した報酬月額に近い行が黄色になります。</p>
+<p class="cap" id="t-cap">単身・協会けんぽ東京都・40歳未満</p>
+<div class="tw">
+<table>
+ <thead><tr><th>報酬月額<br>（万円）</th><th>手取り<br>月あたり（円）</th><th>手取り率</th><th>会社負担を含む年間総支払額（実質人件費）<br>（円）</th></tr></thead>
+ <tbody id="ttb"></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">社会保険料は、選んだ都道府県の協会けんぽの令和8年度の料率（子ども・子育て支援金を含む。40〜64歳は介護保険も含む）と厚生年金18.3%で計算した本人負担です。所得税は令和8年分（復興特別所得税を含む）・住民税は東京23区で、控除は基礎控除と社会保険料控除だけです。会社負担を含む年間総支払額（実質人件費）は、報酬に会社負担の健康保険・厚生年金と子ども・子育て拠出金を足した額です。月あたりの額は年の額を12で割り、円未満を四捨五入しています。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
 
 <div class="sum" id="calc">
  <div class="h"><span>結論</span>報酬月額を入力すると、社長の手取りと会社負担を含む年間総支払額（実質人件費）を表示します</div>
@@ -208,17 +222,6 @@ body{overflow-x:clip}
  <li><a href="#qa">役員報酬でよく聞かれること</a></li>
  </ol>
 </nav>
-
-<h2 id="list">役員報酬の手取り早見表</h2>
-<p>上で選んだ年齢の条件で表示しています。入力した報酬月額に近い行が黄色になります。</p>
-<p class="cap" id="t-cap">単身・協会けんぽ東京都・40歳未満</p>
-<div class="tw">
-<table>
- <thead><tr><th>報酬月額<br>（万円）</th><th>手取り<br>月あたり（円）</th><th>手取り率</th><th>会社負担を含む年間総支払額（実質人件費）<br>（円）</th></tr></thead>
- <tbody id="ttb"></tbody>
-</table>
-</div>
-<p class="note" style="margin-top:8px">社会保険料は、選んだ都道府県の協会けんぽの令和8年度の料率（子ども・子育て支援金を含む。40〜64歳は介護保険も含む）と厚生年金18.3%で計算した本人負担です。所得税は令和8年分（復興特別所得税を含む）・住民税は東京23区で、控除は基礎控除と社会保険料控除だけです。会社負担を含む年間総支払額（実質人件費）は、報酬に会社負担の健康保険・厚生年金と子ども・子育て拠出金を足した額です。月あたりの額は年の額を12で割り、円未満を四捨五入しています。</p>
 
 <h2 id="cost">会社が払う総額</h2>
 <p>社長に報酬を払うと、会社は本人と同じ額の健康保険料と厚生年金保険料を負担します。さらに子ども・子育て拠出金（厚生年金の標準報酬月額の0.36%）を会社だけが払います。</p>

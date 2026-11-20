@@ -164,7 +164,7 @@ body{overflow-x:clip}
 .vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}
 .vd.no{border-left-color:#00775a}
 .vd.no b{color:#00775a}
-</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -183,66 +183,7 @@ body{overflow-x:clip}
  <p class="upd">更新日：2026年11月19日（令和8年4月1日現在の法令）</p>
  <h1>【源泉徴収の早見表】報酬の源泉徴収は要る？要らない？職種の一覧と計算【2026年】</h1>
 </div>
-<div class="sum" id="calc">
- <div class="h"><span>結論</span>支払う相手と仕事と金額を入力すると、源泉徴収が要るかと差し引く額を表示します</div>
- <div class="in">
-  <div>
-   <label for="who">支払う相手</label>
-   <select id="who"><option value="0">個人</option><option value="1">法人（会社）</option></select>
-  </div>
-  <div>
-   <label for="payer">支払う側</label>
-   <select id="payer"><option value="0">会社・給与を払っている個人</option><option value="1">給与を払っていない個人</option></select>
-  </div>
-  <div class="full">
-   <label for="kind">支払う仕事の種類</label>
-   <select id="kind">
-    <option value="0">原稿料・講演料・デザイン料・弁護士や税理士の報酬・出演料・契約金</option>
-    <option value="1">司法書士・土地家屋調査士・海事代理士の報酬</option>
-    <option value="2">外交員・集金人・検針人の報酬</option>
-    <option value="3">ホステス・コンパニオンの報酬</option>
-    <option value="4">広告宣伝のための賞金</option>
-    <option value="5">プロボクサーの報酬</option>
-    <option value="9">システム開発・プログラミング・大工・運送・清掃など（所得税法204条に無い仕事）</option>
-   </select>
-  </div>
-  <div class="full">
-   <label for="amt" id="l-amt">1回に支払う金額</label>
-   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="1000000000" step="1000" value="100000"><span>円</span></div>
-   <input type="range" id="amtr" min="0" max="3000000" step="10000" value="100000" aria-label="支払う金額">
-  </div>
-  <div class="full" id="daysbox" style="display:none">
-   <label for="days">報酬の計算期間の日数（営業日数ではなく、期間の全日数）</label>
-   <div class="row"><input type="number" id="days" inputmode="numeric" min="1" max="366" step="1" value="30" style="width:96px"><span>日</span></div>
-  </div>
- </div>
- <div class="vd" id="vd"><b id="o-need">源泉徴収が必要です</b><span id="o-why">所得税法204条に並んでいる報酬です</span></div>
- <div class="amt">
-  <div class="tot"><small>源泉徴収する額（所得税と復興特別所得税）</small><b id="o-t">0<i>円</i></b><em id="o-f">計算式</em></div>
-  <div><small>差し引いて<br>相手に払う額</small><b id="o-n">0<i>円</i></b><em>支払う金額−源泉徴収</em></div>
-  <div><small>納める期限</small><b id="o-d" style="font-size:16px;line-height:1.6">翌月10日</b><em id="o-e">納期の特例</em></div>
- </div>
- <ul>
-  <li>支払う相手が個人で、支払う側が給与を払っている会社や個人事業主の場<span class="nw">合の計算です</span></li>
-  <li>請求書で報酬と消費税が分かれていれば、消費税を除いた報酬の<span class="nw">額を入れます</span></li>
-  <li>外交員とホステスは、同じ月に給与を払っていない場<span class="nw">合の計算です</span></li>
- </ul>
-</div>
-<div class="rcta"><p>外注先への支払いと源泉所得税の納付は、毎月の帳簿に入ります。記帳から決算・申告までまとめてお受け<span class="nw">しています。</span></p><a href="https://oyama-toshiro.com/contact/" data-cta="gensen-hoshu_result_marunage">経理丸投げの無料相談</a></div>
-<div class="share">
- <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/gensen-hoshu/">LINEで送る</a>
- <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/gensen-hoshu/">Xでポストする</a>
-</div>
-<p>個人に報酬を払うときに源泉徴収が要るのは、所得税法204条に並んでいる報酬だけです。<span class="mk">税率は10.21%で、1回の支払いが100万円を超える部分は20.42%です。</span>10万円の原稿料なら、10,210円を差し引いて89,790円<span class="nw">を払います。</span></p>
-<nav class="toc"><div class="t">目次</div><ol>
- <li><a href="#hantei">支払いの内容で引く源泉徴収の一覧</a></li>
- <li><a href="#list">支払う金額で見る源泉徴収の早見表</a></li>
- <li><a href="#rate">報酬の種類ごとの計算</a></li>
- <li><a href="#tax">消費税と交通費の扱い</a></li>
- <li><a href="#pay">納める期限と納期の特例</a></li>
- <li><a href="#rel">次に確かめること</a></li>
- <li><a href="#qa">報酬の源泉徴収でよく聞かれること</a></li>
-</ol></nav>
+<section class="hy1">
 <h2 id="hantei"><span class="nw">支払いの内容で引く</span><span class="nw">源泉徴収の一覧</span></h2>
 <p>法令と通達に名前が出ている支払いを載せています。支払う相手が個人の場合の判定です。下の欄に言葉を入力すると、当てはまる行だけ<span class="nw">が残ります。</span></p>
 <p style="margin:0 0 12px"><input type="search" id="q" placeholder="例：講演、デザイン、司法書士" aria-label="一覧をしぼり込む言葉" style="font-family:inherit;font-size:16px;width:100%;border:1px solid #9cc9b9;border-radius:8px;padding:10px 12px;color:#1f2a2a;background:#ffffff"></p>
@@ -309,6 +250,69 @@ body{overflow-x:clip}
  </tbody>
 </table></div>
 <p class="note" style="margin-top:8px" id="hn">一覧に名前がない支払いは、契約の中身が上のどれかに当たるかで<span class="nw">決まります。</span></p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>支払う相手と仕事と金額を入力すると、源泉徴収が要るかと差し引く額を表示します</div>
+ <div class="in">
+  <div>
+   <label for="who">支払う相手</label>
+   <select id="who"><option value="0">個人</option><option value="1">法人（会社）</option></select>
+  </div>
+  <div>
+   <label for="payer">支払う側</label>
+   <select id="payer"><option value="0">会社・給与を払っている個人</option><option value="1">給与を払っていない個人</option></select>
+  </div>
+  <div class="full">
+   <label for="kind">支払う仕事の種類</label>
+   <select id="kind">
+    <option value="0">原稿料・講演料・デザイン料・弁護士や税理士の報酬・出演料・契約金</option>
+    <option value="1">司法書士・土地家屋調査士・海事代理士の報酬</option>
+    <option value="2">外交員・集金人・検針人の報酬</option>
+    <option value="3">ホステス・コンパニオンの報酬</option>
+    <option value="4">広告宣伝のための賞金</option>
+    <option value="5">プロボクサーの報酬</option>
+    <option value="9">システム開発・プログラミング・大工・運送・清掃など（所得税法204条に無い仕事）</option>
+   </select>
+  </div>
+  <div class="full">
+   <label for="amt" id="l-amt">1回に支払う金額</label>
+   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="1000000000" step="1000" value="100000"><span>円</span></div>
+   <input type="range" id="amtr" min="0" max="3000000" step="10000" value="100000" aria-label="支払う金額">
+  </div>
+  <div class="full" id="daysbox" style="display:none">
+   <label for="days">報酬の計算期間の日数（営業日数ではなく、期間の全日数）</label>
+   <div class="row"><input type="number" id="days" inputmode="numeric" min="1" max="366" step="1" value="30" style="width:96px"><span>日</span></div>
+  </div>
+ </div>
+ <div class="vd" id="vd"><b id="o-need">源泉徴収が必要です</b><span id="o-why">所得税法204条に並んでいる報酬です</span></div>
+ <div class="amt">
+  <div class="tot"><small>源泉徴収する額（所得税と復興特別所得税）</small><b id="o-t">0<i>円</i></b><em id="o-f">計算式</em></div>
+  <div><small>差し引いて<br>相手に払う額</small><b id="o-n">0<i>円</i></b><em>支払う金額−源泉徴収</em></div>
+  <div><small>納める期限</small><b id="o-d" style="font-size:16px;line-height:1.6">翌月10日</b><em id="o-e">納期の特例</em></div>
+ </div>
+ <ul>
+  <li>支払う相手が個人で、支払う側が給与を払っている会社や個人事業主の場<span class="nw">合の計算です</span></li>
+  <li>請求書で報酬と消費税が分かれていれば、消費税を除いた報酬の<span class="nw">額を入れます</span></li>
+  <li>外交員とホステスは、同じ月に給与を払っていない場<span class="nw">合の計算です</span></li>
+ </ul>
+</div>
+<div class="rcta"><p>外注先への支払いと源泉所得税の納付は、毎月の帳簿に入ります。記帳から決算・申告までまとめてお受け<span class="nw">しています。</span></p><a href="https://oyama-toshiro.com/contact/" data-cta="gensen-hoshu_result_marunage">経理丸投げの無料相談</a></div>
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/gensen-hoshu/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/gensen-hoshu/">Xでポストする</a>
+</div>
+<p>個人に報酬を払うときに源泉徴収が要るのは、所得税法204条に並んでいる報酬だけです。<span class="mk">税率は10.21%で、1回の支払いが100万円を超える部分は20.42%です。</span>10万円の原稿料なら、10,210円を差し引いて89,790円<span class="nw">を払います。</span></p>
+<nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#hantei">支払いの内容で引く源泉徴収の一覧</a></li>
+ <li><a href="#list">支払う金額で見る源泉徴収の早見表</a></li>
+ <li><a href="#rate">報酬の種類ごとの計算</a></li>
+ <li><a href="#tax">消費税と交通費の扱い</a></li>
+ <li><a href="#pay">納める期限と納期の特例</a></li>
+ <li><a href="#rel">次に確かめること</a></li>
+ <li><a href="#qa">報酬の源泉徴収でよく聞かれること</a></li>
+</ol></nav>
 <h2 id="list"><span class="nw">支払う金額で見る</span><span class="nw">源泉徴収の早見表</span></h2>
 <p>原稿料・講演料・デザイン料・弁護士や税理士の報酬などの場合です。上で入力した金額に近い行が黄色になります。単<span class="nw">位は円です。</span></p>
 <div class="tw"><table>

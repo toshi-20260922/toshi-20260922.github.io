@@ -40,6 +40,10 @@ for f in files:
         have = {h.strip('/') for h in re.findall(r'href="(/[^"]+/)"', m.group(1))} if m else set()
         for p in allp - have - {me}:
             bad(f, '一覧の抜け', p)
+    if me and 'id="calc"' in s:
+        hy, ca = s.find('class="hy1"'), s.find('id="calc"')
+        if hy < 0 or hy > ca:
+            bad(f, '早見表が計算の箱より上に無い', 'tools/hayami_first.json に見出しの id を足して finish.py を流す')
     if me and me != 'policy' and me not in allp:
         bad(f, 'pages.json に無いページ', me)
 

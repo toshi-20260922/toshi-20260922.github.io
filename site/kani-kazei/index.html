@@ -145,7 +145,7 @@ body{overflow-x:clip}
 .amt.jdg b{white-space:nowrap}
 .jdg div{background:#ffffff1f}
 .jdg b{font-size:22px}
-.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}</style>
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -164,6 +164,19 @@ body{overflow-x:clip}
  <p class="upd">更新日：2026年11月20日（国税庁 No.6505・No.6509 令和8年4月1日現在法令等）</p>
  <h1>【簡易課税の事業区分】第何種？業種の一覧とみなし仕入率・納める消費税の計算【2026年】</h1>
 </div>
+
+<section class="hy1">
+<h2 id="kubun">第1種から第6種までの事業区分</h2>
+<p>納める割合は、売上の消費税のうち実際に納める割合です。みなし仕入率が高い業種ほど納める消費税が少なくなります。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>区分</th><th>みなし<br>仕入率</th><th>納める<br>割合</th><th>当たる事業</th></tr></thead>
+ <tbody><tr><td>第1種</td><td>90%</td><td>10%</td><td class="l">他の人から買った商品を、形を変えずにほかの事業者に売る事業</td></tr><tr><td>第2種</td><td>80%</td><td>20%</td><td class="l">他の人から買った商品を形を変えずに売る事業で第1種以外のもの・農業・林業・漁業のうち飲食料品を売る事業</td></tr><tr><td>第3種</td><td>70%</td><td>30%</td><td class="l">農業・林業・漁業（飲食料品以外）・鉱業・建設業・製造業（製造小売業を含む）・電気業・ガス業・熱供給業・水道業。加工賃をもらう仕事は除く</td></tr><tr><td>第4種</td><td>60%</td><td>40%</td><td class="l">第1種・第2種・第3種・第5種・第6種のどれにも当たらない事業。飲食店業・加工賃をもらう仕事・事業で使っていた固定資産の売却など</td></tr><tr><td>第5種</td><td>50%</td><td>50%</td><td class="l">運輸通信業・金融業・保険業・サービス業（飲食店業を除く）</td></tr><tr><td>第6種</td><td>40%</td><td>60%</td><td class="l">不動産業</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">第3種と第5種は、おおむね日本標準産業分類の大分類で判定します。日本標準産業分類で運輸通信業・金融業・保険業・サービス業に当たる事業は、加工賃をもらう仕事でも第5種です（国税庁 No.6509）。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
 
 <div class="sum" id="calc">
  <div class="h"><span>結論</span>業種を選ぶと、簡易課税の第何種かとみなし仕入率を表示します</div>
@@ -230,16 +243,6 @@ body{overflow-x:clip}
   <li><a href="#qa">簡易課税の事業区分でよく聞かれること</a></li>
  </ol>
 </nav>
-
-<h2 id="kubun">第1種から第6種までの事業区分</h2>
-<p>納める割合は、売上の消費税のうち実際に納める割合です。みなし仕入率が高い業種ほど納める消費税が少なくなります。</p>
-<div class="tw">
-<table>
- <thead><tr><th>区分</th><th>みなし<br>仕入率</th><th>納める<br>割合</th><th>当たる事業</th></tr></thead>
- <tbody><tr><td>第1種</td><td>90%</td><td>10%</td><td class="l">他の人から買った商品を、形を変えずにほかの事業者に売る事業</td></tr><tr><td>第2種</td><td>80%</td><td>20%</td><td class="l">他の人から買った商品を形を変えずに売る事業で第1種以外のもの・農業・林業・漁業のうち飲食料品を売る事業</td></tr><tr><td>第3種</td><td>70%</td><td>30%</td><td class="l">農業・林業・漁業（飲食料品以外）・鉱業・建設業・製造業（製造小売業を含む）・電気業・ガス業・熱供給業・水道業。加工賃をもらう仕事は除く</td></tr><tr><td>第4種</td><td>60%</td><td>40%</td><td class="l">第1種・第2種・第3種・第5種・第6種のどれにも当たらない事業。飲食店業・加工賃をもらう仕事・事業で使っていた固定資産の売却など</td></tr><tr><td>第5種</td><td>50%</td><td>50%</td><td class="l">運輸通信業・金融業・保険業・サービス業（飲食店業を除く）</td></tr><tr><td>第6種</td><td>40%</td><td>60%</td><td class="l">不動産業</td></tr></tbody>
-</table>
-</div>
-<p class="note" style="margin-top:8px">第3種と第5種は、おおむね日本標準産業分類の大分類で判定します。日本標準産業分類で運輸通信業・金融業・保険業・サービス業に当たる事業は、加工賃をもらう仕事でも第5種です（国税庁 No.6509）。</p>
 
 <h2 id="rei">業種ごとの事業区分の例</h2>
 <p>国税庁の質疑応答事例とタックスアンサーに載っている例です。同じ店でも取引ごとに区分が変わることがあります。</p>

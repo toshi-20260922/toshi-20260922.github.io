@@ -137,7 +137,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -172,6 +172,20 @@ body{overflow-x:clip}
  <p class="upd">更新日：2026年11月20日（令和8年度の市区町村ごとの国民健康保険料率と協会けんぽの料率）</p>
  <h1>【国民健康保険と任意継続の比較】退職後はどっちが安い？年収で比べる【令和8年度】</h1>
 </div>
+
+<section class="hy1">
+<h2 id="list">退職前の年収で比べる早見表</h2>
+<p>下で選んだ条件で表示しています。入力した年収を超えない中でいちばん近い行が黄色になります。</p>
+<p class="cap" id="t-cap">東京23区・40歳未満・自己都合・家族なし</p>
+<div class="tw">
+<table>
+ <thead><tr><th>退職前の年収<br>（万円）</th><th>国民健康保険<br>（年・円）</th><th>任意継続<br>（年・円）</th><th>安いほう</th></tr></thead>
+ <tbody id="ktb"></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">国民健康保険は選んだ市区町村の令和8年度の料率で計算しています。給与所得から43万円を引いた額に所得割をかけ、均等割・平等割を足した額です。所得が低い世帯の均等割・平等割の軽減（7割・5割・2割）も含めています。任意継続は年収を12で割った月給の標準報酬月額（上限32万円）に、選んだ都道府県の協会けんぽの料率をかけています。家族は全員が同じ年代の大人として計算しています。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
 
 <div class="sum" id="calc">
  <div class="h"><span>結論</span>市区町村と退職前の年収を入力すると、どちらが安いかを表示します</div>
@@ -245,17 +259,6 @@ body{overflow-x:clip}
  <li><a href="#qa">国民健康保険と任意継続でよく聞かれること</a></li>
  </ol>
 </nav>
-
-<h2 id="list">退職前の年収で比べる早見表</h2>
-<p>上で選んだ条件で表示しています。入力した年収を超えない中でいちばん近い行が黄色になります。</p>
-<p class="cap" id="t-cap">東京23区・40歳未満・自己都合・家族なし</p>
-<div class="tw">
-<table>
- <thead><tr><th>退職前の年収<br>（万円）</th><th>国民健康保険<br>（年・円）</th><th>任意継続<br>（年・円）</th><th>安いほう</th></tr></thead>
- <tbody id="ktb"></tbody>
-</table>
-</div>
-<p class="note" style="margin-top:8px">国民健康保険は選んだ市区町村の令和8年度の料率で計算しています。給与所得から43万円を引いた額に所得割をかけ、均等割・平等割を足した額です。所得が低い世帯の均等割・平等割の軽減（7割・5割・2割）も含めています。任意継続は年収を12で割った月給の標準報酬月額（上限32万円）に、選んだ都道府県の協会けんぽの料率をかけています。家族は全員が同じ年代の大人として計算しています。</p>
 
 <h2 id="wakare">任意継続のほうが安くなる年収</h2>
 <p>1人で加入し、自己都合で辞めた場合です。退職前の年収が表の額以上なら、任意継続のほうが安くなります。</p>

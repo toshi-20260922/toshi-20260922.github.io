@@ -146,7 +146,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -165,6 +165,29 @@ body{overflow-x:clip}
  <p class="upd">更新日：2026年11月10日（国税庁 令和8年分の算出率の表）</p>
  <h1>【賞与の所得税の計算】ボーナスから引かれる税金はいくら？算出率の表【2026年】</h1>
 </div>
+<section class="hy1">
+<h2 id="list">前月の給与で見る率の早見表</h2>
+<p>下で入力した前月の給与に近い行が黄色になります。率は令和8年分の表（2026年12月までに支払われる賞与）のものです。いちばん右は、扶養0人で賞与が50万円のときの所得税（円）です。</p>
+<div class="tw"><table class="rt">
+ <thead><tr><th>給与<br>万円</th><th>扶養<br>0人</th><th>扶養<br>1人</th><th>扶養<br>2人</th><th>扶養<br>3人</th><th>賞与50万<br>の税額</th></tr></thead>
+ <tbody id="tb">
+ <tr data-s="20"><td>20</td><td>4.084%</td><td>2.042%</td><td>2.042%</td><td>0.000%</td><td><b>17,420</b></td></tr>
+ <tr data-s="25"><td>25</td><td>4.084%</td><td>2.042%</td><td>2.042%</td><td>2.042%</td><td><b>17,420</b></td></tr>
+ <tr data-s="30"><td>30</td><td>4.084%</td><td>4.084%</td><td>2.042%</td><td>2.042%</td><td><b>17,420</b></td></tr>
+ <tr data-s="35"><td>35</td><td>6.126%</td><td>6.126%</td><td>4.084%</td><td>2.042%</td><td><b>26,130</b></td></tr>
+ <tr data-s="40"><td>40</td><td>8.168%</td><td>6.126%</td><td>6.126%</td><td>4.084%</td><td><b>34,840</b></td></tr>
+ <tr data-s="45"><td>45</td><td>12.252%</td><td>10.210%</td><td>8.168%</td><td>6.126%</td><td><b>52,260</b></td></tr>
+ <tr data-s="50"><td>50</td><td>14.294%</td><td>12.252%</td><td>12.252%</td><td>10.210%</td><td><b>60,971</b></td></tr>
+ <tr data-s="60"><td>60</td><td>16.336%</td><td>16.336%</td><td>16.336%</td><td>14.294%</td><td><b>69,681</b></td></tr>
+ <tr data-s="70"><td>70</td><td>18.378%</td><td>18.378%</td><td>18.378%</td><td>18.378%</td><td><b>78,391</b></td></tr>
+ <tr data-s="80"><td>80</td><td>22.462%</td><td>20.420%</td><td>20.420%</td><td>20.420%</td><td><b>95,811</b></td></tr>
+ <tr data-s="100"><td>100</td><td>30.630%</td><td>30.630%</td><td>28.588%</td><td>28.588%</td><td><b>130,652</b></td></tr>
+ </tbody>
+</table></div>
+<p class="note" style="margin-top:8px">前月の給与から引く社会保険料は、協会けんぽ東京支部の令和8年度の料率（健康保険9.85%・子ども子育て支援金0.23%・厚生年金18.3%を会社と半分ずつ・40歳未満）と雇用保険0.5%で計算しています。お勤め先の健康保険や年齢で、率の境目の近くでは結果が変わります。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
+
 <div class="sum" id="calc">
  <div class="h"><span>結論</span>前月の給与と賞与の額を入力すると、賞与から引かれる所得税を表示します</div>
  <div class="in">
@@ -224,25 +247,6 @@ body{overflow-x:clip}
 <p>前月の給与が30万円・扶養0人・賞与50万円の場合です。前月の社会保険料は44,070円で、引いた残りは255,930円です。表に当てはめると率は4.084%です。賞与の社会保険料は73,450円なので、（500,000円−73,450円）×4.084%で所得税は17,420円になります。</p>
 <p>同じ条件で扶養が1人なら、率は4.084%で所得税は17,420円です。</p>
 <p>扶養親族等の数は、扶養控除等申告書に書いた人数です。本人が障害者・寡婦・ひとり親・勤労学生に当たるときは、当たるごとに1人を足します。</p>
-<h2 id="list">前月の給与で見る率の早見表</h2>
-<p>上で入力した前月の給与に近い行が黄色になります。率は令和8年分の表（2026年12月までに支払われる賞与）のものです。いちばん右は、扶養0人で賞与が50万円のときの所得税（円）です。</p>
-<div class="tw"><table class="rt">
- <thead><tr><th>給与<br>万円</th><th>扶養<br>0人</th><th>扶養<br>1人</th><th>扶養<br>2人</th><th>扶養<br>3人</th><th>賞与50万<br>の税額</th></tr></thead>
- <tbody id="tb">
- <tr data-s="20"><td>20</td><td>4.084%</td><td>2.042%</td><td>2.042%</td><td>0.000%</td><td><b>17,420</b></td></tr>
- <tr data-s="25"><td>25</td><td>4.084%</td><td>2.042%</td><td>2.042%</td><td>2.042%</td><td><b>17,420</b></td></tr>
- <tr data-s="30"><td>30</td><td>4.084%</td><td>4.084%</td><td>2.042%</td><td>2.042%</td><td><b>17,420</b></td></tr>
- <tr data-s="35"><td>35</td><td>6.126%</td><td>6.126%</td><td>4.084%</td><td>2.042%</td><td><b>26,130</b></td></tr>
- <tr data-s="40"><td>40</td><td>8.168%</td><td>6.126%</td><td>6.126%</td><td>4.084%</td><td><b>34,840</b></td></tr>
- <tr data-s="45"><td>45</td><td>12.252%</td><td>10.210%</td><td>8.168%</td><td>6.126%</td><td><b>52,260</b></td></tr>
- <tr data-s="50"><td>50</td><td>14.294%</td><td>12.252%</td><td>12.252%</td><td>10.210%</td><td><b>60,971</b></td></tr>
- <tr data-s="60"><td>60</td><td>16.336%</td><td>16.336%</td><td>16.336%</td><td>14.294%</td><td><b>69,681</b></td></tr>
- <tr data-s="70"><td>70</td><td>18.378%</td><td>18.378%</td><td>18.378%</td><td>18.378%</td><td><b>78,391</b></td></tr>
- <tr data-s="80"><td>80</td><td>22.462%</td><td>20.420%</td><td>20.420%</td><td>20.420%</td><td><b>95,811</b></td></tr>
- <tr data-s="100"><td>100</td><td>30.630%</td><td>30.630%</td><td>28.588%</td><td>28.588%</td><td><b>130,652</b></td></tr>
- </tbody>
-</table></div>
-<p class="note" style="margin-top:8px">前月の給与から引く社会保険料は、協会けんぽ東京支部の令和8年度の料率（健康保険9.85%・子ども子育て支援金0.23%・厚生年金18.3%を会社と半分ずつ・40歳未満）と雇用保険0.5%で計算しています。お勤め先の健康保険や年齢で、率の境目の近くでは結果が変わります。</p>
 <h2 id="rate">算出率の表（令和8年分）</h2>
 <p>前月の給与から社会保険料を引いた額（千円）が入る行の率を使います。「82〜94」は、82千円以上94千円未満のことです。</p>
 <h3>扶養親族等の数が0人〜3人</h3>

@@ -143,7 +143,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -162,6 +162,20 @@ body{overflow-x:clip}
  <p class="upd">更新日：2026年11月19日（国税庁 令和8年4月1日現在の法令）</p>
  <h1>【法人税の早見表】所得ごとの税額と税率は？防衛特別法人税にも対応【令和8年度】</h1>
 </div>
+
+<section class="hy1">
+<h2 id="list">法人税の早見表</h2>
+<p>会社の所得が入る行を見てください。下で選んだ資本金と事業年度の条件で表示しています。</p>
+<p class="cap" id="t-cap">資本金1億円以下・令和8年4月1日以後に始まる事業年度</p>
+<div class="tw">
+<table>
+ <thead><tr><th>所得（円）</th><th>国に納める<br>合計（円）</th><th>負担率</th><th>うち法人税<br>（円）</th></tr></thead>
+ <tbody id="gtb"><tr><td>1,000,000</td><td>165,400</td><td>16.5%</td><td>150,000</td></tr><tr><td>2,000,000</td><td>330,900</td><td>16.5%</td><td>300,000</td></tr><tr><td>3,000,000</td><td>496,300</td><td>16.5%</td><td>450,000</td></tr><tr><td>4,000,000</td><td>661,800</td><td>16.5%</td><td>600,000</td></tr><tr><td>5,000,000</td><td>827,200</td><td>16.5%</td><td>750,000</td></tr><tr><td>6,000,000</td><td>992,700</td><td>16.5%</td><td>900,000</td></tr><tr><td>7,000,000</td><td>1,158,100</td><td>16.5%</td><td>1,050,000</td></tr><tr><td>8,000,000</td><td>1,323,600</td><td>16.5%</td><td>1,200,000</td></tr><tr><td>9,000,000</td><td>1,579,400</td><td>17.5%</td><td>1,432,000</td></tr><tr class="hit"><td>10,000,000</td><td>1,835,300</td><td>18.4%</td><td>1,664,000</td></tr><tr><td>12,000,000</td><td>2,347,100</td><td>19.6%</td><td>2,128,000</td></tr><tr><td>15,000,000</td><td>3,114,800</td><td>20.8%</td><td>2,824,000</td></tr><tr><td>20,000,000</td><td>4,394,300</td><td>22.0%</td><td>3,984,000</td></tr><tr><td>25,000,000</td><td>5,679,500</td><td>22.7%</td><td>5,144,000</td></tr><tr><td>30,000,000</td><td>7,005,400</td><td>23.4%</td><td>6,304,000</td></tr><tr><td>40,000,000</td><td>9,657,100</td><td>24.1%</td><td>8,624,000</td></tr><tr><td>50,000,000</td><td>12,308,900</td><td>24.6%</td><td>10,944,000</td></tr><tr><td>70,000,000</td><td>17,612,400</td><td>25.2%</td><td>15,584,000</td></tr><tr><td>100,000,000</td><td>25,567,700</td><td>25.6%</td><td>22,544,000</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">国に納める合計は、法人税・地方法人税・防衛特別法人税の合計です。所得の1,000円未満と、税額の100円未満は切り捨てています。税額控除や欠損金の繰越控除は含めていません。法人住民税と法人事業税は入っていません。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
 
 <div class="sum" id="calc">
  <div class="h"><span>結論</span>会社の所得を入力すると、国に納める法人税を表示します</div>
@@ -226,17 +240,6 @@ body{overflow-x:clip}
 </table>
 </div>
 <p class="note" style="margin-top:8px">資本金1億円以下でも、大きな会社の100%子会社などは15%になりません。前の3年の所得の平均が15億円を超える会社は19%、その年の所得が10億円を超える会社は17%です。防衛特別法人税は令和8年4月1日以後に始まる事業年度からかかります。</p>
-
-<h2 id="list">法人税の早見表</h2>
-<p>会社の所得が入る行を見てください。上で選んだ資本金と事業年度の条件で表示しています。</p>
-<p class="cap" id="t-cap">資本金1億円以下・令和8年4月1日以後に始まる事業年度</p>
-<div class="tw">
-<table>
- <thead><tr><th>所得（円）</th><th>国に納める<br>合計（円）</th><th>負担率</th><th>うち法人税<br>（円）</th></tr></thead>
- <tbody id="gtb"><tr><td>1,000,000</td><td>165,400</td><td>16.5%</td><td>150,000</td></tr><tr><td>2,000,000</td><td>330,900</td><td>16.5%</td><td>300,000</td></tr><tr><td>3,000,000</td><td>496,300</td><td>16.5%</td><td>450,000</td></tr><tr><td>4,000,000</td><td>661,800</td><td>16.5%</td><td>600,000</td></tr><tr><td>5,000,000</td><td>827,200</td><td>16.5%</td><td>750,000</td></tr><tr><td>6,000,000</td><td>992,700</td><td>16.5%</td><td>900,000</td></tr><tr><td>7,000,000</td><td>1,158,100</td><td>16.5%</td><td>1,050,000</td></tr><tr><td>8,000,000</td><td>1,323,600</td><td>16.5%</td><td>1,200,000</td></tr><tr><td>9,000,000</td><td>1,579,400</td><td>17.5%</td><td>1,432,000</td></tr><tr class="hit"><td>10,000,000</td><td>1,835,300</td><td>18.4%</td><td>1,664,000</td></tr><tr><td>12,000,000</td><td>2,347,100</td><td>19.6%</td><td>2,128,000</td></tr><tr><td>15,000,000</td><td>3,114,800</td><td>20.8%</td><td>2,824,000</td></tr><tr><td>20,000,000</td><td>4,394,300</td><td>22.0%</td><td>3,984,000</td></tr><tr><td>25,000,000</td><td>5,679,500</td><td>22.7%</td><td>5,144,000</td></tr><tr><td>30,000,000</td><td>7,005,400</td><td>23.4%</td><td>6,304,000</td></tr><tr><td>40,000,000</td><td>9,657,100</td><td>24.1%</td><td>8,624,000</td></tr><tr><td>50,000,000</td><td>12,308,900</td><td>24.6%</td><td>10,944,000</td></tr><tr><td>70,000,000</td><td>17,612,400</td><td>25.2%</td><td>15,584,000</td></tr><tr><td>100,000,000</td><td>25,567,700</td><td>25.6%</td><td>22,544,000</td></tr></tbody>
-</table>
-</div>
-<p class="note" style="margin-top:8px">国に納める合計は、法人税・地方法人税・防衛特別法人税の合計です。所得の1,000円未満と、税額の100円未満は切り捨てています。税額控除や欠損金の繰越控除は含めていません。法人住民税と法人事業税は入っていません。</p>
 
 <h2 id="bouei">防衛特別法人税がかかる会社</h2>
 <p>防衛特別法人税は、法人税の額から500万円を引いた残りに4%をかけます。<span class="mk">資本金1億円以下の会社なら、所得がおよそ2,438万円を超えるとかかり始めます。</span>それより所得が少ない会社には、かかりません。</p>
