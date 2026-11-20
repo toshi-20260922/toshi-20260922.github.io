@@ -7,6 +7,17 @@
 #  地方税法37条の2第2項・314条の7第2項(特例控除の割合は「課税総所得金額−人的控除差調整額」で決める。0円以上195万円以下は85%、0円未満は90%)
 #   横浜市「寄附金税額控除(ふるさと納税)について」の割合の表(0円未満90%・0円以上195万円以下84.895%…4,000万円超44.055%)
 #   https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/kojin-shiminzei-kenminzei/kihukin.html
+#  特例控除の割合を決める金額は、令和8年度分の住民税から「課税総所得金額−人的控除差調整額−(前年分の所得税の基礎控除額−48万円。0円未満は0円)」
+#   総務大臣通知 総税企第44号(令和8年4月1日)「人的控除差調整額に、前年分の所得税に係る基礎控除の額から四十八万円を控除して得た額を加算する」
+#   https://www.soumu.go.jp/main_content/001069033.pdf
+#   総務省 事務連絡(令和8年1月21日)「所得税の基礎控除の額の引上げに伴い、所要の措置」(令和8年度分から)・特例控除額の上限77.2万円+115.8万円(令和10年度分以後)・給与所得控除の最低保障額(令和9年度分以後)
+#   https://www.soumu.go.jp/main_content/001053325.pdf
+#   横浜市「税額控除(令和8年度以降)」 https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/kojin-shiminzei-kenminzei/kojin-shiminzei-shosai/zeigakukoujoR8.html
+#   名古屋市「寄附金税額控除について」 https://www.city.nagoya.jp/kurashi/zeikin/1037356/1011880/1012149/1011890.html
+#   福島市「(令和8年度課税分以降)ふるさと納税の寄附金上限額の求め方」 https://www.city.fukushima.fukushima.jp/material/files/group/15/r8jogen3.pdf
+#  所得税の基礎控除(令和8年分・9年分):合計所得489万円以下104万円・655万円以下67万円・2,350万円以下62万円・2,400万円以下48万円・2,450万円以下32万円・2,500万円以下16万円
+#   国税庁「令和8年度税制改正のあらまし(個人所得課税)」 https://www.nta.go.jp/publication/pamph/shotoku/0026004-015.pdf ・ No.1199 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm
+#  総務省の目安の表(000408217.pdf)は令和2年以降の寄附の表で、上の「基礎控除額−48万円」が入る前のもの。(1)は入れない計算(old=True)で比べる。
 #  地方税法34条2項・37条(住民税の基礎控除43万円・29万円・15万円・0円、調整控除は合計所得2,500万円以下の人だけ)
 #   https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/kojin-shiminzei-kenminzei/kaisei/R3zeiseikaisei.html
 #   日立市「税額控除額の計算」(調整控除の式・人的控除額の差の表) https://www.city.hitachi.lg.jp/kurashi_tetsuzuki/zeikin/1002061/1002086/1002094.html
@@ -20,7 +31,7 @@
 #  国税庁 No.2260 所得税の税率 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm
 #  協会けんぽ 令和8年3月分からの保険料額表(東京・9.85%・子ども子育て支援金0.23%・厚生年金18.3%・等級の表) https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf
 #  厚生労働省 令和8年度の雇用保険料率(一般の事業の労働者負担 5/1,000) https://www.mhlw.go.jp/content/001672589.pdf
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 #
 # 比べ方:
 #  (1) 自分の計算(社会保険料を総務省と同じ「給与収入の15%」にしたもの)と総務省の目安の表。表は千円未満を切り捨てた値なので、差が0円以上1,000円未満なら合う。
@@ -31,6 +42,7 @@
 #  (3) 画面の早見表の全部の行と自分の計算。1円まで合うこと。
 #  (4) 画面の結果と総務省の目安の表を同じ年収・家族で比べる。社会保険料の仮定が違うので、差が「表の値の4%+1,000円」以内なら合うとする(目安どうしの比べ)。
 #      社会保険料の仮定の差で式の所得税率の段が変わる所(境目のすぐそば)は、大きく違って当たり前なので数えずに書き出すだけにする。
+#      総務省の表は「所得税の基礎控除額−48万円」が入る前の表なので、その分で段が変わる所も同じく数えずに書き出す(2026-11-20)。
 import os, sys, random
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -107,7 +119,12 @@ def ritsu(x):
         if x <= top: return r
     return 45
 
-def ref(a, sp, n1, n2, sh=None):
+def kiso_i(g):                                    # 所得税の基礎控除(令和8年分・9年分)
+    for top, v in [(4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000), (24500000, 320000), (25000000, 160000)]:
+        if g <= top: return v
+    return 0
+
+def ref(a, sp, n1, n2, sh=None, old=False):
     """上限額・所得割・式で使う所得税率。sh を渡さなければ協会けんぽ東京都の社会保険料。"""
     if sh is None: sh = shaho(a)
     g = kyuyo(a)
@@ -121,16 +138,17 @@ def ref(a, sp, n1, n2, sh=None):
     if sp:
         hai, sa = (330000, 50000) if g <= 9000000 else (220000, 40000) if g <= 9500000 else (110000, 20000) if g <= 10000000 else (0, 0)
     tr = max(0, g - sh - kiso - hai - 330000 * n1 - 450000 * n2) // 1000 * 1000
-    jsa = 50000 + sa + 50000 * n1 + 180000 * n2   # 人的控除差調整額
+    jsa = 50000 + sa + 50000 * n1 + 180000 * n2   # 人的控除差調整額(調整控除で使う分)
+    jsr = jsa if old else jsa + max(0, kiso_i(g) - 480000)   # 特例控除の割合を決めるときは、所得税の基礎控除額−48万円を足す(令和8年度分から)
     if g > 25000000: cho = F(0)
     elif tr <= 2000000: cho = F(min(jsa, tr)) * 5 / 100
     else: cho = F(max(jsa - (tr - 2000000), 50000)) * 5 / 100
     sho = F(tr) / 10 - cho
     if sho <= 0:
-        return {'lim': 0, 'sho': 0, 'rate': ritsu(tr - jsa), 'x': tr - jsa}
-    r = ritsu(tr - jsa)
+        return {'lim': 0, 'sho': 0, 'rate': ritsu(tr - jsr), 'x': tr - jsr}
+    r = ritsu(tr - jsr)
     lim = sho * F(20, 100) / (F(90, 100) - F(r) * F(1021, 1000) / 100) + 2000
-    return {'lim': lim.numerator // lim.denominator, 'sho': sho.numerator // sho.denominator, 'rate': r, 'x': tr - jsa}
+    return {'lim': lim.numerator // lim.denominator, 'sho': sho.numerator // sho.denominator, 'rate': r, 'x': tr - jsr}
 
 JS = '''([a,sp,n1,n2])=>{var q=function(i){return document.getElementById(i)},e=function(el,t){el.dispatchEvent(new Event(t,{bubbles:true}))};
  var i=q("inc");i.value=String(a);e(i,"input");q("k1").value=String(n1);e(q("k1"),"change");q("k2").value=String(n2);e(q("k2"),"change");
@@ -147,7 +165,8 @@ def nenshu_list():
          3600001, 4000000, 4500000, 5000000, 5500000, 6000000, 6599999, 6600000, 6600001, 7000000, 8000000, 8499999,
          8500000, 8500001, 8500009, 8500010, 8500011, 9000000, 9999999, 10000000, 10000001, 12000000, 15000000, 20000000,
          25000000, 30000000, 40000000, 50000000]
-    for g in (9000000, 9500000, 10000000, 24000000, 24500000, 25000000):        # 合計所得の境目(配偶者控除・基礎控除・調整控除)
+    v += [6655554, 6655555, 6655556, 6655557, 8499990, 8650000, 8650001, 8650010, 8650011]   # 合計所得489万円・655万円(所得税の基礎控除の境目)
+    for g in (9000000, 9500000, 10000000, 23500000, 24000000, 24500000, 25000000):        # 合計所得の境目(配偶者控除・基礎控除・調整控除)
         for d in (-1, 0, 1, 2):
             v.append(g + 1950000 + d)
             v.append(g + 1950000 + 150000 + d)      # 所得金額調整控除15万円がある人の境目
@@ -188,14 +207,14 @@ async def body(pg):
         if man <= 900:
             sh_mic[man] = a * 15 // 100
             for fam, m in zip(MIC_COLS, row):
-                v = ref(a, *fam, sh=sh_mic[man])['lim']
+                v = ref(a, *fam, sh=sh_mic[man], old=True)['lim']
                 n += 1
                 if not au(v, m):
                     bad += 1; print('NG 総務省の表と自分の計算', man, fam, m, v)
         else:
             n += 1
             for sh in range(a * 15 // 100, a * 5 // 100 - 1, -1000):
-                if all(au(ref(a, *fam, sh=sh)['lim'], m) for fam, m in zip(MIC_COLS, row)):
+                if all(au(ref(a, *fam, sh=sh, old=True)['lim'], m) for fam, m in zip(MIC_COLS, row)):
                     sh_mic[man] = sh; break
             else:
                 bad += 1; print('NG 総務省の表の行を再現する社会保険料が無い', man)
@@ -241,16 +260,16 @@ async def body(pg):
                 if got['lim'] >= 3000:
                     bad += 1; print('NG 総務省の表と画面', man, fam, m, got['lim'])
                 continue
-            if man in sh_mic and ref(a, *fam, sh=sh_mic[man])['rate'] != got['rate']:
+            if man in sh_mic and ref(a, *fam, sh=sh_mic[man], old=True)['rate'] != got['rate']:
                 dan += 1; print('段が違う(数えない) 年収%d万円' % man, fam, '総務省', m, '画面', got['lim']); continue
             n += 1
             if abs(got['lim'] - m) > m * 4 // 100 + 1000:
                 bad += 1; print('NG 総務省の表と画面', man, fam, m, got['lim'])
-    print('総務省の表と画面で、社会保険料の仮定の差で式の税率の段が違った所 %d' % dan)
+    print('総務省の表と画面で、式の税率の段が違った所(社会保険料の仮定の差・令和8年度分からの「所得税の基礎控除額−48万円」の差) %d' % dan)
     # 既定の表示(年収500万円・単身)とQ&Aの文
     got = await pg.evaluate(JS, [5000000, 0, 0, 0]); n += 1
     qa = await pg.inner_text('#qa1')
-    if not (61500 <= got['lim'] < 62500 and '6万2千円' in qa):
+    if not (57500 <= got['lim'] < 58500 and got['rate'] == 5 and '5万8千円' in qa):
         bad += 1; print('NG Q&Aの年収500万円の文', got, qa)
     return n, bad
 run('furusato', body)

@@ -162,12 +162,12 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="のし袋"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="16" width="36" height="34" rx="3" fill="#ffffff" stroke="#00775a" stroke-width="2"></rect><rect x="29" y="16" width="6" height="34" fill="#b5473a"></rect><rect x="14" y="30" width="36" height="5" fill="#b5473a"></rect><circle cx="32" cy="32.5" r="5" fill="#e08a2c"></circle></svg></div>
- <p class="upd">更新日：2026年11月7日（令和8年分の所得税に対応）</p>
+ <p class="upd">更新日：2026年11月20日（令和8年分の所得税に対応）</p>
  <h1>【退職金の税金の計算】手取りはいくら？勤続年数で分かる早見表【2026年】</h1>
 </div>
 <section class="hy1">
 <h2 id="list">退職金と勤続年数で見る手取りの早見表</h2>
-<p>従業員の場合の手取りです。入力した退職金に近い行が黄色になります。</p>
+<p>従業員の場合の手取りです。入力した退職金を超えない中でいちばん近い行が黄色になります。</p>
 <div class="tw"><table>
  <thead><tr><th>退職金<br>（万円）</th><th>勤続20年<br>（円）</th><th>勤続30年<br>（円）</th><th>勤続38年<br>（円）</th></tr></thead>
  <tbody id="tb"></tbody>
@@ -263,16 +263,16 @@ body{overflow-x:clip}
 <h3>退職金2,000万円・勤続30年の手取りはいくらですか？</h3>
 <p id="qa1">従業員なら、この計算でおよそ1,959万円です。税金は所得税と住民税を合わせておよそ41万円です。</p>
 <h3>退職金に確定申告はいりますか？</h3>
-<p>退職所得の受給に関する申告書を勤め先に出していれば、受け取るときに税金の精算が済みます。そのため確定申告はいりません。</p>
+<p>退職所得の受給に関する申告書を勤め先に出していれば、受け取るときに税金の精算が済みます。そのため原則として確定申告はいりません。</p>
 <h3>退職金に社会保険料はかかりますか？</h3>
 <p>退職金には健康保険料・厚生年金保険料はかかりません。</p>
 <h3>勤続年数はいつから数えますか？</h3>
 <p>その勤め先で働き始めた日から数えます。退職した日までの期間に1年未満の端数があれば、1年に切り上げます。</p>
 <h3>亡くなった人の退職金にも所得税はかかりますか？</h3>
-<p>亡くなったあとに遺族が受け取る退職金は、相続税の対象になります。所得税と住民税はかかりません。</p>
+<p>亡くなってから3年以内に支給が確定して遺族が受け取る退職金は、相続税の対象になります。所得税と住民税はかかりません。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1420.htm">国税庁 タックスアンサー No.1420 退職金を受け取ったとき（退職所得）</a></li>
-  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
+  <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正（所得税の基礎控除の引上げ等関係）Q&amp;A」</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">国税庁 タックスアンサー No.2260 所得税の税率</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2732.htm">国税庁 タックスアンサー No.2732 退職手当等に対する源泉徴収</a>（退職所得控除の重複期間の決まり）</li>
   <li><a href="https://laws.e-gov.go.jp/law/340CO0000000096">所得税法施行令（e-Gov法令検索）</a>（第69条 勤続年数の計算）</li>
@@ -380,7 +380,7 @@ function render(){
  document.getElementById("o-sh").textContent="税金がかかる退職所得は"+f(x.inc)+"円です";
  var tz=x.it+x.ju;document.getElementById("vd").className=tz?"vd":"vd no";
  document.getElementById("o-vd").textContent=tz?"手取りは"+f(x.net)+"円です":"退職金に税金はかかりません";
- document.getElementById("o-vds").textContent=tz?"税金は所得税"+f(x.it)+"円・住民税"+f(x.ju)+"円です。退職所得の受給に関する申告書を出せば受け取るときに差し引かれ、確定申告は要りません":"退職金が退職所得控除の"+f(x.k)+"円以下なので、手取りは退職金と同じ額です";
+ document.getElementById("o-vds").textContent=tz?"税金は所得税"+f(x.it)+"円・住民税"+f(x.ju)+"円です。退職所得の受給に関する申告書を出せば受け取るときに差し引かれ、原則として確定申告は要りません":"退職金が退職所得控除の"+f(x.k)+"円以下なので、手取りは退職金と同じ額です";
  var hit=-1;ROWS.forEach(function(r,i){if(A>=r*10000)hit=i;});
  var h="";ROWS.forEach(function(r,i){var B=r*10000;h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(retire(B,20,0).net)+"</td><td>"+f(retire(B,30,0).net)+"</td><td>"+f(retire(B,38,0).net)+"</td></tr>";});
  document.getElementById("tb").innerHTML=h;

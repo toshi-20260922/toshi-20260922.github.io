@@ -12,7 +12,7 @@
 #   No.4452 夫婦の間で居住用の不動産を贈与したときの配偶者控除 https://www.nta.go.jp/taxes/shiraberu/taxanswer/zoyo/4452.htm
 #   No.4155 相続税の税率 https://www.nta.go.jp/taxes/shiraberu/taxanswer/sozoku/4155.htm
 #   端数:課税価格は1,000円未満切り捨て・税額は100円未満切り捨て(国税通則法118条・119条)
-# 最後に原本を確かめた日:2026-11-19(どのページも「令和8年4月1日現在法令等」)
+# 最後に原本を確かめた日:2026-11-20(どのページも「令和8年4月1日現在法令等」。No.4402 のQ&A(4402_qa.htm)で「毎年100万円ずつ10年間」も確かめた)
 import os, sys, re
 from fractions import Fraction
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -98,6 +98,21 @@ async def body(pg):
     # 黄色の行(入れた額にいちばん近い行)
     await pg.fill('#amt', '5000000')
     ck('黄色の行', await pg.evaluate('()=>[...document.querySelectorAll("#tb tr.hit")].map(r=>r.getAttribute("data-s")).join()'), '500')
+    # 文は「入力した額に近い行が黄色」。入力を超えない行ではなく、差がいちばん小さい行が1つだけ黄色になる
+    HY = [110, 150, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1500, 2000, 3000, 5000]
+    ck('黄色の文', '下で入力した額に近い行が黄色になります。' in await pg.inner_text('.hy1'), True)
+    for g in (0, 1290000, 1310000, 4490000, 4510000, 17400000, 17600000, 40100000, 999999999):
+        await pg.fill('#amt', str(g))
+        exp = min(HY, key=lambda m: abs(m * MAN - g))
+        ck('黄色の行 %d' % g, await pg.evaluate('()=>[...document.querySelectorAll("#tb tr.hit")].map(r=>r.getAttribute("data-s")).join()'), str(exp))
+    # id の重なりが無い・相手のいない閉じタグが無い・全画面のボタンは6行以上の表だけに付く
+    ids = await pg.evaluate('()=>[...document.querySelectorAll("[id]")].map(e=>e.id)')
+    ck('id の重なり', len(ids), len(set(ids)))
+    src = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'zoyozei', 'index.html'), encoding='utf-8').read()
+    ck('span の開きと閉じ', len(re.findall(r'<span[ >]', src)), src.count('</span>'))
+    ck('全画面のボタンの数', await pg.evaluate('()=>document.querySelectorAll("main button.fsb").length'),
+       await pg.evaluate('()=>[...document.querySelectorAll("main .tw")].filter(w=>w.querySelectorAll("tr").length>=6).length'))
+    ck('早見表の全画面のボタン', await pg.evaluate('()=>document.querySelectorAll(":is(#list ~ .tw):not(#list ~ .tw ~ .tw) tbody tr").length'), 16)
     # 4 速算表(手で書いた表)を原本の値と比べる
     tabs = await pg.evaluate('''()=>[...document.querySelectorAll("main table")].map(t=>[...t.querySelectorAll("tbody tr")].map(r=>[...r.children].map(c=>c.innerText.replace(/\\s+/g,""))))''')
     def sokusan(T):
@@ -145,6 +160,15 @@ async def body(pg):
         '贈与税額が10万円を超えて期限までに金銭で納めることが難しい場合は',                      # No.4402・No.4429
         '相続税の税率は、法定相続分に応じた取得金額ごとに10%から55%です。',                      # No.4155
         '（令和8年4月1日現在の法令）',
+        '贈与税ではなく所得税がかかります',                                                       # No.4402・No.4405 法人からの贈与
+        '生活費や教育費の名目でも、預金にしたり株式や不動産を買うお金にしたりした分には贈与税がかかります。',   # No.4405
+        '毎年そのつど贈与の契約を結んで各年の合計が110万円以下なら、かかりません。',              # No.4402 Q&A
+        '約束した年にまとめて受け取る権利をもらったものとして、贈与税がかかります。',             # No.4402 Q&A(定期金に関する権利)
+        '同じ配偶者からは一生に一度だけ使えます。',                                               # No.4452
+        '申告の期限までに税務署に申請して、許可を受けます。',                                     # No.4402 延納
+        '110万円以下で贈与税がかからなかった年の分も、足し戻します。',                            # No.4161
+        '一度選ぶとその贈与者からの贈与は、暦年課税に戻せません。',                               # No.4103
+        '夫の父からの贈与にも、一般税率の表を使います。',                                         # No.4408
     ]
     for f in facts:
         ck('文 ' + f[:24], f in txt, True)

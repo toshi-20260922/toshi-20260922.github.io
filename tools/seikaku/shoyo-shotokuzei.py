@@ -16,7 +16,7 @@
 #   https://www.nenkin.go.jp/section/faq/kounen/hokenryo/shoyokeisan.html
 #  厚生労働省「令和8年度 雇用保険料率のご案内」(令和8年4月1日〜令和9年3月31日・一般の事業の労働者負担 5/1,000)
 #   https://www.mhlw.go.jp/content/001692566.pdf
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 import os, sys
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -189,6 +189,9 @@ async def body(pg):
             var u=document.getElementById("fu");u.value=String(f);u.dispatchEvent(new Event("change",{bubbles:true}));
             document.querySelectorAll("#s-y button")[y].click()}''', [m, b, fu, y9])
         return [await pg.inner_text('#' + i) for i in ('o-k', 'o-t', 'o-z', 'o-e')]
+    # No.2523 の計算例(令和8年分):控除後の前月の給与285,454円・扶養3人は2.042%。389,558円×2.042%=7,954円
+    chk('No.2523 の例の率', RATE[row(285454, 3, 0)], 2042)
+    chk('No.2523 の例の税額', 389558 * RATE[row(285454, 3, 0)] // 100000, 7954)
     for m, b, fu, y9 in [(300000, 500000, 0, 0), (300000, 500000, 1, 0), (305000, 600000, 0, 0), (305000, 600000, 0, 1),
                          (200000, 300000, 3, 0), (450000, 1000000, 2, 1), (1000000, 3000000, 0, 0),
                          (5000000, 40000000, 7, 1), (180000, 400000, 5, 0)]:
@@ -197,14 +200,18 @@ async def body(pg):
         chk('画面 手取り %d %d' % (m, b), num(t), x['tedori'])
         chk('画面 社会保険料 %d %d' % (m, b), num(z), x['sb'])
         chk('画面 率の文 %d %d' % (m, b), e_, '率は%s（前月の給与−社会保険料＝%s円）' % (pct(x['i']), f(x['a'])))
+        chk('画面 手取りの箱の文 %d %d' % (m, b), await pg.inner_text('#o-te'), '税と保険料を引いた額')
     # 前月の給与が無い・10倍超は、算出率の表を使わない(No.2523)ので税額を出さない
     k, t, z, e_ = await ui(0, 500000, 0, 0)
     chk('前月の給与0 税額を出さない', k.strip(), '―'); chk('前月の給与0 社会保険料', num(z), si_bonus(500000))
     chk('前月の給与0 手取りの箱(税を引く前)', num(t), 500000 - si_bonus(500000))
+    chk('前月の給与0 手取りの箱の文', await pg.inner_text('#o-te'), '社会保険料だけを引いた額')
     for m, b in [(100000, 1000000), (100000, 2000000), (300000, 3000000), (300000, 3100000)]:
         k, t, z, e_ = await ui(m, b, 0, 0); x = ref(m, b, 0, 0)
         if x['ten']:
             chk('10倍超 税額を出さない %d %d' % (m, b), k.strip(), '―')
+            chk('10倍超 手取りの箱(税を引く前) %d %d' % (m, b), num(t), b - si_bonus(b))
+            chk('10倍超 手取りの箱の文 %d %d' % (m, b), await pg.inner_text('#o-te'), '社会保険料だけを引いた額')
         else:
             chk('10倍以下 税額 %d %d' % (m, b), num(k), x['zei'])
     # 10倍のちょうど・1円上(賞与−社会保険料 と (前月の給与−社会保険料)×10 を比べる)
@@ -213,5 +220,15 @@ async def body(pg):
         for b in range(a * 10, a * 12):
             if b - si_bonus(b) == a * 10 or b - si_bonus(b) == a * 10 + 1:
                 got = await js(m, b, 0, 0); chk('10倍の境目 %d %d' % (m, b), got['ten'], b - si_bonus(b) > a * 10)
+    # 早見表の黄色の行:前月の給与にいちばん近い行が1つだけ黄色になる(同じ近さなら上の行)
+    S = [20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 100]
+    for m in (0, 150000, 224999, 225000, 225001, 300000, 325000, 549999, 550000, 550001, 900000, 900001, 5000000):
+        await ui(m, 500000, 0, 0)
+        hit = await pg.evaluate('()=>[...document.querySelectorAll("#tb tr.hit")].map(r=>+r.getAttribute("data-s"))')
+        chk('黄色の行 %d' % m, hit, [min(S, key=lambda v: (abs(v * 10000 - m), v))])
+    # id の重なりが無い・全画面のボタンが6行以上の表(早見表1つ+算出率の表4つ)に付く
+    chk('id の重なり', await pg.evaluate('()=>{var c={};document.querySelectorAll("[id]").forEach(e=>c[e.id]=(c[e.id]||0)+1);return Object.keys(c).filter(k=>c[k]>1)}'), [])
+    chk('全画面のボタンの数', await pg.evaluate('()=>document.querySelectorAll("main button.fsb").length'), 5)
+    chk('早見表を表の選び方で取れる', await pg.evaluate('()=>document.querySelectorAll(":is(#list ~ .tw):not(#list ~ .tw ~ .tw) tbody tr").length'), 11)
     return n, bad
 run('shoyo-shotokuzei', body)

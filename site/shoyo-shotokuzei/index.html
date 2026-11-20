@@ -162,7 +162,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="賞与の袋と税金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><path d="M19 22h22l4 26H15z" fill="#ffffff" stroke="#0f3d31" stroke-width="3" stroke-linejoin="round"></path><path d="M22 22c0-6 3-9 8-9s8 3 8 9" fill="none" stroke="#0f3d31" stroke-width="3"></path><path d="M25 31l5 6 5-6M30 37v7M25.5 39.5h9" fill="none" stroke="#e08a2c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="47" cy="44" r="10" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M43.5 47.5l7-7" stroke="#0f3d31" stroke-width="2.4" stroke-linecap="round"></path><circle cx="43.8" cy="41" r="1.7" fill="#0f3d31"></circle><circle cx="50.2" cy="47" r="1.7" fill="#0f3d31"></circle></svg></div>
- <p class="upd">更新日：2026年11月10日（国税庁 令和8年分の算出率の表）</p>
+ <p class="upd">更新日：2026年11月20日（国税庁 令和8年分の算出率の表）</p>
  <h1>【賞与の所得税の計算】ボーナスから引かれる税金はいくら？算出率の表【2026年】</h1>
 </div>
 <section class="hy1">
@@ -212,7 +212,7 @@ body{overflow-x:clip}
  </div>
  <div class="amt">
   <div class="tot"><small>賞与から引かれる所得税</small><b id="o-k">0<i>円</i></b><em id="o-e">率</em></div>
-  <div><small>賞与の<br>手取り</small><b id="o-t">0<i>円</i></b><em>税と保険料を引いた額</em></div>
+  <div><small>賞与の<br>手取り</small><b id="o-t">0<i>円</i></b><em id="o-te">税と保険料を引いた額</em></div>
   <div><small>賞与の<br>社会保険料</small><b id="o-z">0<i>円</i></b><em>健保・厚年・雇用</em></div>
  </div>
  <ul>
@@ -465,10 +465,10 @@ body{overflow-x:clip}
  function fmt(n){return n.toLocaleString("ja-JP")}
  function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
  function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
- function draw(){var m=num(inc,0,5000000),b=num(bon,0,50000000),f=num(fu,0,7),r=shoyo(m,b,f,y9),e=document.getElementById("o-e");
-  if(m<=r.sk||m===0){document.getElementById("o-k").innerHTML="―";e.textContent="前月の給与が無い場合は、別の計算になります";set("o-t",b-r.sb);set("o-z",r.sb)}
-  else if(r.ten){document.getElementById("o-k").innerHTML="―";e.textContent="前月の給与の10倍を超える賞与は、別の計算になります";set("o-t",b-r.sb);set("o-z",r.sb)}
-  else{set("o-k",r.zei);e.textContent="率は"+r.rate.toFixed(3)+"%（前月の給与−社会保険料＝"+fmt(r.a)+"円）";set("o-t",r.tedori);set("o-z",r.sb)}
+ function draw(){var m=num(inc,0,5000000),b=num(bon,0,50000000),f=num(fu,0,7),r=shoyo(m,b,f,y9),e=document.getElementById("o-e"),te=document.getElementById("o-te");
+  if(m<=r.sk||m===0){document.getElementById("o-k").innerHTML="―";e.textContent="前月の給与が無い場合は、別の計算になります";te.textContent="社会保険料だけを引いた額";set("o-t",b-r.sb);set("o-z",r.sb)}
+  else if(r.ten){document.getElementById("o-k").innerHTML="―";e.textContent="前月の給与の10倍を超える賞与は、別の計算になります";te.textContent="社会保険料だけを引いた額";set("o-t",b-r.sb);set("o-z",r.sb)}
+  else{set("o-k",r.zei);e.textContent="率は"+r.rate.toFixed(3)+"%（前月の給与−社会保険料＝"+fmt(r.a)+"円）";te.textContent="税と保険料を引いた額";set("o-t",r.tedori);set("o-z",r.sb)}
   var rows=document.querySelectorAll("#tb tr"),best=null,bd=1e18;
   for(var i=0;i<rows.length;i++){rows[i].className="";var d=Math.abs(rows[i].getAttribute("data-s")*10000-m);if(d<bd){bd=d;best=rows[i]}}
   if(best)best.className="hit"}

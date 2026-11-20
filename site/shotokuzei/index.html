@@ -153,7 +153,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="財布"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="12" y="20" width="40" height="28" rx="5" fill="#00775a"></rect><path d="M12 26h34a6 6 0 0 1 6 6v0H12z" fill="#0f3d31"></path><rect x="38" y="30" width="16" height="10" rx="3" fill="#d8efe6"></rect><circle cx="44" cy="35" r="2.5" fill="#e08a2c"></circle><circle cx="24" cy="15" r="6" fill="#e08a2c"></circle><text x="24" y="18.5" font-size="8" font-weight="700" fill="#ffffff" text-anchor="middle">¥</text></svg></div>
- <p class="upd">更新日：2026年11月19日（令和8年度税制改正に対応）</p>
+ <p class="upd">更新日：2026年11月20日（令和8年度税制改正に対応）</p>
  <h1>【所得税の計算】年収でいくらかかる？税率の早見表【2026年】</h1>
 </div>
 
@@ -167,7 +167,7 @@ body{overflow-x:clip}
  <div class="in">
   <div class="full">
    <label for="inc">年収（給与・税金や保険料が引かれる前）</label>
-   <div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="30000000" step="10000" value="5000000"><span>円</span></div>
+   <div class="row"><input type="number" id="inc" inputmode="numeric" min="0" step="10000" value="5000000"><span>円</span></div>
    <input type="range" id="incr" min="1000000" max="20000000" step="10000" value="5000000" aria-label="年収">
   </div>
   <div class="full">
@@ -341,7 +341,7 @@ body{overflow-x:clip}
  
  var B=[[1950000,5],[3300000,10],[6950000,20],[9000000,23],[18000000,33],[40000000,40],[1e15,45]];
  var inc=document.getElementById("inc"),incr=document.getElementById("incr"),old=0;
- function render(){var a=Math.max(0,Math.min(30000000,Math.floor(Number(inc.value)||0)));var g=kyuyo(a),sh=shaho(a,old),k=kiso(g),t=Math.floor(Math.max(0,g-sh-k)/1000)*1000,r=0;if(t>0){for(var i=0;i<B.length;i++){if(t<B[i][0]){r=B[i][1];break;}}}var x=itax(a,sh);
+ function render(){var a=Math.max(0,Math.floor(Number(inc.value)||0));var g=kyuyo(a),sh=shaho(a,old),k=kiso(g),t=Math.floor(Math.max(0,g-sh-k)/1000)*1000,r=0;if(t>0){for(var i=0;i<B.length;i++){if(t<B[i][0]){r=B[i][1];break;}}}var x=itax(a,sh);
   document.getElementById("o-y").innerHTML=f(x)+"<i>円</i>";document.getElementById("o-m").innerHTML=f(Math.floor(x/12))+"<i>円</i>";document.getElementById("o-d").innerHTML=f(t)+"<i>円</i>";
   document.getElementById("o-r").textContent="年収の"+(a?(Math.round(x/a*1000)/10):0)+"%";document.getElementById("o-t").textContent=t>0?"税率"+r+"%":"所得税はかかりません";
   document.getElementById("o-br").textContent="給与所得"+f(g)+"円から、社会保険料"+f(sh)+"円と基礎控除"+f(k)+"円を引いて計算しています";}

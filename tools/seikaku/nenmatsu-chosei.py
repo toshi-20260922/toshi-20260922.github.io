@@ -13,7 +13,7 @@
 #  協会けんぽ「令和8年3月分からの健康保険・厚生年金保険の保険料額表(東京)」 https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf
 #  厚生労働省「令和8年度 雇用保険料率のご案内」 https://www.mhlw.go.jp/content/001692566.pdf
 #  国税庁 No.1900 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1900.htm
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 # ページの前提(注記に書いてある):毎月同じ額の給与・令和8年度の料率を12か月に当てはめる・毎月の社会保険料は1円未満を丸めない・
 # 賞与は夏と冬の2回同じ額で保険料は50銭以下切り捨て(健康保険と支援金は合わせて丸める)。
 import os, sys, re
@@ -203,6 +203,20 @@ async def body(pg):
     chk('89万+74万', 890000 + 740000, 1630000)
     chk('配偶者特別控除の上の端', kyuyo_shotoku(2070000) <= 1330000 < kyuyo_shotoku(2070001), True)
     chk('月の基礎控除', 48334 * 12 // 10000, 58)
+    # 6 2026-11-20 に足した分:並び替えのあとの文と、合計所得900万円の境目
+    chk('早見表は上にある', html.index('id="list"') < html.index('id="calc"'), True)
+    chk('計算の箱の文は「上の早見表」', '<li>上の早見表は、賞与なし・40歳未満・控除の申告なしの額です</li>' in html and '下の早見表' not in html, True)
+    chk('900万円の注記', '合計所得が900万円を超える年収1,200万円以上の行は、毎月の天引きを配偶者なしで計算しています。' in html, True)
+    over = [int(s) for s, _ in rows if kyuyo_shotoku(int(s) * 10000) > 9000000]
+    chk('合計所得900万円超の行', over, [1200, 1500, 2000])
+    chk('合計所得900万円にあたる年収', 9000000 + 1950000, 10950000)
+    # 去年(改正前)の基礎控除は58万円に37万・30万・10万・5万円を足した額。今年は62万円に42万・5万円(年末調整のしかた 昨年と比べて変わった点 注2)
+    chk('去年の基礎控除', [58 + x for x in (37, 30, 10, 5, 0)], [95, 88, 68, 63, 58])
+    chk('今年の基礎控除', [62 + x for x in (42, 5, 0)], [104, 67, 62])
+    # 生命保険料控除12万円+地震保険料控除5万円(年末調整のしかた 保険料控除)
+    chk('保険の控除の上限', 120000 + 50000, 170000)
+    chk('保険の控除の文', '申告書に書く控除額です（最大17万円）' in html and 'id="sei" inputmode="decimal" min="0" max="17"' in html, True)
+    chk('更新日', '更新日：2026年11月20日（' in html, True)
     # 5 画面の操作
     async def show():
         return [digits(await pg.inner_text('#o-' + k)) for k in 'tzk'], await pg.inner_text('#o-e'), await pg.inner_text('#o-b')

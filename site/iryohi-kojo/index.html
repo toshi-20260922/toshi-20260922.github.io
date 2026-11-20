@@ -9,8 +9,8 @@
 <meta property="og:url" content="https://taxtable.jp/iryohi-kojo/">
 <meta property="og:title" content="【医療費控除の計算】いくら戻る？年収と医療費で分かる還付金の早見表【2026年分】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="医療費控除で戻る所得税と、翌年に減る住民税を、年収300万円から1,500万円・医療費15万円から100万円の早見表にしました。年収と医療費を入力すると、戻る額の目安を表示します。">
-<meta name="description" content="医療費控除で戻る所得税と、翌年に減る住民税を、年収300万円から1,500万円・医療費15万円から100万円の早見表にしました。年収と医療費を入力すると、戻る額の目安を表示します。">
+<meta property="og:description" content="医療費控除で戻る所得税と翌年に減る住民税を、年収300万円から1,500万円・医療費15万円から100万円の早見表にしました。年収と医療費を入力すると、戻る額の目安を表示します。">
+<meta name="description" content="医療費控除で戻る所得税と翌年に減る住民税を、年収300万円から1,500万円・医療費15万円から100万円の早見表にしました。年収と医療費を入力すると、戻る額の目安を表示します。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -159,7 +159,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="病院の領収書と戻るお金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="13" y="13" width="27" height="36" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><path d="M26.5 19v10M21.5 24h10" stroke="#e08a2c" stroke-width="3.4" stroke-linecap="round"></path><path d="M19 36h15M19 42h9" stroke="#9fc4b6" stroke-width="3" stroke-linecap="round"></path><circle cx="45" cy="42" r="11" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M41 38l4 5 4-5M45 43v6M41.5 44.5h7" fill="none" stroke="#0f3d31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月19日（令和8年分の所得税・令和9年度の住民税）</p>
+ <p class="upd">更新日：2026年11月20日（令和8年分の所得税・令和9年度の住民税）</p>
  <h1>【医療費控除の計算】いくら戻る？年収と医療費で分かる還付金の早見表【2026年分】</h1>
 </div>
 <section class="hy1">
@@ -180,7 +180,7 @@ body{overflow-x:clip}
  <tr data-s="1500"><td>1,500</td><td><b>21,763</b><br><small>5,000</small></td><td><b>43,610</b><br><small>10,000</small></td><td><b>87,303</b><br><small>20,000</small></td><td><b>174,689</b><br><small>40,000</small></td><td><b>393,154</b><br><small>90,000</small></td></tr>
  </tbody>
 </table></div>
-<p class="note" style="margin-top:8px">給与だけ・単身・毎月同じ額で賞与なしの場合です。所得から引くのは、社会保険料控除・基礎控除・医療費控除だけです。社会保険料は協会けんぽ東京支部の令和8年度の料率（40歳未満）と雇用保険で計算しています。所得税は、年末調整で決まった額と医療費控除を含めて計算し直した額の差です。住民税は、医療費控除の額の10%です。医療費が10万円ちょうどまでは、戻る額は0円です。</p>
+<p class="note" style="margin-top:8px">給与だけ・単身・毎月同じ額で賞与なしの場合です。所得から引くのは、社会保険料控除・基礎控除・医療費控除だけです。社会保険料は協会けんぽ東京支部の令和8年度の料率（40歳未満）と雇用保険で計算しています。所得税は、年末調整で決まった額と医療費控除を含めて計算し直した額の差です。住民税は、医療費控除を引く前と引いた後の所得割（税率10%）の差です。医療費が10万円ちょうどまでは、戻る額は0円です。</p>
 <p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
 </section>
 
@@ -347,6 +347,10 @@ body{overflow-x:clip}
  var H=[58,68,78,88,98,104,110,118,126,134,142,150,160,170,180,190,200,220,240,260,280,300,320,340,360,380,410,440,470,500,530,560,590,620,650,680,710,750,790,830,880,930,980,1030,1090,1150,1210,1270,1330,1390];
  function hyo(m){for(var i=0;i<H.length-1;i++){var b=(H[i]+H[i+1])*500;if(H[i]>=1030)b-=5000;if(m<b)return H[i]*1000}return H[H.length-1]*1000}
  function sha(m){var h=hyo(m),k=Math.min(Math.max(h,88000),650000);return h*(0.0985+0.0023)/2+k*0.183/2+m*0.005}
+ function shaN(s){var h=hyo(s/12),k=Math.min(Math.max(h,88000),650000);return Math.floor((h*6048+k*10980+s*50+5000)/10000)}
+ function jwari(sh,x){x=Math.floor(Math.max(x,0)/1000)*1000;var d=x<=2000000?Math.min(50000,x):Math.max(50000-(x-2000000),0),c=d*5/100;if(x>2000000&&c<2500)c=2500;if(sh>25000000)c=0;
+  return Math.floor(Math.max(x*6/100-c*3/5,0)/100)*100+Math.floor(Math.max(x*4/100-c*2/5,0)/100)*100}
+ function jkiso(x){return x<=24000000?430000:x<=24500000?290000:x<=25000000?150000:0}
  function gen(m,hg){var a=m-sha(m),ky;
   if(a<=158333)ky=54167;else if(a<=299999)ky=a*0.3+6667;else if(a<=549999)ky=a*0.2+36667;else if(a<=708330)ky=a*0.1+91667;else ky=162500;
   ky=Math.ceil(ky-1e-9);
@@ -362,12 +366,12 @@ body{overflow-x:clip}
  function hk(x){return x<=9000000?380000:x<=9500000?260000:x<=10000000?130000:0}
  function zei(k){k=Math.floor(k/1000)*1000;var T=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[1e18,.45,4796000]];
   for(var i=0;i<T.length;i++){if(k<=T[i][0])return Math.round(k*T[i][1]-T[i][2])}}
- function calc(s,hg){var m=s/12,sh=ksh(s),sa=Math.round(sha(m)*12),ki=kiso(sh),ko=sa+ki+(hg?hk(sh):0);
+ function calc(s,hg){var m=s/12,sh=ksh(s),sa=shaN(s),ki=kiso(sh),ko=sa+ki+(hg?hk(sh):0);
   var z=Math.floor(Math.floor(zei(Math.max(sh-ko,0))*1021/1000)/100)*100,t=gen(m,(hg&&sh<=9000000)?1:0)*12;return {t:t,z:z,k:t-z,ki:ki,sh:sh}}
 
- function iryo(s,med,hot){var sh=ksh(s),sa=Math.round(sha(s/12)*12),ashi=sh>=2000000?100000:Math.floor(sh*5/100);
+ function iryo(s,med,hot){var sh=ksh(s),sa=shaN(s),ashi=sh>=2000000?100000:Math.floor(sh*5/100);
   var kj=Math.min(Math.max(med-hot-ashi,0),2000000),base=calc(s,0).z,t=zei(Math.max(sh-sa-kiso(sh)-kj,0)),af=t+Math.floor(t*21/1000);
-  var st=kj>0?Math.max(base-af,0):0,jm=Math.floor(kj/10);return {kojo:kj,shotoku:st,jumin:jm,total:st+jm}}
+  var jb=sh-sa-jkiso(sh),st=kj>0?Math.max(base-af,0):0,jm=kj>0?Math.max(jwari(sh,jb)-jwari(sh,jb-kj),0):0;return {kojo:kj,shotoku:st,jumin:jm,total:st+jm}}
  window.__iryo=iryo;
  var inc=document.getElementById("inc"),incr=document.getElementById("incr"),med=document.getElementById("med"),medr=document.getElementById("medr"),hot=document.getElementById("hot");
  function fmt(n){return n.toLocaleString("ja-JP")}

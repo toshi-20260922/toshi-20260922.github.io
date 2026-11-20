@@ -8,7 +8,9 @@
 #   (税額=(A×B-C)×102.1%・1円未満切り捨て)
 #  総務省 平成25年1月1日以降の退職所得に対する住民税の特別徴収について https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/65871.html
 #   (市町村民税6%・道府県民税4%・それぞれ100円未満切り捨て)
-# 最後に原本を確かめた日:2026-11-19
+#  国税庁 No.4117 相続税の課税対象になる死亡退職金 https://www.nta.go.jp/taxes/shiraberu/taxanswer/sozoku/4117.htm
+#   (死亡後3年以内に支給が確定したものが相続税の対象)
+# 最後に原本を確かめた日:2026-11-20
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
@@ -141,6 +143,69 @@ async def body(pg):
     n += 1   # 重複期間(No.2732:前年以前9年内・令和8年1月1日以後・改正前4年内)
     if '前年以前9年内' not in txt or '令和8年1月1日以後' not in txt or '改正前は4年内' not in txt:
         ng('9年内の文')
+    # ---- 2026-11-20 に足された部品 ----
+    # 退職所得控除を勤続年数ごとに並べた表(手で書いた全行)
+    rows = await pg.evaluate("""()=>{var t=[].filter.call(document.querySelectorAll('main table'),function(t){return t.tHead&&t.tHead.textContent.indexOf('税金がかからない額')>=0});
+    return t.length==1?[].map.call(t[0].tBodies[0].rows,function(r){return [].map.call(r.cells,function(c){return c.textContent})}):null}""")
+    ys = [5, 10, 15, 20, 25, 30, 35, 40]
+    if not rows or len(rows) != len(ys):
+        ng('控除の表の行数', rows)
+    else:
+        for row, y in zip(rows, ys):
+            n += 1
+            want = ['%d年' % y, '%s万円' % format(kojo(y) // 10000, ',')]
+            if row != want or kojo(y) % 10000:
+                ng('控除の表', row, want)
+    # 勤続30年の税金の内訳の表(全行・全列)と黄色の行(入力を超えない中でいちばん近い行)
+    man = [500, 1000, 1500, 2000, 2500, 3000, 4000, 5000]
+    T2 = """([g])=>{var a=document.getElementById("amt");a.value=String(g);a.dispatchEvent(new Event("input",{bubbles:true}));
+    var f=function(id){var rs=document.querySelectorAll("#"+id+" tr");return {rows:[].map.call(rs,function(r){return [].map.call(r.cells,function(c){return c.textContent})}),hit:[].map.call(rs,function(r,i){return r.classList.contains("hit")?i:-1}).filter(function(i){return i>=0})}};
+    return {a:f("tb"),b:f("tb2")}}"""
+    for yak in (1, 0):
+        await pg.click('#s-y button[data-v="%d"]' % yak)
+        for g in (0, 4999999, 5000000, 9999999, 10000000, 19999999, 20000000, 24000000, 29999999, 30000000,
+                  39999999, 40000000, 49999999, 50000000, 300000000):
+            got = await pg.evaluate(T2, [g])
+            hit = [i for i, m in enumerate(man) if g >= m * 10000][-1:]
+            n += 1
+            if got['a']['hit'] != hit or got['b']['hit'] != hit:
+                ng('黄色の行', g, got['a']['hit'], got['b']['hit'], hit)
+            if len(got['b']['rows']) != len(man):
+                ng('内訳の表の行数', len(got['b']['rows'])); continue
+            for row, m in zip(got['b']['rows'], man):
+                n += 1
+                G = m * 10000
+                e = ref(G, 30, 0)
+                p10 = (2000 * e['tax'] + G) // (2 * G)       # 税金÷退職金(%・小数1位・四捨五入)
+                want = [format(m, ','), format(e['inc'], ','), format(e['it'], ','), format(e['ju'], ','),
+                        format(e['net'], ','), '%d.%d%%' % (p10 // 10, p10 % 10)]
+                if row != want:
+                    ng('内訳の表', row, want)
+    n += 1   # 黄色の行の文
+    if '入力した退職金を超えない中でいちばん近い行が黄色になります' not in txt:
+        ng('黄色の行の文')
+    n += 1   # 内訳の表の前の文(控除の1,500万円)
+    if kojo(30) != 15000000 or '控除の1,500万円を引いて2分の1にした額' not in txt:
+        ng('内訳の表の前の文')
+    n += 1   # 勤続年数の数え方(20年3か月は切り上げて21年・20年超は1年ごとに70万円)
+    if kojo(21) - kojo(20) != 700000 or kojo(22) - kojo(21) != 700000 or \
+       '勤続20年3か月なら21年として控除を計算します' not in txt or '1年ごとに控除が70万円増える' not in txt:
+        ng('勤続年数の数え方の文')
+    n += 1   # 役員の勤続5年以下(特定役員退職手当等)
+    if '役員として勤続5年以下で受け取る退職金は、2分の1にしません' not in txt:
+        ng('役員5年以下の文')
+    n += 1   # 関連リンクの文:所得税の税率は5%から45%
+    if (SOKUSAN[0][1], SOKUSAN[-1][1]) != (5, 45) or '5%から45%まで' not in txt:
+        ng('5%から45%の文')
+    n += 1   # 住民税の内訳の文
+    if '市区町村民税6%と道府県民税4%の合計' not in txt:
+        ng('6%と4%の文')
+    n += 1   # 亡くなった人の退職金(No.4117:死亡後3年以内に支給が確定)
+    if '亡くなってから3年以内に支給が確定' not in txt:
+        ng('死亡退職金の3年の文')
+    n += 1   # 確定申告(No.1420:原則として不要)
+    if 'そのため原則として確定申告はいりません' not in txt:
+        ng('確定申告の文')
     return n, bad
 
 run('taishokukin', body)

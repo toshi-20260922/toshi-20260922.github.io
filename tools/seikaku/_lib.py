@@ -20,6 +20,9 @@
 # ・ほかのチャットがページの言葉・表の列・並びを変えると突き合わせが古くなる。合わないと出たら、先にページの今の形を見てから誤りかどうかを決める。
 # ・係(Agent)は git diff を流せない。昨日からの差分は係に頼まず、今のページ全体を読ませる。
 # ・text_units.py は計算の箱の「結論」の見出し(div.h)を書き出さない。県名なしで1地域の数字が固定されていないかを別に見る(hoteifukurihi で直した)。
+# ・14時の時点で juminzei・koyohoken・shakaihoken の突き合わせが合わない(ほかのチャットが今日足した表の列に、突き合わせが追いついていない。ページの誤りかは未確認)。その3ページを受け持つ回が、足された列を自分の計算で確かめて突き合わせを直す。
+# ・ふるさと納税の特例控除の税率は、令和8年度分の住民税から「課税総所得金額−人的控除差調整額−(所得税の基礎控除額−48万円)」で決める(furusato で直した)。住宅ローン控除の住民税の限度額にも同じ加算がある。
+# ・「控除額×10%」で住民税の減りを固定する形(iryohi-kojo で直した)・入力の上限で結果だけ頭打ちになる形(shotokuzei で直した)・見出しと入力欄の id の重なり(yakuin-taishokukin で直した)・「下の早見表」のままの文(nenmatsu-chosei で直した)を、ほかのページでも探す。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
