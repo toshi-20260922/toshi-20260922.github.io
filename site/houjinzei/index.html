@@ -9,8 +9,8 @@
 <meta property="og:url" content="https://taxtable.jp/houjinzei/">
 <meta property="og:title" content="【法人税の早見表】所得ごとの税額と税率は？防衛特別法人税にも対応【令和8年度】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="国税庁の税率で、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入力すると、国に納める税金の合計と負担率を表示します。">
-<meta name="description" content="国税庁の税率で、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入力すると、国に納める税金の合計と負担率を表示します。">
+<meta property="og:description" content="国税庁が案内している税率にもとづき、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入力すると、国に納める税金の合計と負担率を表示します。">
+<meta name="description" content="国税庁が案内している税率にもとづき、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入力すると、国に納める税金の合計と負担率を表示します。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -132,7 +132,7 @@ h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
 @media (max-width:480px){.hd .logo{gap:6px}.hd .logo img{width:31px;height:34px}.lgt b{font-size:15px}.lgt small{font-size:10px}}
 
 /* 法人税ページだけの部品 */
-.amt{grid-template-columns:1fr 1fr}.amt div{min-width:0}.amt div.tot{order:-1;grid-column:1/3}.amt div.tot b{font-size:30px}
+.amt{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.amt div{min-width:0}.amt div.tot{grid-column:1/-1}.amt div.tot b{font-size:30px}@media(max-width:480px){.amt{gap:4px}.amt div{padding:8px 2px}.amt b{font-size:15px;letter-spacing:-.03em;white-space:nowrap}.amt b i{font-size:11px}.amt small{font-size:10.5px;line-height:1.25;white-space:normal}.amt em{font-size:11px}.amt div.tot b{font-size:22px;letter-spacing:0;white-space:nowrap}}
 .chk{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700}
 .chk input{width:20px;height:20px;accent-color:#e3b465}
 
@@ -149,7 +149,7 @@ body{overflow-x:clip}
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
 <style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style id="tblfit">@media(max-width:374px){table:not(:has(tr>:nth-child(7))) :is(td,th){padding-left:3px!important;padding-right:3px!important;letter-spacing:-.03em}}</style>
-</head>
+<style id="nw-wrap">.nw{white-space:nowrap}</style></head>
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><img src="/img/top/logo.png" alt="" width="35" height="38" loading="eager"><span class="lgt"><b>TaxTable</b><small>タックステーブル</small></span></a>
@@ -159,22 +159,22 @@ body{overflow-x:clip}
 
 <main class="wrap">
 <div class="top">
- <p class="upd">更新日：2026年11月19日（国税庁 令和8年4月1日現在の法令）</p>
- <h1>【法人税の早見表】所得ごとの税額と税率は？防衛特別法人税にも対応【令和8年度】</h1>
+ <p class="upd">更新日：2026年11月19日<span class="nw">（国税庁 令和8年4月1日現在の法令）</span></p>
+ <h1>【法人税の早見表】所得ごとの税額と税率は？防衛特別法人税にも対応<span class="nw">【令和8年度】</span></h1>
 </div>
 
 <section class="hy1">
 <h2 id="list">法人税の早見表</h2>
-<p>会社の所得が入る行を見てください。下で選んだ資本金と事業年度の条件で表示しています。</p>
+<p>自社の所得に近い行を見てください。下で選んだ資本金と事業年度の条件で表示しています。</p>
 <p class="cap" id="t-cap">資本金1億円以下・令和8年4月1日以後に始まる事業年度</p>
 <div class="tw">
 <table>
- <thead><tr><th>所得（円）</th><th>国に納める<br>合計（円）</th><th>負担率</th><th>うち法人税<br>（円）</th></tr></thead>
+ <thead><tr><th>所得（円）</th><th>国に納める<br>税金の合計（円）</th><th>負担率</th><th>うち法人税<br>（円）</th></tr></thead>
  <tbody id="gtb"><tr><td>1,000,000</td><td>165,400</td><td>16.5%</td><td>150,000</td></tr><tr><td>2,000,000</td><td>330,900</td><td>16.5%</td><td>300,000</td></tr><tr><td>3,000,000</td><td>496,300</td><td>16.5%</td><td>450,000</td></tr><tr><td>4,000,000</td><td>661,800</td><td>16.5%</td><td>600,000</td></tr><tr><td>5,000,000</td><td>827,200</td><td>16.5%</td><td>750,000</td></tr><tr><td>6,000,000</td><td>992,700</td><td>16.5%</td><td>900,000</td></tr><tr><td>7,000,000</td><td>1,158,100</td><td>16.5%</td><td>1,050,000</td></tr><tr><td>8,000,000</td><td>1,323,600</td><td>16.5%</td><td>1,200,000</td></tr><tr><td>9,000,000</td><td>1,579,400</td><td>17.5%</td><td>1,432,000</td></tr><tr class="hit"><td>10,000,000</td><td>1,835,300</td><td>18.4%</td><td>1,664,000</td></tr><tr><td>12,000,000</td><td>2,347,100</td><td>19.6%</td><td>2,128,000</td></tr><tr><td>15,000,000</td><td>3,114,800</td><td>20.8%</td><td>2,824,000</td></tr><tr><td>20,000,000</td><td>4,394,300</td><td>22.0%</td><td>3,984,000</td></tr><tr><td>25,000,000</td><td>5,679,500</td><td>22.7%</td><td>5,144,000</td></tr><tr><td>30,000,000</td><td>7,005,400</td><td>23.4%</td><td>6,304,000</td></tr><tr><td>40,000,000</td><td>9,657,100</td><td>24.1%</td><td>8,624,000</td></tr><tr><td>50,000,000</td><td>12,308,900</td><td>24.6%</td><td>10,944,000</td></tr><tr><td>70,000,000</td><td>17,612,400</td><td>25.2%</td><td>15,584,000</td></tr><tr><td>100,000,000</td><td>25,567,700</td><td>25.6%</td><td>22,544,000</td></tr></tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">国に納める合計は、法人税・地方法人税・防衛特別法人税の合計です。所得の1,000円未満と、税額の100円未満は切り捨てています。税額控除や欠損金の繰越控除は含めていません。法人住民税と法人事業税は入っていません。</p>
-<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+<p class="note" style="margin-top:8px">国に納める税金の合計は、法人税・地方法人税・防衛特別法人税を合わせた額です。所得の1,000円未満と、税額の100円未満は切り捨てています。税額控除や欠損金の繰越控除は含めていません。法人住民税と法人事業税は含めていません。</p>
+<p class="lead2">自社の所得で試算したい方は、下の試算ツールに入力してください。</p>
 </section>
 
 <div class="sum" id="calc">
@@ -194,9 +194,10 @@ body{overflow-x:clip}
   </div>
  </div>
  <div class="amt">
-  <div><small>法人税</small><b id="o-h">1,664,000<i>円</i></b><em>年額</em></div>
-  <div><small>地方法人税<br>防衛特別法人税</small><b id="o-c">171,300<i>円</i></b><em>年額</em></div>
   <div class="tot"><small>国に納める税金の合計</small><b id="o-all">1,835,300<i>円</i></b><em id="o-rt">所得の18.4%</em></div>
+  <div><small>法人税</small><b id="o-h">1,664,000<i>円</i></b><em>年額</em></div>
+  <div><small>地方法人税</small><b id="o-c">171,300<i>円</i></b><em>年額</em></div>
+  <div><small>防衛特別法人税</small><b id="o-b">0<i>円</i></b><em id="o-bl">対象外</em></div>
  </div>
  <ul>
   <li id="o-1">所得のうち800万円までは15%、超えた分は23.2%で計算しています</li>
@@ -205,13 +206,13 @@ body{overflow-x:clip}
  </ul>
 </div>
 
-<div class="rcta"><p>法人税の計算のもとになる決算書づくりから、申告までまとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_result_marunage">経理丸投げの無料相談</a></div>
+<div class="rcta"><p>当事務所では、法人税の計算のもとになる決算書づくりから申告までまとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_result_marunage">経理丸投げの無料相談</a></div>
 <div class="share">
  <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/houjinzei/">LINEで送る</a>
  <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/houjinzei/">Xでポストする</a>
 </div>
 
-<p>会社が国に納める税金は、法人税と法人税の額にかかる地方法人税の2つでした。<span class="mk">令和8年4月1日以後に始まる事業年度からは、法人税が500万円を超える会社に防衛特別法人税もかかります。</span>資本金1億円以下の会社は、所得のうち800万円までの税率が15%に下がっています。</p>
+<p>これまで会社が国に納める税金は、法人税と法人税の額にかかる地方法人税の2つでした。<span class="mk">令和8年4月1日以後に始まる事業年度からは、法人税が500万円を超える会社に防衛特別法人税もかかります。</span>なお資本金1億円以下の会社は、所得のうち800万円までの法人税の税率が15%に下がっています。</p>
 
 <nav class="toc">
  <div class="t">目次</div>
@@ -219,7 +220,7 @@ body{overflow-x:clip}
   <li><a href="#list">法人税の早見表</a></li>
   <li><a href="#rate">法人税の税率（令和8年度）</a></li>
   <li><a href="#bouei">防衛特別法人税がかかる会社</a></li>
-  <li><a href="#small">15%になる会社・ならない会社</a></li>
+  <li><a href="#small">法人税の税率が15%になる会社・ならない会社</a></li>
   <li><a href="#local">法人税のほかに納める税金</a></li>
   <li><a href="#rel">次に確かめること</a></li>
  <li><a href="#qa">法人税でよく聞かれること</a></li>
@@ -227,7 +228,7 @@ body{overflow-x:clip}
 </nav>
 
 <h2 id="rate">法人税の税率（令和8年度）</h2>
-<p>普通の株式会社や合同会社の税率です。国に納める3つの税金を並べています。</p>
+<p>一般的な株式会社や合同会社の税率です。国に納める3つの税金を並べています。</p>
 <div class="tw">
 <table>
  <thead><tr><th>税金</th><th>資本金1億円以下</th><th>資本金1億円超</th></tr></thead>
@@ -254,21 +255,21 @@ body{overflow-x:clip}
  </tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">資本金1億円以下の会社の例です。かからない会社も、法人税の申告と一緒に防衛特別法人税の申告書を出します。</p>
+<p class="note" style="margin-top:8px">資本金1億円以下の会社の例です。防衛特別法人税がかからない会社も、法人税の申告と一緒に防衛特別法人税の申告書を出します。</p>
 
-<h2 id="small">15%になる会社・ならない会社</h2>
+<h2 id="small">法人税の税率が15%になる会社・ならない会社</h2>
 <h3>15%になる会社</h3>
 <p>事業年度の終わりに資本金が1億円以下の会社です。所得のうち年800万円までが15%、それを超えた分が23.2%です。事業年度が1年より短いときは、800万円を12で割って月数を掛けた額を使います。</p>
 <h3>15%にならない会社</h3>
-<p>資本金が5億円以上の会社の100%子会社は、自分の資本金が1億円以下でも全部23.2%です。前の3年の所得の平均が15億円を超える会社は、800万円までが19%です。その年の所得が10億円を超える会社は、800万円までが17%です。</p>
+<p>資本金が5億円以上の会社の100%子会社は、自社の資本金が1億円以下でも税率はすべて23.2%です。前の3年の所得の平均が15億円を超える会社は、800万円までが19%です。その年の所得が10億円を超える会社は、800万円までが17%です。</p>
 
 <h2 id="local">法人税のほかに納める税金</h2>
-<p>会社は国のほかに、都道府県と市区町村にも税金を納めます。率は都道府県や市区町村ごとに少しずつ違うので、この早見表には含めていません。</p>
+<p>会社は国のほかに、都道府県と市区町村にも税金を納めます。税率は都道府県や市区町村ごとに少しずつ違うので、この早見表には含めていません。</p>
 <h3>法人住民税</h3>
 <p>法人税の額にかかる法人税割と、利益に関係なくかかる均等割があります。均等割は赤字でもかかります。資本金1,000万円以下で従業員50人以下の会社なら、標準の税率で年7万円です。</p>
 <h3>法人事業税と特別法人事業税</h3>
 <p>所得にかかる税金で、所得が増えるほど税率が上がります。特別法人事業税は、法人事業税と一緒に都道府県に納めます。</p>
-<p>個人事業のままの場合と会社にした場合で手元に残る額を比べたいときは、<a href="/houjinnari/">法人成りの計算</a>で計算できます。</p>
+<p>個人事業のまま続ける場合と会社にした場合で手元に残る額を比べたいときは、<a href="/houjinnari/">法人成りの計算</a>で試算できます。</p>
 
 <style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>会社の利益から、法人税・住民税・事業税の合計を出せます。<a href="/houjinzei-keisan/" data-cta="rel_houjinzei_houjinzei-keisan">法人税の計算</a></li><li>役員報酬は、社会保険料と税金を引いた手取りで決めます。<a href="/yakuin-tedori/" data-cta="rel_houjinzei_yakuin-tedori">役員報酬の手取りの早見表</a></li><li>いくら売れば赤字にならないかは、損益分岐点で分かります。<a href="/soneki-bunkiten/" data-cta="rel_houjinzei_soneki-bunkiten">損益分岐点の計算</a></li><li>役員の退職金は、会社の経費と本人の手取りの両方で考えます。<a href="/yakuin-taishokukin/" data-cta="rel_houjinzei_yakuin-taishokukin">役員退職金の計算</a></li><li>申告の期限は、所得税・消費税・法人税でそれぞれ違います。<a href="/kakutei-shinkoku/" data-cta="rel_houjinzei_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>個人事業主は、国保と国民年金と税金を引いた手取りで考えます。<a href="/kojin-zei/" data-cta="rel_houjinzei_kojin-zei">個人事業主の手取りの早見表</a></li><li>インボイスで課税事業者になった方は、2割特例のあとの消費税を確かめておきましょう。<a href="/niwari-tokurei/" data-cta="rel_houjinzei_niwari-tokurei">消費税の計算</a></li><li>中古の車を買ったら、耐用年数で毎年の経費が決まります。<a href="/chukosha-taiyonensu/" data-cta="rel_houjinzei_chukosha-taiyonensu">中古車の耐用年数の計算</a></li><li>会社が払う社会保険料は、法定福利費として経費になります。<a href="/hoteifukurihi/" data-cta="rel_houjinzei_hoteifukurihi">法定福利費の計算</a></li></ul>
 <h2 id="qa">法人税でよく聞かれること</h2>
@@ -279,7 +280,7 @@ body{overflow-x:clip}
 <h3>赤字の会社も法人税を払いますか？</h3>
 <p>所得がなければ法人税はかかりません。ただし法人住民税の均等割は、赤字でもかかります。</p>
 <h3>所得と利益は同じですか？</h3>
-<p>同じではありません。決算書の利益に税金の計算で経費にならないもの（交際費の一部など）を足し、税金がかからない収入を引いたものが所得です。</p>
+<p>同じではありません。決算書の利益に税金の計算上は経費にならないもの（交際費の一部など）を足し、税金がかからない収入を引いたものが所得です。</p>
 <h3>法人税はいつ納めますか？</h3>
 <p>事業年度が終わった日の翌日から2か月以内に、申告と一緒に納めます。前の年の法人税が20万円を超えた会社は、事業年度の途中に中間申告をして前払いします。</p>
 
@@ -376,7 +377,9 @@ body{overflow-x:clip}
  function render(){
   var y=Math.max(0,parseInt(inc.value,10)||0),x=calc(y);
   document.getElementById("o-h").innerHTML=f(x.h)+"<i>円</i>";
-  document.getElementById("o-c").innerHTML=f(x.c+x.b)+"<i>円</i>";
+  document.getElementById("o-c").innerHTML=f(x.c)+"<i>円</i>";
+  document.getElementById("o-b").innerHTML=f(x.b)+"<i>円</i>";
+  document.getElementById("o-bl").textContent=x.b>0?"年額":"対象外";
   document.getElementById("o-all").innerHTML=f(x.t)+"<i>円</i>";
   document.getElementById("o-rt").textContent=y>0?"所得の"+(Math.floor((x.t*2000+y)/(2*y))/10)+"%":"所得の0%";
   document.getElementById("o-1").textContent=cap===0?(y>1000000000?"所得が10億円を超えるので800万円までは17%で計算しています":"所得のうち800万円までは15%、超えた分は23.2%で計算しています"):"資本金1億円を超えるので、所得の全部を23.2%で計算しています";

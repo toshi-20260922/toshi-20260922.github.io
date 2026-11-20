@@ -90,7 +90,8 @@ async def body(pg):
     src = open(os.path.join(SITE, 'houjinzei', 'index.html'), encoding='utf-8').read()
     h, c, b, t = ref(10000000, 0, True)
     chk('元の法人税', num(re.search(r'id="o-h">([^<]*)', src).group(1)), h)
-    chk('元の地方+防衛', num(re.search(r'id="o-c">([^<]*)', src).group(1)), c + b)
+    chk('元の地方法人税', num(re.search(r'id="o-c">([^<]*)', src).group(1)), c)
+    chk('元の防衛特別法人税', num(re.search(r'id="o-b">([^<]*)', src).group(1)), b)
     chk('元の合計', num(re.search(r'id="o-all">([^<]*)', src).group(1)), t)
     chk('元の負担率', re.search(r'id="o-rt">([^<]*)', src).group(1), '所得の' + pct_s(t, 10000000, False))
     chk('元の文1', re.search(r'id="o-1">([^<]*)', src).group(1), s1(10000000, 0))
@@ -131,7 +132,7 @@ async def body(pg):
           var i=document.getElementById("inc"); i.value=String(y); i.dispatchEvent(new Event("input",{bubbles:true}));}''', [y, cap, st])
     async def read():
         return await pg.evaluate('''()=>{var g=function(id){return document.getElementById(id).textContent};
-          return {h:g("o-h"),c:g("o-c"),a:g("o-all"),r:g("o-rt"),s1:g("o-1"),s2:g("o-2"),cap:g("t-cap"),
+          return {h:g("o-h"),c:g("o-c"),b:g("o-b"),a:g("o-all"),r:g("o-rt"),s1:g("o-1"),s2:g("o-2"),cap:g("t-cap"),
           rows:[].map.call(document.querySelectorAll("#gtb tr"),function(tr){return [].map.call(tr.children,function(td){return td.textContent})}),
           hit:[].map.call(document.querySelectorAll("#gtb tr"),function(tr){return tr.className==="hit"})}}''')
     ys = [0, 1, 999, 1000, 1001, 500000, 1000000, 3000000, 5555555, 10000000, 12345678, 20000000, 30000000,
@@ -149,7 +150,8 @@ async def body(pg):
                 h, c, b, t = ref(y, cap, st)
                 lab = '所得%d 資本金%d 令和8年4月以後%s ' % (y, cap, st)
                 chk(lab + '法人税', num(g['h']), h)
-                chk(lab + '地方+防衛', num(g['c']), c + b)
+                chk(lab + '地方法人税', num(g['c']), c)
+                chk(lab + '防衛特別法人税', num(g['b']), b)
                 chk(lab + '合計', num(g['a']), t)
                 chk(lab + '負担率', g['r'], '所得の' + (pct_s(t, y, False) if y > 0 else '0%'))
                 chk(lab + '文1', g['s1'], s1(y, cap))
@@ -171,8 +173,8 @@ async def body(pg):
         await setv(y, 0, True)
         g = await read()
         h, c, b, t = ref(y, 0, True)
-        chk('細かい刻み %d' % y, (num(g['h']), num(g['c']), num(g['a']), g['r'], g['s2']),
-            (h, c + b, t, '所得の' + (pct_s(t, y, False) if y > 0 else '0%'), s2(y, 0, True)))
+        chk('細かい刻み %d' % y, (num(g['h']), num(g['c']), num(g['b']), num(g['a']), g['r'], g['s2']),
+            (h, c, b, t, '所得の' + (pct_s(t, y, False) if y > 0 else '0%'), s2(y, 0, True)))
     return n, bad
 
 run('houjinzei', body)
