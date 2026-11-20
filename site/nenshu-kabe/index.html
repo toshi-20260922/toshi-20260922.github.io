@@ -240,7 +240,259 @@ body{overflow-x:clip}
 .seg.s3{grid-template-columns:1fr 1fr 1fr}
 .seg button{font-family:inherit;font-size:14px;font-weight:700;line-height:1.4;color:#ffffff;background:#ffffff14;border:1.5px solid #ffffff55;border-radius:8px;padding:10px 4px;cursor:pointer}
 .seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
-</style><style id="nw-wrap">.nw{white-space:nowrap}</style></head>
+</style><style id="nw-wrap">.nw{white-space:nowrap}</style><style id="pc2">
+/* ===== 年収の壁 PC/スマホ 見た目の直し案 ===== */
+/* 題名の帯 */
+.top.kv{padding-top:30px;padding-bottom:30px;background:#1f2a2a;background-image:radial-gradient(circle at 85% 20%,#2c4a3f 0,#1f2a2a 55%)}
+.kv-in{display:flex;align-items:center;gap:24px}
+.kv-tx{flex:1;min-width:0}
+.top.kv .pic{float:none;margin:0;flex:none}
+.top.kv .pic svg{width:96px;height:96px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+.top.kv .upd{font-size:13px;color:#b9d3ca;margin:0 0 10px}
+.top.kv h1{font-weight:700;letter-spacing:.01em;line-height:1.5;padding-bottom:18px}
+.top.kv h1 .h1b{color:#e0b15a}
+@media (min-width:720px){.top.kv{padding-top:38px;padding-bottom:34px}.top.kv h1{font-size:31px}.top.kv h1 .h1b{display:block}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 早見表 */
+.hy1 .legend{display:flex;gap:16px;font-size:13px;color:#4f5b5b}
+.hy1 .legend i{width:14px;height:14px;border-radius:3px}
+.wlw{border:1px solid #d3dcd9;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(15,40,32,.07);background:#ffffff}
+.hy1 table.wl{border-collapse:collapse;table-layout:fixed}
+.hy1 table.wl th{background:#1f2a2a;color:#ffffff;border:0;font-size:14px;padding:12px 10px;letter-spacing:.04em}
+.hy1 table.wl th:nth-child(1){width:38%;text-align:left;padding-left:20px}
+.hy1 table.wl th:nth-child(2){width:13%}
+.hy1 table.wl th:nth-child(3){width:18%;color:#e0b15a}
+.hy1 table.wl th:nth-child(4){width:31%;text-align:left}
+.hy1 table.wl td{border:0;border-bottom:1px solid #e6ecea;padding:12px 12px}
+.hy1 table.wl tr:last-child td{border-bottom:0}
+.hy1 table.wl tr.g td{background:#e9f4ef;color:#124c37;font-size:15px;padding:9px 16px 9px 14px;border-left:6px solid #1d6b4a;border-bottom:1px solid #d4e6dd}
+.hy1 table.wl tr.g td .gn{font-weight:800}
+.hy1 table.wl tr.g td .gt{float:right;font-size:11px;font-weight:700;color:#ffffff;background:#1d6b4a;border-radius:999px;padding:2px 10px;line-height:1.7;margin-top:1px}
+.hy1 table.wl tr.g.s td{background:#fcf0e5;color:#8a3f0c;border-left-color:#d0661c;border-bottom-color:#f2dcc8}
+.hy1 table.wl tr.g.s td .gt{background:#d0661c}
+.hy1 table.wl td.w{padding-left:20px;font-size:15px;font-weight:700;color:#24302f;border-left:6px solid #9fd0bb}
+.hy1 table.wl tr.sh td.w{border-left-color:#f1bf94}
+.hy1 table.wl td.w small{font-weight:400;font-size:12.5px;color:#66716f;margin-top:3px}
+.hy1 table.wl td.o{width:auto;text-align:center;color:#8a9494;font-size:16px}
+.hy1 table.wl td.n{width:auto;text-align:center;font-size:24px;font-weight:800;color:#1d6b4a;line-height:1.15;background:#f6fbf9}
+.hy1 table.wl tr.sh td.n{color:#d0661c;background:#fffaf5}
+.hy1 table.wl td.n small{display:block;width:max-content;margin:5px auto 0;font-size:11px;font-weight:700;color:#1d6b4a;background:#e3f1ea;border-radius:999px;padding:1px 9px;line-height:1.6}
+.hy1 table.wl tr.sh td.n small{color:#9a4b12;background:#fbe9d9}
+.hy1 table.wl td.b{font-size:12.5px;color:#5b6666;line-height:1.55}
+.hy1 table.wl tr.tx:hover td,.hy1 table.wl tr.sh:hover td{background-color:#fafcfb}
+.hy1 .note{margin-top:10px!important}
+
+/* スマホ */
+@media (max-width:719px){
+ .top.kv{padding-bottom:22px}
+ .kv-in{align-items:flex-start;gap:12px}
+ .top.kv .pic svg{width:58px;height:58px}
+ .top.kv h1{font-size:23px}
+
+
+
+
+
+
+
+
+
+
+
+
+ /* 表はカード型に */
+ .wlw{border-radius:10px}
+ .hy1 table.wl,.hy1 table.wl tbody{display:block;width:100%}
+ .hy1 table.wl thead{display:none}
+ .hy1 table.wl tr{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #e3e9e7}
+ .hy1 table.wl tr:last-child{border-bottom:0}
+ .hy1 table.wl tr.g{display:block}
+ .hy1 table.wl tr.g td{display:block;border-bottom:0}
+ .hy1 table.wl td{display:block;border:0;padding:0}
+ .hy1 table.wl td.w{grid-column:1/-1;padding:12px 14px 6px 14px;border-left:0;border-bottom:0}
+ .hy1 table.wl tr.tx,.hy1 table.wl tr.sh{border-left:5px solid #9fd0bb}
+ .hy1 table.wl tr.sh{border-left-color:#f1bf94}
+ .hy1 table.wl td.o,.hy1 table.wl td.n{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:8px 6px;margin:0 0 0 14px;border-radius:8px 0 0 8px;background:#f4f6f6;font-size:15px}
+ .hy1 table.wl td.n{margin:0 14px 0 0;border-radius:0 8px 8px 0;font-size:22px;background:#e9f4ef}
+ .hy1 table.wl tr.sh td.n{background:#fcf0e5}
+ .hy1 table.wl td.o::before,.hy1 table.wl td.n::before{display:block;font-size:11px;font-weight:700;color:#8a9494;line-height:1.4;margin-bottom:2px}
+ .hy1 table.wl td.o::before{content:"令和7年"}
+ .hy1 table.wl td.n::before{content:"令和8・9年";color:#1d6b4a}
+ .hy1 table.wl tr.sh td.n::before{color:#9a4b12}
+ .hy1 table.wl td.n small{background:#ffffff}
+ .hy1 table.wl td.b{grid-column:1/-1;padding:7px 14px 12px;font-size:12px}
+ .hy1 table.wl td.b::before{content:"もとの制度：";font-weight:700;color:#8a9494}
+}
+
+
+
+/* ===== v2 文字を大きく(2026-11-20 T O様「文字小さいし」) ===== */
+.top.kv .upd{font-size:14px}
+.hy1 .legend{font-size:15px}
+.hy1 .legend i{width:15px;height:15px}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.hy1 .note{font-size:15px}
+.hy1 .lead2{font-size:17px}
+@media (min-width:720px){
+ body{font-size:17px}
+ .top.kv h1{font-size:32px}
+
+ .hy1 table.wl th{font-size:16px;padding:13px 10px}
+ .hy1 table.wl th:nth-child(1){width:36%}
+ .hy1 table.wl th:nth-child(2){width:13%}
+ .hy1 table.wl th:nth-child(3){width:20%}
+ .hy1 table.wl th:nth-child(4){width:31%}
+ .hy1 table.wl td{padding:14px 12px}
+ .hy1 table.wl tr.g td{font-size:17px;padding:10px 16px 10px 14px}
+ .hy1 table.wl tr.g td .gt{font-size:14px;padding:2px 12px}
+ .hy1 table.wl td.w{font-size:18px}
+ .hy1 table.wl td.w small{font-size:14px;line-height:1.6}
+ .hy1 table.wl td.o{font-size:18px}
+ .hy1 table.wl td.n{font-size:28px}
+ .hy1 table.wl td.n small{font-size:14px;padding:2px 10px}
+ .hy1 table.wl td.b{font-size:15px;line-height:1.6}
+}
+@media (max-width:719px){
+ .top.kv .upd{font-size:13px}
+
+
+
+
+
+
+
+
+
+
+
+ .hy1 .legend{font-size:14px}
+ .hy1 table.wl tr.g td{font-size:16px}
+ .hy1 table.wl tr.g td .gt{font-size:13px}
+ .hy1 table.wl td.w{font-size:17px}
+ .hy1 table.wl td.w small{font-size:14px}
+ .hy1 table.wl td.o{font-size:17px}
+ .hy1 table.wl td.n{font-size:26px}
+ .hy1 table.wl td.n small{font-size:14px}
+ .hy1 table.wl td.o::before,.hy1 table.wl td.n::before{font-size:14px}
+ .hy1 table.wl td.b{font-size:14px}
+}
+@media (min-width:720px){
+ .hy1 table.wl th:nth-child(1){width:40%}
+ .hy1 table.wl th:nth-child(2){width:12%}
+ .hy1 table.wl th:nth-child(3){width:19%}
+ .hy1 table.wl th:nth-child(4){width:29%}
+}
+
+/* ===== v4 要点パネル(題名の下・画面の端まで) ===== */
+.top.kv{margin-bottom:0}
+.kp{margin:0 calc(50% - 50vw) 40px;padding:56px calc(50vw - 50%) 60px;background:#0f3d31;background-image:radial-gradient(ellipse at 15% 0%,#1d5a46 0,rgba(15,61,49,0) 60%),linear-gradient(180deg,#123f33,#0c3329);color:#ffffff;border-top:1px solid #ffffff14}
+.kp-in{display:grid;grid-template-columns:1fr 1.45fr;gap:48px;align-items:center}
+.kp-l{min-width:0}
+.kp-e{margin:0 0 18px;font-size:15px;font-weight:700;letter-spacing:.2em;color:#e0b15a;display:flex;align-items:center;gap:12px}
+.kp-e::before{content:"";width:28px;height:2px;background:#e0b15a}
+.kp-t{margin:0 0 22px;font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP",serif;font-size:54px;line-height:1.3;font-weight:700;letter-spacing:.06em;color:#ffffff}
+.kp-s{margin:0 0 28px;font-size:17px;line-height:1.8;color:#d4e6dd}
+.kp-k{list-style:none;margin:0;padding:0;border-top:1px solid #ffffff26}
+.kp-k li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0;border-bottom:1px solid #ffffff26}
+.kp-k span{font-size:15px;color:#d4e6dd}
+.kp-k b{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP",serif;font-size:30px;font-weight:700;color:#e0b15a;line-height:1;white-space:nowrap}
+.kp-k li.s b{color:#f3a466}
+.kp-k b i{font-style:normal;font-size:14px;margin-left:2px;font-family:inherit}
+.kp-c{min-width:0;background:#ffffff;color:#24302f;border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.35);padding:8px 28px 22px}
+.kp-c input{position:absolute;opacity:0;pointer-events:none}
+.kp-tab{display:flex;gap:28px;border-bottom:1px solid #e3e9e7;margin:0 0 6px}
+.kp-tab label{position:relative;padding:16px 2px 14px;font-size:17px;font-weight:700;color:#8a9494;cursor:pointer}
+#kpt1:checked~.kp-tab label[for=kpt1]{color:#1d6b4a}
+#kpt2:checked~.kp-tab label[for=kpt2]{color:#c25a14}
+#kpt1:checked~.kp-tab label[for=kpt1]::after,#kpt2:checked~.kp-tab label[for=kpt2]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:2px;background:#1d6b4a}
+#kpt2:checked~.kp-tab label[for=kpt2]::after{background:#d0661c}
+.kp-p{display:none}
+#kpt1:checked~#kp1,#kpt2:checked~#kp2{display:block}
+.kp-hd,.kp-r{display:grid;grid-template-columns:1fr 84px 128px;align-items:center;column-gap:10px}
+.kp-hd{font-size:14px;color:#8a9494;padding:8px 0;border-bottom:1px solid #e3e9e7}
+.kp-hd span:nth-child(n+2){text-align:right}
+.kp-r{padding:11px 0;border-bottom:1px solid #eef2f1;min-height:62px}
+.kp-r .k{font-size:17px;font-weight:700;line-height:1.45;word-break:auto-phrase}
+.kp-r .o{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP",serif;font-size:17px;color:#98a2a2;text-align:right;white-space:nowrap}
+.kp-r .n{text-align:right;white-space:nowrap}
+.kp-r .n b{font-family:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Noto Serif JP","Noto Serif CJK JP",serif;font-size:36px;font-weight:700;color:#14563c;line-height:1.05;letter-spacing:-.01em}
+.kp-p.s .kp-r .n b{color:#c25a14}
+.kp-r .n b i{font-style:normal;font-size:14px;margin-left:2px}
+.kp-r .n b.tx{font-size:30px}
+.kp-r .n em{display:block;font-style:normal;font-size:14px;color:#9a4b12;line-height:1.4}
+.kp-f{font-size:14px;color:#6b7676;line-height:1.7;margin:14px 0 0;word-break:auto-phrase}
+.kp-w{margin:14px 0 0;background:#fdf2e8;border:1px solid #f3d6bd;border-radius:8px;padding:10px 14px;font-size:15px;line-height:1.7;color:#5a3412;word-break:auto-phrase}
+.kp-w b{display:inline-block;background:#d0661c;color:#ffffff;font-size:13px;border-radius:4px;padding:0 8px;margin-right:8px;line-height:1.8}
+.hy1 table.wl td.w,.hy1 table.wl td.w small,.hy1 table.wl td.b{word-break:auto-phrase}
+.hy1 table.wl td.w small{color:#4f5b5b}
+@media (max-width:959px){
+ .kp-in{grid-template-columns:1fr;gap:28px}
+
+}
+@media (max-width:719px){
+ .kp{padding:30px calc(50vw - 50%) 34px;margin-bottom:28px}
+ .kp-e{font-size:13px;margin-bottom:10px}
+ .kp-t{font-size:34px;margin-bottom:12px}
+ .kp-s{font-size:15px;margin-bottom:16px}
+ .kp-k span{font-size:14px}
+ .kp-k b{font-size:26px}
+ .kp-k li{padding:9px 0}
+ .kp-c{padding:4px 14px 16px;border-radius:12px}
+ .kp-tab{gap:0}
+ .kp-tab label{flex:1;text-align:center;font-size:16px;padding:14px 2px 12px}
+ .kp-hd,.kp-r{grid-template-columns:1fr 64px 92px;column-gap:6px}
+ .kp-hd{font-size:14px}
+ .kp-r{min-height:56px;padding:9px 0}
+ .kp-r .k{font-size:15px}
+ .kp-r .o{font-size:15px}
+ .kp-r .n b{font-size:30px}
+ .kp-r .n b.tx{font-size:26px}
+ .kp-r .n b i{font-size:13px}
+ .kp-w{font-size:14px}
+}
+@media (min-width:960px){.kp-t .nw{display:block}}
+@media (max-width:719px){.kp-k{display:none}.kp-s{margin-bottom:20px}}
+
+</style>
+</head>
 <body>
 
 <header class="hd"><div class="wrap">
@@ -250,63 +502,64 @@ body{overflow-x:clip}
 </div></header>
 
 <main class="wrap">
-<div class="top">
- <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="年収の壁"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="26" y="20" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="39" y="20" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="20" y="28" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="33" y="28" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="46" y="28" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="26" y="36" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="39" y="36" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="20" y="44" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="33" y="44" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="46" y="44" width="12" height="7" rx="1" fill="#e08a2c"></rect><circle cx="14" cy="26" r="4" fill="#0f3d31"></circle><path d="M14 31v12M14 35l-5 4M14 35l6-3M14 43l-4 8M14 43l4 8" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"></path></svg></div>
+<div class="top kv"><div class="kv-in">
+ <div class="kv-tx">
   <p class="upd">更新日：2026年11月20日<span class="nw">（令和8年度税制改正に対応）</span></p>
-  <h1>【年収の壁の早見表】扶養内はいくらまで？178万・136万・130万円<span class="nw">【2026年】</span></h1>
-</div>
+  <h1><span class="nw">【年収の壁の早見表】</span><span class="nw">扶養内はいくらまで？</span><span class="h1b"><span class="nw">178万・136万・130万円</span><span class="nw">【2026年】</span></span></h1>
+ </div>
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="年収の壁"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="26" y="20" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="39" y="20" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="20" y="28" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="33" y="28" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="46" y="28" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="26" y="36" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="39" y="36" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="20" y="44" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="33" y="44" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="46" y="44" width="12" height="7" rx="1" fill="#e08a2c"></rect><circle cx="14" cy="26" r="4" fill="#0f3d31"></circle><path d="M14 31v12M14 35l-5 4M14 35l6-3M14 43l-4 8M14 43l4 8" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"></path></svg></div>
+</div></div>
 
+<section class="kp" aria-label="年収の壁の要点"><div class="kp-in">
+ <div class="kp-l">
+  <p class="kp-e">早見表</p>
+  <p class="kp-t"><span class="nw">年収の壁</span> <span class="nw">早見表</span></p>
+  <p class="kp-s">税金の壁は上がり、<br>社会保険の壁は上がっていません</p>
+  <ul class="kp-k"><li><span>自分に所得税がかかり始める</span><b>178<i>万円</i></b></li><li><span>家族の扶養に入れる上限</span><b>136<i>万円</i></b></li><li class="s"><span>社会保険の扶養から外れる</span><b>130<i>万円</i></b></li></ul>
+ </div>
+ <div class="kp-c">
+  <input type="radio" name="kpt" id="kpt1" checked><input type="radio" name="kpt" id="kpt2">
+  <div class="kp-tab"><label for="kpt1">税金の壁</label><label for="kpt2">社会保険の壁</label></div>
+  <div class="kp-p" id="kp1">
+   <div class="kp-hd"><span>年収の壁</span><span>令和7年</span><span>令和8・9年</span></div>
+   <div class="kp-r"><span class="k">所得税（本人）</span><span class="o">160万円</span><span class="n"><b>178<i>万円</i></b></span></div><div class="kp-r"><span class="k">住民税（所得割）</span><span class="o">110万円</span><span class="n"><b>119<i>万円</i></b></span></div><div class="kp-r"><span class="k">配偶者控除</span><span class="o">123万円</span><span class="n"><b>136<i>万円</i></b></span></div><div class="kp-r"><span class="k">配偶者特別控除が満額</span><span class="o">160万円</span><span class="n"><b>169<i>万円</i></b></span></div><div class="kp-r"><span class="k">扶養控除</span><span class="o">123万円</span><span class="n"><b>136<i>万円</i></b></span></div><div class="kp-r"><span class="k">19〜22歳の特定親族特別控除が満額</span><span class="o">150万円</span><span class="n"><b>159<i>万円</i></b></span></div>
+   <p class="kp-f">給与だけの場合の年収です。住民税は単身・1級地の目安で、左は令和8年度・右は令和9・10年度の住民税です。</p>
+  </div>
+  <div class="kp-p s" id="kp2">
+   <div class="kp-hd"><span>年収の壁</span><span>令和7年</span><span>令和8・9年</span></div>
+   <div class="kp-r"><span class="k">106万円の壁</span><span class="o">106万円</span><span class="n"><b class="tx">なし</b><em>撤廃</em></span></div><div class="kp-r"><span class="k">家族の扶養（下の2つ以外）</span><span class="o">130万円</span><span class="n"><b>130<i>万円</i></b><em>変わらず</em></span></div><div class="kp-r"><span class="k">19〜22歳の扶養</span><span class="o">150万円</span><span class="n"><b>150<i>万円</i></b><em>変わらず</em></span></div><div class="kp-r"><span class="k">60歳以上・障害のある人の扶養</span><span class="o">180万円</span><span class="n"><b>180<i>万円</i></b><em>変わらず</em></span></div>
+   <p class="kp-w"><b>注意</b>令和8年から130万円超〜136万円では、税金の扶養には入れるのに社会保険の扶養からは外れるようになりました。</p>
+   <p class="kp-f">従業員51人以上の会社で週20時間以上働く人（学生を除く）は、年収にかかわらず勤め先の社会保険に入ります。</p>
+  </div>
+ </div>
+</div></section>
 <section class="hy1">
 <h2 id="list">年収の壁 早見表</h2>
 <p class="legend"><span><i style="background:#00775a"></i>税金の壁</span><span><i style="background:#d0661c"></i>社会保険の壁</span></p>
-<style>.wl td.b{font-size:12px;line-height:1.5;color:#5b6666}</style><style id="kbc">
-table.kb th{font-size:13px;padding:6px 8px}
-table.kb td.w{font-weight:700;color:#1f2a2a}
-table.kb td.w small{font-weight:400}
-table.kb td.o{width:96px;font-size:14px}
-table.kb td.o .v{font-weight:400;font-size:16px}
-table.kb td.n{width:132px;line-height:1.25;padding-top:10px;padding-bottom:10px}
-table.kb td.n .v{font-size:26px;font-weight:800;letter-spacing:.01em}
-table.kb td.n .v.t{font-size:20px}
-table.kb .u{font-style:normal;font-size:12px;margin-left:1px}
-table.kb td.n .u{font-weight:700}
-table.kb td.n small{font-size:12px;margin-top:2px}
-table.kb td.b{width:auto;font-size:13px}
-table.kb .bs{display:none}
-@media(min-width:641px){table.kb td.w{width:46%}}
-@media(max-width:640px){
-table.kb th:nth-child(4),table.kb td.b{display:none}
-table.kb .bs{display:block;font-size:12px;font-weight:400;color:#5b6666;line-height:1.5;margin-top:3px}
-table.kb .bs:before{content:"もとの制度：";}
-table.kb td.o{width:70px}
-table.kb td.n{width:100px}
-table.kb td.n .v{font-size:24px}
-}
-</style>
-<table class="wl kb">
+<style>.wl td.b{font-size:12px;line-height:1.5;color:#5b6666}</style><div class="wlw"><table class="wl">
   <thead><tr><th>年収の壁</th><th>令和7年</th><th>令和8・9年</th><th>もとの制度</th></tr></thead>
   <tbody>
-    <tr class="g"><td colspan="4">本人</td></tr>
-    <tr><td class="w">所得税<small>超えた分に所得税がかかる</small><span class="bs">基礎控除と給与所得控除</span></td><td class="o"><b class="v">160</b><i class="u">万円</i></td><td class="n"><b class="v">178</b><i class="u">万円</i><small>18万円上がった</small></td><td class="b">基礎控除と給与所得控除</td></tr>
-    <tr><td class="w">住民税（所得割）<small>単身・1級地の目安。令和7年の欄は令和8年度、令和8・9年の欄は令和9・10年度の住民税</small><span class="bs">住民税の非課税限度額</span></td><td class="o"><b class="v">110</b><i class="u">万円</i></td><td class="n"><b class="v">119</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">住民税の非課税限度額</td></tr>
-    <tr class="g"><td colspan="4">配偶者（配偶者の年収）</td></tr>
-    <tr><td class="w">配偶者控除<small>超えると配偶者特別控除に変わる（控除額38万円は同じ）</small><span class="bs">配偶者控除</span></td><td class="o"><b class="v">123</b><i class="u">万円</i></td><td class="n"><b class="v">136</b><i class="u">万円</i><small>13万円上がった</small></td><td class="b">配偶者控除</td></tr>
-    <tr><td class="w">配偶者特別控除が満額<small>超えると控除額が少しずつ減る</small><span class="bs">配偶者特別控除</span></td><td class="o"><b class="v">160</b><i class="u">万円</i></td><td class="n"><b class="v">169</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
-    <tr><td class="w">配偶者特別控除がなくなる<span class="bs">配偶者特別控除</span></td><td class="o"><b class="v">201.6</b><i class="u">万円</i></td><td class="n"><b class="v">207</b><i class="u">万円</i><small>5.4万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
-    <tr class="g"><td colspan="4">扶養している家族（家族の年収）</td></tr>
-    <tr><td class="w">扶養控除<small>超えると扶養控除が使えなくなる</small><span class="bs">扶養控除</span></td><td class="o"><b class="v">123</b><i class="u">万円</i></td><td class="n"><b class="v">136</b><i class="u">万円</i><small>13万円上がった</small></td><td class="b">扶養控除</td></tr>
-    <tr><td class="w">19〜22歳の特定親族特別控除が満額<small>超えると控除額が少しずつ減る</small><span class="bs">特定親族特別控除</span></td><td class="o"><b class="v">150</b><i class="u">万円</i></td><td class="n"><b class="v">159</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
-    <tr><td class="w">19〜22歳の特定親族特別控除がなくなる<span class="bs">特定親族特別控除</span></td><td class="o"><b class="v">188</b><i class="u">万円</i></td><td class="n"><b class="v">197</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
-    <tr class="g"><td colspan="4">ひとり親</td></tr>
-    <tr><td class="w">住民税がかからない上限<small>令和7年の欄は令和8年度、右は令和9年度の住民税</small><span class="bs">住民税の非課税の基準</span></td><td class="o"><b class="v">204.4</b><i class="u">万円</i></td><td class="n"><b class="v">209</b><i class="u">万円</i><small>4.6万円上がった</small></td><td class="b">住民税の非課税の基準</td></tr>
-    <tr><td class="w">子の年収の上限<small>超えるとひとり親控除の対象の子でなくなる</small><span class="bs">ひとり親控除</span></td><td class="o"><b class="v">123</b><i class="u">万円</i></td><td class="n"><b class="v">136</b><i class="u">万円</i><small>13万円上がった</small></td><td class="b">ひとり親控除</td></tr>
-    <tr class="g s"><td colspan="4">社会保険</td></tr>
-    <tr class="sh"><td class="w">106万円の壁<small>2026年10月に賃金の要件がなくなった。従業員51人以上の会社で週20時間以上働く学生でない人は、勤め先の社会保険に入る</small><span class="bs">短時間労働者の適用拡大</span></td><td class="o"><b class="v">106</b><i class="u">万円</i></td><td class="n"><b class="v t">なし</b><small>撤廃</small></td><td class="b">短時間労働者の適用拡大</td></tr>
-    <tr class="sh"><td class="w">家族の扶養（下の2つ以外）<small>超えると自分で国民年金・国民健康保険などに入る</small><span class="bs">健康保険の被扶養者の基準</span></td><td class="o"><b class="v">130</b><i class="u">万円</i></td><td class="n"><b class="v">130</b><i class="u">万円</i><small>変わらず</small></td><td class="b">健康保険の被扶養者の基準</td></tr>
-    <tr class="sh"><td class="w">19〜22歳の扶養<small>配偶者は除く</small><span class="bs">19歳以上23歳未満の被扶養者の基準</span></td><td class="o"><b class="v">150</b><i class="u">万円</i></td><td class="n"><b class="v">150</b><i class="u">万円</i><small>変わらず</small></td><td class="b">19歳以上23歳未満の被扶養者の基準</td></tr>
-    <tr class="sh"><td class="w">60歳以上・障害のある人の扶養<span class="bs">60歳以上と障害者の被扶養者の基準</span></td><td class="o"><b class="v">180</b><i class="u">万円</i></td><td class="n"><b class="v">180</b><i class="u">万円</i><small>変わらず</small></td><td class="b">60歳以上と障害者の被扶養者の基準</td></tr>
+    <tr class="g"><td colspan="4"><span class="gn">本人</span><span class="gt">税金の壁</span></td></tr>
+    <tr class="tx"><td class="w">所得税<small>超えた分に所得税がかかる</small></td><td class="o">160万円</td><td class="n">178万円<small>18万円上がった</small></td><td class="b">基礎控除と給与所得控除</td></tr>
+    <tr class="tx"><td class="w">住民税（所得割）<small>単身・1級地の目安。令和7年の欄は令和8年度、令和8・9年の欄は令和9・10年度の住民税</small></td><td class="o">110万円</td><td class="n">119万円<small>9万円上がった</small></td><td class="b">住民税の非課税限度額</td></tr>
+    <tr class="g"><td colspan="4"><span class="gn">配偶者（配偶者の年収）</span><span class="gt">税金の壁</span></td></tr>
+    <tr class="tx"><td class="w">配偶者控除<small>超えると配偶者特別控除に変わる（控除額38万円は同じ）</small></td><td class="o">123万円</td><td class="n">136万円<small>13万円上がった</small></td><td class="b">配偶者控除</td></tr>
+    <tr class="tx"><td class="w">配偶者特別控除が満額<small>超えると控除額が少しずつ減る</small></td><td class="o">160万円</td><td class="n">169万円<small>9万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
+    <tr class="tx"><td class="w">配偶者特別控除がなくなる</td><td class="o">201.6万円</td><td class="n">207万円<small>5.4万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
+    <tr class="g"><td colspan="4"><span class="gn">扶養している家族（家族の年収）</span><span class="gt">税金の壁</span></td></tr>
+    <tr class="tx"><td class="w">扶養控除<small>超えると扶養控除が使えなくなる</small></td><td class="o">123万円</td><td class="n">136万円<small>13万円上がった</small></td><td class="b">扶養控除</td></tr>
+    <tr class="tx"><td class="w">19〜22歳の特定親族特別控除が満額<small>超えると控除額が少しずつ減る</small></td><td class="o">150万円</td><td class="n">159万円<small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
+    <tr class="tx"><td class="w">19〜22歳の特定親族特別控除がなくなる</td><td class="o">188万円</td><td class="n">197万円<small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
+    <tr class="g"><td colspan="4"><span class="gn">ひとり親</span><span class="gt">税金の壁</span></td></tr>
+    <tr class="tx"><td class="w">住民税がかからない上限<small>令和7年の欄は令和8年度、右は令和9年度の住民税</small></td><td class="o">204.4万円</td><td class="n">209万円<small>4.6万円上がった</small></td><td class="b">住民税の非課税の基準</td></tr>
+    <tr class="tx"><td class="w">子の年収の上限<small>超えるとひとり親控除の対象の子でなくなる</small></td><td class="o">123万円</td><td class="n">136万円<small>13万円上がった</small></td><td class="b">ひとり親控除</td></tr>
+    <tr class="g s"><td colspan="4"><span class="gn">社会保険</span><span class="gt">社会保険の壁</span></td></tr>
+    <tr class="sh"><td class="w">106万円の壁<small>2026年10月に賃金の要件がなくなった。従業員51人以上の会社で週20時間以上働く学生でない人は、勤め先の社会保険に入る</small></td><td class="o">106万円</td><td class="n">なし<small>撤廃</small></td><td class="b">短時間労働者の適用拡大</td></tr>
+    <tr class="sh"><td class="w">家族の扶養（下の2つ以外）<small>超えると自分で国民年金・国民健康保険などに入る</small></td><td class="o">130万円</td><td class="n">130万円<small>変わらず</small></td><td class="b">健康保険の被扶養者の基準</td></tr>
+    <tr class="sh"><td class="w">19〜22歳の扶養<small>配偶者は除く</small></td><td class="o">150万円</td><td class="n">150万円<small>変わらず</small></td><td class="b">19歳以上23歳未満の被扶養者の基準</td></tr>
+    <tr class="sh"><td class="w">60歳以上・障害のある人の扶養</td><td class="o">180万円</td><td class="n">180万円<small>変わらず</small></td><td class="b">60歳以上と障害者の被扶養者の基準</td></tr>
   </tbody>
-</table>
+</table></div>
 <p class="note" style="margin-top:8px">税金の壁は給与だけの場合の年収です。住民税は住んでいる市区町村の級地で違います。表の201.6万円は正確には201万5,999円、204.4万円は204万3,999円を指します。右端の列は、その壁を決めている税金や社会保険の制度です。</p>
 <p class="lead2">自分の年収で試算したい方は、下の試算ツールに入力してください。</p>
 </section>
