@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>【簡易課税の事業区分】第何種？業種の一覧とみなし仕入率・納める消費税の計算【2026年】</title>
+<link rel="canonical" href="https://taxtable.jp/kani-kazei/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://taxtable.jp/kani-kazei/">
+<meta property="og:title" content="【簡易課税の事業区分】第何種？業種の一覧とみなし仕入率・納める消費税の計算【2026年】">
+<meta property="og:site_name" content="タックステーブル">
+<meta property="og:description" content="簡易課税の事業区分は第1種から第6種まであり、みなし仕入率は90%から40%です。業種を選ぶと第何種かが分かり、業種ごとの売上を入れると75%の特例も入れて納める消費税を計算します。">
+<meta name="description" content="簡易課税の事業区分は第1種から第6種まであり、みなし仕入率は90%から40%です。業種を選ぶと第何種かが分かり、業種ごとの売上を入れると75%の特例も入れて納める消費税を計算します。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.seg3{grid-template-columns:1fr 1fr 1fr}
+.seg3 button{font-size:13px;line-height:1.4}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f3d31}
+.hd .logo i{display:none}
+.lgm{width:30px;height:30px;flex:none;display:block}
+.lgt{display:flex;flex-direction:column;line-height:1.15}
+.lgt b{font-size:17px;font-weight:800;letter-spacing:.03em;color:#0f3d31}
+.lgt small{font-size:10px;font-weight:700;letter-spacing:.08em;color:#5b7a70;margin-top:3px}
+@media (max-width:380px){.lgt b{font-size:16px}.lgt small{font-size:9px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="kani_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="6つの区分の箱"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="12" y="16" width="12" height="12" rx="2" fill="#0f3d31"/><rect x="26" y="16" width="12" height="12" rx="2" fill="#00775a"/><rect x="40" y="16" width="12" height="12" rx="2" fill="#00775a"/><rect x="12" y="32" width="12" height="12" rx="2" fill="#00775a"/><rect x="26" y="32" width="12" height="12" rx="2" fill="#00775a"/><rect x="40" y="32" width="12" height="12" rx="2" fill="#e08a2c"/></svg></div>
+ <p class="upd">更新日：2026年11月20日（国税庁 No.6505・No.6509 令和8年4月1日現在法令等）</p>
+ <h1>【簡易課税の事業区分】第何種？業種の一覧とみなし仕入率・納める消費税の計算【2026年】</h1>
+</div>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>業種を選ぶと、簡易課税の第何種かとみなし仕入率が出ます</div>
+ <div class="in">
+  <div class="full">
+   <label for="ex">業種</label>
+   <select id="ex"><optgroup label="仕入れた商品をそのまま売る"><option value="0">卸売業（事業者に売る）</option><option value="1">小売業（消費者に売る）</option><option value="2">ネットショップ（消費者に売る）</option><option value="3">精肉店・鮮魚店（切る・刻むだけ）</option><option value="4">美容室・理容店の化粧品やシャンプーの販売</option><option value="5">農業・漁業（飲食料品を売る）</option></optgroup><optgroup label="作る・工事をする"><option value="6">建設業（工事の請負）</option><option value="7">造園工事の請負</option><option value="8">製造業（製造問屋を含む）</option><option value="9">パン・菓子・惣菜・弁当の製造小売</option><option value="10">出版業（印刷を外に出しても）</option><option value="11">農業・林業（飲食料品以外を売る）</option><option value="12">宅配ピザ・仕出し専門店（食べる席がない）</option><option value="13">中古車に板金・塗装・部品交換をして売る</option><option value="14">自分で建てた建物を売る</option></optgroup><optgroup label="飲食店・加工賃など"><option value="15">飲食店（食堂・すし店・喫茶店など）</option><option value="16">飲食店の出前・仕出し</option><option value="17">建設の手間仕事（材料の支給を受けて行う作業）</option><option value="18">とび工事・しゅんせつ工事</option><option value="19">庭師の植木の剪定</option><option value="20">支給された材料の賃加工（精米・縫製など）</option><option value="21">代理商・仲立業</option><option value="22">事業で使っていた車・機械などの売却</option></optgroup><optgroup label="サービス業など"><option value="23">運送業・倉庫業</option><option value="24">ソフトウェア開発・情報処理サービス</option><option value="25">広告業</option><option value="26" selected>税理士・社労士・デザイン・経営コンサルタント</option><option value="27">旅館・ホテル</option><option value="28">美容室・理容店・クリーニング店の施術</option><option value="29">自動車の修理（部品代を含む）</option><option value="30">機械の修理・畳の表替え</option><option value="31">学習塾などの教育</option><option value="32">レンタル・リース（物品賃貸業）</option><option value="33">保険代理店の手数料</option><option value="34">警備業・ビルの清掃などの建物サービス</option><option value="35">職業紹介・労働者派遣</option></optgroup><optgroup label="不動産業"><option value="36">不動産の仲介</option><option value="37">事務所・店舗の貸付けと不動産の管理</option><option value="38">駐車場の貸付け</option></optgroup></select>
+  </div>
+ </div>
+ <div class="vd no" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="in">
+  <div class="full">
+   <label for="s0">第1種（卸売業・90%）の売上（税抜）</label>
+   <div class="row"><input type="number" id="s0" inputmode="numeric" min="0" max="5000000000" step="1" value="0"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="s1">第2種（小売業など・80%）の売上（税抜）</label>
+   <div class="row"><input type="number" id="s1" inputmode="numeric" min="0" max="5000000000" step="1" value="0"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="s2">第3種（製造業・建設業など・70%）の売上（税抜）</label>
+   <div class="row"><input type="number" id="s2" inputmode="numeric" min="0" max="5000000000" step="1" value="0"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="s3">第4種（飲食店業など・60%）の売上（税抜）</label>
+   <div class="row"><input type="number" id="s3" inputmode="numeric" min="0" max="5000000000" step="1" value="0"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="s4">第5種（サービス業など・50%）の売上（税抜）</label>
+   <div class="row"><input type="number" id="s4" inputmode="numeric" min="0" max="5000000000" step="1" value="9000000"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="s5">第6種（不動産業・40%）の売上（税抜）</label>
+   <div class="row"><input type="number" id="s5" inputmode="numeric" min="0" max="5000000000" step="1" value="0"><span>円</span></div>
+  </div>
+ </div>
+ <div class="amt">
+  <div><small>納める消費税<br>（国税と地方の合計）</small><b id="o-t"></b><em id="o-te"></em></div>
+  <div><small>使った<br>みなし仕入率</small><b id="o-r"></b><em id="o-re"></em></div>
+  <div><small>売上の<br>消費税（国税）</small><b id="o-k"></b><em>税抜の売上×7.8%</em></div>
+ </div>
+ <ul>
+  <li id="o-how"></li>
+  <li>税率10%の売上だけで計算しています。基準期間の課税売上高が5,000万円以下で、届出を出している場合に使えます</li>
+ </ul>
+</div>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/kani-kazei/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/kani-kazei/">Xでポストする</a>
+</div>
+
+<p>簡易課税は、売上の消費税に業種ごとの「みなし仕入率」をかけた額を仕入れの消費税とみなす計算です。<span class="mk">卸売業は第1種で90%・小売業は第2種で80%・製造業や建設業は第3種で70%・飲食店は第4種で60%・サービス業は第5種で50%・不動産業は第6種で40%です。</span>業種は取引ごとに分けて判定します。2つ以上の業種があるときは、1つの業種の売上が75%以上なら全体にその率を使える特例があります。</p>
+
+<nav class="toc">
+ <div class="t">目次</div>
+ <ol>
+  <li><a href="#kubun">第1種から第6種までの事業区分</a></li>
+  <li><a href="#rei">業種ごとの事業区分の例</a></li>
+  <li><a href="#gaku">売上ごとの納める消費税</a></li>
+  <li><a href="#tokurei">2つ以上の業種があるとき（75%の特例）</a></li>
+  <li><a href="#keisan">納める消費税の計算のしかた</a></li>
+  <li><a href="#rel">次に確かめること</a></li>
+  <li><a href="#qa">簡易課税の事業区分でよく聞かれること</a></li>
+ </ol>
+</nav>
+
+<h2 id="kubun">第1種から第6種までの事業区分</h2>
+<p>納める割合は、売上の消費税のうち実際に納める割合です。みなし仕入率が高い業種ほど納める消費税が少なくなります。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>区分</th><th>みなし<br>仕入率</th><th>納める<br>割合</th><th>当たる事業</th></tr></thead>
+ <tbody><tr><td>第1種</td><td>90%</td><td>10%</td><td class="l">他の人から買った商品を、形を変えずにほかの事業者に売る事業</td></tr><tr><td>第2種</td><td>80%</td><td>20%</td><td class="l">他の人から買った商品を形を変えずに売る事業で第1種以外のもの・農業・林業・漁業のうち飲食料品を売る事業</td></tr><tr><td>第3種</td><td>70%</td><td>30%</td><td class="l">農業・林業・漁業（飲食料品以外）・鉱業・建設業・製造業（製造小売業を含む）・電気業・ガス業・熱供給業・水道業。加工賃をもらう仕事は除く</td></tr><tr><td>第4種</td><td>60%</td><td>40%</td><td class="l">第1種・第2種・第3種・第5種・第6種のどれにも当たらない事業。飲食店業・加工賃をもらう仕事・事業で使っていた固定資産の売却など</td></tr><tr><td>第5種</td><td>50%</td><td>50%</td><td class="l">運輸通信業・金融業・保険業・サービス業（飲食店業を除く）</td></tr><tr><td>第6種</td><td>40%</td><td>60%</td><td class="l">不動産業</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">第3種と第5種は、おおむね日本標準産業分類の大分類で判定します。日本標準産業分類で運輸通信業・金融業・保険業・サービス業に当たる事業は、加工賃をもらう仕事でも第5種です（国税庁 No.6509）。</p>
+
+<h2 id="rei">業種ごとの事業区分の例</h2>
+<p>国税庁の質疑応答事例とタックスアンサーに載っている例です。同じ店でも取引ごとに区分が変わることがあります。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>業種・取引</th><th>区分</th><th>ひとこと</th></tr></thead>
+ <tbody><tr><td class="l">卸売業（事業者に売る）</td><td>第1種</td><td class="l">仕入れた商品の形を変えずに、ほかの事業者に売ります</td></tr><tr><td class="l">小売業（消費者に売る）</td><td>第2種</td><td class="l">仕入れた商品の形を変えずに、消費者に売ります</td></tr><tr><td class="l">ネットショップ（消費者に売る）</td><td>第2種</td><td class="l">事業者に売った分は第1種です</td></tr><tr><td class="l">精肉店・鮮魚店（切る・刻むだけ）</td><td>第2種</td><td class="l">焼く・揚げるなど加熱して売ると第3種です</td></tr><tr><td class="l">美容室・理容店の化粧品やシャンプーの販売</td><td>第2種</td><td class="l">カットやパーマなどの施術は第5種です</td></tr><tr><td class="l">農業・漁業（飲食料品を売る）</td><td>第2種</td><td class="l">令和元年10月から第2種です</td></tr><tr><td class="l">建設業（工事の請負）</td><td>第3種</td><td class="l">工事を丸ごと下請に出しても第3種です</td></tr><tr><td class="l">造園工事の請負</td><td>第3種</td><td class="l">植木の剪定だけなら第4種です</td></tr><tr><td class="l">製造業（製造問屋を含む）</td><td>第3種</td><td class="l">材料の支給を受けて加工するだけなら第4種です</td></tr><tr><td class="l">パン・菓子・惣菜・弁当の製造小売</td><td>第3種</td><td class="l">店内で食べさせる部分は第4種です</td></tr><tr><td class="l">出版業（印刷を外に出しても）</td><td>第3種</td><td class="l">新聞などの紙上広告の収入は第5種です</td></tr><tr><td class="l">農業・林業（飲食料品以外を売る）</td><td>第3種</td><td class="l">花や木材など、食べ物でないものを売る場合です</td></tr><tr><td class="l">宅配ピザ・仕出し専門店（食べる席がない）</td><td>第3種</td><td class="l">飲食店の出前は第4種です</td></tr><tr><td class="l">中古車に板金・塗装・部品交換をして売る</td><td>第3種</td><td class="l">手を加えずに売ると第1種か第2種です</td></tr><tr><td class="l">自分で建てた建物を売る</td><td>第3種</td><td class="l">ほかの人が建てた建物をそのまま売ると第1種か第2種です</td></tr><tr><td class="l">飲食店（食堂・すし店・喫茶店など）</td><td>第4種</td><td class="l">持ち帰りの商品を仕入れて売る部分は第2種です</td></tr><tr><td class="l">飲食店の出前・仕出し</td><td>第4種</td><td class="l">食べる席のない宅配専門店は第3種です</td></tr><tr><td class="l">建設の手間仕事（材料の支給を受けて行う作業）</td><td>第4種</td><td class="l">道具を持っていくかどうかにかかわらず第4種です</td></tr><tr><td class="l">とび工事・しゅんせつ工事</td><td>第4種</td><td class="l">国税庁の質疑応答事例で第4種とされています</td></tr><tr><td class="l">庭師の植木の剪定</td><td>第4種</td><td class="l">造園工事の請負は第3種です</td></tr><tr><td class="l">支給された材料の賃加工（精米・縫製など）</td><td>第4種</td><td class="l">材料を自分で仕入れて作ると第3種です</td></tr><tr><td class="l">代理商・仲立業</td><td>第4種</td><td class="l">不動産の仲介は第6種です</td></tr><tr><td class="l">事業で使っていた車・機械などの売却</td><td>第4種</td><td class="l">本業が何でも第4種です</td></tr><tr><td class="l">運送業・倉庫業</td><td>第5種</td><td class="l">運輸業は第5種です</td></tr><tr><td class="l">ソフトウェア開発・情報処理サービス</td><td>第5種</td><td class="l">設計を外注していても第5種です</td></tr><tr><td class="l">広告業</td><td>第5種</td><td class="l">―</td></tr><tr><td class="l">税理士・社労士・デザイン・経営コンサルタント</td><td>第5種</td><td class="l">専門サービス業は第5種です</td></tr><tr><td class="l">旅館・ホテル</td><td>第5種</td><td class="l">館内の売店や自動販売機の売上は第2種です</td></tr><tr><td class="l">美容室・理容店・クリーニング店の施術</td><td>第5種</td><td class="l">化粧品などを売った分は第2種です</td></tr><tr><td class="l">自動車の修理（部品代を含む）</td><td>第5種</td><td class="l">部品代を分けて請求しても第5種です</td></tr><tr><td class="l">機械の修理・畳の表替え</td><td>第5種</td><td class="l">―</td></tr><tr><td class="l">学習塾などの教育</td><td>第5種</td><td class="l">―</td></tr><tr><td class="l">レンタル・リース（物品賃貸業）</td><td>第5種</td><td class="l">売買とされるリースは第1種か第2種です</td></tr><tr><td class="l">保険代理店の手数料</td><td>第5種</td><td class="l">―</td></tr><tr><td class="l">警備業・ビルの清掃などの建物サービス</td><td>第5種</td><td class="l">―</td></tr><tr><td class="l">職業紹介・労働者派遣</td><td>第5種</td><td class="l">―</td></tr><tr><td class="l">不動産の仲介</td><td>第6種</td><td class="l">―</td></tr><tr><td class="l">事務所・店舗の貸付けと不動産の管理</td><td>第6種</td><td class="l">住宅の貸付けは非課税なので売上に入れません</td></tr><tr><td class="l">駐車場の貸付け</td><td>第6種</td><td class="l">―</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">商品に自分の商標を付けるだけ・いくつかの商品を詰め合わせるだけなら、形を変えていないので第1種か第2種です（国税庁 質疑応答事例）。</p>
+
+<h2 id="gaku">売上ごとの納める消費税</h2>
+<p>1つの業種で税率10%の売上だけのときの、国税と地方消費税の合計です。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>区分</th><th>売上<br>500万円</th><th>1,000万円</th><th>3,000万円</th><th>5,000万円</th></tr></thead>
+ <tbody><tr><td>第1種<br>（90%）</td><td>50,000</td><td>100,000</td><td>300,000</td><td>500,000</td></tr><tr><td>第2種<br>（80%）</td><td>100,000</td><td>200,000</td><td>600,000</td><td>1,000,000</td></tr><tr><td>第3種<br>（70%）</td><td>150,000</td><td>300,000</td><td>900,000</td><td>1,500,000</td></tr><tr><td>第4種<br>（60%）</td><td>200,000</td><td>400,000</td><td>1,200,000</td><td>2,000,000</td></tr><tr><td>第5種<br>（50%）</td><td>250,000</td><td>500,000</td><td>1,500,000</td><td>2,500,000</td></tr><tr><td>第6種<br>（40%）</td><td>300,000</td><td>600,000</td><td>1,800,000</td><td>3,000,000</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">売上は税抜の課税売上高です。簡易課税を使えるのは、2年前（法人は2期前）の課税売上高が5,000万円以下の課税期間です。</p>
+
+<h2 id="tokurei">2つ以上の業種があるとき（75%の特例）</h2>
+<p>原則は、業種ごとの売上の割合でみなし仕入率を平均します。次の特例に当たるときは、控除が多くなる方を選べます。</p>
+<ul>
+ <li>1つの業種の売上が全体の75%以上なら、その業種のみなし仕入率を全体に使えます</li>
+ <li>3つ以上の業種があり2つの業種の売上の合計が75%以上なら、率が高い方の業種の売上にその率を使えます。残りの売上には低い方の率を使います</li>
+</ul>
+<p class="cap">計算の例（合計1,000万円）</p>
+<div class="tw">
+<table>
+ <thead><tr><th>売上の内訳</th><th>使う計算</th><th>みなし<br>仕入率</th><th>納める<br>消費税</th></tr></thead>
+ <tbody><tr><td class="l">第1種800万円・第2種200万円</td><td class="l">第1種が75%以上の特例</td><td>90%</td><td>100,000</td></tr><tr><td class="l">第1種450万円・第2種350万円・第5種200万円</td><td class="l">第1種と第2種で75%以上の特例</td><td>84.5%</td><td>155,000</td></tr><tr><td class="l">第2種700万円・第3種300万円</td><td class="l">原則の計算</td><td>77%</td><td>230,000</td></tr><tr><td class="l">第4種800万円・第5種200万円</td><td class="l">第4種が75%以上の特例</td><td>60%</td><td>400,000</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">売上を業種ごとに分けていないときは、分けていない部分に一番低いみなし仕入率を使います。帳簿・請求書の控え・レジの記録などで業種ごとに分けておきます（国税庁 No.6505・質疑応答事例）。</p>
+
+<h2 id="keisan">納める消費税の計算のしかた</h2>
+<div class="tw">
+<table>
+ <thead><tr><th>順番</th><th>計算</th></tr></thead>
+ <tbody><tr><td>1</td><td class="l">税抜の売上の1,000円未満を切り捨てる（課税標準額）</td></tr><tr><td>2</td><td class="l">課税標準額×7.8%で売上の消費税（国税）を出し、1円未満を切り捨てる</td></tr><tr><td>3</td><td class="l">売上の消費税×みなし仕入率を差し引き、100円未満を切り捨てる（納める国税）</td></tr><tr><td>4</td><td class="l">納める国税×22/78で地方消費税を出し、100円未満を切り捨てる</td></tr></tbody>
+</table>
+</div>
+<p>第5種で売上900万円なら、売上の消費税（国税）は702,000円です。50%の351,000円を差し引いて国税351,000円、地方消費税99,000円で合計450,000円です。</p>
+<p class="note" style="margin-top:8px">令和9年4月1日から令和11年3月31日までは飲食料品の譲渡の消費税率が下がり、その間は簡易課税の計算にも特例があります（国税庁 No.6505）。このページの計算は税率10%の売上だけです。</p>
+
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>2割特例が終わったあと、簡易課税・本則課税・3割特例のどれが得かを比べられます。<a href="/niwari-tokurei/" data-cta="rel_kani-kazei_niwari-tokurei">消費税の計算</a></li><li>消費税の申告と納付の期限を確かめられます。<a href="/kakutei-shinkoku/" data-cta="rel_kani-kazei_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>会社にすると、消費税の免税や簡易課税の判定がやり直しになります。<a href="/houjinnari/" data-cta="rel_kani-kazei_houjinnari">法人成りの計算</a></li><li>消費税を払ったあと、所得税と住民税でいくら残るかが分かります。<a href="/kojin-zei/" data-cta="rel_kani-kazei_kojin-zei">個人事業主の手取りの早見表</a></li><li>会社の利益から、法人税・住民税・事業税の合計を出せます。<a href="/houjinzei-keisan/" data-cta="rel_kani-kazei_houjinzei-keisan">法人税の計算</a></li><li>副業の売上が1,000万円を超えると、2年後から消費税がかかります。<a href="/fukugyo/" data-cta="rel_kani-kazei_fukugyo">副業の税金の計算</a></li><li>デザイン料や原稿料を払うときは、源泉徴収が要るかを確かめます。<a href="/gensen-hoshu/" data-cta="rel_kani-kazei_gensen-hoshu">源泉徴収の早見表</a></li><li>事業で使った車や機械を売ると、簡易課税では第4種です。<a href="/taiyonensu/" data-cta="rel_kani-kazei_taiyonensu">法定耐用年数の一覧</a></li><li>いくら売れば赤字にならないかを確かめられます。<a href="/soneki-bunkiten/" data-cta="rel_kani-kazei_soneki-bunkiten">損益分岐点の計算</a></li><li>事業の所得から、合計所得金額と扶養に入るかが分かります。<a href="/shotoku-kingaku/" data-cta="rel_kani-kazei_shotoku-kingaku">所得金額の計算</a></li><li>開業資金を借りたら、毎月の返済額を先に確かめます。<a href="/hensai/" data-cta="rel_kani-kazei_hensai">借入の返済の計算</a></li></ul>
+
+<h2 id="qa">簡易課税の事業区分でよく聞かれること</h2>
+<h3>フリーランスのデザイナーやエンジニアは第何種ですか？</h3>
+<p>第5種です。デザイン業や情報サービス業はサービス業に当たり、みなし仕入率は50%です。</p>
+<h3>一人親方の建設業は第3種ですか、第4種ですか？</h3>
+<p>材料を自分で仕入れて工事を請け負うなら第3種です。材料の支給を受けて作業だけをするなら、道具を持っていくかどうかにかかわらず第4種です。</p>
+<h3>事業で使っていた車を売ったら第何種ですか？</h3>
+<p>第4種です。本業が何であっても、事業で使っていた固定資産の売却は第4種です。</p>
+<h3>簡易課税の届出はいつまでに出しますか？</h3>
+<p>使いたい課税期間が始まる日の前日までです。一度使い始めると、2年間はやめる届出を出せません。</p>
+<h3>業種ごとに売上を分けないとどうなりますか？</h3>
+<p>分けていない売上には、その中で一番低いみなし仕入率を使います。第2種と第3種を分けていなければ、全部に70%を使います。</p>
+
+<div class="src">出典・参考（2026年11月確認）
+ <ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6509.htm">国税庁 No.6509「簡易課税制度の事業区分」</a>（令和8年4月1日現在法令等）</li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6509_qa.htm">国税庁「簡易課税制度の事業区分 Q&amp;A」</a>（固定資産の売却・加工くず）</li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6505.htm">国税庁 No.6505「簡易課税制度」</a>（適用の条件・75%の特例・区分していない場合）</li>
+  <li><a href="https://www.nta.go.jp/law/shitsugi/shohi/20/02.htm">国税庁 質疑応答事例「事業区分の判定のフローチャート」</a>と同じ章の業種別の事例（20/01〜20/16）</li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/shohi/aramashi/pdf/010.pdf">国税庁「消費税のあらまし」簡易課税制度</a>（75%の特例の計算例）</li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6371.htm">国税庁 No.6371「端数計算」</a>・<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6303.htm">No.6303「消費税および地方消費税の税率」</a></li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/shohi/kaisei/yoshiki/pdf/202411_02.pdf">国税庁「消費税及び地方消費税の申告書（簡易課税用）の書き方」</a>（地方消費税の百円未満切捨ての例）</li>
+ </ul>
+</div>
+
+<div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="close"><p class="close-h"><span class="nw">簡易課税にするか、</span><span class="nw">迷ったら</span></p><p>簡易課税にするか本則課税にするかで、帳簿のつけ方と申告書が変わります。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料です。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="kani_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>
+ <a href="/niwari-tokurei/">消費税の計算</a>
+ <a href="/kakutei-shinkoku/">確定申告の期限の早見表</a>
+ <a href="/yatou-hiyou/">人を雇う費用の計算</a>
+ <a href="/houjinzei-keisan/">法人税の計算</a>
+ <a href="/soneki-bunkiten/">損益分岐点の計算</a>
+ <a href="/hoteifukurihi/">法定福利費の計算</a>
+ <a href="/zoyozei/">贈与税の計算</a>
+ <a href="/shotokuzei/">所得税の計算</a>
+ <a href="/taishokukin/">退職金の税金の計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の計算</a>
+ <a href="/iryohi-kojo/">医療費控除の計算</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の計算</a>
+ <a href="/furusato/">ふるさと納税の限度額の計算</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税の計算</a>
+ <a href="/gensen-hoshu/">源泉徴収の早見表</a>
+ <a href="/genbutsu-kyuyo/">非課税の限度額の早見表</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取りの早見表</a>
+ <a href="/houjinnari/">法人成りの計算</a>
+ <a href="/kojin-zei/">個人事業主の手取りの早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料の早見表</a>
+ <a href="/tedori/">年収の手取りの早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁の早見表</a>
+ <a href="/fukugyo/">副業の税金の計算</a>
+ <a href="/gakusei-kabe/">学生バイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの扶養の計算</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算</a>
+ <a href="/taishoku-jumin/">退職後の住民税の計算</a>
+ <a href="/hensai/">借入の返済の計算</a>
+ <a href="/saitei-chingin/">最低賃金の一覧</a>
+ <a href="/saitei-chingin-tokyo/">東京の最低賃金</a>
+ <a href="/saitei-chingin-kanagawa/">神奈川県の最低賃金</a>
+ <a href="/saitei-chingin-aichi/">愛知県の最低賃金</a>
+ <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
+ <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
+ <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
+ <a href="/taiyonensu/">法定耐用年数の一覧</a>
+ <a href="/saitei-chingin-okinawa/">沖縄県の最低賃金</a>
+ <a href="/saitei-chingin-kumamoto/">熊本県の最低賃金</a>
+ <a href="/saitei-chingin-ibaraki/">茨城県の最低賃金</a>
+ <a href="/saitei-chingin-hiroshima/">広島県の最低賃金</a>
+ <a href="/saitei-chingin-kagoshima/">鹿児島県の最低賃金</a>
+ <a href="/saitei-chingin-mie/">三重県の最低賃金</a>
+ <a href="/saitei-chingin-shizuoka/">静岡県の最低賃金</a>
+ <a href="/saitei-chingin-miyagi/">宮城県の最低賃金</a>
+ <a href="/saitei-chingin-niigata/">新潟県の最低賃金</a>
+ <a href="/saitei-chingin-nagano/">長野県の最低賃金</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="position:absolute;left:4px;bottom:2px;font-size:8px;line-height:1;opacity:.5">mkv1</span></div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="kani_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script>
+(function(){
+ var R=[90,80,70,60,50,40],SHU=["第1種","第2種","第3種","第4種","第5種","第6種"],EX=[["仕入れた商品をそのまま売る", "卸売業（事業者に売る）", 0, "仕入れた商品の形を変えずに、ほかの事業者に売ります"], ["仕入れた商品をそのまま売る", "小売業（消費者に売る）", 1, "仕入れた商品の形を変えずに、消費者に売ります"], ["仕入れた商品をそのまま売る", "ネットショップ（消費者に売る）", 1, "事業者に売った分は第1種です"], ["仕入れた商品をそのまま売る", "精肉店・鮮魚店（切る・刻むだけ）", 1, "焼く・揚げるなど加熱して売ると第3種です"], ["仕入れた商品をそのまま売る", "美容室・理容店の化粧品やシャンプーの販売", 1, "カットやパーマなどの施術は第5種です"], ["仕入れた商品をそのまま売る", "農業・漁業（飲食料品を売る）", 1, "令和元年10月から第2種です"], ["作る・工事をする", "建設業（工事の請負）", 2, "工事を丸ごと下請に出しても第3種です"], ["作る・工事をする", "造園工事の請負", 2, "植木の剪定だけなら第4種です"], ["作る・工事をする", "製造業（製造問屋を含む）", 2, "材料の支給を受けて加工するだけなら第4種です"], ["作る・工事をする", "パン・菓子・惣菜・弁当の製造小売", 2, "店内で食べさせる部分は第4種です"], ["作る・工事をする", "出版業（印刷を外に出しても）", 2, "新聞などの紙上広告の収入は第5種です"], ["作る・工事をする", "農業・林業（飲食料品以外を売る）", 2, "花や木材など、食べ物でないものを売る場合です"], ["作る・工事をする", "宅配ピザ・仕出し専門店（食べる席がない）", 2, "飲食店の出前は第4種です"], ["作る・工事をする", "中古車に板金・塗装・部品交換をして売る", 2, "手を加えずに売ると第1種か第2種です"], ["作る・工事をする", "自分で建てた建物を売る", 2, "ほかの人が建てた建物をそのまま売ると第1種か第2種です"], ["飲食店・加工賃など", "飲食店（食堂・すし店・喫茶店など）", 3, "持ち帰りの商品を仕入れて売る部分は第2種です"], ["飲食店・加工賃など", "飲食店の出前・仕出し", 3, "食べる席のない宅配専門店は第3種です"], ["飲食店・加工賃など", "建設の手間仕事（材料の支給を受けて行う作業）", 3, "道具を持っていくかどうかにかかわらず第4種です"], ["飲食店・加工賃など", "とび工事・しゅんせつ工事", 3, "国税庁の質疑応答事例で第4種とされています"], ["飲食店・加工賃など", "庭師の植木の剪定", 3, "造園工事の請負は第3種です"], ["飲食店・加工賃など", "支給された材料の賃加工（精米・縫製など）", 3, "材料を自分で仕入れて作ると第3種です"], ["飲食店・加工賃など", "代理商・仲立業", 3, "不動産の仲介は第6種です"], ["飲食店・加工賃など", "事業で使っていた車・機械などの売却", 3, "本業が何でも第4種です"], ["サービス業など", "運送業・倉庫業", 4, "運輸業は第5種です"], ["サービス業など", "ソフトウェア開発・情報処理サービス", 4, "設計を外注していても第5種です"], ["サービス業など", "広告業", 4, ""], ["サービス業など", "税理士・社労士・デザイン・経営コンサルタント", 4, "専門サービス業は第5種です"], ["サービス業など", "旅館・ホテル", 4, "館内の売店や自動販売機の売上は第2種です"], ["サービス業など", "美容室・理容店・クリーニング店の施術", 4, "化粧品などを売った分は第2種です"], ["サービス業など", "自動車の修理（部品代を含む）", 4, "部品代を分けて請求しても第5種です"], ["サービス業など", "機械の修理・畳の表替え", 4, ""], ["サービス業など", "学習塾などの教育", 4, ""], ["サービス業など", "レンタル・リース（物品賃貸業）", 4, "売買とされるリースは第1種か第2種です"], ["サービス業など", "保険代理店の手数料", 4, ""], ["サービス業など", "警備業・ビルの清掃などの建物サービス", 4, ""], ["サービス業など", "職業紹介・労働者派遣", 4, ""], ["不動産業", "不動産の仲介", 5, ""], ["不動産業", "事務所・店舗の貸付けと不動産の管理", 5, "住宅の貸付けは非課税なので売上に入れません"], ["不動産業", "駐車場の貸付け", 5, ""]];
+ var $=function(i){return document.getElementById(i)};
+ function f(n){return n.toLocaleString("ja-JP");}
+ function num(i){var v=parseInt($(i).value,10);if(isNaN(v)||v<0)v=0;return Math.min(v,5000000000);}
+ function md(a,b,c){return Number(BigInt(Math.round(a))*BigInt(Math.round(b))/BigInt(Math.round(c)));}
+ function calc(s){var S=0,i,a,b;for(i=0;i<6;i++)S+=s[i];if(S<=0)return null;
+  var K=Math.floor(S/1000)*1000,T=md(K,78,1000),c=[],kinds=[];
+  var w=0;for(i=0;i<6;i++){w+=s[i]*R[i];if(s[i]>0)kinds.push(i);}
+  c.push([md(T,w,S*100),"原則の計算（業種ごとの割合）",w/S]);
+  if(kinds.length>=2)kinds.forEach(function(i){if(4*s[i]>=3*S)c.push([md(T,R[i],100),SHU[i]+"が75%以上の特例",R[i]]);});
+  if(kinds.length>=3)kinds.forEach(function(a){kinds.forEach(function(b){if(a<b&&4*(s[a]+s[b])>=3*S){var x=s[a]*R[a]+(S-s[a])*R[b];c.push([md(T,x,S*100),SHU[a]+"と"+SHU[b]+"で75%以上の特例",x/S]);}});});
+  var best=c[0];c.forEach(function(x){if(x[0]>best[0])best=x;});
+  var koku=Math.floor((T-best[0])/100)*100,chiho=Math.floor(md(koku,22,78)/100)*100;
+  return {T:T,D:best[0],koku:koku,chiho:chiho,total:koku+chiho,how:best[1],rate:best[2]};}
+ function render(){
+  var e=EX[+$("ex").value];
+  $("o-vd").textContent=SHU[e[2]]+"（みなし仕入率"+R[e[2]]+"%）です";
+  $("o-vds").textContent=e[1]+"は"+SHU[e[2]]+"です。"+(e[3]?e[3]+"。":"")+"売上の消費税の"+(100-R[e[2]])+"%を納めます";
+  var s=[],i;for(i=0;i<6;i++)s.push(num("s"+i));
+  var r=calc(s);
+  if(!r){$("o-t").innerHTML="0<i>円</i>";$("o-te").textContent="売上を入れてください";$("o-r").innerHTML="―";$("o-re").textContent="";$("o-k").innerHTML="0<i>円</i>";$("o-how").textContent="業種ごとの税抜の売上を入れると計算します";return;}
+  $("o-t").innerHTML=f(r.total)+"<i>円</i>";$("o-te").textContent="国税"+f(r.koku)+"円・地方"+f(r.chiho)+"円";
+  $("o-r").innerHTML=(Math.round(r.rate*10)/10)+"<i>%</i>";$("o-re").textContent=r.how;
+  $("o-k").innerHTML=f(r.T)+"<i>円</i>";
+  $("o-how").textContent="売上の消費税"+f(r.T)+"円から"+f(r.D)+"円を差し引いています。控除が一番多くなる計算を選んでいます";}
+ $("ex").addEventListener("change",render);
+ for(var i=0;i<6;i++)$("s"+i).addEventListener("input",render);
+ window.__kani=calc;
+ render();
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script></body></html>

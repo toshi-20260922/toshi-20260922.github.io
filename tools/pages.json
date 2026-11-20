@@ -263,5 +263,35 @@
   "path": "/saitei-chingin-kagoshima/",
   "label": "鹿児島県の最低賃金",
   "kw": "最低賃金 鹿児島県 かごしま 時給"
+ },
+ {
+  "path": "/kani-kazei/",
+  "label": "簡易課税の事業区分",
+  "kw": "簡易課税 事業区分 みなし仕入率 第何種 消費税"
+ },
+ {
+  "path": "/saitei-chingin-mie/",
+  "label": "三重県の最低賃金",
+  "kw": "最低賃金 三重県 みえ 時給"
+ },
+ {
+  "path": "/saitei-chingin-shizuoka/",
+  "label": "静岡県の最低賃金",
+  "kw": "最低賃金 静岡県 しずおか 時給"
+ },
+ {
+  "path": "/saitei-chingin-miyagi/",
+  "label": "宮城県の最低賃金",
+  "kw": "最低賃金 宮城県 みやぎ 仙台 時給"
+ },
+ {
+  "path": "/saitei-chingin-niigata/",
+  "label": "新潟県の最低賃金",
+  "kw": "最低賃金 新潟県 にいがた 時給"
+ },
+ {
+  "path": "/saitei-chingin-nagano/",
+  "label": "長野県の最低賃金",
+  "kw": "最低賃金 長野県 ながの 時給"
  }
 ]
