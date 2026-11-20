@@ -191,6 +191,14 @@ body{overflow-x:clip}
    <label>返し方</label>
    <div class="seg" id="s-m"><button type="button" class="on" data-v="0">元金均等</button><button type="button" data-v="1">元利均等</button></div>
   </div>
+  <div>
+   <label for="ky">借りる年</label>
+   <select id="ky"><option value="2025">2025年</option><option value="2026" selected>2026年</option><option value="2027">2027年</option><option value="2028">2028年</option></select>
+  </div>
+  <div>
+   <label for="km">借りる月（返済は翌月から）</label>
+   <select id="km"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12" selected>12月</option></select>
+  </div>
  </div>
  <div class="amt">
   <div><small>毎月の返済<br>（最初の月）</small><b id="o-a">0<i>円</i></b><em id="o-ae">据置のあと</em></div>
@@ -200,9 +208,19 @@ body{overflow-x:clip}
  <ul>
   <li id="o-1">据置の間は、毎月0円の利息だけを払います</li>
   <li id="o-2">元金は毎月0円ずつ、0回で返します</li>
-  <li>利息は、残っている元金に年利の12分の1をかけて計算しています</li>
+  <li>利息は、残っている元金に年利の12分の1をかけて1円未満を切り捨てています</li>
+  <li id="o-3">最後の返済は2033年12月です</li>
  </ul>
 </div>
+<h2 id="tsuki">毎月の返済予定表</h2>
+<p>上で入力した条件で、1回ごとの返済を表示しています。返済は借りた月の翌月から始まります。</p>
+<style>@media print{.fbar,.share,.close,.rcta,nav.tools,nav.toc,footer,.fsb,.prb{display:none!important}}.prb{display:inline-block;margin:0 0 8px;padding:8px 16px;border:1px solid #0f3d31;border-radius:6px;background:#ffffff;color:#0f3d31;font-weight:700;font-size:14px;cursor:pointer}</style>
+<button type="button" class="prb" id="prb">返済予定表を印刷する（PDFに保存もできます）</button>
+<div class="tw"><table>
+ <thead><tr><th>回</th><th>返す月</th><th>返済額<br>（円）</th><th>うち元金<br>（円）</th><th>うち利息<br>（円）</th><th>返したあとの<br>残り（円）</th></tr></thead>
+ <tbody id="tbm"></tbody>
+</table></div>
+<p class="note" style="margin-top:8px">最後の回で端数を調整しています。変動金利には対応していません。入力した年利が最後まで続くとして計算しています。</p>
 <div class="rcta"><p>返済が始まってからの手元のお金を、毎月の帳簿で押さえます。</p><a href="https://oyama-toshiro.com/contact/" data-cta="hensai_result_marunage">経理丸投げの無料相談</a></div>
 <div class="share">
  <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/hensai/">LINEで送る</a>
@@ -213,6 +231,9 @@ body{overflow-x:clip}
  <li><a href="#list">1年ごとの返済の表</a></li>
  <li><a href="#sue">据置期間とは</a></li>
  <li><a href="#way">元金均等と元利均等の違い</a></li>
+ <li><a href="#tsuki">毎月の返済予定表</a></li>
+ <li><a href="#keihi">元金の返済は経費にならない</a></li>
+ <li><a href="#yakuin">会社と役員でお金を貸し借りするとき</a></li>
  <li><a href="#rel">次に確かめること</a></li>
  <li><a href="#qa">開業資金の返済でよく聞かれること</a></li>
 </ol></nav>
@@ -223,6 +244,22 @@ body{overflow-x:clip}
 <p>元金と利息を合わせた毎月の返済が同じです。最初のうちは利息の割合が大きく、元金がなかなか減りません。</p>
 <h2 id="sue">据置期間とは</h2>
 <p>元金を返さず、利息だけを払う期間です。開業してすぐは売上が安定しないので、据置を付けると最初の数か月の支払いが軽くなります。<span class="mk">据置を長くするとその分だけ元金を返す期間が短くなり、毎月の返済は増えます。</span></p>
+<h2 id="keihi">元金の返済は経費にならない</h2>
+<p>借りたお金は収入にならないので、元金を返しても経費になりません。経費になるのは利息だけです。</p>
+<ul>
+ <li>元金は税金を払ったあとに残るお金から返します</li>
+ <li>毎年の元金の返済より税引後の利益が少ないと、手元のお金が減っていきます</li>
+ <li>減価償却費は経費でもお金が出ていかないので、元金の返済に回せます</li>
+</ul>
+<p>返済に必要な利益は、上の表の「返した元金」に税金の分を上乗せした額が目安です。税金の額は<a href="/kojin-zei/">個人事業主の手取りの早見表</a>か<a href="/houjinzei-keisan/">法人税の計算</a>で確かめられます。</p>
+<h2 id="yakuin">会社と役員でお金を貸し借りするとき</h2>
+<p>会社が役員や従業員にお金を貸すときは利息を取ります。利息が決まった利率より低いと、その差額が給与として課税されます。</p>
+<p class="cap">会社が自分のお金を貸す場合の利率（国税庁 No.2606）</p>
+<div class="tw"><table>
+ <thead><tr><th>貸した年</th><th>利率（年）</th></tr></thead>
+ <tbody><tr><td class="l">2026年（令和8年）</td><td>1.3%</td></tr><tr><td class="l">2022年〜2025年（令和4年〜令和7年）</td><td>0.9%</td></tr><tr><td class="l">2021年（令和3年）</td><td>1.0%</td></tr></tbody>
+</table></div>
+<p class="note" style="margin-top:8px">会社が銀行から借りたお金をそのまま貸すときは、その借入の利率です。1年の差額が5,000円以下なら課税されないなどの例外があります。</p>
 <p class="ask">独立すると、税金はいくらになるのか？<br>計算ツールで確かめてみてください。</p>
 <a class="cbtn nx" href="/kojin-zei/" data-cta="hensai_next_kojin">個人事業主の手取りの早見表</a>
 <style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>会社を辞めたら、国民健康保険と任意継続のどちらが安いかを比べます。<a href="/kokuho/" data-cta="rel_hensai_kokuho">国民健康保険と任意継続の比較</a></li><li>国民健康保険料は、住んでいる市区町村と所得で決まります。<a href="/kokuho-keisan/" data-cta="rel_hensai_kokuho-keisan">国民健康保険料の計算</a></li><li>会社を辞めた翌年も、前の年の所得で住民税がかかります。<a href="/taishoku-jumin/" data-cta="rel_hensai_taishoku-jumin">退職後の住民税の計算</a></li><li>いくら売れば赤字にならないかは、損益分岐点で分かります。<a href="/soneki-bunkiten/" data-cta="rel_hensai_soneki-bunkiten">損益分岐点の計算</a></li><li>個人事業から会社にするかは、所得がいくらかで損得が分かれます。<a href="/houjinnari/" data-cta="rel_hensai_houjinnari">法人成りの計算</a></li><li>申告の期限は、所得税・消費税・法人税でそれぞれ違います。<a href="/kakutei-shinkoku/" data-cta="rel_hensai_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>インボイスで課税事業者になった方は、2割特例のあとの消費税を確かめておきましょう。<a href="/niwari-tokurei/" data-cta="rel_hensai_niwari-tokurei">消費税の計算</a></li><li>中古の車を買ったら、耐用年数で毎年の経費が決まります。<a href="/chukosha-taiyonensu/" data-cta="rel_hensai_chukosha-taiyonensu">中古車の耐用年数の計算</a></li><li>人を1人雇うと、給料のほかに会社の負担がかかります。<a href="/yatou-hiyou/" data-cta="rel_hensai_yatou-hiyou">人を雇う費用の計算</a></li></ul>
@@ -233,9 +270,18 @@ body{overflow-x:clip}
 <p>日本政策金融公庫の新規開業・スタートアップ支援資金は、設備資金が20年以内・運転資金が10年以内です。どちらも据置期間はこの中の5年以内です。</p>
 <h3>金利はどこで確かめればいいですか？</h3>
 <p>日本政策金融公庫の「金利情報」のページに、融資制度ごとの基準利率が載っています。金利は毎月のように見直されます。</p>
+<h3>借入金の返済は経費になりますか？</h3>
+<p>経費になるのは利息だけです。元金の返済は借入金が減るだけなので経費になりません。</p>
+<h3>繰上返済をすると節税になりますか？</h3>
+<p>なりません。繰上返済で利息の合計は減りますが、経費になる利息も減ります。手元のお金が減るので資金繰りと合わせて決めます。</p>
+<h3>変動金利で借りた場合はどう計算しますか？</h3>
+<p>このツールは年利が最後まで変わらない前提です。金利が上がった場合を見たいときは年利を上げて入力し直してください。</p>
+<h3>返済予定表を紙やPDFにできますか？</h3>
+<p>毎月の返済予定表の上にある印刷のボタンから印刷できます。印刷の画面で保存先をPDFにすればPDFで保存できます。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.jfc.go.jp/n/rate/index.html">日本政策金融公庫「金利情報」（令和8年11月2日現在）</a></li>
   <li><a href="https://www.jfc.go.jp/n/finance/search/01_sinkikaigyou_m.html">日本政策金融公庫「新規開業・スタートアップ支援資金」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2606.htm">国税庁 No.2606「金銭を貸し付けたとき」</a>（令和8年4月1日現在法令等・所得税基本通達36-49）</li>
 </ul></div>
 
 <div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p>このページの数字は2026年11月に私が確かめました。もとにしているのは、日本政策金融公庫の数字です。</p><p><a href="/#auth">詳しいプロフィール</a></p></div>
@@ -316,11 +362,12 @@ var amt=document.getElementById("amt"),amtr=document.getElementById("amtr"),rate
 function sched(P,r,Y,S,m){
  var N=Y*12-S,i=r/100/12,bal=P,rows=[],tot=0,first=0,suePay=Math.floor(P*i),pmt=0,prin=Math.floor(P/N);
  if(m===1)pmt=i?P*i/(1-Math.pow(1+i,-N)):P/N;
+ var mon=[];
  for(var k=1;k<=Y*12;k++){var it=Math.floor(bal*i),pr=0;
   if(k>S){if(m===0){pr=(k===Y*12)?bal:prin;}else{pr=(k===Y*12)?bal:Math.round(pmt)-it;}}
-  pr=Math.min(pr,bal);bal-=pr;tot+=it;if(k===S+1)first=pr+it;
+  pr=Math.min(pr,bal);bal-=pr;tot+=it;if(k===S+1)first=pr+it;mon.push([pr,it,bal]);
   var yi=Math.floor((k-1)/12);if(!rows[yi])rows[yi]={p:0,i:0,b:0};rows[yi].p+=pr;rows[yi].i+=it;rows[yi].b=bal;}
- return {first:first,tot:tot,rows:rows,suePay:suePay,prin:prin,N:N};
+ return {first:first,tot:tot,rows:rows,suePay:suePay,prin:prin,N:N,mon:mon};
 }
 function render(){
  var P=Math.max(0,parseInt(amt.value,10)||0),r=Math.max(0,parseFloat(rate.value)||0),Y=+yr.value,S=Math.min(+sue.value,Y*12-1),x=sched(P,r,Y,S,meth);
@@ -332,8 +379,14 @@ function render(){
  document.getElementById("o-2").textContent=meth?"元金と利息を合わせて、毎月ほぼ同じ額を"+x.N+"回で返します":"元金は毎月"+f(x.prin)+"円ずつ、"+x.N+"回で返します";
  var h="";x.rows.forEach(function(w,k){h+="<tr><td class=\"c\">"+(k+1)+"</td><td>"+f(w.p)+"</td><td>"+f(w.i)+"</td><td>"+f(w.b)+"</td></tr>";});
  document.getElementById("tb").innerHTML=h;
+ var y0=+ky.value,m0=+km.value,hm="",ly=y0,lm=m0;
+ x.mon.forEach(function(w,k){var t=m0+k+1;ly=y0+Math.floor((t-1)/12);lm=(t-1)%12+1;hm+="<tr><td class=\"c\">"+(k+1)+"</td><td class=\"c\">"+ly+"年"+lm+"月</td><td>"+f(w[0]+w[1])+"</td><td>"+f(w[0])+"</td><td>"+f(w[1])+"</td><td>"+f(w[2])+"</td></tr>";});
+ document.getElementById("tbm").innerHTML=hm;
+ document.getElementById("o-3").textContent="最後の返済は"+ly+"年"+lm+"月です";
 }
-link(amt,amtr,render);[rate,yr,sue].forEach(function(e){e.addEventListener("input",render);e.addEventListener("change",render);});
+var ky=document.getElementById("ky"),km=document.getElementById("km");
+document.getElementById("prb").addEventListener("click",function(){window.print();});
+link(amt,amtr,render);[rate,yr,sue,ky,km].forEach(function(e){e.addEventListener("input",render);e.addEventListener("change",render);});
 seg("s-m",function(v){meth=v;},render);render();
 
 })();
