@@ -137,7 +137,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -215,6 +215,7 @@ body{overflow-x:clip}
    <select id="famo"><option value="0">0人</option><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option></select>
   </div>
  </div>
+ <div class="vd" id="vd"><b id="o-vd">1年の国民健康保険料は313,587円です</b><span id="o-vds">東京23区の令和8年度の料率で計算した額です</span></div>
  <div class="amt">
   <div><small>国民健康保険料<br>（1年）</small><b id="o-y">0<i>円</i></b><em>令和8年度</em></div>
   <div><small>1か月あたり</small><b id="o-m">0<i>円</i></b><em>12で割った額</em></div>
@@ -434,6 +435,8 @@ function render(){
  var a=Math.max(0,parseInt(inc.value,10)||0),g=kind?a:kyuyo7(a),fm=+fam.value,fo=Math.min(+famo.value,fm),R=curR(),x=kokuho(R,g,old,fm,fo);
  document.getElementById("l-inc").textContent=kind?"前の年の所得（売上から経費と青色申告特別控除を引いた額）":"前の年の給与の年収";
  document.getElementById("o-y").innerHTML=f(x.t)+"<i>円</i>";
+ document.getElementById("o-vd").textContent="1年の国民健康保険料は"+f(x.t)+"円です";
+ document.getElementById("o-vds").textContent=(R.f<0?"入力した料率":R.s+"の令和8年度の料率")+"で計算した額です";
  document.getElementById("o-m").innerHTML=f(Math.floor(x.t/12))+"<i>円</i>";
  document.getElementById("o-r").textContent=rd(x.red);
  document.getElementById("o-br").textContent="内訳は、医療分"+f(x.p[0])+"円・後期高齢者支援金分"+f(x.p[1])+"円・介護分"+f(x.p[2])+"円・子ども・子育て支援金分"+f(x.p[3])+"円です";

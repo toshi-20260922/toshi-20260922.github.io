@@ -137,7 +137,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}</style>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
@@ -180,8 +180,9 @@ body{overflow-x:clip}
    <select id="mon"><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9" selected="">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select>
   </div>
  </div>
+ <div class="vd" id="vd"><b id="o-vd">退職後に払う住民税は合計322,600円です</b><span id="o-vds">令和8年度の残りと令和9年度の住民税の合計です</span></div>
  <div class="amt">
-  <div><small>退職後に払う<br>令和8年度の残り</small><b id="o-a">0<i>円</i></b><em id="o-am">0か月分</em></div>
+  <div><small>令和8年度の<br>残り</small><b id="o-a">0<i>円</i></b><em id="o-am">0か月分</em></div>
   <div><small>令和9年度の<br>住民税</small><b id="o-b">0<i>円</i></b><em>2027年6月から</em></div>
   <div><small>退職後に払う<br>合計</small><b id="o-c">0<i>円</i></b><em>2つの合計</em></div>
  </div>
@@ -330,6 +331,7 @@ function render(){
  document.getElementById("o-am").textContent=x.n+"か月分";
  document.getElementById("o-b").innerHTML=f(x.y9)+"<i>円</i>";
  document.getElementById("o-c").innerHTML=f(x.rest+x.y9)+"<i>円</i>";
+ document.getElementById("o-vd").textContent="退職後に払う住民税は合計"+f(x.rest+x.y9)+"円です";
  document.getElementById("o-1").textContent="令和8年度の住民税は年"+f(x.y8)+"円で、辞めるまでに給料から"+f(x.paid)+"円引かれています";
  document.getElementById("o-2").textContent="令和9年度は、2026年に辞めるまでの給与"+f(x.a9)+"円で計算しています";
  document.getElementById("t-cap").textContent="2025年の年収"+f(a)+"円・東京23区・単身";

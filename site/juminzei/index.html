@@ -216,7 +216,7 @@ body{overflow-x:clip}
    <div class="seg" id="s-age"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜64歳</button></div>
   </div>
  </div>
- <div class="vd" id="vd"><b id="o-kk">住民税がかかります</b><span id="o-kke">均等割と所得割の両方がかかります</span></div>
+ <div class="vd" id="vd"><b id="o-kk">住民税がかかります</b><span id="o-kke">均等割と所得割の両方がかかります。かからないのは年収119万円までです</span></div>
  <div class="amt">
   <div><small>住民税<br>（年額）</small><b id="o-y">115,600<i>円</i></b><em>令和9年度</em></div>
   <div><small>月あたり</small><b id="o-m">9,633<i>円</i></b><em>12で割った額</em></div>
@@ -409,7 +409,7 @@ body{overflow-x:clip}
   var a=Math.max(0,parseInt(inc.value,10)||0),sh=hasSh?shaho(a,old):0,j=jumin(a,sh);
   document.getElementById("o-y").innerHTML=f(j.y)+"<i>円</i>";
   document.getElementById("o-kk").textContent=j.y===0?"住民税はかかりません":(j.sho===0?"均等割だけかかります":"住民税がかかります");
-  document.getElementById("o-kke").textContent=j.y===0?"令和9年度は年収119万円までかかりません（東京23区・単身）":(j.sho===0?"所得割はかかりません。均等割は年5,000円です":"均等割と所得割の両方がかかります");
+  document.getElementById("o-kke").textContent=j.y===0?"令和9年度は年収119万円までかかりません（東京23区・単身）":(j.sho===0?"所得割はかかりません。均等割は年5,000円です。かからないのは年収119万円までです":"均等割と所得割の両方がかかります。かからないのは年収119万円までです");
   document.getElementById("vd").className=j.y===0?"vd no":"vd";
   document.getElementById("o-m").innerHTML=f(Math.floor(j.y/12))+"<i>円</i>";
   document.getElementById("o-br").textContent=j.y===0?"この年収なら、令和9年度の住民税はかかりません":"内訳は、均等割"+f(j.kin)+"円・所得割"+f(j.sho)+"円です";
