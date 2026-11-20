@@ -96,6 +96,9 @@ def ds(p):
 
 # ---- 共通の部品(大阪のページから取る) ----
 STYLE = OSAKA[OSAKA.index('<style>'):OSAKA.index('</head>')]
+STYLE = re.sub(r'<link rel="icon" href="/favicon\.svg" type="image/svg\+xml">', '', STYLE)
+STYLE = re.sub(r'<link rel="apple-touch-icon" href="/apple-touch-icon\.png">', '', STYLE)
+STYLE = STYLE.rstrip()
 HEAD_END = '</head>'
 AUTH = re.search(r'<div class="auth" id="auth">.*?</div>', OSAKA, re.S).group(0)
 TOOLS_NAV = re.search(r'<nav class="tools">.*?</nav>', OSAKA, re.S).group(0)
@@ -123,7 +126,7 @@ def page(slug, title, desc, upd, body, script, cta, pic=PIC_YEN, auth=None):
         auth = AUTH
     url = 'https://taxtable.jp/%s/' % slug
     return ('<!doctype html>\n<html lang="ja"><head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="color-scheme" content="light">\n'
-            '<title>%s</title>\n<link rel="canonical" href="%s">\n<meta name="description" content="%s">\n%s</head>\n<body>\n'
+            '<title>%s</title>\n<link rel="canonical" href="%s">\n<meta name="description" content="%s">\n%s\n<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>\n<body>\n'
             '<header class="hd"><div class="wrap">\n %s\n <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>\n'
             ' <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="%s_head_marunage">経理丸投げの無料相談 →</a></div>\n</div></header>\n\n'
             '<main class="wrap">\n<div class="top">\n %s\n <p class="upd">%s</p>\n <h1>%s</h1>\n</div>\n\n%s\n%s\n%s\n%s'

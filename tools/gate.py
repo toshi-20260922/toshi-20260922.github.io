@@ -46,6 +46,18 @@ for f in files:
             bad(f, '早見表が計算の箱より上に無い', 'tools/hayami_first.json に見出しの id を足して finish.py を流す')
     if me and me != 'policy' and me not in allp:
         bad(f, 'pages.json に無いページ', me)
+    head = s.split('</head>', 1)[0]
+    def link_ok(rel, href):
+        for tag in re.findall(r'<link\b[^>]*>', head):
+            rm = re.search(r'\brel="([^"]*)"', tag)
+            hm = re.search(r'\bhref="([^"]*)"', tag)
+            if rm and hm and rel in rm.group(1).split() and hm.group(1) == href:
+                return True
+        return False
+    if not link_ok('icon', '/favicon.svg'):
+        bad(f, 'favicon', 'rel="icon" なし')
+    if not link_ok('apple-touch-icon', '/apple-touch-icon.png'):
+        bad(f, 'apple-touch-icon', 'なし')
 
 # 2 画面で数えるもの
 JS = r'''() => {

@@ -86,6 +86,29 @@ def fsx(me, s):
         return s
     return s.replace('</body>', FSX + '\n</body>', 1)
 
+# ファビコン(2026/11/20)。head に rel="icon" か rel="apple-touch-icon" が無いページは </head> の直前に足す。何度流しても同じ結果になる。
+ICON = '<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
+APPLE = '<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+def has_link(chunk, rel):
+    for tag in re.findall(r'<link\b[^>]*>', chunk):
+        m = re.search(r'\brel="([^"]*)"', tag)
+        if m and rel in m.group(1).split():
+            return True
+    return False
+def icons(s):
+    h = s.find('</head>')
+    if h < 0:
+        return s
+    head = s[:h]
+    add = ''
+    if not has_link(head, 'icon'):
+        add += ICON
+    if not has_link(head, 'apple-touch-icon'):
+        add += APPLE
+    if not add:
+        return s
+    return head + add + s[h:]
+
 changed = 0
 for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     me = os.path.basename(os.path.dirname(f))
@@ -94,6 +117,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = hayami_first(me, s)
     s = pubdate(me, s)
     s = fsx(me, s)
+    s = icons(s)
     if '<nav class="tools">' in s:
         s = re.sub(r'<nav class="tools">.*?</nav>', lambda m: nav_for(me), s, count=1, flags=re.S)
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)
