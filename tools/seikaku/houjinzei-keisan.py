@@ -12,7 +12,14 @@
 #  財務省「令和8年度 税制改正の解説」同(税率・年800万円・年10億円・適用期限に変更なし) https://www.mof.go.jp/tax_policy/tax_reform/outline/fy2026/explanation/PDF/p0504-0716.pdf
 #  国税庁 No.5762 欠損金の繰越控除(10年。平成30年4月1日前に開始した事業年度の分は9年) https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5762.htm
 #  地方法人税・防衛特別法人税の課税標準1,000円未満と税額100円未満の切り捨ては国税通則法の一般の決まりによる(上の資料には書かれていない)。
-# 最後に原本を確かめた日:2026-11-20
+#  国税庁 No.6371 端数計算(国税の課税標準額は1,000円未満切り捨て・税額は100円未満切り捨て。根拠は通法118〜120) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6371.htm
+#  国税庁「防衛特別法人税の概要」(基礎控除額の月数は1月未満切り上げ) https://www.nta.go.jp/publication/pamph/pdf/0025004-109_1.pdf
+#  総務省「法人住民税」(法人税割 1.0%・6.0%、均等割の表) https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_08.html と https://www.soumu.go.jp/main_content/000824971.pdf
+# 2026-11-21 に開けた原本:No.5759(令和8年4月1日現在法令等。17%は令和7年4月1日以後開始の欄の注6)・地方法人税の税率の改正のお知らせ・改正の概要2025 E.pdf・
+#   防衛特別法人税の概要・総務省 法人住民税(150790_08 と 000824971.pdf)・東京都主税局 特別法人事業税・No.6371・別表一の記載要領(令和8年版。15%・17%・19%の欄)。
+#   開けなかった:総務省 法人事業税(150790_09 と 000824961.pdf。3.5%・5.3%・7.0%は11-20に確かめたまま)・現行の国税通則法118条と119条の条文・地方法人税法の条文。
+# 2026-11-21:JS が書き換える前の文(計算の箱に直に書いた既定の結果)・事業年度の始まりの選択肢・17%の注の日付を足した
+# 最後に原本を確かめた日:2026-11-21
 import os, sys
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -169,5 +176,29 @@ async def body(pg):
     n += 1
     if '入力した所得を超えない中でいちばん近い行が黄色になります。' not in await pg.content():
         bad += 1; print('NG 黄色の行の文')
+    # JS が書き換える前の文(HTML に直に書いた既定の結果)。申し送り11の形
+    raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'houjinzei-keisan', 'index.html'), encoding='utf-8').read()
+    e = ref(5000000, 0, 12, 1, 0, 0, 12)
+    p10 = int(F(e['t'] * 1000, 5000000) + F(1, 2))
+    for label, want in (
+            ('o-a', '<b id="o-a">%s<i>円</i></b>' % format(e['t'], ',')),
+            ('o-b', '<b id="o-b">%d.%d<i>%%</i></b>' % (p10 // 10, p10 % 10)),
+            ('o-c', '<b id="o-c">%s<i>円</i></b>' % format(5000000 - e['t'], ',')),
+            ('o-1', '<li id="o-1">国（税務署）%s円・都道府県%s円・市区町村%s円</li>' % tuple(format(e[k], ',') for k in ('kuni', 'ken', 'shi'))),
+            ('結論', '所得500万円の会社が納める税金は、合計%s円（所得の%d.%d%%）です' % (format(e['t'], ','), p10 // 10, p10 % 10)),
+            ('入力の既定', 'id="inc" inputmode="numeric" value="5,000,000"'),
+            # No.5759:17%は令和7年4月1日以後に開始する事業年度の欄だけ。計算は17%を当てるので、選択肢と注はその期間を書く
+            ('始まりの選択肢', '<option value="0">2025年4月1日〜2026年3月31日</option>'),
+            ('17%の注', '2025年4月1日以後に始まる事業年度で所得が年10億円を超えるときは、年800万円以下の部分が17%')):
+        n += 1
+        if want not in raw:
+            bad += 1; print('NG 元の文', label, want)
+    # 10億円の前後:両方の始まりで15%と17%が切り替わる(2025年4月1日以後開始はどちらも17%)
+    for st in (1, 0):
+        for I, r17 in ((1000000000, False), (1000000001, True)):
+            got = await pg.evaluate('(a)=>window.__hk.calc.apply(null,a)', [I, 0, 12, st, 0, 0, 12]); n += 1
+            want = 8000000 * (17 if r17 else 15) // 100 + (I // 1000 * 1000 - 8000000) * 232 // 1000
+            if got['hz'] != want // 100 * 100:
+                bad += 1; print('NG 10億円の前後', I, st, got['hz'], want)
     return n, bad
 run('houjinzei-keisan', body)

@@ -15,8 +15,15 @@
 #  国税庁「2割特例 特設ページ」(令和5年10月1日から令和8年9月30日までの日の属する課税期間。3月決算法人は令和9年3月期まで)
 #   https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_2tokurei.htm
 #  2026-11-20:特集の頁からの3割特例のリーフレットは 0026004-099-01-1.pdf。0026002-095.pdf はこの日開けなかった。
+#  2026-11-21:0026002-095.pdf は開けた。題名は「インボイス制度に関する令和8年度税制改正について」(「3割特例の創設」は中の見出し)。
+#   届出の期限の例:個人は令和11年分の申告期限(令和12年4月1日)・12月決算法人は令和9年12月期の申告期限(令和10年2月29日)。
+#   この特例は前の期に2割特例か3割特例を使った事業者だけ(No.6505・2割特例の概要)。
+#  国税庁「2割特例(インボイス発行事業者となる小規模事業者に対する負担軽減措置)の概要」(事前の届出は不要・確定申告書に付記・特別控除税額は80%)
+#   https://www.nta.go.jp/publication/pamph/shohi/kaisei/202304/01.htm
+#  国税庁 No.6303「消費税および地方消費税の税率」(7.8%と2.2%。地方消費税は消費税額の78分の22)
 #  2026-11-20:飲食料品の税率を令和9年4月1日から2年間1%にする案(国税庁 令和8年9月の案内は法案の成立が前提)。成立は未確認。ページは10%だけで計算。
-# 最後に原本を確かめた日:2026-11-20
+#  2026-11-21:第222回国会 閣法第1号。令和8年11月6日に衆議院で可決・11月11日に参議院で委員会付託・参議院の議決と公布は空欄(参議院の議案情報)。まだ成立していない。
+# 最後に原本を確かめた日:2026-11-21
 import os, sys, re, datetime, calendar
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
@@ -98,6 +105,22 @@ async def body(pg):
     chk('既定 内訳の文の数字', [int(x.replace(',', '')) for x in re.findall(r'[\d,]+(?=円)', li)], [exp['ut'], exp['ko'], exp['ni']])
     chk('既定 判定', await pg.inner_text('#o-vd'), 'いちばん少ないのは簡易課税です')
     chk('既定 差額', num(re.search(r'より([\d,]+)円', await pg.inner_text('#o-vds')).group(1)), exp['hon'] - exp['kan'])
+    # JS が書き換える前の元の文(HTML に直に書いた既定の結果)が画面と同じか
+    raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'niwari-tokurei', 'index.html'), encoding='utf-8').read()
+    def moto(i):
+        m = re.search(r'id="%s"[^>]*>(.*?)</(?:b|p|li|span|em)>' % i, raw, re.S)
+        return re.sub(r'<[^>]+>', '', m.group(1)) if m else None
+    for i in ('o-msg', 'o-vd', 'o-vds', 'o-a', 'o-b', 'o-c', 'o-ce', 'o-1'):
+        chk('元の文 ' + i, moto(i), (await pg.inner_text('#' + i)).strip())
+    chk('元の文 簡易課税の額', num(moto('o-a')), exp['kan'])
+    chk('元の文 本則課税の額', num(moto('o-b')), exp['hon'])
+    chk('元の文 判定の箱の色', 'class="vd no" id="vd"' in raw, True)
+    # 届出の期限の特例は前の期に2割特例を使った事業者だけ。出典の文字は着いた先の題名
+    chk('条件 2割特例を使った法人', 'この期限は最後の期に2割特例を使った法人の場合です。' in raw, True)
+    chk('出典の文字', '0026002-095.pdf">国税庁「インボイス制度に関する令和8年度税制改正について」' in raw, True)
+    # 国税庁の例示:12月決算法人は令和10年2月29日・個人の令和11年分は令和12年4月1日
+    chk('例示 12月決算', houjin(12)[0][2], '2028年2月29日（火）')
+    chk('例示 個人 令和11年分', zurasu(datetime.date(2030, 3, 31))[0], datetime.date(2030, 4, 1))
     # 入力欄に値を入れて結果の箱を読む
     for uri, shi, men, gy in [(4274000, 1000000, 0, '70'), (12345678, 7777777, 3333333, '90'), (9999999, 2999999, 1, '40')]:
         await pg.fill('#uri', str(uri)); await pg.fill('#shi', str(shi)); await pg.fill('#men', str(men))

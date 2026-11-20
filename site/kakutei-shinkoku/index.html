@@ -154,7 +154,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="カレンダー"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="14" y="16" width="36" height="34" rx="4" fill="#ffffff" stroke="#0f3d31" stroke-width="3"/><rect x="14" y="16" width="36" height="9" rx="3" fill="#0f3d31"/><path d="M22 12v8M42 12v8" stroke="#0f3d31" stroke-width="3" stroke-linecap="round"/><text x="32" y="44" font-size="15" font-weight="700" text-anchor="middle" fill="#e08a2c" font-family="sans-serif">15</text></svg></div>
- <p class="upd">更新日：2026年11月20日（国税庁の令和8年分の案内で確かめました）</p>
+ <p class="upd">更新日：2026年11月21日（国税庁の令和8年分の案内で確かめました）</p>
  <h1>【確定申告の期限の早見表】いつからいつまで？2027年の期間と遅れたときの税金</h1>
 </div>
 <section class="hy1">
@@ -227,7 +227,7 @@ body{overflow-x:clip}
  <thead><tr><th class="nw">決算月</th><th>事業年度が終わる日</th><th>申告と納付の期限</th></tr></thead>
  <tbody id="tb"></tbody>
 </table></div>
-<p class="note" style="margin-top:8px">定款で決算の日の翌日から2か月以内に株主総会を開かないと決めているなどの法人は、税務署に申請すると申告の期限を1か月延ばせます。延ばせるのは申告だけで、納付の期限は延びません（延ばした期間の利子税がかかります）。</p>
+<p class="note" style="margin-top:8px">定款で決算の日の翌日から2か月以内に株主総会を開かないと決めているなどの法人は、税務署に申請すると法人税の申告の期限を1か月延ばせます。消費税の申告の期限は、法人税の延長を受けている法人が別に届出を出すと1か月延びます。延ばした期間に納める税金には、利子税がかかります。</p>
 <p class="ask">法人の税金はいくらになるのか？<br>早見表で確かめてみてください。</p>
 <a class="cbtn nx" href="/houjinzei/" data-cta="kakutei_next_houjinzei">法人税の早見表</a>
 
@@ -312,6 +312,9 @@ body{overflow-x:clip}
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/osirase/9205.htm">国税庁 タックスアンサー No.9205 延滞税について</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2072.htm">国税庁 タックスアンサー No.2072 青色申告特別控除</a></li>
   <li><a href="https://www.nta.go.jp/taxes/tetsuzuki/shinsei/annai/hojin/shinkoku/01.htm">国税庁「法人税、地方法人税及び防衛特別法人税の申告」（事業年度終了の日の翌日から2か月以内）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/tetsuzuki/shinsei/annai/hojin/annai/1554_12.htm">国税庁「C1-17 定款の定め等による申告期限の延長の特例の申請」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shohi/6610.htm">国税庁 タックスアンサー No.6610 法人に係る消費税の確定申告書の提出期限について</a></li>
+  <li><a href="https://www.nta.go.jp/law/joho-zeikaishaku/hojin/group_faq/25.htm">国税庁「通算法人の確定申告書に係る法人税の納付期限の延長」（延長された期間の利子税）</a></li>
   <li>法人税法第75条の2（申告期限の延長の特例）、地方税法第317条の3（確定申告書を出した人の住民税の申告）</li>
   <li><a href="https://www.nta.go.jp/law/tsutatsu/kihon/tsusoku/01/03/10.htm">国税通則法基本通達 第10条関係（期限が休日・土曜日・12月29日から31日に当たるとき）</a></li>
 </ul></div>
@@ -413,7 +416,7 @@ function render(){var k=kind.value;wk.hidden=(k!=="ho");
  var la="申告の期限",lb="納付の期限",lc="口座振替の日";
  if(k==="ho"){var h=houjin(+ki.value);set("a",h.d);set("b",h.d);document.getElementById("o-c").textContent=left(h.d)+"日";document.getElementById("e-c").textContent="期限まで";lc="残り";
   document.getElementById("o-1").textContent=ymd(h.e)+"に終わる事業年度の期限です";
-  document.getElementById("o-2").textContent="申告の期限を1か月延ばす申請をしていても、納付の期限は"+ymd(h.d)+"のままです";}
+  document.getElementById("o-2").textContent="申告の期限を1か月延ばした法人は、延ばした期間に納める税金に利子税がかかります";}
  else{var x=D[k];set("a",x.a);set("b",x.b,"");set("c",x.c,"");if(!x.c)document.getElementById("o-c").textContent="—";
   if(k==="kan"){la="出せる期限";document.getElementById("e-b").textContent="";document.getElementById("o-b").textContent="—";}
   var L=left(x.a);

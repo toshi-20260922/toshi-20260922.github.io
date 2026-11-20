@@ -7,8 +7,15 @@
 #  国税庁「法人の減価償却制度の改正に関するQ&A」(平成24年2月)参考資料 200%定率法の償却率・改定償却率・保証率 https://www.nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2011/pdf/1112kaisei_faq.pdf
 #  国税庁 資料編(定額法の償却率・耐用年数省令別表第八) https://www.nta.go.jp/law/joho-zeikaishaku/shotoku/shinkoku/070412/pdf/3.pdf
 #  国税庁「主な減価償却資産の耐用年数表」(車両・運搬具:その他6年・貨物その他5年・小型車とダンプ式4年・二輪三輪3年) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/pdf/2100_01.pdf
-# 最後に原本を確かめた日:2026-11-20
-# 端数:期ごとの償却費の1円未満は切り捨て(ページの今の動き。法人の償却限度額を超えない向き)。
+#  国税庁「法人の減価償却制度の改正に関するQ&A」(平成19年4月) https://www.nta.go.jp/law/joho-zeikaishaku/hojin/h19/genkaqa.pdf
+#   事業年度の中途で事業の用に供したとき=年の額÷事業年度の月数×事業の用に供した日から期末までの月数(令59①一)。月数は暦に従い1月に満たない端数は1月
+#   届出をしないときは法定償却方法(令53)。残存簿価1円まで(令61②③)
+#  国税庁 No.2100「減価償却のあらまし」(令和8年4月1日現在法令等):個人の法定の償却方法は定額法
+#  国税庁 青色申告決算書の書き方(令和7年分):月の中途で取得した月は1か月として数える・届け出ていない方は定額法
+#  国税庁 確定申告書等作成コーナー「減価償却費の端数処理」:個人の減価償却費の小数点以下の端数は切り上げ
+#   https://www.keisan.nta.go.jp/r5yokuaru/aoiroshinkoku/hitsuyokeihi/genkashokyakuhi/hasushori.html
+# 最後に原本を確かめた日:2026-11-21(e-Gov の条文そのものは開けていない。条文番号は国税庁の上の資料で確かめた)
+# 端数:期ごとの償却費の1円未満は、法人は切り捨て(償却限度額を超えない向き。条文に定めなし)、個人事業主は切り上げ(作成コーナーと同じ。2026-11-21 にページを切り捨てから直した)。
 import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -43,7 +50,8 @@ def ref_sched(cost, n, corp, mon1):
                 ann = rev * kai
         else:
             ann = cost * GAKU[n]
-        a = int(ann * mo / 12)          # 1円未満切り捨て
+        x = ann * mo / 12
+        a = int(x) if corp else -int(-x // 1)   # 1円未満:法人は切り捨て・個人事業主は切り上げ
         if a > book - 1:
             a = book - 1                # 1円を残す
         book -= a
@@ -52,6 +60,23 @@ def ref_sched(cost, n, corp, mon1):
 
 async def body(pg):
     n = bad = 0
+    # 0 個人事業主の1円未満は切り上げ(作成コーナー):1,234,567円×0.500=617,283.5円→617,284円。法人は切り捨て:1,000,001円×0.333=333,000.333→333,000円
+    n += 2
+    if ref_sched(1234567, 2, 0, 12) != [617284, 617282]:
+        bad += 1; print('NG 個人の切り上げの例', ref_sched(1234567, 2, 0, 12))
+    if ref_sched(1000001, 6, 1, 12)[0] != 333000:
+        bad += 1; print('NG 法人の切り捨ての例', ref_sched(1000001, 6, 1, 12))
+    # 0-2 計算の箱に直に書いた既定の結果(JS が書き換える前の HTML)が、既定の入力の結果と同じか
+    raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'chukosha-taiyonensu', 'index.html'), encoding='utf-8').read()
+    d_m = (2026 * 12 + 12) - (2022 * 12 + 9); d_y = ref_life(6, d_m); d_mon = (3 - 12) % 12 + 1; d_s = ref_sched(3000000, d_y, 1, d_mon)
+    for want in ('<p class="res-msg" id="o-msg">経過%dか月（%d年%dか月落ち）です。今期に使う月数は%dか月です。</p>' % (d_m, d_m // 12, d_m % 12, d_mon),
+                 '<b id="o-a">%d<i>年</i></b><em id="o-ae">法定6年</em>' % d_y,
+                 '<b id="o-b">{:,}<i>円</i></b><em id="o-be">{}か月分</em>'.format(d_s[0], d_mon),
+                 '<b id="o-c">{:,}<i>円</i></b><em id="o-ce">12か月分</em>'.format(d_s[1]),
+                 '<li id="o-1">定率法・償却率1.000で計算しました。期ごとの額：' + '→'.join('{:,}円'.format(x) for x in d_s) + '</li>'):
+        n += 1
+        if want not in raw:
+            bad += 1; print('NG 既定の結果(HTML)', want)
     # 1 耐用年数:関数を全部の月で
     for L in (3, 4, 5, 6):
         for m in range(0, 400):
@@ -82,7 +107,7 @@ async def body(pg):
             await pg.select_option('#' + i, str(v))
         await pg.fill('#price', str(price))
         return (num(await pg.inner_text('#o-a')), num(await pg.inner_text('#o-b')), num(await pg.inner_text('#o-c')),
-                await pg.inner_text('#o-msg'), await pg.inner_text('#o-1'), await pg.inner_text('#o-be'))
+                await pg.inner_text('#o-msg'), await pg.inner_text('#o-1'), await pg.inner_text('#o-be'), await pg.inner_text('#o-ce'))
     cases = []
     for kind in (6, 5, 4, 3):
         for (ry, rm, uy, um) in ((2026, 12, 2026, 12), (2026, 11, 2026, 12), (2025, 9, 2026, 12), (2025, 8, 2026, 12),
@@ -90,10 +115,12 @@ async def body(pg):
                                  (2022, 9, 2026, 12), (2005, 1, 2028, 12), (2021, 4, 2025, 1)):
             for corp, fy in ((1, 3), (1, 12), (1, 11), (0, 12)):
                 cases.append((corp, fy, kind, ry, rm, uy, um, 3000000))
-    cases += [(1, 3, 6, 2022, 9, 2026, 12, 1234567), (0, 12, 6, 2025, 9, 2026, 1, 9999999), (1, 6, 5, 2025, 1, 2026, 7, 4567891)]
+    cases += [(0, 12, k, ry, 1, 2026, um, pr) for k in (6, 4) for ry in (2022, 2025, 2026) for um in (1, 6, 12) for pr in (1234567, 999999, 1000001)]
+    cases += [(1, 3, 6, 2022, 9, 2026, 4, 3000000), (1, 12, 4, 2020, 1, 2027, 1, 1234567),
+              (1, 3, 6, 2022, 9, 2026, 12, 1234567), (0, 12, 6, 2025, 9, 2026, 1, 9999999), (1, 6, 5, 2025, 1, 2026, 7, 4567891)]
     for c in cases:
         corp, fy, kind, ry, rm, uy, um, price = c
-        a, b, cc, msg, li, be = await screen(*c)
+        a, b, cc, msg, li, be, ce = await screen(*c)
         m = (uy * 12 + um) - (ry * 12 + rm)
         yrs = ref_life(kind, m)
         mon1 = ((fy if corp else 12) - um) % 12 + 1
@@ -101,7 +128,7 @@ async def body(pg):
         rate = (TEI[yrs][0] if corp else GAKU[yrs])
         exp_rate = '%d.%03d' % (rate * 1000 // 1000, rate * 1000 % 1000)
         n += 1
-        ok = (a == yrs and b == s[0] and cc == (s[1] if len(s) > 1 else 0) and ('今期に使う月数は%dか月' % mon1) in msg
+        ok = (a == yrs and b == s[0] and cc == (s[1] if len(s) > 1 else 0) and ce == ('12か月分' if len(s) > 1 else '') and ('今期に使う月数は%dか月' % mon1) in msg
               and be == '%dか月分' % mon1 and ('償却率' + exp_rate) in li and ('定率法' if corp else '定額法') in li
               and li.endswith('→'.join('{:,}円'.format(x) for x in s))
               and (('経過%dか月（%d年%dか月落ち）' % (m, m // 12, m % 12)) in msg if m else '新車' in msg))

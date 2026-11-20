@@ -155,7 +155,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="損益分岐点のグラフ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><path d="M14 48V14M14 48h36" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"/><path d="M14 36h36" stroke="#9fc4b6" stroke-width="2.5"/><path d="M14 48L48 16" stroke="#e3b465" stroke-width="3" stroke-linecap="round"/><path d="M14 36L48 26" stroke="#0f3d31" stroke-width="3" stroke-linecap="round"/><circle cx="35" cy="29" r="4" fill="#ffffff" stroke="#b5473a" stroke-width="2.5"/></svg></div>
- <p class="upd">公開日：2026年11月16日　更新日：2026年11月20日</p>
+ <p class="upd">公開日：2026年11月16日　更新日：2026年11月21日</p>
  <h1>【損益分岐点の計算】売上がいくらで黒字になる？変動費と固定費から計算</h1>
 </div>
 <section class="hy1">
@@ -165,7 +165,7 @@ body{overflow-x:clip}
  <thead><tr><th>売上高の<br>増減</th><th>売上高<br>（円）</th><th>限界利益<br>（円）</th><th>利益<br>（円）</th></tr></thead>
  <tbody id="tb"></tbody>
 </table></div>
-<p class="note" style="margin-top:8px">利益がマイナスの行は赤字です。売上高が減っても固定費は減らないので、利益は売上高より大きな割合で減ります。</p>
+<p class="note" style="margin-top:8px" id="o-3">利益がマイナスの行は赤字です。売上高が減っても固定費は減らないので、利益は売上高より大きな割合で減ります。</p>
 <p class="ask">会社の利益にかかる税金はいくらか？<br>計算ツールで確かめてみてください。</p>
 <a class="cbtn nx" href="/houjinzei-keisan/" data-cta="soneki_next_houjinzei">法人税の計算</a>
 <p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
@@ -188,13 +188,13 @@ body{overflow-x:clip}
   </div>
  </div>
  <div class="amt wide">
-  <div><small>損益分岐点<br>売上高</small><b id="o-a">0<i>円</i></b><em>利益が0になる売上</em></div>
-  <div><small>損益分岐点<br>比率</small><b id="o-b">0<i>%</i></b><em>低いほど赤字になりにくい</em></div>
-  <div><small>安全余裕率</small><b id="o-c">0<i>%</i></b><em>売上が減っても黒字の幅</em></div>
+  <div><small>損益分岐点<br>売上高</small><b id="o-a">42,500,000<i>円</i></b><em>利益が0になる売上</em></div>
+  <div><small>損益分岐点<br>比率</small><b id="o-b">85.0<i>%</i></b><em>低いほど赤字になりにくい</em></div>
+  <div><small>安全余裕率</small><b id="o-c">15.0<i>%</i></b><em>売上が減っても黒字の幅</em></div>
  </div>
  <ul>
-  <li id="o-1">限界利益0円・限界利益率0%・利益0円</li>
-  <li id="o-2">売上高が0円減ると、利益が0になります</li>
+  <li id="o-1">限界利益20,000,000円・限界利益率40.0%・利益3,000,000円</li>
+  <li id="o-2">売上高が7,500,000円減ると、利益が0になります</li>
   <li>売上高・変動費・固定費は、同じ期間（1年か1か月）の額を入れます</li>
  </ul>
 </div>
@@ -354,17 +354,19 @@ function f(n){return Math.round(n).toLocaleString("ja-JP");}
 function num(el){return Math.max(0,parseInt(String(el.value).replace(/[^0-9]/g,""),10)||0);}
 function fmt(el){el.value=num(el).toLocaleString("ja-JP");}
 function sg(n){var a=Math.round(Math.abs(n));return (n<0&&a>0?"−":"")+a.toLocaleString("ja-JP");}
-function t10(a,b){return Math.round(Math.abs(a)*1000/b)*(a<0?-1:1);}
+function rd(a,b,c,e){var x,n,d,g,q;e=e||0;if(typeof BigInt!=="function"){x=(a*b-e)/c;return Math.round(Math.abs(x))*(x<0?-1:1);}
+ n=BigInt(a)*BigInt(b)-BigInt(e);d=BigInt(c);g=n<BigInt(0);if(g)n=-n;q=(n*BigInt(2)+d)/(d*BigInt(2));return Number(g?-q:q);}
 function pt(t){return (t<0?"−":"")+(Math.abs(t)/10).toFixed(1);}
 var sal=document.getElementById("sal"),vc=document.getElementById("vc"),fc=document.getElementById("fc");
 function calc(S,V,F){var m=S-V,mr=S>0?m/S:0,ok=S>0&&m>0,bep=ok?F*S/m:0;return {m:m,mr:mr,ok:ok,bep:bep,br:ok?F*100/m:0,pf:m-F};}
-function render(){var S=num(sal),V=num(vc),F=num(fc),r=calc(S,V,F),bt=r.ok?t10(F,r.m):0,gap=r.ok?f(Math.abs(S*r.pf/r.m)):"";
- document.getElementById("o-a").innerHTML=(r.ok?f(r.bep):"—")+"<i>円</i>";
+function render(){var S=num(sal),V=num(vc),F=num(fc),r=calc(S,V,F),bt=r.ok?rd(F,1000,r.m):0,gap=r.ok?f(rd(S,Math.abs(r.pf),r.m)):"";
+ document.getElementById("o-a").innerHTML=(r.ok?f(rd(F,S,r.m)):"—")+"<i>円</i>";
  document.getElementById("o-b").innerHTML=(r.ok?pt(bt):"—")+"<i>%</i>";
  document.getElementById("o-c").innerHTML=(r.ok?pt(1000-bt):"—")+"<i>%</i>";
- document.getElementById("o-1").textContent="限界利益"+sg(r.m)+"円・限界利益率"+pt(S>0?t10(r.m,S):0)+"%・利益"+sg(r.pf)+"円";
+ document.getElementById("o-1").textContent="限界利益"+sg(r.m)+"円・限界利益率"+(S>0?pt(rd(r.m,1000,S)):"—")+"%・利益"+sg(r.pf)+"円";
  document.getElementById("o-2").textContent=!r.ok?(S===0?"売上高が0円なので、損益分岐点売上高を計算できません":"変動費が売上高以上なので、売上高を増やしても黒字になりません"):(r.pf>=0?"売上高が"+gap+"円減ると、利益が0になります":"売上高があと"+gap+"円増えると、利益が0になります");
- var t="";[-30,-20,-10,0,10,20,30].forEach(function(d){var s=S*(100+d)/100,m=r.m*(100+d)/100,pf=(r.m*(100+d)-F*100)/100;
+ document.getElementById("o-3").textContent="利益がマイナスの行は赤字です。"+(S===0?"":r.m<0?"変動費が売上高を上回っているので、売上高が増えるほど赤字は大きくなります。":r.m===0?"変動費が売上高と同じなので、売上高が増減しても利益は変わりません。":F===0?"固定費が0円なので、利益は売上高と同じ割合で増減します。":r.pf>0?"売上高が減っても固定費は減らないので、利益は売上高より大きな割合で減ります。":r.pf===0?"売上高が減っても固定費は減らないので、売上高が減ると赤字になります。":"売上高が減っても固定費は減らないので、売上高が減ると赤字は大きくなります。");
+ var t="";[-30,-20,-10,0,10,20,30].forEach(function(d){var s=rd(S,100+d,100),m=rd(r.m,100+d,100),pf=rd(r.m,100+d,100,F*100);
   t+="<tr"+(d===0?" class=\"hit\"":"")+"><td>"+(d>0?"+":(d<0?"−":""))+Math.abs(d)+"%</td><td>"+f(s)+"</td><td>"+sg(m)+"</td><td>"+sg(pf)+"</td></tr>";});
  document.getElementById("tb").innerHTML=t;}
 [sal,vc,fc].forEach(function(e){e.addEventListener("input",render);e.addEventListener("blur",function(){fmt(e);});});

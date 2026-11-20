@@ -6,8 +6,14 @@
 #      所得税基本通達36-40・36-41 https://www.nta.go.jp/law/tsutatsu/kihon/shotoku/05/04.htm
 #      国税庁 No.2597「使用人に社宅や寮などを貸したとき」 https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2597.htm
 #      国税庁「主な減価償却資産の耐用年数表」 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/pdf/2100_01.pdf
-# 端数:原本に端数処理の定めは無い。ページは「各項目の1円未満を四捨五入」と断っているので、その断りどおりかを見る。
-# 最後に原本を確かめた日:2026-11-20
+#      国税庁 質疑応答事例「役員に貸与したマンションの管理費」 https://www.nta.go.jp/law/shitsugi/gensen/03/29.htm
+#      (家賃に入っている管理費等は、含めた総額で通常の賃貸料の額を計算して差し支えない。
+#       2026-11-21 に入力欄の名前を「管理費を除く」から「管理費を含む」に直した)
+#      国税庁 質疑応答事例「役員に貸与したマンションの共用部分の取扱い」 https://www.nta.go.jp/law/shitsugi/gensen/03/28.htm
+#      平成7年課法8-1(豪華社宅。240㎡超は総合勘案・240㎡以下でもプール等) https://www.nta.go.jp/law/tsutatsu/kobetsu/shotoku/gensen/050403/01.htm
+# 端数:原本(No.2600・No.2597・基本通達36-40〜36-48)に端数処理の定めは無い(2026-11-21 に開いて確かめた)。
+#      ページは「各項目の1円未満を四捨五入」と断っているので、その断りどおりかを見る。
+# 最後に原本を確かめた日:2026-11-21
 import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -153,6 +159,14 @@ async def body(pg):
         ('鉄骨34年', '肉厚4mm超の鉄骨（34年）' in html),
         ('従業員50%', '従業員から賃貸料相当額の50%以上を受け取っていれば' in html),
         ('令和8年4月1日現在', '令和8年4月1日現在' in html),
+        ('家賃の欄の名前(管理費を含む)', '<label for="rent">会社が家主に払う家賃（月・管理費を含む）</label>' in html),
+        ('管理費を除くが残っていない', '管理費を除く' not in html),
+        ('従業員:小規模と同じ算式', '建物の大きさにかかわらず小規模な住宅と同じ算式' in html),
+        ('豪華社宅240㎡以下のプール', '240㎡以下でも、プールなど一般の住宅にない設備があるものは豪華社宅になります' in html),
+        ('共用部分の按分', '共用部分の床面積を持分で按分して部屋の床面積に足して判定します' in html),
+        ('出典 No.2600', 'href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2600.htm">国税庁 No.2600「役員に社宅などを貸したとき」' in html),
+        ('出典 No.2597', 'href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2597.htm">国税庁 No.2597「使用人に社宅や寮などを貸したとき」' in re.sub(r'</?span[^>]*>', '', html)),
+        ('既定の内訳の255円', ref(1, '70', 6000000, 3000000, 0, 0)['p2'] == 255),
         ('既定の受取額18,855', 'id="get" class="w" type="text" inputmode="numeric" value="%s"' % format(e0['v'], ',') in html),
     ]:
         n += 1
