@@ -100,6 +100,11 @@ HEAD_END = '</head>'
 AUTH = re.search(r'<div class="auth" id="auth">.*?</div>', OSAKA, re.S).group(0)
 TOOLS_NAV = re.search(r'<nav class="tools">.*?</nav>', OSAKA, re.S).group(0)
 
+def hy_wrap(sec):
+    # 早見表を計算の箱の前に置く
+    return ('<section class="hy1">\n' + sec.rstrip()
+            + '\n<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>\n</section>\n\n')
+
 def auth_box(src):
     # 監修枠。src はそのページの出典の機関名（「、」は使わない）
     return ('<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p>'
@@ -323,7 +328,7 @@ def pref_page(cfg):
           + '<h3>試用期間なら最低賃金より低くてもいいですか？</h3>\n<p>%s長の許可を受けていなければ下げられません。許可を受けずに下げた分は、最低賃金との差額を払うことになります。</p>\n' % cfg['kyoku']
           + '<h3>最低賃金を下回っていたらどうなりますか？</h3>\n<p>最低賃金に届かない部分の決まりは無効になり、最低賃金と同じ額で決めたものとみなされます。差額を払う必要があり、%sの最低賃金を払わなかったときは50万円以下の罰金の決まりがあります。</p>\n' % n)
     src = '<div class="src">出典・参考（2026年11月確認）\n <ul>\n%s%s </ul>\n</div>\n' % (cfg['src'], SRC_COMMON)
-    body = calc + '\n' + share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + FUKUMU + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
+    body = hy_wrap(sec1) + calc + '\n' + share(slug) + '\n' + intro + '\n' + toc + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + FUKUMU + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
     js = JS_PREF % dict(base=m, old=o, pn=n, date=ds(p), eff='2026-%02d-%02dT00:00:00+09:00' % (p['mo'], p['da']), ind=json.dumps(IND, ensure_ascii=False), ex_h=ex_h, ex_d=dex, ex_m=sm)
     html_ = page(slug, title, desc, upd, body, js, cta, auth=auth_box(cfg['kyoku'] + 'と厚生労働省'))
     os.makedirs(os.path.join(SITE, slug), exist_ok=True)
@@ -915,7 +920,7 @@ def all_page():
           '<h3>正社員にも最低賃金はかかりますか？</h3>\n<p>かかります。正社員・パート・アルバイトなど働き方にかかわらず、働く人すべてにかかります。月給の人は時給に直して比べます。</p>\n'
           '<h3>最低賃金を下回っていたらどうなりますか？</h3>\n<p>最低賃金に届かない部分の決まりは無効になり、最低賃金と同じ額で決めたものとみなされます。差額を払う必要があり、地域別最低賃金を払わなかったときは50万円以下の罰金の決まりがあります。</p>\n')
     src = '<div class="src">出典・参考（2026年11月確認）\n <ul>\n%s </ul>\n</div>\n' % SRC_COMMON
-    body = calc + '\n' + share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + FUKUMU + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
+    body = hy_wrap(sec1) + calc + '\n' + share(slug) + '\n' + intro + '\n' + toc + '\n' + sec2 + '\n' + sec3 + '\n' + FUKUMU + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
     js = JS_ALL % dict(pr=json.dumps(pr, ensure_ascii=False))
     os.makedirs(os.path.join(SITE, slug), exist_ok=True)
     open(os.path.join(SITE, slug, 'index.html'), 'w', encoding='utf-8').write(page(slug, title, desc, upd, body, js, cta, auth=auth_box('厚生労働省')))

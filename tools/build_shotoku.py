@@ -241,7 +241,7 @@ JS = r'''(function(){
 
 PIC = '<div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="収入から所得へ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="12" y="16" width="16" height="32" rx="2" fill="#0f3d31"/><rect x="36" y="28" width="16" height="20" rx="2" fill="#00775a"/><path d="M29 24h6l-3-4m3 4-3 4" fill="none" stroke="#e08a2c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="42" font-size="11" font-weight="700" text-anchor="middle" fill="#ffffff" font-family="sans-serif">所</text></svg></div>'
 
-body = calc_html + '\n' + B.share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
+body = B.hy_wrap(sec1) + calc_html + '\n' + B.share(slug) + '\n' + intro + '\n' + toc + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
 h = B.page(slug, title, desc, upd, body, JS, cta, pic=PIC, auth=B.auth_box('国税庁'))
 close_old = B.close_box(cta)
 close_new = ('<div class="close"><p class="close-h"><span class="nw">所得の計算と確定申告を、</span><span class="nw">まるごと任せる</span></p>'

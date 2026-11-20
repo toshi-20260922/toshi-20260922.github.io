@@ -22,6 +22,19 @@ MAIN='''<main class="wrap">
  <p class="upd">更新日：2026年11月19日</p>
  <h1>'''+T+'''</h1>
 </div>
+<section class="hy1">
+<h2 id="list">売上高が増減したときの利益</h2>
+<p>下で入力した数字で、変動費率と固定費が変わらない場合の利益です。</p>
+<div class="tw"><table>
+ <thead><tr><th>売上高の<br>増減</th><th>売上高<br>（円）</th><th>限界利益<br>（円）</th><th>利益<br>（円）</th></tr></thead>
+ <tbody id="tb"></tbody>
+</table></div>
+<p class="note" style="margin-top:8px">利益がマイナスの行は赤字です。売上高が減っても固定費は減らないので、利益は売上高より大きな割合で減ります。</p>
+<p class="ask">会社の利益にかかる税金はいくらか？<br>計算ツールで確かめてみてください。</p>
+<a class="cbtn nx" href="/houjinzei-keisan/" data-cta="soneki_next_houjinzei">法人税の計算シミュレーション</a>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
+
 <div class="sum" id="calc">
  <div class="h"><span>結論</span>売上高・変動費・固定費を入力すると、赤字にならない売上高を表示します</div>
  <div class="in">
@@ -56,9 +69,9 @@ MAIN='''<main class="wrap">
 </div>
 <p>損益分岐点は、利益がちょうど0になる売上高です。売上高がこの額を上回れば黒字で、下回れば赤字です。<span class="mk">損益分岐点売上高は、固定費を限界利益率（1−変動費率）で割って出します。</span></p>
 <nav class="toc"><div class="t">目次</div><ol>
+ <li><a href="#list">売上高が増減したときの利益</a></li>
  <li><a href="#shiki">損益分岐点の計算式</a></li>
  <li><a href="#rei">損益分岐点の計算例</a></li>
- <li><a href="#list">売上高が増減したときの利益</a></li>
  <li><a href="#wake">変動費と固定費の分け方</a></li>
  <li><a href="#sageru">損益分岐点を下げる3つの方法</a></li>
  <li><a href="#qa">損益分岐点でよく聞かれること</a></li>
@@ -88,16 +101,6 @@ MAIN='''<main class="wrap">
  <li>安全余裕率：100% − 85% ＝ 15%</li>
 </ul>
 <p>この会社は、売上高が15%（750万円）減ると利益が0になります。いまの利益は、限界利益2,000万円から固定費1,700万円を引いた300万円です。</p>
-
-<h2 id="list">売上高が増減したときの利益</h2>
-<p>上で入力した数字で、変動費率と固定費が変わらない場合の利益です。</p>
-<div class="tw"><table>
- <thead><tr><th>売上高の<br>増減</th><th>売上高<br>（円）</th><th>限界利益<br>（円）</th><th>利益<br>（円）</th></tr></thead>
- <tbody id="tb"></tbody>
-</table></div>
-<p class="note" style="margin-top:8px">利益がマイナスの行は赤字です。売上高が減っても固定費は減らないので、利益は売上高より大きな割合で減ります。</p>
-<p class="ask">会社の利益にかかる税金はいくらか？<br>計算ツールで確かめてみてください。</p>
-<a class="cbtn nx" href="/houjinzei-keisan/" data-cta="soneki_next_houjinzei">法人税の計算シミュレーション</a>
 
 <h2 id="wake">変動費と固定費の分け方</h2>
 <p>変動費は売上高に比例して増える費用で、固定費は売上高が0でもかかる費用です。</p>
