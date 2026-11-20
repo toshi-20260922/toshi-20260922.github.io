@@ -13,6 +13,8 @@
 #  国税庁 No.2040 予定納税(予定納税基準額15万円以上・第1期 7月1日から7月31日・第2期 11月1日から11月30日)
 #   https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2040.htm
 #  国税庁 No.1900 給与所得者で確定申告が必要な人(2,000万円・20万円)  https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1900.htm
+#  国税庁 No.1600 公的年金等の課税関係(公的年金等の収入金額が400万円以下・ほかの所得が20万円以下なら確定申告は要らない・住民税の申告は要ることがある)
+#   https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1600.htm
 #  国税庁 No.2024 確定申告を忘れたとき(無申告加算税 5%/10%・15%・25%/15%・20%・30%。50万円・300万円の境目。1か月以内・過去5年の条件)
 #   https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2024.htm
 #  国税庁 No.9205 延滞税について・「延滞税の割合」(令和8年1月1日から12月31日:年2.8%・2か月を過ぎた日以後 年9.1%)
@@ -82,6 +84,16 @@ LIST = [  # 「令和8年分の申告と納付の期限の一覧」の行ごと�
     '法人税・法人の消費税|事業年度が終わった日の翌日から2か月以内納付の期限も同じ日',
 ]
 WHO = [['1', '2,000'], ['1', '20'], ['20']]                                # 「確定申告をしなければならない人」の右の列の数字
+# 2026-11-20:「確定申告が要るかのケース別早見表」が足された(No.1900 の1〜3・No.1600・No.2030)。
+# 行ごとに (左の列に出る数字, 右の列の頭の言葉, 右の列の小さい字に出る数字)
+CASE = [(['20'], '要らない', []),            # 給与を1か所から受け年末調整済み・ほかの所得20万円以下(No.1900 の2の裏)
+        (['2,000'], '要る', []),             # No.1900 の1
+        (['2', '20'], '要る', []),           # No.1900 の3
+        ([], '要る', []),                    # 個人事業主で所得税がかかる(No.2020)
+        (['400', '20'], '要らない', []),     # No.1600
+        ([], '義務はない', []),              # 赤字(税額が出ない。No.2020)
+        ([], '義務はない', ['5']),           # 還付申告は5年間(No.2030)
+        ([], '控除を受けるなら申告する', [])]
 LATE = [(['1'], ['5']), ([], ['5']), ([], ['10', '50', '300', '15', '300', '25']), ([], ['15', '50', '300', '20', '300', '30']),
         ([], ['2.8', '2', '9.1', '2026', '1', '1', '12', '31'])]      # 「期限に遅れたときにかかる税金」の左と右の列の数字
 SENT = [  # 表の外の文に出る数字と日付(原本の値から組み立てた文がページにそのままあるか)
@@ -101,6 +113,8 @@ SENT = [  # 表の外の文に出る数字と日付(原本の値から組み立�
     '法人税と法人の消費税は、事業年度が終わった日の翌日から2か月以内に申告して納めます。',
     '税務署に申請すると申告の期限を1か月延ばせます。',
     '所得の合計が所得控除の合計を超えて税金が出るときに確定申告をします。',
+    '年末調整を受けない方の給与と給与以外の所得の合計が20万円を超えると要ります。',
+    '還付申告は、払いすぎた所得税を返してもらう申告です。翌年1月1日から5年の間に出せます。',
 ]
 def nums(t): return re.findall(r'\d[\d,.]*', t)
 def flat(t): return re.sub(r'\s+', '', t)
@@ -149,14 +163,25 @@ async def body(pg):
         chk('曜日 ' + m.group(0), (m.group(1) or '2027', m.group(4)), ('2027', W[d.weekday()]))
     # 3 一覧の表・しなければならない人の表・遅れたときの表
     tb = await pg.evaluate("""()=>[...document.querySelectorAll('main table')].map(t=>[...t.tBodies[0].rows].map(r=>[...r.cells].map(c=>c.innerText)))""")
+    # 表は見出しの id で選ぶ(表が足されても順番でずれないように)
+    async def by_id(i):
+        return await pg.evaluate("""(i)=>{var t=document.querySelector(':is(#'+i+' ~ .tw):not(#'+i+' ~ .tw ~ .tw) table');return [...t.tBodies[0].rows].map(r=>[...r.cells].map(c=>c.innerText))}""", i)
+    chk('表の数', len(tb), 5)
+    t_case, t_late = await by_id('case'), await by_id('late')
+    chk('ケース別の表の行の数', len(t_case), len(CASE))
+    for row, (e0, head, e1) in zip(t_case, CASE):
+        chk('ケース(左) ' + row[0][:12], nums(row[0]), e0)
+        chk('ケース(右の頭) ' + row[0][:12], flat(row[1]).startswith(head), True)
+        chk('ケース(右の数字) ' + row[0][:12], nums(row[1]), e1)
+    chk('ケース 住民税の注記', ['住民税の申告は別に要ります' in t_case[0][1], '住民税の申告は別に要ることがあります' in t_case[4][1]] if len(t_case) > 4 else [], [True, True])
     chk('一覧の表の行の数', len(tb[0]), len(LIST))
     for row, exp in zip(tb[0], LIST):
         chk('一覧 ' + flat(row[0]), flat(row[0]) + '|' + flat(row[1]), exp)
     chk('しなければならない人の表の行の数', len(tb[2]), len(WHO))
     for row, exp in zip(tb[2], WHO):
         chk('人 ' + row[0], nums(row[1]), exp)
-    chk('遅れたときの表の行の数', len(tb[3]), len(LATE))
-    for row, (e0, e1) in zip(tb[3], LATE):
+    chk('遅れたときの表の行の数', len(t_late), len(LATE))
+    for row, (e0, e1) in zip(t_late, LATE):
         chk('遅れ(左) ' + row[0][:12], nums(row[0]), e0)
         chk('遅れ(右) ' + row[0][:12], nums(row[1]), e1)
     # 4 表の外の文

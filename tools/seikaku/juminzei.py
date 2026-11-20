@@ -5,11 +5,12 @@
 #   https://www.sn-hoki.co.jp/data/pickup_hourei/onct/CHIHOUZEI-HOU20240221-2.html
 #   横浜市「税額控除(令和8年度課税以降)」(所得割の調整額=所得割非課税限度額−(総所得金額等−所得割額)、調整控除の式、2,500万円超は調整控除なし)
 #   https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/kojin-shiminzei-kenminzei/kojin-shiminzei-shosai/zeigakukoujoR8.html
-#  練馬区「住民税が非課税になる基準」(均等割 45万円/35万円×人数+10万円+21万円、所得割 45万円/…+32万円、給与収入の目安)
+#  練馬区「住民税が課税されない場合」(均等割 45万円/35万円×人数+10万円+21万円、所得割 45万円/…+32万円、給与収入の目安)
 #   https://www.city.nerima.tokyo.jp/kurashi/zei/jyuminzei/hikazeikijun/juuminzei-hikazei.html
-#  総務省「個人住民税」(均等割の非課税限度額は級地で1.0・0.9・0.8。所得割は10%)
+#  総務省「個人住民税」(均等割の非課税限度額 35万円×世帯人員数+10万円+21万円。級地で1.0・0.9・0.8。所得割は一律10%)
 #   https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/149767_03.html
-#  東京都主税局「個人住民税」(都民税1,000円・区民税3,000円・森林環境税1,000円、所得割4%・6%、調整控除2%・3%)
+#  東京都主税局「個人住民税」(都民税1,000円・区民税3,000円・森林環境税1,000円、所得割4%・6%、調整控除2%・3%で最低2,500円、
+#   合計所得2,500万円超は調整控除なし、23区の非課税 45万円/35万円×人数+31万円・所得割は+42万円)
 #   https://www.tax.metro.tokyo.lg.jp/kazei/life/kojin_ju
 #  港区「特別区民税・都民税の計算」(課税標準1,000円未満切捨て・区民税と都民税を別々に100円未満切捨て)
 #   https://www.city.minato.tokyo.jp/kazei/kurashi/zekin/juminze/tominze/kesan.html
@@ -24,6 +25,8 @@
 #  協会けんぽ 令和8年10月分からの保険料額表(東京・厚生年金18.3%・50銭以下切捨て) https://www.kyoukaikenpo.or.jp/assets/R8.10_13%E6%9D%B1%E4%BA%AC.pdf
 #  厚生労働省「令和8(2026)年度 雇用保険料率のご案内」(労働者負担 令和7年度5.5/1,000・令和8年度5/1,000) https://www.mhlw.go.jp/content/001692566.pdf
 # 最後に原本を確かめた日:2026-11-20
+# 2026-11-20:早見表が6列(年収・社会保険料・課税所得・住民税・うち所得割・月あたり)・21行(120万円と140万円の行が足された)になったので、
+#  全部の列を自分の計算で確かめる形に直した。課税所得は、住民税がかからない行(給与所得45万円以下)では画面が0円を出す(注記に書いてある)。
 # ページの前提:健康保険・介護・支援金は合わせて1回の50銭処理(furusato.py と同じ)。2026年1〜12月の各月の料率。
 import os, sys, re
 from fractions import Fraction as F
@@ -71,7 +74,7 @@ def shaho(a, old):
 
 def jumin(a, sh):
     g = kyuyo9(a)
-    if g <= 450000: return (0, 0, 0)                  # 均等割・所得割とも非課税(単身・1級地)
+    if g <= 450000: return (0, 0, 0, 0)                 # 均等割・所得割とも非課税(単身・1級地)
     kiso = 430000 if g <= 24000000 else 290000 if g <= 24500000 else 150000 if g <= 25000000 else 0
     t = max(0, g - sh - kiso) // 1000 * 1000
     if g > 25000000: c = 0
@@ -84,7 +87,7 @@ def jumin(a, sh):
         ex = ku + to - cap
         ku, to = ku - ex * ku / (ku + to), to - ex * to / (ku + to)
     ku = int(ku) // 100 * 100; to = int(to) // 100 * 100
-    return (ku + to + 5000, 5000, ku + to)
+    return (ku + to + 5000, 5000, ku + to, t)
 
 JS = '''([a,sh,old])=>{var q=function(i){return document.getElementById(i)};
  q("inc").value=String(a);q("inc").dispatchEvent(new Event("input",{bubbles:true}));
@@ -125,7 +128,7 @@ def sakai_200(sh_on, old):
         out |= {lo - 1, lo, lo + 1}
     return out
 
-ROWS = [1000000, 1100000, 1190000, 1250000, 1300000, 1500000, 1780000, 2000000, 2500000, 3000000, 3500000, 4000000,
+ROWS = [1000000, 1100000, 1190000, 1200000, 1250000, 1300000, 1400000, 1500000, 1780000, 2000000, 2500000, 3000000, 3500000, 4000000,
         4500000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000]
 
 def max_inc(kyuyo, L):
@@ -144,7 +147,7 @@ async def body(pg):
         cs = set(cases()) | sakai_200(sh_on, old)
         for a in sorted(cs):
             sh = shaho(a, old) if sh_on else 0
-            y, kin, sho = jumin(a, sh)
+            y, kin, sho, _t = jumin(a, sh)
             got = await pg.evaluate(JS, [a, sh_on, old]); n += 1
             if y > 0:
                 ok = (got['y'], got['m'], got['kin'], got['sho']) == (y, y // 12, kin, sho)
@@ -159,10 +162,12 @@ async def body(pg):
         if [r[0] for r in got['rows']] != ROWS: ng('早見表の行', [r[0] for r in got['rows']])
         for r in got['rows']:
             s = shaho(r[0], old) if sh_on else 0
-            y = jumin(r[0], s)[0]; n += 1
-            if r[1:] != [s, y, y // 12]: ng('早見表', sh_on, old, r, [s, y, y // 12])
+            y, kin, sho, t = jumin(r[0], s); n += 1
+            if r[1:] != [s, t, y, sho, y // 12]: ng('早見表', sh_on, old, r, [s, t, y, sho, y // 12])
+            n += 1                                     # 注記「住民税から所得割を引いた残りが均等割(年5,000円)」
+            if y and y - sho != 5000: ng('均等割', r)
         n += 1
-        if got['hit'] != ROWS.index(3000000): ng('黄色の行', got['hit'])
+        if got['hit'] != ROWS.index(3000000) or len(got['rows']) != 21: ng('黄色の行', got['hit'])
     # 非課税の年収の表(手書き)
     html = open(os.path.join(SITE, 'juminzei', 'index.html'), encoding='utf-8').read()
     def tbl(cap):
@@ -179,13 +184,15 @@ async def body(pg):
     shotoku0 = 740000 + 1040000                      # 所得税がかからない上限(給与所得控除74万円+基礎控除104万円)
     y150 = jumin(1500000, 0)
     checks = [
+        (y150 == (35500, 5000, 30500, 330000) and '<th>年収（円）</th><th>社会保険料<br>（年・円）</th><th>課税所得<br>（円）</th><th>住民税<br>（年・円）</th><th>うち<br>所得割</th><th>月あたり<br>（円）</th>' in html, '早見表の見出しの並び'),
+        ('住民税がかからない年収の行は、課税所得を0円にしています' in html, '課税所得0円の注記'),
         (single8 == 1100000 and single9 == 1190000, '単身の非課税 %d %d' % (single8, single9)),
         ('令和8年度110万円、令和9年度119万円' in html, 'メタの文'),
         ('<b>119<i>万円</i></b><em>去年は110万円</em>' in html, '大きい箱の119万円'),
         ('令和9年度から9万円上がって119万円' in html and single9 - single8 == 90000, '冒頭の9万円'),
         ('年収178万円で住民税は119万円なので、59万円の差' in html and shotoku0 == 1780000 and shotoku0 - single9 == 590000, '所得税と住民税の差'),
         ('年収119万円までかかりません' in html, '判定の文'),
-        ('令和9年度は年35,500円です。均等割5,000円と所得割30,500円' in html and y150 == (35500, 5000, 30500), 'FAQ 150万円 %s' % (y150,)),
+        ('令和9年度は年35,500円です。均等割5,000円と所得割30,500円' in html and y150[:3] == (35500, 5000, 30500), 'FAQ 150万円 %s' % (y150,)),
         ('令和11年度に住民税がかからない年収は単身で114万円' in html and single11 == 1140000, 'FAQ 令和11年度'),
         ('区民税3,000円・都民税1,000円・森林環境税1,000円の年5,000円' in html, '均等割'),
         ('多くの場合2,500円が引かれます' in html and jumin(3000000, 0)[2] == (2020000 - 430000) // 1000 * 100 - 2500, '調整控除2,500円'),
@@ -194,7 +201,7 @@ async def body(pg):
         n += 1
         if not ok: ng(msg)
     # JS が動く前の文字(既定 年収300万円・社会保険あり・40歳未満)
-    y, kin, sho = jumin(3000000, shaho(3000000, 0))
+    y, kin, sho, _t = jumin(3000000, shaho(3000000, 0))
     pre = re.search(r'id="o-y">([0-9,]+)<i>', html).group(1), re.search(r'id="o-m">([0-9,]+)<i>', html).group(1), \
           re.search(r'id="o-br">([^<]+)<', html).group(1)
     n += 1

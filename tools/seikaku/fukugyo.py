@@ -21,7 +21,27 @@
 #  協会けんぽ 東京都の保険料額表(50銭以下切捨て・50銭超切上げ) https://www.kyoukaikenpo.or.jp/assets/R8.10_13%E6%9D%B1%E4%BA%AC.pdf
 #  厚生労働省「令和8年度 雇用保険料率のご案内」(一般の事業 労働者負担 5/1,000) https://www.mhlw.go.jp/content/001692566.pdf
 #  川口市「申告フローチャート」(給与・年金以外に所得があれば市民税・県民税の申告) https://www.city.kawaguchi.lg.jp/material/files/group/23/sinkoku3.pdf
+#  国税庁 No.1199 基礎控除(令和8年4月1日現在法令等。令和8年分・令和9年分の段) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm
+#  国税庁 No.1410 給与所得控除(令和8年分・令和9年分 220万円まで74万円・注2の表) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm
+#  国税庁 No.1500 雑所得(業務に係る雑所得・損益通算できない) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1500.htm
+#  所得税基本通達35-2(注)と解説(帳簿書類の保存・収入300万円・主たる収入の10%未満は僅少として個別判断)
+#   https://www.nta.go.jp/law/tsutatsu/kihon/shotoku/04/09.htm https://www.nta.go.jp/law/tsutatsu/kihon/shotoku/kaisei/221007/pdf/02.pdf
+#  国税庁 No.2795 原稿料や講演料等を支払ったとき(100万円以下10.21%) https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2795.htm
+#  国税庁 No.1521 FXの課税関係(所得税15%・地方税5%・復興2.1%) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1521.htm
+#  国税庁 No.3105(生活用動産は非課税・1個または1組30万円超の貴金属などは除く) https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3105.htm
+#  国税庁 No.2090 新たに事業を始めたときの届出など(開業届はその年分の確定申告期限まで・青色申告承認申請は開業から2月以内。1月15日までの開業は3月15日)
+#   https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2090.htm
+#  名古屋市「給与所得者で副収入がある場合、市民税・県民税の申告は?」(住民税には申告の省略範囲がない・確定申告をすれば住民税の申告は不要)
+#   https://www.city.nagoya.jp/kurashi/zeikin/1035069/1012012/1012022/1033974/1012026.html
+#  横浜市「市民税・県民税の申告」(期限3月15日・1月1日現在の住所地・2か所給与で20万円以下の人も申告が必要)
+#   https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/zeikin/y-shizei/kojin-shiminzei-kenminzei/kojin-shiminzei-shosai/shiminzei-shinkoku.html
+#  仙台市「令和9年度(令和8年分)から適用される個人市県民税の税制改正等について」(給与所得控除74万円・住民税の基礎控除は改正なし・単身の非課税は給与収入119万円=合計所得45万円)
+#   https://www.city.sendai.jp/shiminze-kikaku/kurashi/tetsuzuki/zekin/kojin/kaisei/r8.html
+#  日本年金機構「複数の事業所に雇用されるようになったときの手続き」(本人が届出・主たる事業所を選択・合算して按分)
+#   https://www.nenkin.go.jp/service/kounen/tekiyo/hihokensha1/20131022.html
+#  厚生労働省「雇用保険マルチジョブホルダー制度」(65歳以上・2つの事業所) https://www.mhlw.go.jp/content/11600000/000838542.pdf
 # 最後に原本を確かめた日:2026-11-20
+# 11-20 の申し送り:開業届の期限は「1か月以内」ではなく「その年分の確定申告期限まで」に変わっている(No.2090)。ほかのページの「開業届 1か月以内」も探す。
 # 前提(ページの記載どおり):単身・本業は年末調整あり・協会けんぽ東京都・40歳未満・賞与なしで月給=年収÷12・住民税は東京23区。
 import os, re, sys, random
 from fractions import Fraction as F
@@ -121,7 +141,27 @@ JS = '''([a,s])=>{var q=function(i){return document.getElementById(i)};
  var n=function(i){var t=q(i).textContent;var v=parseInt(t.replace(/[^0-9]/g,""),10);return /[-−]/.test(t)?-v:v};
  var m=q("o-net").textContent.match(/約(-?[0-9.]+)万円/);
  return {all:n("o-all"),i:n("o-i"),j:n("o-j"),rate:parseInt(q("o-2").textContent.match(/税率は([0-9]+)%/)[1],10),
-  vd:q("o-vd").textContent,net:m?Math.round(parseFloat(m[1])*10):null}}'''
+  vd:q("o-vd").textContent,vds:q("o-vds").textContent,ie:q("o-ie").textContent,o1:q("o-1").textContent,
+  net:m?Math.round(parseFloat(m[1])*10):null}}'''
+
+def words(a, s):
+    """No.1900 の1(給与収入2,000万円超)と2(給与以外の所得20万円超)。申告しない人は住民税の申告(名古屋市・横浜市)。"""
+    if a > 20000000: return '2,000万円を超える', '住民税の申告は確定申告で済みます', '令和8年分', '確定申告をすれば住民税の申告は別に要りません'
+    if s > 200000: return '20万円を超える', '住民税の申告は確定申告で済みます', '令和8年分', '確定申告をすれば住民税の申告は別に要りません'
+    return '20万円以下', '住民税の申告は必要です', '申告しないので増えない', '市区町村に住民税の申告をします'
+
+# 手で書かれた表を、原本から自分で決めた答えと比べる
+def judge_want(label):
+    """(確定申告, 住民税申告)。No.1900:年収2,000万円超・給与以外の所得20万円超・年末調整されなかった給与の収入20万円超は申告が要る。
+    確定申告をすれば住民税の申告は要らない。確定申告をしない人で給与以外の所得か2か所めの給与があれば住民税の申告が要る。"""
+    if '赤字' in label and '雑所得' in label: return '不要', '不要'          # 所得が0(雑所得の赤字はほかと通算できない)
+    if '取り戻したい' in label or '差し引きたい' in label: return '任意', '不要※'  # 還付の申告は義務でない
+    if '確定申告をする' in label: return '要る', '不要※'
+    if '2,000万円を超える' in label: return '要る', '不要※'
+    if '20万円を超える' in label: return '要る', '不要※'
+    if '20万円以下' in label: return '不要', '要る'
+    return None, None
+
 
 def cases():
     A = [0, 1000000, 1500000, 2000000, 3000000, 4000000, 5000000, 6000000, 7000000, 8000000, 8500000, 10000000,
@@ -177,6 +217,8 @@ async def body(pg):
         exp = calc(a, s); n += 1
         ok = (got['all'], got['i'], got['j'], got['rate'], got['net']) == (exp['all'], exp['i'], exp['j'], exp['rate'], exp['net'])
         ok = ok and (got['vd'] == ('確定申告が必要です' if exp['need'] else '確定申告は不要です'))
+        w = words(a, s)
+        ok = ok and w[0] in got['vds'] and w[1] in got['vds'] and got['ie'] == w[2] and w[3] in got['o1'] and '3月15日' in got['vds'] + got['o1']
         if not ok:
             bad += 1; print('NG', a, s, got, exp)
     rnd = random.Random(20261120)
@@ -191,11 +233,93 @@ async def body(pg):
     n += 1
     if [r[0] for r in rows] != [x * 10000 for x in (10, 20, 30, 50, 80, 100, 150, 200, 300, 500)]:
         bad += 1; print('NG 早見表の行', [r[0] for r in rows])
+    COLS = (3000000, 5000000, 7000000, 10000000)
+    heads = await pg.evaluate('()=>[...document.getElementById("gtb").closest("table").querySelectorAll("thead th")].map(function(c){return c.textContent})')
+    n += 1
+    if len(heads) != 1 + len(COLS) or any('年収%s万円' % format(a // 10000, ',') not in heads[1 + j] for j, a in enumerate(COLS)):
+        bad += 1; print('NG 早見表の列', heads)
     for r in rows:
-        for j, a in enumerate((3000000, 5000000, 7000000)):
+        n += 1
+        if len(r) != 1 + len(COLS):
+            bad += 1; print('NG 早見表の列の数', r); continue
+        for j, a in enumerate(COLS):
             exp = calc(a, r[0])['tbl']; n += 1
             if r[1 + j] != exp:
                 bad += 1; print('NG 早見表', r[0], a, r[1 + j], exp)
+    # ---- 手で書かれた表(判定の表・所得の種類・事業/雑所得・勤め先) ----
+    tb = await pg.evaluate('''()=>[...document.querySelectorAll("main table")].map(function(t){return [...t.querySelectorAll("tbody tr")].map(function(tr){return [...tr.cells].map(function(c){return c.textContent.trim()})})})''')
+    n += 1
+    if len(tb) != 5:
+        bad += 1; print('NG 表の数', len(tb)); return n, bad
+    jt, kinds, jz, emp = tb[0], tb[2], tb[3], tb[4]
+    n += 1
+    if len(jt) != 9: bad += 1; print('NG 判定の表の行の数', len(jt))
+    for r in jt:
+        n += 1
+        if (r[1], r[2]) != judge_want(r[0]):
+            bad += 1; print('NG 判定の表', r, judge_want(r[0]))
+    # アルバイト(給与)の行は収入、それ以外は所得で20万円を見る(No.1900 の3と2)
+    for r in jt:
+        if '20万円' in r[0]:
+            n += 1
+            if ('給料で' in r[0]) != ('収入' in r[0]) or ('給料以外' in r[0]) != ('所得が' in r[0]):
+                if '取り戻したい' not in r[0]: bad += 1; print('NG 判定の表の収入と所得', r[0])
+    # 所得の種類の表:率と金額を原本の数字から出して比べる
+    gensen = F(10) * F(1021, 1000)                    # 所得税10%に復興特別所得税2.1%
+    fx = F(15) * F(1021, 1000) + 5                    # 所得税15%+復興+住民税5%
+    KIND = {'アルバイト': ('給与所得', ['20万円は収入の額']), '物販': ('事業所得か雑所得', []), 'アフィリエイト': ('事業所得か雑所得', []),
+            '原稿料': ('事業所得か雑所得', ['%s%%' % float(gensen)]), '不用品': ('原則かからない', ['1個30万円を超える']),
+            '暗号資産': ('雑所得', ['差し引くことはできません']), 'FX': ('雑所得（申告分離課税）', ['%s%%' % float(fx), '本業とは分けて']),
+            '株式': ('譲渡所得など', ['特定口座']), '貸す': ('不動産所得', [])}
+    n += 1
+    if len(kinds) != len(KIND): bad += 1; print('NG 所得の種類の表の行の数', len(kinds))
+    for r in kinds:
+        k = [x for x in KIND if x in r[0]]; n += 1
+        if len(k) != 1 or r[1] != KIND[k[0]][0] or any(w not in r[2] for w in KIND[k[0]][1]):
+            bad += 1; print('NG 所得の種類の表', r)
+    # 事業所得か雑所得か(通達35-2 の注と解説):帳簿あり→概ね事業所得(300万円以下で主たる収入の10%未満は僅少として個別判断)・帳簿なし→雑所得
+    n += 1
+    if len(jz) != 3: bad += 1; print('NG 事業/雑所得の表の行の数', len(jz))
+    for r in jz:
+        n += 1
+        if 'つけていない' in r[0]: ok = '雑所得' in r[2] and '事業所得' not in r[2] and '300' not in r[1]
+        elif r[1] == '300万円を超える': ok = r[2] == '原則として事業所得'
+        elif r[1] == '300万円以下': ok = r[2].startswith('原則として事業所得') and '10%に満たない' in r[2] and '収入がわずか' in r[2] and '個別' in r[2] and '雑所得' in r[2]
+        else: ok = False
+        if not ok: bad += 1; print('NG 事業/雑所得の表', r)
+    # 勤め先の表
+    EMP = {'アルバイトを始めた': ['扶養控除等申告書', '年末調整はそのまま'], '副業先として': ['乙欄', '年末調整はしません'], '住民税の通知': ['通知どおり'],
+           '社会保険': ['本人が届け出て', '主たる事業所を選びます', '合わせた額', '割合で分けて'], '雇用保険': ['1社だけ', '65歳以上']}
+    n += 1
+    if len(emp) != len(EMP): bad += 1; print('NG 勤め先の表の行の数', len(emp))
+    for r in emp:
+        k = [x for x in EMP if x in r[0]]; n += 1
+        if len(k) != 1 or any(w not in r[1] for w in EMP[k[0]]):
+            bad += 1; print('NG 勤め先の表', r)
+    # ---- よくある質問と本文の数字 ----
+    import datetime
+    d = datetime.date(2027, 3, 15)                    # 令和8年分の期限。土日なら翌開庁日にずれる
+    n += 1
+    if d.weekday() >= 5: bad += 1; print('NG 2027年3月15日が土日。3月15日の文を見直す')
+    qa = await pg.evaluate('''()=>{var h=document.getElementById("qa"),o=[],e=h.nextElementSibling,q=null;
+      while(e&&e.tagName!=="H2"&&!e.classList.contains("src")){if(e.tagName==="H3"){q=[e.textContent,""];o.push(q)}else if(q&&e.tagName==="P"){q[1]+=e.textContent}e=e.nextElementSibling}return o}''')
+    QA = {'売上ですか': ['経費を引いた所得', '収入の額で判定'], '何もしなくて': ['住民税の申告は要ります', '3月15日'], '医療費控除': ['書く必要があります', '含めて申告'],
+          '30万円で': ['年収500万円'], '赤字で': ['雑所得なら', '相殺することはできません', '事業所得'], '知られず': ['普通徴収'],
+          '開業届': ['確定申告の期限まで', '2か月以内', '1月15日まで', '3月15日まで']}
+    n += 1
+    if len(qa) != len(QA): bad += 1; print('NG よくある質問の数', len(qa))
+    for q, ans in qa:
+        k = [x for x in QA if x in q]; n += 1
+        if len(k) != 1 or any(w not in ans for w in QA[k[0]]) or '1か月以内' in ans:
+            bad += 1; print('NG よくある質問', q, ans)
+    # 本文に過去の誤りの形が残っていないか
+    txt = await pg.evaluate('()=>document.querySelector("main").innerText')
+    for w in ('開業の日から1か月以内', '年金事務所を選びます', '営利性が低い'):
+        n += 1
+        if w in txt: bad += 1; print('NG 古い文', w)
+    for w in ('20万円の決まりがあるのは所得税だけです', '期限は翌年の3月15日', '所得割10%', '令和8年分（復興特別所得税を含む）、住民税は令和9年度'):
+        n += 1
+        if w not in txt: bad += 1; print('NG 文が無い', w)
     return n, bad
 
 run('fukugyo', body)

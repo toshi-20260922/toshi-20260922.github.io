@@ -158,10 +158,14 @@ async def body(pg):
     html = open(os.path.join(SITE, 'nenmatsu-chosei', 'index.html'), encoding='utf-8').read()
     rows = re.findall(r'<tr data-s="(\d+)">(.*?)</tr>', html)
     chk('早見表の行の数', len(rows), 22)
+    chk('早見表の列の題', re.search(r'<thead><tr>(.*?)</tr></thead>\s*<tbody id="tb">', html, re.S).group(1),
+        '<th>年収<br>万円</th><th>基礎控除<br>令和8年分</th><th>天引きの<br>1年分</th><th>調整後の<br>所得税</th><th>戻る額<br>単身</th><th>戻る額<br>配偶者<br>控除あり</th>')
     for s, tds in rows:
         c = [digits(x) for x in re.findall(r'<td>(.*?)</td>', tds)]
         S = int(s) * 10000; a = ref(S, 0, 0, 0); h = ref(S, 0, 1, 0)
-        chk('早見表 %s万円' % s, c, [int(s), a['t'], a['z'], a['k'], max(h['k'], 0) if h['k'] >= 0 else h['k']])
+        # 2026-11-20:2列目に「基礎控除 令和8年分」が足された。年収から給与所得を出し、合計所得の帯で決める(基礎控除等 106.pdf)
+        chk('早見表 %s万円' % s, c, [int(s), kiso(kyuyo_shotoku(S)) // 10000, a['t'], a['z'], a['k'], max(h['k'], 0) if h['k'] >= 0 else h['k']])
+        chk('早見表 %s万円 基礎控除の字' % s, re.findall(r'<td>(.*?)</td>', tds)[1], '%d万円' % (kiso(kyuyo_shotoku(S)) // 10000))
     # 3 文の中の金額
     r6 = ref(6000000, 0, 0, 0)
     chk('冒頭の600万円', '年収600万円・単身の場合、戻る額の目安は%s円です' % format(r6['k'], ',') in html, True)

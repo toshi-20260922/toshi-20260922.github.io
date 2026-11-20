@@ -31,6 +31,18 @@
 # 給与所得は令和7年分の給与所得控除(65万円・190万円以下)と所得税法の別表第五(660万円未満は4,000円ごと)。
 # 照らすもの:22の地域×家族0〜3人×年齢×軽減の境目・限度額の境目の前後の結果の箱(年額・月額・軽減・内訳)・年収別の表の全行・料率の表・
 #   市区町村ごとの保険料の表(手で書いた22行)・よくある質問の数字・冒頭の上限・軽減の表・料率を入れる欄・JS が書き換える前の文
+#   11-20 16時の回で開き直したもの: 東京都保健医療局「特別区の国民健康保険料一覧表（令和8年度）」(20区共通 7.51%・47,600/2.80%・17,600/2.43%・17,800/0.27%・1,800+73。
+#     目黒 介護2.35%。中野 8.03%・47,100/2.94%・17,400/2.53%・17,700。江戸川 7.83%・48,900/2.84%・17,400/2.45%・17,400/子ども1,780+90)
+#     https://www.hokeniryo.metro.tokyo.lg.jp/documents/d/hokeniryo/tokubetuku202605-pdf
+#   大阪府(題名は「令和8年度大阪府市町村標準保険料率等の算定結果について」。医療分の限度額66万円)・横浜市・名古屋市(基礎控除は2,400万円超で29万・15万・0円と明記)・神戸市・
+#   広島市「国民健康保険料の計算方法」(8.18%・31,228・30,403/2.64%・10,342・10,069/2.52%・10,443・7,860/0.27%・1,072+56・1,044) https://www.city.hiroshima.lg.jp/living/hoken-nenkin/1021143/1025566/1003464.html
+#   横浜市「保険料に関する制度改正について」(限度額 医療66→67万円・子ども3万円新設。軽減 5割30.5→31万円・2割56→57万円) https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/kokuho/hokenryo/04seidokaisei.html
+#   横浜市「保険料について」(給与所得者等=給与の収入金額が55万円を超える方など) https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/kokuho/hokenryo/04hokenryounituite.html
+#   川崎市「国保のしおり(令和8年度)」で子ども分の均等割 1,742円(1,665+77)だけ確かめた。川崎市のほかの料率は開けず未確認。
+# 申し送り(11-20 16時): 年収別の表に 1,200・1,500・2,000万円の行が足されていた(突き合わせの古さ。額は合っていた)。
+#   ページの誤りは2つ直した: 基礎控除を43万円で固定(一覧にない市区町村で低い料率を入れ所得2,400万円超のとき差が出る)・出典の神戸市の題名。
+#   残り: 名古屋市の子ども分は 1,771円と18歳以上の92円を別々に軽減する(計算例)。ページと regions.py は 1,863円をまとめて軽減するので、2割軽減のとき1人1円多く、
+#   10円未満切り捨てのあとで10円ずれる場合がある(川崎市の5割も同じ形の見込み。川崎市の端数処理は未確認)。regions.py の形を変えないと直せない。
 # 最後に原本を確かめた日:2026-11-20
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -122,7 +134,7 @@ JS_SET = """cs=>{
   fam.value=String(k[4]);fam.dispatchEvent(new Event('change'));
   famo.value=String(k[5]);famo.dispatchEvent(new Event('change'));
   inc.value=String(k[2]);inc.dispatchEvent(new Event('input'));
-  out.push([document.getElementById('o-y').innerText,document.getElementById('o-m').innerText,document.getElementById('o-r').innerText,document.getElementById('o-br').innerText]);
+  out.push([document.getElementById('o-y').innerText,document.getElementById('o-m').innerText,document.getElementById('o-r').innerText,document.getElementById('o-br').innerText,document.getElementById('o-vd').innerText,document.getElementById('o-vds').innerText]);
  }
  return out;}"""
 
@@ -141,6 +153,9 @@ async def body(pg):
     ng = D[13]
     chk('名古屋 計算例1 20歳単身 給与所得20万円', hoken(ng, 200000, 0, 0, 0)[0], 18450)
     chk('名古屋 計算例3 51歳単身 給与所得244万円', hoken(ng, 2440000, 1, 0, 0)[0], 365940)
+    chk('名古屋 計算例3 内訳', hoken(ng, 2440000, 1, 0, 0)[1], [228070, 67640, 63150, 7080])
+    chk('名古屋 計算例10 38歳単身 基礎控除後57万円(2割)', hoken(ng, 1000000, 0, 0, 0)[1], [88800, 27330, 0, 2970])
+    chk('横浜市 令和8年度の軽減の基準(5割31万円・2割57万円) 2人', [keigen(430000 + 620000, 2), keigen(430000 + 620001, 2), keigen(430000 + 1140000, 2), keigen(430000 + 1140001, 2)], [5, 2, 2, 0])
     chk('大阪府 医療分の限度額', D[15][4], 660000)
     chk('上限の合計 40歳未満', sum(CAP) - CAP[2], 960000)
     chk('上限の合計 40〜64歳', sum(CAP), 1130000)
@@ -161,7 +176,7 @@ async def body(pg):
         for fam in range(4):
             nn = 1 + fam
             gs = {0, 1, 200000, 429999, 430000, 430001, 430000 + 310000 * nn - 1, 430000 + 310000 * nn, 430000 + 310000 * nn + 1,
-                  430000 + 570000 * nn - 1, 430000 + 570000 * nn, 430000 + 570000 * nn + 1, 2000000, 4567891, 9000000, 30000000}
+                  430000 + 570000 * nn - 1, 430000 + 570000 * nn, 430000 + 570000 * nn + 1, 2000000, 4567891, 9000000, 24000000, 24000001, 24500001, 25000001, 30000000}
             for famo in sorted({0, 1 if fam else 0, fam}):
                 for age in (0, 1):
                     # 限度額のちょうど前後(所得割+均等割+平等割が限度額に届く所得)
@@ -189,10 +204,15 @@ async def body(pg):
             chk('箱 年額 ' + lab, got[0], c(t) + '円')
             chk('箱 月額 ' + lab, got[1], c(t // 12) + '円')
             chk('箱 軽減 ' + lab, got[2], RD[red])
+            chk('箱 結論 ' + lab, got[4], '1年の国民健康保険料は%s円です' % c(t))
+            chk('箱 結論の地域 ' + lab, got[5], D[i][0] + 'の令和8年度の料率で計算した額です')
             chk('箱 内訳 ' + lab, got[3], '内訳は、医療分%s円・後期高齢者支援金分%s円・介護分%s円・子ども・子育て支援金分%s円です' % tuple(c(x) for x in ps))
 
     # 年収別の表(JS)の全行。家族0〜3人
-    ROWS = [100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000]
+    # 11-20 にページの表へ 1,200・1,500・2,000万円の行が足された(上限に届く行)。行の並びはページの今の形に合わせ、額は自分の計算で出す
+    ROWS = [100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000, 1200, 1500, 2000]
+    chk('年収別の表の見出し', await pg.eval_on_selector_all(':is(#list ~ .tw):not(#list ~ .tw ~ .tw) thead th', "ts=>ts.map(t=>t.innerText.replace(/\\s+/g,''))"),
+        ['前の年の年収（万円）', '40歳未満（年・円）', '40〜64歳（年・円）'])
     for i, d in enumerate(D):
         await pg.select_option('#reg', str(i))
         await pg.click('#s-k button[data-v="0"]')
@@ -201,14 +221,21 @@ async def body(pg):
             rows = await pg.eval_on_selector_all('#tb tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
             want = [[c(r), c(hoken(d, kyuyo(r * 10000), 0, fam, 0)[0]), c(hoken(d, kyuyo(r * 10000), 1, fam, fam)[0])] for r in ROWS]
             chk('年収別の表 %s 家族%d' % (d[0], fam), rows, want)
+            # 「年収が高い行は上限の額で止まります」: 2,000万円の行は4つの区分とも限度額
+            capsum = d[4] + sum(CAP[1:])
+            chk('年収別の表 2,000万円は上限 %s 家族%d' % (d[0], fam), want[-1][1:], [c(capsum - CAP[2]), c(capsum)])
+            for r in (1200, 1500, 2000):      # 足された行は区分ごとの内訳も限度額と比べる
+                ps = hoken(d, kyuyo(r * 10000), 1, fam, fam)[1]
+                chk('足された行の内訳は限度額以下 %s %d 家族%d' % (d[0], r, fam), all(x <= y for x, y in zip(ps, [d[4]] + CAP[1:])), True)
             chk('年収別の表の題 %s 家族%d' % (d[0], fam), await pg.inner_text('#t-cap'), d[0] + '・令和8年度・' + ('家族%d人' % fam if fam else '家族なし'))
     await pg.select_option('#fam', '0')
 
     # 黄色の行(入れた年収を超えない中でいちばん近い行)
     await pg.select_option('#reg', '0')
-    for a, want in [(4000000, ['400']), (4490000, ['400']), (4500000, ['450']), (999999, []), (1000000, ['100']), (30000000, ['1,000'])]:
+    for a, want in [(4000000, ['400']), (4490000, ['400']), (4500000, ['450']), (999999, []), (1000000, ['100']), (30000000, ['2,000']), (11999999, ['1,000']), (12000000, ['1,200']), (19999999, ['1,500']), (20000000, ['2,000'])]:
         await pg.fill('#inc', str(a))
         chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), want)
+    chk('高い行の注記', '年収が高い行は上限の額で止まります。' in raw, True)
     chk('黄色の行の文', '入力した年収を超えない中でいちばん近い行が黄色になります。' in raw, True)
 
     # 一覧にない市区町村(料率を入れる)。選んでいた地域の料率が入り、端数は1円・独自減額なしで計算する
@@ -222,12 +249,28 @@ async def body(pg):
         await pg.fill('#c%d1' % j, str(my[j][1]))
         await pg.fill('#c%d2' % j, str(my[j][2]))
     dx = ('入れた料率', my, 1, 0, 670000)
-    for kind, a, age, fam, famo in [(1, 0, 0, 0, 0), (1, 740000, 1, 1, 1), (1, 740001, 0, 0, 0), (0, 4000000, 1, 2, 1), (0, 12000000, 1, 3, 3), (1, 1340000, 0, 1, 0)]:
+    for kind, a, age, fam, famo in [(1, 0, 0, 0, 0), (1, 740000, 1, 1, 1), (1, 740001, 0, 0, 0), (0, 4000000, 1, 2, 1), (0, 12000000, 1, 3, 3), (1, 1340000, 0, 1, 0),
+                                      # 基礎控除は合計所得2,400万円超で29万・15万・0円(低い料率だと限度額に届かず差が出る。11-20 にページを直した)
+                                      (1, 24000000, 1, 0, 0), (1, 24000001, 1, 0, 0), (1, 24500000, 1, 1, 1), (1, 24500001, 0, 0, 0), (1, 25000000, 1, 0, 0), (1, 25000001, 1, 2, 1), (1, 30000000, 0, 0, 0)]:
         res = await pg.evaluate(JS_SET.replace("if(reg.value!==String(k[0]))", "if(false)"), [['x', kind, a, age, fam, famo]])
         g = a if kind else kyuyo(a)
         t, ps, red = hoken(dx, g, age, fam, famo)
         chk('入れた料率 %d %d' % (kind, a), res[0][:3], [c(t) + '円', c(t // 12) + '円', RD[red]])
+        chk('入れた料率 内訳 %d %d' % (kind, a), res[0][3], '内訳は、医療分%s円・後期高齢者支援金分%s円・介護分%s円・子ども・子育て支援金分%s円です' % tuple(c(x) for x in ps))
+        chk('入れた料率 結論 %d %d' % (kind, a), res[0][4:], ['1年の国民健康保険料は%s円です' % c(t), '入力した料率で計算した額です'])
     chk('入れた料率の文', await pg.inner_text('#o-reg'), '入力した料率で計算しています')
+    # 低い料率(限度額に届かない)で、基礎控除が 43万・29万・15万・0円と変わる所を見る
+    lo_my = [(200, 10000, 0), (50, 3000, 0), (30, 3000, 0), (10, 500, 0)]
+    for j in range(4):
+        await pg.fill('#c%d0' % j, '%d.%02d' % (lo_my[j][0] // 100, lo_my[j][0] % 100))
+        await pg.fill('#c%d1' % j, str(lo_my[j][1]))
+        await pg.fill('#c%d2' % j, str(lo_my[j][2]))
+    dlo = ('入れた料率', lo_my, 1, 0, 670000)
+    chk('低い料率は限度額に届かない(基礎控除の差が見える)', hoken(dlo, 24000001, 1, 0, 0)[1][0] - hoken(dlo, 24000000, 1, 0, 0)[1][0], 2800)
+    for a, age, fam, famo in [(24000000, 1, 0, 0), (24000001, 1, 0, 0), (24500000, 1, 1, 1), (24500001, 0, 0, 0), (25000000, 1, 0, 0), (25000001, 1, 2, 1), (30000000, 0, 0, 0)]:
+        res = await pg.evaluate(JS_SET.replace("if(reg.value!==String(k[0]))", "if(false)"), [['x', 1, a, age, fam, famo]])
+        t, ps, red = hoken(dlo, a, age, fam, famo)
+        chk('低い料率 基礎控除の段階 所得%d' % a, res[0][:4], [c(t) + '円', c(t // 12) + '円', RD[red], '内訳は、医療分%s円・後期高齢者支援金分%s円・介護分%s円・子ども・子育て支援金分%s円です' % tuple(c(x) for x in ps)])
 
     # 市区町村ごとの保険料の表(手で書いた22行。給与400万円・1人)
     rows = await pg.eval_on_selector_all('#hikaku ~ .tw', "ws=>[...ws[0].querySelectorAll('tbody tr')].map(r=>[...r.children].map(td=>td.innerText))")
@@ -264,6 +307,10 @@ async def body(pg):
         ('地域の文', '<li id="o-reg">東京23区の令和8年度の料率で計算しています</li>'),
     ]:
         chk('元の文 ' + label, want in raw, True)
+    chk('元の文 結論(東京23区・給与400万円・40歳未満・1人)', '<b id="o-vd">1年の国民健康保険料は%s円です</b><span id="o-vds">東京23区の令和8年度の料率で計算した額です</span>' % c(hoken(D[0], kyuyo(4000000), 0, 0, 0)[0]) in raw, True)
+    chk('出典 神戸市の題名', '神戸市「国民健康保険料の額」' in raw, True)
+    chk('出典 大阪府の題名', '大阪府「令和8年度大阪府市町村標準保険料率等の算定結果について」' in raw, True)
+    chk('軽減の文は「以下」(表と同じ条件)', '世帯の所得が基準以下だと、均等割と平等割が7割・5割・2割下がります。' in raw, True)
     chk('span の開きと閉じの数', raw.count('<span'), raw.count('</span>'))
     return n, bad
 
