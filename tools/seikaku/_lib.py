@@ -43,6 +43,9 @@
 #   14 古い出典の文字:国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、…」(正しくは「令和8年度税制改正（所得税の基礎控除の引上げ等関係）Q&A」)・
 #      協会けんぽ「令和8年度の都道府県単位保険料率」・大阪府「令和8年度の府内統一保険料率」・神戸市「国民健康保険料の計算方法」・日本年金機構「短時間労働者に係る賃金要件の撤廃」
 # ・残り(regions.py の持ち方を変えないと直せない):名古屋市と川崎市の子ども分の均等割は2つの額を別々に軽減する。ページはまとめて軽減するので10円ずれる場合がある。
+#   15 定率法の償却保証額との比べを切り捨てたあとの額でする(taiyonensu)・利息を年利の小数で掛けて切り捨てる(hensai)・「住民税の扶養の所得要件は58万円のまま」(令和9年度から62万円。shotoku-kingaku)
+# ・tools/build_shotoku.py・build_taiyo.py・build_kani.py は 11-20 の HTML の直しが入っていない。流すと直しが消える。流さずに HTML を直に直す(直しの中身は kiroku/zen/2026-11-20/ の各ファイル)。
+# ・トップは python3 tools/text_units.py '' で書き出せる。トップの数字は行き先のページと tools/seikaku/top.py で照らす。行き先のページの式を直したらトップの同じ式も直す。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

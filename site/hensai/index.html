@@ -153,7 +153,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="積み上げた硬貨"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><ellipse cx="26" cy="48" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="26" cy="43" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="26" cy="38" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="26" cy="33" rx="12" ry="4" fill="#e08a2c" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="44" cy="48" rx="10" ry="3.5" fill="#f6d3ab" stroke="#0f3d31" stroke-width="1.2"></ellipse><ellipse cx="44" cy="43" rx="10" ry="3.5" fill="#f6d3ab" stroke="#0f3d31" stroke-width="1.2"></ellipse><path d="M40 22l6-6 6 6M46 16v14" fill="none" stroke="#00775a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月19日（日本政策金融公庫の令和8年11月2日現在の基準利率）</p>
+ <p class="upd">更新日：2026年11月20日（日本政策金融公庫の令和8年11月2日現在の基準利率）</p>
  <h1>【借入の返済の計算】開業資金の毎月の返済額と利息は？日本政策金融公庫の創業融資</h1>
 </div>
 <section class="hy1">
@@ -163,7 +163,7 @@ body{overflow-x:clip}
  <thead><tr><th>年目</th><th>返した元金<br>（円）</th><th>払った利息<br>（円）</th><th>年の終わりの<br>残り（円）</th></tr></thead>
  <tbody id="tb"></tbody>
 </table></div>
-<p class="note" style="margin-top:8px">公庫の実際の利息は日割りで計算するので、毎月の額は少し違います。返済の回数は、返す期間の月数から据置の月数を引いた回数です。</p>
+<p class="note" style="margin-top:8px">この表は目安です。実際の返済額は、借りた日や金利などの条件で異なる場合があります。返済の回数は、返す期間の月数から据置の月数を引いた回数です。</p>
 <p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
 </section>
 
@@ -184,8 +184,8 @@ body{overflow-x:clip}
    <select id="yr"><option value="3">3年</option><option value="5">5年</option><option value="7" selected="">7年</option><option value="10">10年</option><option value="15">15年</option><option value="20">20年</option></select>
   </div>
   <div>
-   <label for="sue">据置（元金を返さない期間）</label>
-   <select id="sue"><option value="0">なし</option><option value="3">3か月</option><option value="6" selected="">6か月</option><option value="12">1年</option><option value="24">2年</option></select>
+   <label for="suem">据置（元金を返さない期間）</label>
+   <select id="suem"><option value="0">なし</option><option value="3">3か月</option><option value="6" selected="">6か月</option><option value="12">1年</option><option value="24">2年</option></select>
   </div>
   <div>
    <label>返し方</label>
@@ -201,13 +201,13 @@ body{overflow-x:clip}
   </div>
  </div>
  <div class="amt">
-  <div><small>毎月の返済<br>（最初の月）</small><b id="o-a">0<i>円</i></b><em id="o-ae">据置のあと</em></div>
-  <div><small>利息の合計</small><b id="o-b">0<i>円</i></b><em>返し終わるまで</em></div>
-  <div><small>返す総額</small><b id="o-c">0<i>円</i></b><em>元金と利息</em></div>
+  <div><small>毎月の返済<br>（最初の月）</small><b id="o-a">79,727<i>円</i></b><em id="o-ae">据置のあと</em></div>
+  <div><small>利息の合計</small><b id="o-b">710,905<i>円</i></b><em>返し終わるまで</em></div>
+  <div><small>返す総額</small><b id="o-c">5,710,905<i>円</i></b><em>元金と利息</em></div>
  </div>
  <ul>
-  <li id="o-1">据置の間は、毎月0円の利息だけを払います</li>
-  <li id="o-2">元金は毎月0円ずつ、0回で返します</li>
+  <li id="o-1">据置の6か月は、毎月15,625円の利息だけを払います</li>
+  <li id="o-2">元金は毎月64,102円ずつ、78回で返します</li>
   <li>利息は、残っている元金に年利の12分の1をかけて1円未満を切り捨てています</li>
   <li id="o-3">最後の返済は2033年12月です</li>
  </ul>
@@ -239,7 +239,7 @@ body{overflow-x:clip}
 </ol></nav>
 <h2 id="way">元金均等と元利均等の違い</h2>
 <h3>元金均等</h3>
-<p>毎月返す元金が同じで、利息は残りの元金が減るにつれて少なくなります。最初の月の返済がいちばん多く、利息の合計は元利均等より少なくなります。日本政策金融公庫の返済は、元金均等が基本です。</p>
+<p>毎月返す元金が同じで、利息は残りの元金が減るにつれて少なくなります。最初の月の返済がいちばん多く、利息の合計は元利均等より少なくなります。日本政策金融公庫の返済方法には、元金均等返済・元利均等返済・ステップ（段階）返済などがあります。</p>
 <h3>元利均等</h3>
 <p>元金と利息を合わせた毎月の返済が同じです。最初のうちは利息の割合が大きく、元金がなかなか減りません。</p>
 <h2 id="sue">据置期間とは</h2>
@@ -269,7 +269,7 @@ body{overflow-x:clip}
 <h3>返す期間は何年まで選べますか？</h3>
 <p>日本政策金融公庫の新規開業・スタートアップ支援資金は、設備資金が20年以内・運転資金が10年以内です。どちらも据置期間はこの中の5年以内です。</p>
 <h3>金利はどこで確かめればいいですか？</h3>
-<p>日本政策金融公庫の「金利情報」のページに、融資制度ごとの基準利率が載っています。金利は毎月のように見直されます。</p>
+<p>日本政策金融公庫の「金利情報」のページに、融資制度ごとの基準利率が載っています。利率は金融情勢によって変わります。</p>
 <h3>借入金の返済は経費になりますか？</h3>
 <p>経費になるのは利息だけです。元金の返済は借入金が減るだけなので経費になりません。</p>
 <h3>繰上返済をすると節税になりますか？</h3>
@@ -281,10 +281,13 @@ body{overflow-x:clip}
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.jfc.go.jp/n/rate/index.html">日本政策金融公庫「金利情報」（令和8年11月2日現在）</a></li>
   <li><a href="https://www.jfc.go.jp/n/finance/search/01_sinkikaigyou_m.html">日本政策金融公庫「新規開業・スタートアップ支援資金」</a></li>
+  <li><a href="https://www.jfc.go.jp/n/finance/flow/goriyou.html">日本政策金融公庫「小規模事業者／個人事業主の方【国民生活事業】」</a>（ご返済方法）</li>
+  <li><a href="https://www.jfc.go.jp/n/finance/simulation.html">日本政策金融公庫「返済シミュレーション（事業資金用）」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2210.htm">国税庁 No.2210「必要経費の知識」</a>（業務のための借入金の利息）</li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2606.htm">国税庁 No.2606「金銭を貸し付けたとき」</a>（令和8年4月1日現在法令等・所得税基本通達36-49）</li>
 </ul></div>
 
-<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p>このページの数字は2026年11月に私が確かめました。もとにしているのは、日本政策金融公庫の数字です。</p><p><a href="/#auth">詳しいプロフィール</a></p></div>
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p>このページの数字は2026年11月に私が確かめました。もとにしているのは、日本政策金融公庫と国税庁の数字です。</p><p><a href="/#auth">詳しいプロフィール</a></p></div>
 <div class="close"><p class="close-h"><span class="nw">返済が始まったら、</span><span class="nw">手元のお金を帳簿で</span></p><p>元金の返済は経費にならないので、利益が出ていても手元のお金が減る月が出てきます。毎月の記帳から決算・申告までお任せいただき、返済と手元のお金の動きを月ごとの数字で押さえられるようにします。代表は、父の会社で財務と銀行交渉を経験してきました。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="hensai_close_marunage">経理丸投げの無料相談</a></div>
 <nav class="tools"><div class="t">早見表・計算ツール一覧</div>
  <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
@@ -358,12 +361,13 @@ function f(n){return Math.round(n).toLocaleString("ja-JP");}
 function seg(id,cb,r){var bs=document.querySelectorAll("#"+id+" button");bs.forEach(function(b){b.addEventListener("click",function(){bs.forEach(function(x){x.classList.remove("on");});b.classList.add("on");cb(+b.dataset.v);r();});});}
 function link(a,b,r){a.addEventListener("input",function(){b.value=a.value;r();});b.addEventListener("input",function(){a.value=b.value;r();});}
 
-var amt=document.getElementById("amt"),amtr=document.getElementById("amtr"),rate=document.getElementById("rate"),yr=document.getElementById("yr"),sue=document.getElementById("sue"),meth=0;
+var amt=document.getElementById("amt"),amtr=document.getElementById("amtr"),rate=document.getElementById("rate"),yr=document.getElementById("yr"),sue=document.getElementById("suem"),meth=0;
+function ri(b,R){var x=b*R;return (x-x%12000000)/12000000;}
 function sched(P,r,Y,S,m){
- var N=Y*12-S,i=r/100/12,bal=P,rows=[],tot=0,first=0,suePay=Math.floor(P*i),pmt=0,prin=Math.floor(P/N);
+ var N=Y*12-S,R=Math.round(r*10000),i=R/12000000,bal=P,rows=[],tot=0,first=0,suePay=ri(P,R),pmt=0,prin=Math.floor(P/N);
  if(m===1)pmt=i?P*i/(1-Math.pow(1+i,-N)):P/N;
  var mon=[];
- for(var k=1;k<=Y*12;k++){var it=Math.floor(bal*i),pr=0;
+ for(var k=1;k<=Y*12;k++){var it=ri(bal,R),pr=0;
   if(k>S){if(m===0){pr=(k===Y*12)?bal:prin;}else{pr=(k===Y*12)?bal:Math.round(pmt)-it;}}
   pr=Math.min(pr,bal);bal-=pr;tot+=it;if(k===S+1)first=pr+it;mon.push([pr,it,bal]);
   var yi=Math.floor((k-1)/12);if(!rows[yi])rows[yi]={p:0,i:0,b:0};rows[yi].p+=pr;rows[yi].i+=it;rows[yi].b=bal;}

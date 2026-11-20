@@ -14,6 +14,13 @@
 #  江戸川区「所得控除」(住民税の基礎控除 43万・29万・15万・0円) https://www.city.edogawa.tokyo.jp/e013/kurashi/zeikin/juminzei/zei_gaiyo/shotokukojyo.html
 #  練馬区「調整控除」(式・区3%と都2%・合計所得2,500万円超は無し・基礎控除の差は5万円)
 #   https://www.city.nerima.tokyo.jp/kurashi/zei/jyuminzei/zeigakukojo/choseikojo.html
+#  中央区「令和9年度から適用される個人住民税の主な改正」(給与所得控除の最低保障65万円→74万円・住民税の基礎控除は改正なし・単身の非課税は給与119万円以下)
+#   https://www.city.chuo.lg.jp/a0009/kurashi/zeikin/juuminzei/r9kaisei.html
+#  総務省「平成25年1月1日以降の退職所得に対する住民税の特別徴収について」(退職金の住民税は分離課税。区6%・都4%。退職所得は1,000円未満切り捨て・税額はそれぞれ100円未満切り捨て。
+#   ページは「受け取るときに差し引かれるので含めていない」と書くだけで計算はしない) https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/65871.html
+#  江東区「給与からの特別徴収」(1月1日から4月30日の異動は一括徴収が原則義務・6月1日から12月31日は本人の申し出で一括徴収) https://www.city.koto.lg.jp/060502/kurashi/zekin/kuminze/5111.html
+#  目黒区「個人住民税の給与からの特別徴収」(6月から翌年5月の12回・新しい勤務先で続けるときは異動届出書を回付) https://www.city.meguro.tokyo.jp/zeimu/kurashi/juuminzei/kyuuyotokubetuchoushuu.html
+#  中野区 納付方法の資料(普通徴収は6月・8月・10月・翌年1月の4回) https://www.city.tokyo-nakano.lg.jp/kurashi/zeikin/kakusyushiryo/minnanokuzei-r7.files/nouhuhouhou_r7.pdf
 #  京都市「特別徴収の手引」(12分割・100円未満の端数は最初の月・均等割相当額以下は最初の月に全額)
 #   https://www.city.kyoto.lg.jp/gyozai/cmsfiles/contents/0000085/85642/506_tebiki.pdf
 #  京都府「事務の手引」(地方税法321条の5第2項:1月1日から4月30日の退職は申し出がなくても一括徴収・6月1日から12月31日は申し出で一括徴収・5月退職は最終月分)
@@ -113,6 +120,7 @@ JS = '''([a,m])=>{var q=function(i){return document.getElementById(i)};
  var s=q("mon");s.value=String(m);s.dispatchEvent(new Event("change",{bubbles:true}));
  var t=function(i){return q(i).textContent};
  return {a:t("o-a"),am:t("o-am"),b:t("o-b"),c:t("o-c"),o1:t("o-1"),o2:t("o-2"),cap:t("t-cap"),
+  vd:t("o-vd"),vds:t("o-vds"),
   rows:[...document.querySelectorAll("#tb tr")].map(function(tr){return [tr.className,...[...tr.cells].map(function(c){return c.textContent})]})}}'''
 
 def nums(s):
@@ -135,7 +143,8 @@ def inputs():
         if kyuyo_r7(mid) - shaho(mid // 12, 2025, 12) - 430000 >= 2000000: hi_ = mid
         else: lo_ = mid + 1
     v += [lo_ - 12, lo_, lo_ + 12, lo_ + 1200]
-    return sorted(set(x for x in v if 0 <= x <= 30000000))
+    v += [50000000, 100000000]                        # 入力欄の max を超えた額でも頭打ちにならない
+    return sorted(set(x for x in v if 0 <= x <= 100000000))
 
 def check(got, a, m, tag):
     bad = 0
@@ -148,6 +157,8 @@ def check(got, a, m, tag):
         bad += 1; print('NG', tag, a, m, 'o-1', got['o1'], e['y8'], e['paid'])
     if nums(got['o2']) != [9, 2026, e['a9']]:
         bad += 1; print('NG', tag, a, m, 'o-2', got['o2'], e['a9'])
+    if got['vd'] != '退職後に払う住民税は合計{:,}円です'.format(e['rest'] + e['y9']) or got['vds'] != '令和8年度の残りと令和9年度の住民税の合計です':
+        bad += 1; print('NG', tag, a, m, 'o-vd', got['vd'], got['vds'])
     if nums(got['cap']) != [2025, a, 23]:
         bad += 1; print('NG', tag, a, m, 't-cap', got['cap'])
     rows = got['rows']
@@ -159,7 +170,7 @@ def check(got, a, m, tag):
             bad += 1; print('NG 表', a, k, r, x)
         if (r[0] == 'hit') != (k == m):
             bad += 1; print('NG 黄色の行', a, m, r)
-    return 4 + 3 + 1 + 3 * len(rows) + len(rows), bad
+    return 4 + 3 + 2 + 3 * len(rows) + len(rows), bad
 
 async def body(pg):
     n = bad = 0
@@ -182,6 +193,39 @@ async def body(pg):
     n += 1
     if ref(1100001, 9)['y8'] != 5000 or ref(1100001, 9)['rest'] != 0:
         bad += 1; print('NG 均等割だけの例', ref(1100001, 9))
+    # 年収別の表(#tb2。11-20 にほかのチャットが足した表):年額・毎月の額・9月と12月に辞めたときの残り
+    t2 = await pg.evaluate('()=>[...document.querySelectorAll(":is(#nenshu ~ .tw):not(#nenshu ~ .tw ~ .tw) tbody tr")].map(tr=>[...tr.cells].map(c=>c.textContent))')
+    th2 = await pg.evaluate('()=>[...document.querySelectorAll(":is(#nenshu ~ .tw):not(#nenshu ~ .tw ~ .tw) thead th")].map(c=>c.textContent)')
+    n += 2
+    if [r[0] for r in t2] != ['%s万円' % format(v, ',') for v in (200, 300, 400, 500, 600, 700, 800, 1000)]:
+        bad += 1; print('NG 年収別の表の行', [r[0] for r in t2])
+    if th2 != ['2025年の年収', '令和8年度の住民税（年・円）', '給料から毎月（円）', '9月に辞めたときの残り（円）', '12月に辞めたときの残り（円）']:
+        bad += 1; print('NG 年収別の表の見出し', th2)
+    for r in t2:
+        a = num(r[0]) * 10000; s9 = ref(a, 9); s12 = ref(a, 12)
+        per = 0 if s9['y8'] <= 5000 else s9['y8'] // 12 // 100 * 100
+        exp = [s9['y8'], per, s9['rest'], s12['rest']]
+        n += 5
+        if [num(x) for x in r[1:]] != exp:
+            bad += 1; print('NG 年収別の表', r, exp)
+        if s9['rest'] != per * 8 or s12['rest'] != per * 5:      # 注記「毎月の額は7月から翌年5月の額」と残りの月数
+            bad += 1; print('NG 年収別の表 残り=毎月×月数', r)
+    # JS が書き換える前の元の文(HTML に直に書いた既定の結果)が、既定の入力(500万円・9月)の計算と同じ
+    import re
+    src = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'taishoku-jumin', 'index.html'), encoding='utf-8').read()
+    d = ref(5000000, 9)
+    for name, pat in [
+        ('o-vd', '<b id="o-vd">退職後に払う住民税は合計{:,}円です</b>'.format(d['rest'] + d['y9'])),
+        ('o-a', '<b id="o-a">{:,}<i>円</i></b><em id="o-am">{}か月分</em>'.format(d['rest'], d['n'])),
+        ('o-b', '<b id="o-b">{:,}<i>円</i></b>'.format(d['y9'])),
+        ('o-c', '<b id="o-c">{:,}<i>円</i></b>'.format(d['rest'] + d['y9'])),
+        ('o-1', '<li id="o-1">令和8年度の住民税は年{:,}円で、辞めるまでに給料から{:,}円引かれています</li>'.format(d['y8'], d['paid'])),
+        ('o-2', '<li id="o-2">令和9年度は、2026年に辞めるまでの給与{:,}円で計算しています</li>'.format(d['a9'])),
+        ('t-cap', '<p class="cap" id="t-cap">2025年の年収5,000,000円・東京23区・単身</p>'),
+    ]:
+        n += 1
+        if pat not in src:
+            bad += 1; print('NG 元の文(既定の結果)', name, pat)
     # 手で書いた文と数字
     txt = await pg.inner_text('main')
     head = await pg.evaluate('()=>document.title+"|"+document.querySelector("meta[name=description]").content')
@@ -204,6 +248,10 @@ async def body(pg):
         ('総務省「個人住民税」' in txt, '総務省の出典の名前'),
         ('更新日：2026年11月20日' in txt, '更新日'),
         ('1月から5月' not in txt, '1月から5月が残っていない'),
+        ('月給は2025年の年収を12で割った額で、賞与はないものとしています' in txt, '月給と賞与の前提'),
+        ('毎月の額は7月から翌年5月の額です。6月は端数を足した額になります。' in txt, '年収別の表の注記'),
+        ('退職金の住民税は受け取るときに差し引かれるので、翌年度の住民税には含まれません' in txt, 'FAQ 退職金'),
+        ('協会けんぽ東京都・雇用保険は一般の事業・40歳未満です' in txt, '料率の地域'),
     ]
     for ok, name in musts:
         n += 1

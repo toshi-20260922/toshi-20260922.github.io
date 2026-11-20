@@ -18,6 +18,16 @@
 #   https://www.nenkin.go.jp/service/riyoushabetsu/nenkiniin/kenshu/1.files/kounen2026_03.pdf
 #  大阪労働局 労働保険の賃金(算入するもの:通勤手当・非課税部分も含む)
 #   https://jsite.mhlw.go.jp/osaka-roudoukyoku/hourei_seido_tetsuzuki/roudou_hoken/hourei_seido/kosin/keizoku/kakunin.html
+#  国税庁 令和7年11月の改正のページの文「改正前に、改正前の非課税限度額を超えた通勤手当を支払っていた場合には、
+#   令和7年分の年末調整で対応が必要となることがあります」・Q&A https://www.nta.go.jp/users/gensen/2025tsukin/pdf/03.pdf
+#   (公布 令和7年11月19日・施行 11月20日・退職者には支払金額を直した源泉徴収票を再交付)
+#  国税庁 質疑応答事例「通勤手当、住居手当」(消費税。通勤に通常必要な範囲は所得税の限度額を超えても全額が課税仕入れ・
+#   消費税法第2条第1項第12号・基本通達11-6-5)  https://www.nta.go.jp/law/shitsugi/shohi/16/04.htm
+#  日本年金機構 年金Q&A「標準報酬月額の対象となる報酬に、通勤手当は含まれるのですか。」(通勤手当は報酬に含まれます)
+#   https://www.nenkin.go.jp/section/faq/kounen/hyoujunhoushu/20140602-03.html
+#  厚生労働省「最低賃金の対象となる賃金」(精皆勤手当、通勤手当及び家族手当は除く)
+#   https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/chingin/newpage_43898.html
+#   (newpage_43875 は「最低賃金制度の概要」で題名が違う。2026-11-20 に出典のリンクを直した)
 # 片道の距離は「以上・未満」でそのまま比べる(端数を丸める定めは原本に無い)。金額は全部整数の円。
 # 照らすもの:画面の箱(限度額・課税・1年分・判定の文・内訳の文)・距離の表・月2万円の表・本文と よく聞かれること の数字・元の文
 # 最後に原本を確かめた日:2026-11-20
@@ -193,6 +203,11 @@ async def body(pg):
         ('更新日', '更新日：2026年11月20日（国税庁No.2582・No.2585令和8年4月1日現在法令等）'),
     ]:
         chk('本文 ' + label, want in flat, True)
+    chk('最低賃金の出典のリンク', 'chingin/newpage_43898.html">厚生労働省「最低賃金の対象となる賃金」' in raw, True)
+    chk('最低賃金から除く3つの手当', '基本給と毎月払う手当から通勤手当・精皆勤手当・家族手当を除いた額で、最低賃金を満たしているかを確かめます。' in flat, True)
+    chk('2025年分の年末調整', '改正前の限度額を超えて払っていた分は、2025年分の年末調整で直すことがあります。' in flat, True)
+    chk('消費税', '通勤に通常必要な範囲なら全額が課税仕入れです。所得税の限度額を超えた分も含みます' in flat, True)
+    chk('消費税の通達', '消費税法第2条第1項第12号・消費税法基本通達11-6-5' in flat, True)
     desc = '通勤手当の非課税限度額は、電車・バスの定期代なら月15万円まで、車・自転車なら片道の距離で月%s円〜%s円です。' % (c(lo_a), c(hi_a))
     chk('説明の文', len(re.findall(r'(?:name="description"|property="og:description") content="' + re.escape(desc), raw)), 2)
     chk('説明の文(description と og)が同じ', len(set(re.findall(r'(?:name="description"|property="og:description") content="([^"]*)"', raw))), 1)
