@@ -79,6 +79,8 @@
 # ・国税庁 No.1199 の表は結合セルで WebFetch が崩す。令和8年分の基礎控除は「暮らしの税情報」(publication/pamph/koho/kurashi/html/01_1.htm)で読む。
 # ・shotokuzei の「年収178万円を超えるとかかります」は、実際にかかり始めるのが1,781,000円から(形8)。文は直していない。
 # ・furusato:所得税の基礎控除額に特例の上乗せを含む読みのまま(川崎市の計算例は含める形)。条文では確認できていない。
+# ・4:22 この回は本番を開けなかった(係の web-fetch は許可待ちで時間切れ・curl は403)。ver=61・62 が本番に出たかは未確認。
+#   あとの回が /kakutei-shinkoku/ の「延ばした期間に納める税金には、利子税がかかります。」か /zoyozei/ の「410万円までは」を本番で読んで確かめる。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
