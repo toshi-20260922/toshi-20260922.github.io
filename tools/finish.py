@@ -56,12 +56,44 @@ def hayami_first(me, s):
         s = s.replace('</style>', HYCSS + '</style>', 1)
     return s
 
+# 公開日(2026/11/20 プロゴと同じく公開日と更新日を並べる)。tools/published.json に無い新しいページは今日の日付を入れる。
+# 2026/11/13 にまとめて取り込んだページは公開日が記録に無いので null のまま出さない(作らない)。
+import datetime
+PUBF = os.path.join(ROOT, 'tools', 'published.json')
+PUB = json.load(open(PUBF, encoding='utf-8'))
+def jd(d):
+    y, m, dd = d.split('-'); return '%s年%d月%d日' % (y, int(m), int(dd))
+def pubdate(me, s):
+    if me not in PUB:
+        PUB[me] = (datetime.datetime.utcnow() + datetime.timedelta(hours=9)).strftime('%Y-%m-%d')
+    d = PUB.get(me)
+    if not d or '<p class="upd">公開日' in s:
+        return s
+    return s.replace('<p class="upd">更新日', '<p class="upd">公開日：%s　更新日' % jd(d), 1)
+
+# 表の全画面表示(プロゴの「表全体を拡大表示する」)。6行以上の表に付ける。
+FSX = ('<style id="fsxc">.fsb{display:inline-block;margin:8px 0 6px;padding:6px 12px;border:1px solid #0f3d31;border-radius:6px;background:#ffffff;color:#0f3d31;font-weight:700;font-size:13px;cursor:pointer}'
+       '.fso{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#ffffff;overflow:auto;padding:0 12px 24px}'
+       '.fso .fsh{position:sticky;top:0;left:0;background:#ffffff;padding:10px 0;display:flex;justify-content:flex-end}.fso table{min-width:100%}</style>'
+       '<script id="fsx">(function(){var ws=document.querySelectorAll("main .tw");for(var i=0;i<ws.length;i++){(function(w){if(w.querySelectorAll("tr").length<6)return;'
+       'var b=document.createElement("button");b.type="button";b.className="fsb";b.textContent="表全体を拡大表示する";'
+       'b.addEventListener("click",function(){var o=document.createElement("div");o.className="fso";var h=document.createElement("div");h.className="fsh";'
+       'var c=document.createElement("button");c.type="button";c.className="fsb";c.textContent="閉じる";h.appendChild(c);o.appendChild(h);'
+       'var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");o.appendChild(t);document.body.appendChild(o);document.body.style.overflow="hidden";'
+       'c.addEventListener("click",function(){document.body.removeChild(o);document.body.style.overflow="";});});w.parentNode.insertBefore(b,w);})(ws[i]);}})();</script>')
+def fsx(me, s):
+    if 'id="fsx"' in s or '<main' not in s:
+        return s
+    return s.replace('</body>', FSX + '\n</body>', 1)
+
 changed = 0
 for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     me = os.path.basename(os.path.dirname(f))
     s = open(f, encoding='utf-8').read()
     o = s
     s = hayami_first(me, s)
+    s = pubdate(me, s)
+    s = fsx(me, s)
     if '<nav class="tools">' in s:
         s = re.sub(r'<nav class="tools">.*?</nav>', lambda m: nav_for(me), s, count=1, flags=re.S)
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)
@@ -80,4 +112,5 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
         open(f, 'w', encoding='utf-8').write(s)
         changed += 1
 
+json.dump(PUB, open(PUBF, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('finish.py: 書き換えたページ', changed)
