@@ -17,8 +17,12 @@
 #  国税庁 No.5408「中小企業者等の少額減価償却資産の取得価額の損金算入の特例」(40万円未満・従業員400人以下・令和8年4月1日現在法令等) https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5408.htm
 #  国税庁「令和8年度 法人税関係法令の改正の概要」主な中小企業税制の見直し https://www.nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2026/pdf/G.pdf
 #  中小企業庁「少額減価償却資産の特例」 https://www.chusho.meti.go.jp/zaimu/zeisei/tokurei/syougaku_shisan.html
+#  国税庁 確定申告書等作成コーナー「減価償却費の端数処理」(個人の減価償却費の小数点以下の端数は切り上げ) https://www.keisan.nta.go.jp/r5yokuaru/aoiroshinkoku/hitsuyokeihi/genkashokyakuhi/hasushori.html
 # 最後に原本を確かめた日: 2026-11-20
-# 端数:年ごとの償却費の1円未満は切り捨て(ページに書いてある動き)。償却保証額との比べは切り捨てる前の額で比べる(「満たない」)。
+#  2026-11-21:作成コーナー「減価償却費の端数処理」だけ本文で読んだ(「減価償却費の計算で小数点以下の端数が生じた場合、切上げ処理」。償却方法を分ける記載は無い)。ほかの原本は 11-20 のまま。
+#  作成コーナーの端数処理は、同じ 11-21 の3時の回が開いて確かめた(kiroku/zen/2026-11-21/chukosha-taiyonensu.txt)。
+# 端数:年ごとの償却費の1円未満は、法人は切り捨て(償却限度額を超えない向き)・個人事業主は切り上げ(作成コーナーと同じ。2026-11-21 にページを切り捨てから直した。/chukosha-taiyonensu/ と同じ扱い)。
+#  償却保証額との比べは丸める前の額で比べる(「満たない」)。
 # 2026-11-20:ページは償却保証額との比べを切り捨てたあとの額でしていた(取得価額1,000円・耐用年数22年以上などで年の割り振りが変わる)。整数どうしの比べ bv*b*100<cost*hs に直した。tools/build_taiyo.py にも同じ直しが要る。
 # 照らすもの:window.__taiyo(2年〜50年の全部の率)・結果の箱・毎年の表・判定の文(10万・20万・40万円の境目)・
 #  HTML に手で書いた表(耐用年数33行・償却率18行・50万円の例5行・少額4行・中古車7行)・入力欄の選択肢・本文の数字
@@ -60,8 +64,8 @@ ASSETS = [
     ('ソフトウェア', 'ソフトウェア（自社で使うもの）', 5), ('ソフトウェア', 'ソフトウェア（販売用の原本・研究開発用）', 3)]
 ONLY = ('建物', '建物附属設備', 'ソフトウェア')   # 定額法だけ(建物は平成10年4月1日以後・附属設備は平成28年4月1日以後・無形固定資産)
 
-def ref_sched(cost, n, tr, months, soft):
-    """cost=取得価額 n=耐用年数 tr=1 定率法 months=1年目に使った月数 soft=無形固定資産(0円まで)"""
+def ref_sched(cost, n, tr, months, soft, up=0):
+    """cost=取得価額 n=耐用年数 tr=1 定率法 months=1年目に使った月数 soft=無形固定資産(0円まで) up=1 個人事業主(1円未満切り上げ)"""
     out, book, rev, low = [], cost, None, (0 if soft else 1)
     while book > low and len(out) < 80:
         mo = months if not out else 12
@@ -72,7 +76,8 @@ def ref_sched(cost, n, tr, months, soft):
             ann = F(book * r, 1000) if rev is None else F(rev * kai, 1000)
         else:
             ann = F(cost * GAKU[n], 1000)
-        a = int(ann * mo / 12)                   # 1円未満切り捨て
+        x = ann * mo / 12
+        a = -int(-x // 1) if up else int(x)      # 1円未満:個人事業主は切り上げ・法人は切り捨て
         a = min(a, book - low)                   # 1円(無形は0円)を残す
         book -= a
         out.append(a)
@@ -105,6 +110,10 @@ async def body(pg):
     s = ref_sched(1000000, 10, 0, 12, 0)
     chk('No.2106 の例 定額法', (s[0], s[8], s[9], len(s)), (100000, 100000, 99999, 10))
 
+    # 0-2 個人事業主の切り上げの例:1,234,567円×0.500=617,283.5円→617,284円。50万円・6年の定率法2年目 333,500円×0.333=111,055.5円→111,056円。法人は切り捨て
+    chk('個人の切り上げ 定額法', ref_sched(1234567, 2, 0, 12, 0, 1), [617284, 617282])
+    chk('個人の切り上げ 定率法', ref_sched(500000, 6, 1, 12, 0, 1)[:2], [166500, 111056])
+    chk('法人の切り捨て 定率法', ref_sched(500000, 6, 1, 12, 0, 0)[:2], [166500, 111055])
     # 1 関数:2年〜50年の全部の率・定額法と定率法・月数・無形
     costs = [0, 1, 2, 3, 1000, 99999, 100000, 199999, 200000, 333333, 399999, 400000, 500000, 1000000, 1234567,
              2999999, 3000001, 7777777, 12345678, 98765432, 123456789, 3999999999, 10000000000]
@@ -112,16 +121,16 @@ async def body(pg):
         for cost in costs:
             for tr in (0, 1):
                 for months in (12, 9, 1) if yrs not in (2, 3, 4, 5, 6, 10, 22, 50) else range(1, 13):
-                    for soft in (0, 1):
-                        got = await pg.evaluate('([c,y,t,m,s])=>window.__taiyo(c,y,t,m,s)', [cost, yrs, tr, months, soft])
-                        exp = ref_sched(cost, yrs, tr, months, soft); n += 1
+                    for soft, up in ((0, 0), (1, 0), (0, 1), (1, 1)):
+                        got = await pg.evaluate('([c,y,t,m,s,u])=>window.__taiyo(c,y,t,m,s,u)', [cost, yrs, tr, months, soft, up])
+                        exp = ref_sched(cost, yrs, tr, months, soft, up); n += 1
                         if got != exp:
-                            bad += 1; print('NG sched', cost, yrs, tr, months, soft, got[:12], exp[:12])
-                        if cost < 1000:
+                            bad += 1; print('NG sched', cost, yrs, tr, months, soft, up, got[:12], exp[:12])
+                        if cost < 1000 and not up:
                             continue             # 1円〜3円は毎年の額が切り捨てで0円になり償却が進まない(関数の一致だけを見る)
                         n += 1
                         if sum(exp) != max(0, cost - (0 if soft else 1)):
-                            bad += 1; print('NG 合計が取得価額−備忘価額でない', cost, yrs, tr, months, soft)
+                            bad += 1; print('NG 合計が取得価額−備忘価額でない', cost, yrs, tr, months, soft, up)
     # 償却保証額との比べが切り捨ての前後で変わる所を探して照らす(整数どうしの比べ)
     for yrs in range(3, 51):
         r, kai, ho = TEI[yrs]
@@ -159,6 +168,8 @@ async def body(pg):
         cases.append((idx, 500000, 0, 0, 4, None))
         cases.append((idx, 1234567, 1, 1, 1, None))
         cases.append((idx, 3000000, 0, 1, 10, None))
+        cases.append((idx, 1234567, 0, 0, 2, None))
+        cases.append((idx, 7777777, 0, 1, 5, None))
     for cost in (0, 1, 99999, 100000, 199999, 200000, 399999, 400000, 400001, 10000000000):
         for who, hoho in ((0, 0), (1, 1), (1, 0)):
             cases.append((19, cost, who, hoho, 12, None))
@@ -170,6 +181,7 @@ async def body(pg):
     for c in cases:
         idx, cost, who, hoho, mon, yrs = c
         o, tb = await screen(*c)
+        hasu = await pg.inner_text('#o-hasu')
         if idx >= 0:
             kind, name, L = ASSETS[idx]
             only, soft = kind in ONLY, kind == 'ソフトウェア'
@@ -177,7 +189,7 @@ async def body(pg):
             name, L, only, soft = '耐用年数%d年の資産' % yrs, yrs, False, False
         tr = 0 if only else hoho
         months = 13 - mon
-        s = ref_sched(cost, L, tr, months, soft)
+        s = ref_sched(cost, L, tr, months, soft, 0 if who else 1)
         rate = TEI[L][0] if tr else GAKU[L]
         if cost < 100000:
             vd, vds = '全額をその年の経費にできます', '10万円未満なので少額減価償却資産です'
@@ -197,6 +209,7 @@ async def body(pg):
               and num(o['o-1']) == (s[0] if s else 0) and o['o-1e'] == '%dか月分' % months
               and num(o['o-2']) == (s[1] if len(s) > 1 else 0) and tb == want_tb
               and o['o-vd'] == vd and vds in o['o-vds'] and (name + 'を' + how + '計算しています') in o['o-how']
+              and hasu == ('1円未満は切り捨てています。' if who else '1円未満は切り上げています（国税庁の確定申告書等作成コーナーと同じ）。')
               and (('年の途中から使ったので%d年に分かれます' % len(s)) in o['o-vds']) == (cost >= 400000 and len(s) > L))
         if not ok:
             bad += 1; print('NG 画面', c, o, tb[:3], s[:3])
@@ -269,8 +282,24 @@ async def body(pg):
     # 計算の箱に直に書いた既定(パソコン・50万円・個人・定額法・4月)
     await pg.reload()
     o1 = num(await pg.inner_text('#o-1')); o2 = num(await pg.inner_text('#o-2'))
-    s = ref_sched(500000, 4, 0, 9, 0)
+    s = ref_sched(500000, 4, 0, 9, 0, 1)
     chk('既定の結果', (o1, o2, num(await pg.inner_text('#o-n'))), (s[0], s[1], 4))
+    # JS が書き換える前の HTML に直に書いた既定の結果(誤りの形16)
+    raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'taiyonensu', 'index.html'), encoding='utf-8').read()
+    book, trs = 500000, ''
+    for k, a in enumerate(s):
+        book -= a
+        trs += '<tr><td>%d年目</td><td>%s</td><td>%s</td></tr>' % (k + 1, '{:,}'.format(a), '{:,}'.format(book))
+    for want in ('<div class="vd no" id="vd"><b id="o-vd">耐用年数で減価償却します</b><span id="o-vds">4年で経費にします。年の途中から使ったので%d年に分かれます</span></div>' % len(s),
+                 '<b id="o-n">4<i>年</i></b><em id="o-ne">定額法 %s</em>' % r3(GAKU[4]),
+                 '<b id="o-1">{:,}<i>円</i></b><em id="o-1e">9か月分</em>'.format(s[0]),
+                 '<b id="o-2">{:,}<i>円</i></b>'.format(s[1]),
+                 '<li id="o-how">パソコン（サーバー用を除く）を定額法で計算しています。個人事業主は届け出なければ定額法です</li>',
+                 '<span id="o-hasu">1円未満は切り上げています（国税庁の確定申告書等作成コーナーと同じ）。</span>',
+                 '<tbody id="tb">' + trs + '</tbody>'):
+        chk('既定の結果(HTML) ' + want[:30], want in raw, True)
+    chk('文 50万円の表の端数の注記', '表は1円未満を切り捨てた額です。個人事業主は切り上げるので、6年の定率法2年目は{:,}円です'.format(ref_sched(500000, 6, 1, 12, 0, 1)[1]) in txt, True)
+    chk('更新日', '更新日：2026年11月21日' in txt, True)
 
     # 5 並びと id
     ids = await pg.evaluate('()=>[...document.querySelectorAll("[id]")].map(e=>e.id)')

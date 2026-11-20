@@ -161,7 +161,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="年ごとに減る棒グラフ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="13" y="18" width="8" height="30" rx="1.5" fill="#0f3d31"/><rect x="24" y="26" width="8" height="22" rx="1.5" fill="#00775a"/><rect x="35" y="33" width="8" height="15" rx="1.5" fill="#00775a"/><rect x="46" y="39" width="8" height="9" rx="1.5" fill="#e08a2c"/></svg></div>
- <p class="upd">公開日：2026年11月19日　更新日：2026年11月20日（国税庁 No.2100・No.2106 令和8年4月1日現在法令等）</p>
+ <p class="upd">公開日：2026年11月19日　更新日：2026年11月21日（国税庁 No.2100・No.2106 令和8年4月1日現在法令等）</p>
  <h1>【法定耐用年数の一覧】減価償却の計算と毎年の償却費【2026年】</h1>
 </div>
 
@@ -206,18 +206,18 @@ body{overflow-x:clip}
    <select id="mon"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4" selected>4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select>
   </div>
  </div>
- <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="vd no" id="vd"><b id="o-vd">耐用年数で減価償却します</b><span id="o-vds">4年で経費にします。年の途中から使ったので5年に分かれます</span></div>
  <div class="amt">
-  <div><small>法定耐用年数</small><b id="o-n"></b><em id="o-ne"></em></div>
-  <div><small>1年目の<br>減価償却費</small><b id="o-1"></b><em id="o-1e"></em></div>
-  <div><small>2年目の<br>減価償却費</small><b id="o-2"></b><em>1年分</em></div>
+  <div><small>法定耐用年数</small><b id="o-n">4<i>年</i></b><em id="o-ne">定額法 0.250</em></div>
+  <div><small>1年目の<br>減価償却費</small><b id="o-1">93,750<i>円</i></b><em id="o-1e">9か月分</em></div>
+  <div><small>2年目の<br>減価償却費</small><b id="o-2">125,000<i>円</i></b><em>1年分</em></div>
  </div>
  <ul>
-  <li id="o-how"></li>
-  <li>1円未満は切り捨てています。最後の年は1円を残します（ソフトウェアは0円まで）</li>
+  <li id="o-how">パソコン（サーバー用を除く）を定額法で計算しています。個人事業主は届け出なければ定額法です</li>
+  <li><span id="o-hasu">1円未満は切り上げています（国税庁の確定申告書等作成コーナーと同じ）。</span>最後の年は1円を残します（ソフトウェアは0円まで）</li>
  </ul>
  <p class="cap" style="margin-top:12px">毎年の減価償却費</p>
- <div class="tw"><table><thead><tr><th>年</th><th>減価償却費<br>（円）</th><th>年末の残り<br>（円）</th></tr></thead><tbody id="tb"></tbody></table></div>
+ <div class="tw"><table><thead><tr><th>年</th><th>減価償却費<br>（円）</th><th>年末の残り<br>（円）</th></tr></thead><tbody id="tb"><tr><td>1年目</td><td>93,750</td><td>406,250</td></tr><tr><td>2年目</td><td>125,000</td><td>281,250</td></tr><tr><td>3年目</td><td>125,000</td><td>156,250</td></tr><tr><td>4年目</td><td>125,000</td><td>31,250</td></tr><tr><td>5年目</td><td>31,249</td><td>1</td></tr></tbody></table></div>
 </div>
 
 <div class="share">
@@ -260,7 +260,7 @@ body{overflow-x:clip}
  <tbody><tr><td>4年</td><td>125,000</td><td>250,000</td><td>125,000</td><td>375,000</td></tr><tr><td>5年</td><td>100,000</td><td>200,000</td><td>120,000</td><td>320,000</td></tr><tr><td>6年</td><td>83,500</td><td>166,500</td><td>111,055</td><td>277,555</td></tr><tr><td>8年</td><td>62,500</td><td>125,000</td><td>93,750</td><td>218,750</td></tr><tr><td>10年</td><td>50,000</td><td>100,000</td><td>80,000</td><td>180,000</td></tr></tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">年の途中から使ったときは、1年目の償却費を使った月数で月割りします。4月から使えば9か月分です。</p>
+<p class="note" style="margin-top:8px">年の途中から使ったときは、1年目の償却費を使った月数で月割りします。4月から使えば9か月分です。表は1円未満を切り捨てた額です。個人事業主は切り上げるので、6年の定率法2年目は111,056円です。</p>
 
 <h2 id="shogaku">10万円・20万円・40万円未満の扱い</h2>
 <p>取得価額が小さい資産は、耐用年数で分けずに経費にできる決まりがあります。</p>
@@ -330,6 +330,7 @@ body{overflow-x:clip}
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5461.htm">国税庁 No.5461「ソフトウエアの取得価額と耐用年数」</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/pdf/2100_01.pdf">国税庁「主な減価償却資産の耐用年数表」</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/shinkoku/tebiki/2023/pdf/041.pdf">国税庁「青色申告の決算の手引き（現金主義用）」</a>の減価償却資産の償却率等表（耐用年数省令 別表第八・第十）</li>
+  <li><a href="https://www.keisan.nta.go.jp/r5yokuaru/aoiroshinkoku/hitsuyokeihi/genkashokyakuhi/hasushori.html">国税庁 確定申告書等作成コーナー「減価償却費の端数処理」</a></li>
   <li><a href="https://www.chusho.meti.go.jp/zaimu/zeisei/tokurei/syougaku_shisan.html">中小企業庁「少額減価償却資産の特例」</a></li>
  </ul>
 </div>
@@ -409,11 +410,12 @@ body{overflow-x:clip}
  var who=0,hoho=0,$=function(i){return document.getElementById(i)};
  function f(n){return n.toLocaleString("ja-JP");}
  function num(i,lo,hi){var v=parseInt($(i).value,10);if(isNaN(v))v=lo;return Math.min(Math.max(v,lo),hi);}
- function sched(cost,n,tr,months,soft){var r=R[n],a=r[0],b=r[1],kr=r[2],hs=r[3],out=[],bv=cost,low=soft?0:1,hosho=Math.floor(cost*hs/100000),kai=-1,y=0;
+ /* 1円未満は法人が切り捨て、個人事業主(up=1)は切り上げ（国税庁の確定申告書等作成コーナーと同じ） */
+ function sched(cost,n,tr,months,soft,up){var q=up?11999:0,r=R[n],a=r[0],b=r[1],kr=r[2],hs=r[3],out=[],bv=cost,low=soft?0:1,hosho=Math.floor(cost*hs/100000),kai=-1,y=0;
   while(bv>low&&y<80){var m=y===0?months:12,d;
-   if(!tr){d=Math.floor(cost*a*m/12000);}
+   if(!tr){d=Math.floor((cost*a*m+q)/12000);}
    else{if(kai<0){if(y>0&&bv*b*100<cost*hs)kai=bv;}
-    d=kai<0?Math.floor(bv*b*m/12000):Math.floor(kai*kr*m/12000);}
+    d=kai<0?Math.floor((bv*b*m+q)/12000):Math.floor((kai*kr*m+q)/12000);}
    d=Math.min(d,bv-low);out.push(d);bv-=d;y++;}
   return out;}
  function render(){
@@ -421,12 +423,13 @@ body{overflow-x:clip}
   if(i<0){$("w-n").classList.remove("hide");n=num("yrs",2,50);nm="耐用年数"+n+"年の資産";}
   else{$("w-n").classList.add("hide");n=A[i][2];only=A[i][3];soft=A[i][0]==="ソフトウェア";nm=A[i][1];}
   var cost=num("cost",0,10000000000),mon=+$("mon").value,months=13-mon,tr=only?0:hoho;
-  var s=sched(cost,n,tr,months,soft),r=R[n];
+  var s=sched(cost,n,tr,months,soft,who?0:1),r=R[n];
   var bs=$("s-hoho").querySelectorAll("button");bs[1].disabled=!!only;bs[0].className=tr?"":"on";bs[1].className=tr?"on":"";
   $("o-n").innerHTML=n+"<i>年</i>";$("o-ne").textContent=(tr?"定率法 ":"定額法 ")+((tr?r[1]:r[0])/1000).toFixed(3);
   $("o-1").innerHTML=f(s[0]||0)+"<i>円</i>";$("o-1e").textContent=months+"か月分";
   $("o-2").innerHTML=f(s[1]||0)+"<i>円</i>";
   $("o-how").textContent=nm+"を"+(only?"定額法だけで":(tr?"定率法で":"定額法で"))+"計算しています。"+(only?"この資産は定率法を選べません":(who?"法人は届け出なければ定率法です":"個人事業主は届け出なければ定額法です"));
+  $("o-hasu").textContent=who?"1円未満は切り捨てています。":"1円未満は切り上げています（国税庁の確定申告書等作成コーナーと同じ）。";
   var vd=$("vd"),t,sp;
   if(cost<100000){t="全額をその年の経費にできます";sp="10万円未満なので少額減価償却資産です。減価償却はしません";}
   else if(cost<200000){t="3年で3分の1ずつも選べます";sp="10万円以上20万円未満なので一括償却資産にできます。青色申告の中小企業者等は全額を経費にもできます";}

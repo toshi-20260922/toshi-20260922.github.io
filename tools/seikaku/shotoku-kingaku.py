@@ -24,7 +24,11 @@
 #   控除額の式の表の全行・本文とよくある質問の数字・出典の文字・id の重なり
 # 2026-11-20 の直し(ページの誤り):住民税の扶養の所得要件「58万円以下のまま」→ 令和9年度分から62万円以下。「年収190万円以下…74万円」→220万円以下。
 #   「年収660万円未満は4,000円きざみ」→220万円以上660万円未満。措法41条の3の3→41条の3の11。出典の文字(あらまし)と開けない出典(箕面市・税額表等)の差し替え。
-# 最後に原本を確かめた日:2026-11-20
+# 2026-11-21 の直し(ページの誤り・形16):計算の箱に直に書いた既定の結果が空だった(#o-t・#o-k・#o-vd・#o-vds・#o-br・#o-sp・#o-kg と #vd の class)。
+#   既定の入力(給与130万円・ほかは0・65歳未満)の結果を HTML に書いた。下の「JS を止めた画面」で自分の計算と比べる。
+# 2026-11-21:この回は原本を開けなかった(係は WebFetch を使えず web-fetch の係も呼べない)。WebSearch で 2026kaisei.pdf・中央区 r9kaisei.html・
+#   nencho2026/pdf/102.pdf の URL が今もあることだけ確かめた。定数は 11-20 に取り直した値のまま。
+# 最後に原本を確かめた日:2026-11-21(No.1410 だけ本文で読んだ。令和8年分・9年分の表5行と注2の表「69万1,000円以上74万1,000円未満はなし〜219万6,000円以上220万円未満は145万6,000円」。No.1411・No.1600・03_1.htm・2026kaisei.pdf・中央区は11-20のまま)
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run
@@ -239,12 +243,27 @@ async def body(pg):
         ('出典 あらまし', '国税庁「源泉所得税の改正のあらまし（令和8年4月）」'),
         ('出典 住民税', '東京都中央区「令和9年度から適用される個人住民税の主な改正」（住民税の扶養の所得要件は62万円以下・基礎控除は改正なし）'),
         ('出典 条文', '租税特別措置法第41条の3の11（所得金額調整控除）'),
-        ('更新日', '更新日：2026年11月20日'),
+        ('更新日', '更新日：2026年11月21日'),
     ]:
         chk('本文 ' + label, want in flat, True)
     chk('古い文が残っていない', [w for w in ('58万円以下のまま', '年収190万円以下', '41条の3の3', '箕面市', '令和8年度税制改正による所得税の基礎控除の引上げ、') if w in flat], [])
     ids = await pg.eval_on_selector_all('[id]', 'es=>es.map(e=>e.id)')
     chk('id の重なり', sorted(set(i for i in ids if ids.count(i) > 1)), [])
     chk('目次の行き先', await pg.eval_on_selector_all('nav.toc a', "as=>as.map(a=>{var e=document.getElementById(a.getAttribute('href').slice(1));return !!e&&e.tagName==='H2'&&e.innerText.replace(/\\s+/g,'')===a.textContent.replace(/\\s+/g,'')})"), [True] * 8)
+    # 10 JS を止めた画面(HTML に直に書いた既定の結果)が、既定の入力での自分の計算と同じこと
+    ctx = await pg.context.browser.new_context(java_script_enabled=False, viewport={'width': 390, 'height': 800})
+    p2 = await ctx.new_page()
+    await p2.goto(pg.url)
+    e = ref(1300000, 0, 0, 0, 0, 0, 0, 0, 0, 0); t = e['tot']
+    async def raw(i): return ''.join((await p2.text_content('#' + i)).split())
+    chk('既定(JSなし) 入力', [await p2.get_attribute('#' + i, 'value') for i in ('q', 'y', 'js', 'je', 'zi', 'ze', 'ii', 'ie')], ['1300000'] + ['0'] * 7)
+    chk('既定(JSなし) 合計所得金額', await raw('o-t'), yen(t) + '円')
+    chk('既定(JSなし) 基礎控除', await raw('o-k'), yen(kiso(t)) + '円')
+    chk('既定(JSなし) 結論', (await raw('o-vd'), await raw('o-vds'), await p2.get_attribute('#vd', 'class')),
+        ('扶養控除・配偶者控除の対象になります', '合計所得金額が62万円以下です（家族の所得税の扶養）', 'vd no') if t <= 62 * MAN else None)
+    chk('既定(JSなし) 内訳', await raw('o-br'), '内訳：給与所得%s円・事業所得%s円・雑所得%s円' % (yen(e['g']), yen(e['jig']), yen(e['zat'])))
+    chk('既定(JSなし) 学生', await raw('o-sp'), '学生なら勤労学生控除を受けられる額です（89万円以下・働いて得た所得以外が10万円以下）' if t <= 89 * MAN else None)
+    chk('既定(JSなし) 本人', await raw('o-kg'), '本人の合計所得金額が1,000万円以下なので、配偶者控除・配偶者特別控除を受けられる側です' if t <= 1000 * MAN else None)
+    await ctx.close()
     return n, bad
 run('shotoku-kingaku', body)

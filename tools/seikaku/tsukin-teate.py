@@ -30,7 +30,7 @@
 #   (newpage_43875 は「最低賃金制度の概要」で題名が違う。2026-11-20 に出典のリンクを直した)
 # 片道の距離は「以上・未満」でそのまま比べる(端数を丸める定めは原本に無い)。金額は全部整数の円。
 # 照らすもの:画面の箱(限度額・課税・1年分・判定の文・内訳の文)・距離の表・月2万円の表・本文と よく聞かれること の数字・元の文
-# 最後に原本を確かめた日:2026-11-20
+# 最後に原本を確かめた日:2026-11-21(No.2585 の表の全12行・駐車場の上限5,000円・最高限度150,000円と No.2582 の15万円を本文で読んだ。どちらも令和8年4月1日現在法令等。2026tsukin・2025tsukin・消費税の質疑応答は11-20のまま)
 import os, sys, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
@@ -200,7 +200,7 @@ async def body(pg):
         ('よく聞かれること 駐車場', '2026年4月1日以後に払うべき通勤手当からです。勤務先か駅などの近くの駐車場で、月%s円が上限です。' % c(CHUSHA)),
         ('よく聞かれること 社会保険', '標準報酬月額を決める報酬には全額を入れます。雇用保険料の計算でも賃金に入ります。'),
         ('社会保険', '健康保険・厚生年金の標準報酬月額を決めるときは、通勤手当も全額を報酬に入れます。'),
-        ('更新日', '更新日：2026年11月20日（国税庁No.2582・No.2585令和8年4月1日現在法令等）'),
+        ('更新日', '更新日：2026年11月21日（国税庁No.2582・No.2585令和8年4月1日現在法令等）'),
     ]:
         chk('本文 ' + label, want in flat, True)
     chk('最低賃金の出典のリンク', 'chingin/newpage_43898.html">厚生労働省「最低賃金の対象となる賃金」' in raw, True)
@@ -214,6 +214,13 @@ async def body(pg):
     chk('元の文 既定の値', ('id="pay" inputmode="numeric" min="0" max="10000000" step="1" value="20000"' in raw,
                      'id="pas" inputmode="numeric" min="0" max="10000000" step="1" value="18000"' in raw), (True, True))
     html = re.sub(r'<script.*?</script>|<style.*?</style>', '', raw, flags=re.S)
+    # 2026-11-21:計算の箱に直に書いた既定の結果(JS が動く前の HTML)も自分の計算と同じか(申し送りの形16・26)
+    w = want_texts(0, 20000, 18000, '12', 0, 0)
+    def inner(i):
+        m = re.search(r'id="%s"[^>]*>(.*?)</(?:b|span|em|li)>' % i, html, flags=re.S)
+        return re.sub(r'<[^>]+>', '', m.group(1)) if m else None
+    chk('元の HTML の既定の結果', [inner(i) for i in ('o-l', 'o-t', 'o-tn', 'o-vd', 'o-vds', 'o-how')], w)
+    chk('元の HTML の判定の箱の色', 'class="vd" id="vd"' in raw, w[3] == '限度額を超えています')
     chk('span の開きと閉じの数', html.count('<span'), html.count('</span>'))
     chk('2025年の改正で上がった段は10km以上の6つ', [lo for lo, v in OLD2025 if v and v != dict(DAN)[lo]], [10, 15, 25, 35, 45, 55])
     chk('列の数', len(cells) and 0 or len(await pg.evaluate("()=>[...document.querySelectorAll(':is(#kyori ~ .tw):not(#kyori ~ .tw ~ .tw) thead th')].map(x=>x.textContent)")), 5)

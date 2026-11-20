@@ -6,7 +6,7 @@
 #   全国健康保険協会(協会けんぽ) https://www.kyoukaikenpo.or.jp/ ・日本年金機構 https://www.nenkin.go.jp/ ・大阪府 https://www.pref.osaka.lg.jp/
 # 見ないもの:運営者の名前・資格・登録番号・所在地・「12年」が正しいかどうか(確かめる手段が無い。トップページと同じ文字かだけを見る)。
 #  外のリンク(oyama-toshiro.com・Google フォーム)が開くかどうかはここでは見ない(形だけを見る)。
-# 最後に照らした日: 2026-11-20
+# 最後に照らした日: 2026-11-21
 import os, sys, re, glob, json, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import done, SITE, ROOT

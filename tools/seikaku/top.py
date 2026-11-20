@@ -20,7 +20,11 @@
 #    自分の計算が行き先の早見表(万円の整数)と全行で合うことをこの突き合わせの中で確かめている。
 #  4 年・年度:今日(2026-11-20=令和8年)で正しいか。ページの数を書いていれば pages.json の数と合うか。
 #  5 構造化データ(JSON-LD)・canonical・og。
-# 最後に確かめた日: 2026-11-20
+#  6 HTML に直に書いた既定の結果(2026-11-21 追加):JS を止めて開いた画面のヒーローのタブ(金額・表・注・札)と国保と任意継続の比較の結果が、
+#    JS を動かした最初の画面と同じか。空のままなら合わないと数える(申し送りの形16・26)。
+#  2026-11-21 の回:行き先のページの今日の直し(nenshu-kabe・part-fuyou・zoyozei・juminzei・shakaihoken・yakuin-tedori・houjinnari ほか)のあとで全部を流し直した。
+#    公的サイトは検索で国税庁 No.4402 と「税務調査手続に関するFAQ（一般納税者向け）」の所在だけを確かめた(本文は開いていない)。
+# 最後に確かめた日: 2026-11-21
 import os, re, sys, json, asyncio
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +33,7 @@ from playwright.async_api import async_playwright
 
 TOP = os.path.join(SITE, 'index.html')
 PAGES = json.load(open(os.path.join(ROOT, 'tools', 'pages.json'), encoding='utf-8'))
-REIWA, SEIREKI, KYOU = 8, 2026, '2026年11月20日'
+REIWA, SEIREKI, KYOU = 8, 2026, '2026年11月21日'
 
 # ---- 自分の計算(整数。ヒーローの法人成りの表だけに使う) ----
 STD = [58, 68, 78, 88, 98, 104, 110, 118, 126, 134, 142, 150, 160, 170, 180, 190, 200, 220, 240, 260, 280, 300,
@@ -161,6 +165,17 @@ async def main():
             if slug not in MAIN:
                 await go(slug); MAIN[slug] = ''.join((await dp.inner_text('main')).split())
             return MAIN[slug]
+
+        # ---- 6 HTML に直に書いた既定の結果 ----
+        IDS = ['sl-v', 'th', 'tb', 'nt', 'rc', 'ko-k', 'ko-n', 'ko-w', 'ko-d', 'tlink']
+        GET = "ids=>ids.map(i=>document.getElementById(i).innerText.replace(/\\s+/g,' ').trim())"
+        cx = await b.new_context(java_script_enabled=False, viewport={'width': 390, 'height': 800})
+        sp = await cx.new_page(); await sp.goto('file://' + TOP)
+        st_ = await sp.evaluate(GET, IDS); await cx.close()
+        dy_ = await pg.evaluate(GET, IDS)
+        for i_, a_, b_ in zip(IDS, st_, dy_):
+            chk('既定の結果が空でない ' + i_, a_ != '', True)
+            chk('既定の結果が計算と同じ ' + i_, a_, b_)
 
         # ---- 1 内部リンク ----
         links = await pg.evaluate("""()=>[...document.querySelectorAll('a[href]')].map(a=>{var c=a.closest('.dd')?'menu':a.closest('ul.lk')?'lk':a.closest('ul.cards')?'card':

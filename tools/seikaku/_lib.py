@@ -98,6 +98,13 @@
 # ・厚生労働省が11月11日に令和9年度の国保の賦課限度額の案(基礎69万円・支援27万円)を出している。未決定。
 # ・5:15 この回(4時の回)は本番を開けなかった(tt_status.txt と /part-fuyou/ は係の web-fetch が許可待ちで時間切れ)。ver=63・64 が本番に出たかは未確認。
 #   次の回が /part-fuyou/ の「年収が219万円以下なら74万円を引きます」を本番で読んで確かめる。
+# ---- 申し送り(2026-11-21 5時の回・taishoku-jumin〜policy とトップ) ----
+# ・5:03に始めて taishoku-jumin・hensai・tsukin-teate・shotoku-kingaku・taiyonensu・kani-kazei・policy・top を済ませた。ver=65。40ページ済みで、残りは saitei だけ。
+# ・係(fork)は web-fetch の係を呼べない。原本は親の回が WebSearch で URL を出してから web-fetch の係に開かせ、結果を記録と突き合わせの頭に書く。
+#   31 /taiyonensu/ の個人事業主の償却費を切り上げにそろえた(形19。定額法と定率法)。50万円の表は法人の切り捨ての額のまま注記を足した
+#   32 既定の結果が空(形16):この8ページのうち7ページに残っていた(hensai の1年ごとの表・tsukin-teate・shotoku-kingaku・taiyonensu・kani-kazei・トップのヒーローと国保の比較・taishoku-jumin は前提の1行)
+#   33 飲食料品の税率引下げを決まったことのように書く(kani-kazei の注記。法案は参議院で審議中。国税庁 No.6505 には引下げと簡易課税の特例の記載がすでにある)
+# ・tools/build_taiyo.py・build_shotoku.py・build_kani.py・build_tsukin.py には今日の直しが入っていない。流さない。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
