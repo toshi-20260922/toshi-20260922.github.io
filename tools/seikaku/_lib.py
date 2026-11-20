@@ -105,6 +105,10 @@
 #   32 既定の結果が空(形16):この8ページのうち7ページに残っていた(hensai の1年ごとの表・tsukin-teate・shotoku-kingaku・taiyonensu・kani-kazei・トップのヒーローと国保の比較・taishoku-jumin は前提の1行)
 #   33 飲食料品の税率引下げを決まったことのように書く(kani-kazei の注記。法案は参議院で審議中。国税庁 No.6505 には引下げと簡易課税の特例の記載がすでにある)
 # ・tools/build_taiyo.py・build_shotoku.py・build_kani.py・build_tsukin.py には今日の直しが入っていない。流さない。
+# ---- 申し送り(2026-11-21 5時の回の続き・最低賃金) ----
+# ・web-fetch の係に URL を7つ8つ渡して同時に3つ以上走らせると、jsite.mhlw.go.jp や県のページが「許可待ちで時間切れ」になる。係は1つずつ、URL は3つまでにする。
+# ・三重の特定最低賃金2業種は11月19日に官報公示(桑名労働基準協会の記事)。三重労働局の原本を開けたら build_saitei.py の ind を6つの形にして計算に入れる(12月21日から1,167円・1,153円)。
+# ・近くの県と「同じ額」と書く文は RAW で同じ額の県を全部出してから書く(熊本は山形・島根・香川。発効前の岩手は断りを付ける)。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
