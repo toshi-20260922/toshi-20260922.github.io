@@ -46,6 +46,9 @@
 #   15 定率法の償却保証額との比べを切り捨てたあとの額でする(taiyonensu)・利息を年利の小数で掛けて切り捨てる(hensai)・「住民税の扶養の所得要件は58万円のまま」(令和9年度から62万円。shotoku-kingaku)
 # ・tools/build_shotoku.py・build_taiyo.py・build_kani.py は 11-20 の HTML の直しが入っていない。流すと直しが消える。流さずに HTML を直に直す(直しの中身は kiroku/zen/2026-11-20/ の各ファイル)。
 # ・トップは python3 tools/text_units.py '' で書き出せる。トップの数字は行き先のページと tools/seikaku/top.py で照らす。行き先のページの式を直したらトップの同じ式も直す。
+# ・17:05 この回は本番を開けなかった(係の web-fetch は3本とも許可待ちで時間切れ。検索にも taxtable.jp は出ない)。ver=53〜55 が本番に出たかは未確認。
+#   次の回が /policy/ の「創業融資の相談の案内は、トップページとこのページに載せています。」か /hensai/ の「この表は目安です。」を本番で読んで確かめる。
+# ・15時の回で40ページが済み、残りは saitei だけ。まとめ(taxtable_zen_tool_kiroku.md)と報告は saitei を済ませた回が kiroku/zen/2026-11-20/ の全ファイルから書く。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
