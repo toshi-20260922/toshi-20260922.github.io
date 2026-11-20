@@ -1,18 +1,16 @@
 import re,sys,asyncio,subprocess,json
 from playwright.async_api import async_playwright
 SITE='/home/claude/toshi-20260922.github.io/site/'
+# 2026-11-20:会社の所得は、毎年同じ利益が続く姿として前の年の分の法人事業税・特別法人事業税を引いてから出す。
+# 法人住民税の均等割は損金にならないので引かない(国税庁 No.5300)。tools/seikaku/houjinnari.py とは別に書いた計算で、表の全マスを照らす。
 CORP='''
 function k1(x){return Math.floor(x/1000)*1000;}
 function h1(x){return Math.floor(x/100)*100;}
-function corp(I,st){var A=k1(Math.max(0,I)),m=12;
- var L=k1(8000000),hz=h1(Math.min(A,L)*0.15+Math.max(0,A-L)*0.232);
- var bo=st?h1(Math.max(0,k1(hz-5000000))*0.04):0;
- var ch=h1(k1(hz)*0.103);
- var t1=4000000,t2=8000000;
- var jg=h1(Math.min(A,t1)*0.035+Math.max(0,Math.min(A,t2)-t1)*0.053+Math.max(0,A-t2)*0.07);
- var tk=h1(jg*0.37);
- var kp=h1(k1(hz)*0.01),sp=h1(k1(hz)*0.06);
- return hz+ch+bo+jg+tk+kp+sp+70000;}
+function jz(A){var jg=h1((Math.min(A,4000000)*35+Math.max(0,Math.min(A,8000000)-4000000)*53+Math.max(0,A-8000000)*70)/1000);return jg+h1(jg*37/100);}
+function corp(P,st){var I=P;for(var n=0;n<30;n++)I=P-jz(k1(Math.max(0,I)));
+ var A=k1(Math.max(0,I)),hz=h1((Math.min(A,8000000)*150+Math.max(0,A-8000000)*232)/1000),kz=k1(hz);
+ var bo=st?h1(k1(Math.max(0,kz-5000000))*4/100):0;
+ return hz+h1(kz*103/1000)+bo+jz(A)+h1(kz/100)+h1(kz*6/100)+70000;}
 '''
 GEN='''(st)=>{var H=window.__h,o={};
  var PR=[400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1800,2000,2500,3000],MS=[20,30,40,50,60,70,80,90,100,120];
@@ -36,22 +34,22 @@ def tables(s):
         T.append([cells(tr) for tr in re.findall(r'<tr>(.*?)</tr>',m.group(1).split('</thead>')[1],flags=re.S)])
     return T
 if __name__=='__main__':
-    s=subprocess.run(['git','-C',SITE,'show','aebb002:site/houjinnari/index.html'],capture_output=True,text=True,check=True).stdout
+    s=open(SITE+'houjinnari/index.html',encoding='utf-8').read()
     T=tables(s);print([len(t) for t in T],[len(t[0]) for t in T])
     for st in (0,1):
         V=asyncio.run(gen(s,st));bad=0;n=0
         for old,t in ((0,T[0]),(1,T[1])):
             for row in t:
                 p=str(num(row[0].replace('万円','')));r=V[str(old)][p];n+=1
-                if num(row[1])!=round(r['kt']/10000): bad+=1;print('kt',old,p,row[1],r['kt'])
+                if num(row[1])!=int((r['kt']+5000)//10000): bad+=1;print('kt',old,p,row[1],r['kt'])
                 for i,c in enumerate(r['c']):
                     n+=1
-                    if num(row[2+i])!=round(c['d']/10000): bad+=1; print('cell',st,old,p,i,row[2+i],c['d']) if bad<12 else None
+                    if num(row[2+i])!=int((c['d']+5000)//10000): bad+=1; print('cell',st,old,p,i,row[2+i],c['d']) if bad<12 else None
                 a=row[12].split('|');n+=1
-                if num(a[0])!=round(r['all']['d']/10000) or a[-1]!='月%d万'%round(r['all']['m']/10000): bad+=1;print('all',old,p,row[12],r['all'])
+                if num(a[0])!=int((r['all']['d']+5000)//10000) or a[-1]!='月%d万'%int((r['all']['m']+5000)//10000): bad+=1;print('all',old,p,row[12],r['all'])
         for row in T[2]:
             p=str(num(row[0].replace('万円','')));r=V['0'][p]
             for i,c in enumerate(r['c']):
                 n+=1
-                if num(row[1+i])!=round(c['n']/10000): bad+=1; print('nokoru',st,p,i,row[1+i],c['n'],c['P']) if bad<12 else None
+                if num(row[1+i])!=int((c['n']+5000)//10000): bad+=1; print('nokoru',st,p,i,row[1+i],c['n'],c['P']) if bad<12 else None
         print('防衛特別法人税',st,'照らした数',n,'合わない',bad)

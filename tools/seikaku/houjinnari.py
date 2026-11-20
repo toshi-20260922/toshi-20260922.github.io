@@ -30,8 +30,14 @@
 #   横浜市「令和8年度保険料の料率等について」 https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/kokuho/hokenryo/r7hokennryouritu.html
 #   ほかの19の市区町村は tools/regions.py(2026/11/16 に公式ページで確かめた値)と同じかだけを見る。
 # 照らすもの:結果の箱(個人事業・法人・差・役員報酬の月額・社会保険料・分岐点の文)・JS が作る10行の表・HTML に手で書いた早見表3枚の全マス・本文の分岐点の数字
-# 決め:会社負担の健康保険と厚生年金は本人負担と同じ額(折半)、子ども・子育て拠出金は1円未満を四捨五入(ページの前提どおり)。
-# 最後に原本を確かめた日:2026-11-19
+#  国税庁 No.5300 租税公課等の損金算入の可否と租税の損金算入時期(都道府県民税と市町村民税の本税は損金にならない・事業税は申告書を出した事業年度の損金)
+#   https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5300.htm
+#  法人税基本通達9-5-1・9-5-2(事業税と特別法人事業税の損金算入の時期) https://www.nta.go.jp/law/tsutatsu/kihon/hojin/09/09_05_01.htm
+# 決め(2026-11-20 に直した):
+#  ・会社負担の健康保険と厚生年金は 全額(円未満切り捨て)−本人負担。子ども・子育て拠出金は円未満切り捨て(/yakuin-tedori/ と同じ)。
+#  ・早見表3枚の会社の所得は、毎年同じ利益が続く姿として前の年の分の法人事業税・特別法人事業税を引いてから出す。
+#  ・法人住民税の均等割7万円は損金にならないので所得から引かない(税額には足す)。
+# 最後に原本を確かめた日:2026-11-20
 import os, sys, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -78,8 +84,8 @@ def rnd(x):
 def yakuin(m, old, rate):
     s = std(m); p = min(max(s, 88000), 650000)
     ken = half(F(s * (rate + SIEN + (KAIGO if old else 0)), 20000)); nen = half(F(p * 1830, 20000))
-    kyo = rnd(F(p * 36, 10000))
-    return ken + nen, ken + nen + kyo
+    zen = s * (rate + SIEN + (KAIGO if old else 0)) // 10000 + p * 1830 // 10000   # 全額は円未満切り捨て
+    return ken + nen, zen - ken - nen + p * 36 // 10000                           # 会社負担=全額−本人負担+拠出金(円未満切り捨て)
 def kyuyo(x):
     if x < 741000: return 0
     if x < 2191000: return x - 740000
@@ -135,14 +141,24 @@ def houjin(a, old, rate):
         else: hi = mid - 1
     me, co = yakuin(m, old, rate); r = m * 12; sh = me * 12; g = kyuyo(r)
     return {'net': r - sh - shotokuzei(g - sh - kiso(g)) - jumin(g, sh), 'm': m, 'sh': (me + co) * 12}
+def jigyo(a):
+    """法人事業税と特別法人事業税(a は1,000円未満を切り捨てた所得)"""
+    jg = (min(a, 4000000) * 35 + max(0, min(a, 8000000) - 4000000) * 53 + max(0, a - 8000000) * 70) // 1000 // 100 * 100
+    return jg, jg * 37 // 100 // 100 * 100
+def shotoku(p):
+    """会社の所得。毎年同じ利益が続く姿として、前の年の分の法人事業税・特別法人事業税を引く(30回くり返して落ち着いた額)。
+    法人住民税(均等割を含む)は損金にならないので引かない(国税庁 No.5300)。"""
+    i = p
+    for _ in range(30):
+        i = p - sum(jigyo(max(0, i) // 1000 * 1000))
+    return i
 def corp(p):
-    a = max(0, p) // 1000 * 1000
+    a = max(0, shotoku(p)) // 1000 * 1000
     hz = (min(a, 8000000) * 150 + max(0, a - 8000000) * 232) // 1000 // 100 * 100
     kz = hz // 1000 * 1000
     chiho = kz * 103 // 1000 // 100 * 100
     boei = max(0, kz - 5000000) // 1000 * 1000 * 4 // 100 // 100 * 100
-    jg = (min(a, 4000000) * 35 + max(0, min(a, 8000000) - 4000000) * 53 + max(0, a - 8000000) * 70) // 1000 // 100 * 100
-    tk = jg * 37 // 100 // 100 * 100
+    jg, tk = jigyo(a)
     return hz + chiho + boei + jg + tk + kz * 1 // 100 // 100 * 100 + kz * 6 // 100 // 100 * 100 + 70000
 def cell(a, m, old, R, rate):
     """早見表の1マス:(個人事業のままの負担−法人の負担, 会社の利益, 会社に残る額)"""
@@ -312,6 +328,8 @@ async def body(pg):
         ('国民年金の月額', '国民年金（月{:,}円）'.format(NENKIN_KOKUMIN // 12)),
         ('事業主控除', '事業主控除290万円を超える所得に5%'),
         ('均等割', '法人住民税の均等割は年7万円'),
+        ('前提 事業税', '前の年の分の法人事業税・特別法人事業税を会社の経費に入れています'),
+        ('前提 均等割', '法人住民税の均等割は、法人税の計算で経費にならないので所得から引いていません'),
         ('前提の国保', '国民健康保険（東京23区（目黒区・中野区・江戸川区を除く20区）の令和8年度）'),
     ]:
         chk('本文 ' + label, want in flat, True)

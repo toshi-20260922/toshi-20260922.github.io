@@ -2,13 +2,17 @@
 # 原本:
 #  全国健康保険協会「令和8年度都道府県単位保険料率」(47都道府県の健康保険料率・介護1.62%・子ども子育て支援金0.23%)
 #    https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08
-#  全国健康保険協会「令和8年10月分(11月納付分)からの健康保険・厚生年金保険の保険料額表(東京都)」(厚生年金18.3%・拠出金0.36%・等級1〜9)
-#    https://www.kyoukaikenpo.or.jp/assets/R8.10_13%E6%9D%B1%E4%BA%AC.pdf
+#  全国健康保険協会「令和8年3月分(4月納付分)からの健康保険・厚生年金保険の保険料額表(東京都)」(厚生年金18.3%・拠出金0.36%・本人負担は50銭以下切り捨て50銭超切り上げ)
+#    https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf
+#  厚生労働省・こども家庭庁「子ども・子育て支援金に関するQ&A」問6(一般保険料率と支援金率を合算した率を掛けて折半した額で端数処理)
+#    https://www.mhlw.go.jp/hourei/doc/tsuchi/T260216S0101.pdf
+#  日本年金機構「従業員に賞与を支給したときの手続き」(標準賞与額の上限は健康保険が年度の累計573万円・厚生年金は1か月あたり150万円。同じ月に2回以上なら合算)
+#    https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20141203.html
 #  全国健康保険協会の保険料額表(標準報酬月額の等級1〜50の区切り。区切りは令和2年9月から変わっていない)
 #    https://www.kyoukaikenpo.or.jp/~/media/Files/shared/hokenryouritu/r5/ippan/r50210gunma.pdf
 #  日本年金機構「保険料額表(厚生年金保険と協会けんぽ管掌の健康保険)」(令和8年度の拠出金率1,000分の3.6・厚生年金の上限32等級65万円)
 #    https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.html
-#  日本年金機構「厚生年金保険の保険料」(1等級8万8千円〜32等級65万円・標準賞与額は1,000円未満切り捨てで1回150万円まで)
+#  日本年金機構「厚生年金保険の保険料」(1等級8万8千円〜32等級65万円・標準賞与額は1,000円未満切り捨て)
 #    https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20150515-01.html
 #  日本年金機構「健康保険・船員保険の標準報酬月額の上限改定及び累計標準賞与額の上限変更」(第50級139万円・年度の累計573万円)
 #    https://www.nenkin.go.jp/service/kounen/kyokaikenpo/0208.html
@@ -16,8 +20,10 @@
 #    https://jsite.mhlw.go.jp/yamagata-roudoukyoku/koyouhoken-20260316.html
 #  厚生労働省「令和8年度の労災保険率等について」(卸売業・小売業、飲食店又は宿泊業 3/1,000・その他の各種事業 3/1,000)
 #    https://jsite.mhlw.go.jp/gunma-roudoukyoku/content/contents/002595367.pdf
-# 最後に原本を確かめた日:2026-11-19
-# 端数:このページは会社の負担の目安として、各保険の額と合計を1円未満四捨五入で出す(ページの注記どおり)。
+# 最後に原本を確かめた日:2026-11-20
+# 端数(2026-11-20 に /hoteifukurihi/ と同じ方式へ直した):健康保険(介護・支援金を合算した率)と厚生年金は、
+#  全額(1円未満切り捨て)−本人負担(折半額の50銭以下切り捨て・50銭超切り上げ)が会社の負担。拠出金は1円未満切り捨て。
+#  雇用保険と労災保険は1円未満四捨五入。合計は内訳の足し算。賞与は月ごとに別の月に払う前提(厚生年金は1か月150万円まで)。
 import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -48,18 +54,24 @@ def rnd(x):                       # 1円未満四捨五入(正の数)
 def hyojun(m):
     for s, top in GRADE:
         if top is None or m < top: return s
+def half(x):                      # 50銭以下切り捨て・50銭超切り上げ
+    q = x.numerator // x.denominator
+    return q + 1 if x - q > F(1, 2) else q
+def kaisha(base, rate):           # 全額(円未満切り捨て)−本人負担
+    z = base * rate
+    return z.numerator // z.denominator - half(z / 2)
 def tsuki(m, old, ken):           # ken は万分率
     s = hyojun(m); p = min(max(s, 88000), 650000)
-    r = {'ken': s * (F(ken,10000) + (KAIGO if old else 0)) / 2, 'sien': s * SIEN / 2,
-         'nen': p * NENKIN / 2, 'kyo': p * KYOSHUTSU, 'koy': m * KOYO_J, 'rou': m * ROSAI}
+    r = {'ken': kaisha(s, F(ken,10000) + SIEN + (KAIGO if old else 0)), 'nen': kaisha(p, NENKIN),
+         'kyo': int(p * KYOSHUTSU // 1), 'koy': rnd(m * KOYO_J), 'rou': rnd(m * ROSAI)}
     r['t'] = sum(r.values()); return r
 def shoyo(b, n, old, ken):
-    t = F(0); cum = 0
+    t = 0; cum = 0
     for _ in range(n):
         sb = b // 1000 * 1000
         hk = max(0, min(sb, 5730000 - cum)); cum += hk
         pn = min(sb, 1500000)
-        t += hk * (F(ken,10000) + (KAIGO if old else 0) + SIEN) / 2 + pn * (NENKIN / 2 + KYOSHUTSU) + b * (KOYO_J + ROSAI)
+        t += kaisha(hk, F(ken,10000) + SIEN + (KAIGO if old else 0)) + kaisha(pn, NENKIN) + int(pn * KYOSHUTSU // 1) + rnd(b * KOYO_J) + rnd(b * ROSAI)
     return t
 
 async def setv(pg, m, b, bn, old, pi):
@@ -87,11 +99,11 @@ async def body(pg):
     for pi, (name, ken) in enumerate(KENPO):
         await pg.select_option('#pref', str(pi))
         for old in (0, 1):
-            got = await pg.evaluate('([ms,old])=>ms.map(m=>{var r=window.__yt.month(m,old);return [r.ken,r.sien,r.nen,r.kyo,r.koy,r.rou,r.t].map(Math.round)})', [ms, old])
+            got = await pg.evaluate('([ms,old])=>ms.map(m=>{var r=window.__yt.month(m,old);return [r.ken,r.nen,r.kyo,r.koy,r.rou,r.t]})', [ms, old])
             for m, g in zip(ms, got):
                 e = tsuki(m, old, ken)
-                chk('月 %s %d old%d' % (name, m, old), g, [rnd(e[k]) for k in ('ken','sien','nen','kyo','koy','rou','t')])
-    # 3) 賞与:上限(1回150万円・年度573万円)の前後と1,000円未満の端数
+                chk('月 %s %d old%d' % (name, m, old), g, [e[k] for k in ('ken','nen','kyo','koy','rou','t')])
+    # 3) 賞与:上限(1か月150万円・年度573万円)の前後と1,000円未満の端数
     bs = [0, 999, 1000, 300000, 500500, 600000, 1499999, 1500000, 1500999, 1501000, 2864999, 2865000, 2865001,
           2866000, 3000000, 5729999, 5730000, 5731000, 8000000]
     for pi in (0, 12, 14, 26, 40, 46):
@@ -101,34 +113,35 @@ async def body(pg):
             for bn in (0, 1, 2):
                 got = await pg.evaluate('([bs,bn,old])=>bs.map(b=>Math.round(window.__yt.bonus(b,bn,old)))', [bs, bn, old])
                 for b, g in zip(bs, got):
-                    chk('賞与 %s %d×%d old%d' % (name, b, bn, old), g, rnd(shoyo(b, bn, old, ken)))
+                    chk('賞与 %s %d×%d old%d' % (name, b, bn, old), g, shoyo(b, bn, old, ken))
     # 4) 画面の箱(入力欄に入れて読む):県・年齢・賞与を変えて
     cases = [(300000, 0, 0, 0, 12), (180000, 0, 0, 0, 0), (250000, 500000, 2, 1, 26), (289999, 0, 0, 1, 14),
              (290000, 300000, 1, 0, 40), (650000, 2000000, 2, 1, 46), (1400000, 3000000, 2, 0, 22),
              (88000, 0, 0, 0, 39), (224500, 123456, 2, 1, 13), (500000, 1500000, 2, 1, 12)]
     for m, b, bn, old, pi in cases:
         await setv(pg, m, b, bn, old, pi)
-        name, ken = KENPO[pi]; e = tsuki(m, old, ken); mt = rnd(e['t'])
+        name, ken = KENPO[pi]; e = tsuki(m, old, ken); mt = e['t']
         tag = '%s 月給%d 賞与%d×%d old%d' % (name, m, b, bn, old)
         chk('保険料(月) ' + tag, num(await pg.inner_text('#o-a')), mt)
         chk('1か月の総額 ' + tag, num(await pg.inner_text('#o-b')), m + mt)
-        chk('1年の総額 ' + tag, num(await pg.inner_text('#o-c')), mt * 12 + m * 12 + rnd(shoyo(b, bn, old, ken)) + b * bn)
+        chk('1年の総額 ' + tag, num(await pg.inner_text('#o-c')), mt * 12 + m * 12 + shoyo(b, bn, old, ken) + b * bn)
         pct = rnd(F(mt, m) * 1000)
         chk('月給の% ' + tag, await pg.inner_text('#e-a'), '月給の%s%%' % (str(pct // 10) if pct % 10 == 0 else '%d.%d' % (pct // 10, pct % 10)))
         o1 = [int(x.replace(',', '')) for x in re.findall(r'([\d,]+)円', await pg.inner_text('#o-1'))]
         o2 = [int(x.replace(',', '')) for x in re.findall(r'([\d,]+)円', (await pg.inner_text('#o-2')).split('（')[0])]
-        chk('内訳1 ' + tag, o1, [rnd(e[k]) for k in ('ken', 'nen', 'kyo', 'sien')])
-        chk('内訳2 ' + tag, o2, [rnd(e[k]) for k in ('koy', 'rou')])
+        chk('内訳1 ' + tag, o1, [e[k] for k in ('ken', 'nen', 'kyo')])
+        chk('内訳1の言葉 ' + tag, (await pg.inner_text('#o-1')).startswith('健康保険（介護保険・子ども・子育て支援金を含む）' if old else '健康保険（子ども・子育て支援金を含む）'), True)
+        chk('内訳2 ' + tag, o2, [e[k] for k in ('koy', 'rou')])
         chk('県の名前 ' + tag, (await pg.inner_text('#o-3')).startswith(name + 'の協会けんぽ'), True)
         # 早見表の全行(選んだ県と年齢・賞与なし)
         rows = await pg.eval_on_selector_all('#tb tr', 'rs=>rs.map(r=>Array.from(r.cells).map(c=>c.textContent))')
         chk('早見表の行数 ' + tag, len(rows), 10)
         for row, v in zip(rows, (18, 20, 22, 25, 28, 30, 35, 40, 45, 50)):
-            M = v * 10000; x = rnd(tsuki(M, old, ken)['t'])
+            M = v * 10000; x = tsuki(M, old, ken)['t']
             chk('早見表 %d万 %s' % (v, tag), [num(c) for c in row], [v, x, M + x, (M + x) * 12])
     # 5) 手で書いた数字(結論の帯・冒頭の文・料率の表・よく聞かれること)。東京都・40歳未満・月給30万円
     html = await pg.content()
-    e = tsuki(300000, 0, 985); mt = rnd(e['t'])
+    e = tsuki(300000, 0, 985); mt = e['t']
     chk('結論の帯', '月給30万円の人を1人雇うと、会社が払う保険料は月%s円で1年の総額は%s円です' % (format(mt, ','), format((300000 + mt) * 12, ',')) in html, True)
     chk('冒頭の文', '月給30万円なら、会社が払う保険料は月%s円で月給のおよそ%s%%です' % (format(mt, ','), '%.1f' % (rnd(F(mt, 300000) * 1000) / 10)) in html, True)
     def pc(fr):                    # 率を%の文字にする(末尾の0を落とす)
@@ -143,6 +156,6 @@ async def body(pg):
     chk('およそ14.6%', '%d.%d' % divmod(rnd(shaho * 1000), 10), '14.6')
     chk('およそ15.7%', '%d.%d' % divmod(rnd((shaho + KOYO_J + ROSAI) * 1000), 10), '15.7')
     chk('介護0.81%の文', '介護保険の' + pc(KAIGO/2) + 'が加わります' in html, True)
-    chk('賞与の上限の文', '健康保険は年度の合計573万円、厚生年金は1回150万円が上限です' in html, True)
+    chk('賞与の上限の文', '健康保険は年度の合計573万円、厚生年金は1か月150万円が上限です。同じ月に2回以上払うときは、その月の合計で150万円までです。' in html and '1回150万円' not in html, True)
     return n, bad
 run('yatou-hiyou', body)

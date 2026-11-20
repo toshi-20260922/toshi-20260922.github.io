@@ -188,7 +188,7 @@ body{overflow-x:clip}
   <div><small>賞与も含めた<br>1年の総額</small><b id="o-c">0<i>円</i></b><em id="e-c">会社の負担</em></div>
  </div>
  <ul>
-  <li id="o-1">健康保険0円・厚生年金0円・子ども・子育て拠出金0円・子ども・子育て支援金0円</li>
+  <li id="o-1">健康保険（子ども・子育て支援金を含む）0円・厚生年金0円・子ども・子育て拠出金0円</li>
   <li id="o-2">雇用保険0円・労災保険0円</li>
   <li id="o-3">東京都の協会けんぽ・労災保険率1000分の3（卸売業・小売業・飲食店・宿泊業・その他の各種事業）で計算しています</li>
  </ul>
@@ -275,14 +275,16 @@ body{overflow-x:clip}
 <h3>会社負担の社会保険料は、月給の何%くらいですか？</h3>
 <p>東京都で40歳未満の人なら、健康保険・厚生年金・子ども・子育て拠出金・子ども・子育て支援金の会社負担は標準報酬月額のおよそ14.6%です。標準報酬月額と月給が同じなら、雇用保険と労災保険を足して月給のおよそ15.7%になります。40〜64歳の人は、介護保険の0.81%が加わります。</p>
 <h3>賞与にも社会保険料はかかりますか？</h3>
-<p>かかります。賞与の1,000円未満を切り捨てた額（標準賞与額）に、月給と同じ料率がかかります。健康保険は年度の合計573万円、厚生年金は1回150万円が上限です。雇用保険と労災保険は、賞与の額そのものにかかります。</p>
+<p>かかります。賞与の1,000円未満を切り捨てた額（標準賞与額）に、月給と同じ料率がかかります。健康保険は年度の合計573万円、厚生年金は1か月150万円が上限です。同じ月に2回以上払うときは、その月の合計で150万円までです。雇用保険と労災保険は、賞与の額そのものにかかります。</p>
 <h3>パートでも雇用保険に入れないといけませんか？</h3>
 <p>1週間の所定労働時間が20時間以上で31日以上雇う見込みがあれば、パートやアルバイトでも雇用保険に入ります。</p>
 <h3>有給休暇はいつから与えますか？</h3>
 <p>雇った日から6か月続けて勤めて決められた労働日の8割以上出勤した人には、10日の年次有給休暇を与えます。10日以上与えた人には、そのうち5日を1年以内に取らせる決まりがあります。</p>
 
 <div class="src">出典・参考（2026年11月確認）<ul>
-  <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8.10_13%E6%9D%B1%E4%BA%AC.pdf">全国健康保険協会「令和8年10月分からの健康保険・厚生年金保険の保険料額表（東京都）」</a></li>
+  <li><a href="https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08">全国健康保険協会「令和8年度の協会けんぽの保険料率は3月分（4月納付分）から改定されます」</a></li>
+  <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf">全国健康保険協会「令和8年3月分（4月納付分）からの健康保険・厚生年金保険の保険料額表（東京都）」</a></li>
+  <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20141203.html">日本年金機構「従業員に賞与を支給したときの手続き」</a>（標準賞与額の上限）</li>
   <li><a href="https://x.com/Nenkin_Kikou/status/2046096522207449423">日本年金機構「令和8年度の子ども・子育て拠出金率は1,000分の3.6」</a></li>
   <li><a href="https://jsite.mhlw.go.jp/ehime-roudoukyoku/content/contents/002602395.pdf">厚生労働省 愛媛労働局「令和8年4月1日から令和9年3月31日までの雇用保険料率」</a></li>
   <li><a href="https://www.mhlw.go.jp/content/11401000/001184405.pdf">厚生労働省「労働保険の保険料の徴収等に関する法律施行規則の一部を改正する省令案要綱」（令和6年4月からの労災保険率）</a></li>
@@ -365,23 +367,25 @@ function num(el){return Math.max(0,parseInt(String(el.value).replace(/[^0-9]/g,"
 function fmt(el){var v=num(el);el.value=v.toLocaleString("ja-JP");}
 var GR=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
 function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000;}return 1390000;}
-/* 会社の負担の率は20000分のいくつかの整数で持ち、掛けてから割って1円未満を四捨五入する */
+/* 健康保険と厚生年金の会社の負担は、全額（1円未満切り捨て）から本人の負担（50銭以下切り捨て・50銭超切り上げ）を引く。子ども・子育て拠出金は1円未満切り捨て。雇用保険と労災保険は20000分のいくつかの整数で持ち、1円未満を四捨五入する */
 var PF=[["北海道",1028],["青森県",985],["岩手県",951],["宮城県",1010],["秋田県",1001],["山形県",975],["福島県",950],["茨城県",952],["栃木県",982],["群馬県",968],["埼玉県",967],["千葉県",973],["東京都",985],["神奈川県",992],["新潟県",921],["富山県",959],["石川県",970],["福井県",971],["山梨県",955],["長野県",963],["岐阜県",980],["静岡県",961],["愛知県",993],["三重県",977],["滋賀県",988],["京都府",989],["大阪府",1013],["兵庫県",1012],["奈良県",991],["和歌山県",1006],["鳥取県",986],["島根県",994],["岡山県",1005],["広島県",978],["山口県",1015],["徳島県",1024],["香川県",1002],["愛媛県",998],["高知県",1005],["福岡県",1011],["佐賀県",1055],["長崎県",1006],["熊本県",1008],["大分県",1008],["宮崎県",977],["鹿児島県",1013],["沖縄県",944]],pref=document.getElementById("pref");
-var KEN=985,KAI=162,SIEN=23,NEN=1830,KYO=72,KOY=170,ROU=60;
+var KEN=985,KAI=162,SIEN=23,NEN=1830,KYO=36,KOY=170,ROU=60;
 function r5(n){return Math.floor((n+10000)/20000);}
+function half(n){var q=Math.floor(n/20000);return (n%20000)*2>20000?q+1:q;}
+function co(b,r){return Math.floor(b*r/10000)-half(b*r);}
 function month(m,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);
- var a={ken:s*(KEN+(old?KAI:0)),sien:s*SIEN,nen:p*NEN,kyo:p*KYO,koy:m*KOY,rou:m*ROU},r={},k,t=0;
- for(k in a){t+=a[k];r[k]=r5(a[k]);}r.t=r5(t);return r;}
+ var r={ken:co(s,KEN+SIEN+(old?KAI:0)),nen:co(p,NEN),kyo:Math.floor(p*KYO/10000),koy:r5(m*KOY),rou:r5(m*ROU)};
+ r.t=r.ken+r.nen+r.kyo+r.koy+r.rou;return r;}
 function bonus(b,n,old){if(!b||!n)return 0;var t=0,cum=0;for(var i=0;i<n;i++){var sb=Math.floor(b/1000)*1000,hk=Math.max(0,Math.min(sb,5730000-cum));cum+=hk;var pn=Math.min(sb,1500000);
- t+=hk*(KEN+(old?KAI:0)+SIEN)+pn*(NEN+KYO)+b*(KOY+ROU);}return r5(t);}
+ t+=co(hk,KEN+SIEN+(old?KAI:0))+co(pn,NEN)+Math.floor(pn*KYO/10000)+r5(b*KOY)+r5(b*ROU);}return t;}
 var pay=document.getElementById("pay"),payr=document.getElementById("payr"),bon=document.getElementById("bon"),old=0,bn=0;
 function render(){KEN=PF[+pref.value][1];document.getElementById("o-3").textContent=PF[+pref.value][0]+"の協会けんぽ・労災保険率1000分の3（卸売業・小売業・飲食店・宿泊業・その他の各種事業）で計算しています";var m=num(pay),r=month(m,old),mt=Math.round(r.t),y=mt*12+Math.round(bonus(num(bon),bn,old))+num(bon)*bn+m*12;
  document.getElementById("o-a").innerHTML=f(mt)+"<i>円</i>";
  document.getElementById("e-a").textContent="月給の"+(m?(Math.round(mt/m*1000)/10):0)+"%";
  document.getElementById("o-b").innerHTML=f(m+mt)+"<i>円</i>";
  document.getElementById("o-c").innerHTML=f(y)+"<i>円</i>";
- document.getElementById("o-1").textContent="健康保険"+(old?"（介護保険を含む）":"")+f(r.ken)+"円・厚生年金"+f(r.nen)+"円・子ども・子育て拠出金"+f(r.kyo)+"円・子ども・子育て支援金"+f(r.sien)+"円";
- document.getElementById("o-2").textContent="雇用保険"+f(r.koy)+"円・労災保険"+f(r.rou)+"円（1円未満を四捨五入しているため、合計と1円ずれることがあります）";
+ document.getElementById("o-1").textContent="健康保険（"+(old?"介護保険・":"")+"子ども・子育て支援金を含む）"+f(r.ken)+"円・厚生年金"+f(r.nen)+"円・子ども・子育て拠出金"+f(r.kyo)+"円";
+ document.getElementById("o-2").textContent="雇用保険"+f(r.koy)+"円・労災保険"+f(r.rou)+"円";
  var ROWS=[18,20,22,25,28,30,35,40,45,50],hit=-1,t="";ROWS.forEach(function(v,i){if(m>=v*10000)hit=i;});
  ROWS.forEach(function(v,i){var M=v*10000,x=Math.round(month(M,old).t);t+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+v+"</td><td>"+f(x)+"</td><td>"+f(M+x)+"</td><td>"+f((M+x)*12)+"</td></tr>";});
  document.getElementById("tb").innerHTML=t;}
