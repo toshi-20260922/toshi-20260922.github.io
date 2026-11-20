@@ -16,7 +16,7 @@ REG=[
  R('千葉市',(721,23280,26640),(285,8880,10320),(257,16560,0),(31,1800,0),url='https://www.city.chiba.jp/hokenfukushi/iryoeisei/hoken/hokenryou-ketteishimashita.html',src='千葉市「令和8年度国民健康保険料率の決定」'),
  R('横浜市',(833,40870,0),(262,13380,0),(284,16200,0),(34,1770,0),url='https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/kokuho/hokenryo/r7hokennryouritu.html',src='横浜市「令和8年度保険料の料率等について」'),
  R('川崎市',(826,43261,0),(289,15306,0),(267,15828,0),(32,1742,0),url='https://www.city.kawasaki.jp/350/page/0000187752.html',src='川崎市「令和8年度の国民健康保険料について」'),
- R('相模原市',(675,29000,18000),(278,11500,7000),(232,12000,6000),(28,1360,800),url='https://www.city.sagamihara.kanagawa.jp/kurashi/1026448/kokuho/1007820/1007822.html',src='相模原市「令和8年度 国民健康保険税の税率等について」'),
+ R('相模原市',(675,29000,18000),(278,11500,7000),(232,12000,6000),(28,1360,800),r=100,url='https://www.city.sagamihara.kanagawa.jp/kurashi/1026448/kokuho/1007820/1007822.html',src='相模原市「令和8年度 国民健康保険税の税率等について」'),
  R('新潟市',(740,14700,19200),(310,7200,9000),(250,14100,0),(27,1600,0),r=100,url='https://www.city.niigata.lg.jp/kurashi/hoken/kokuho/hokenryo/henko.html',src='新潟市「令和8年度の国民健康保険料率と軽減判定所得について」'),
  R('浜松市',(720,25000,22000),(235,11000,8000),(190,14500,0),(33,2000,0),url='https://www.city.hamamatsu.shizuoka.jp/kokuho/kokuho_nenkin/kokuho/hokenryou.html',src='浜松市「国民健康保険料」'),
  R('名古屋市',(883,50591,0),(258,15784,0),(234,16120,0),(26,1863,0),r=10,nag=1,url='https://www.city.nagoya.jp/kurashi/hoken/1011736/1011793/1011794/1011799.html',src='名古屋市「令和8年度分の国民健康保険料」'),
@@ -48,7 +48,7 @@ def kokuho(R,g,meOld,fam,famOld):
         cnt=((1 if meOld else 0)+famOld) if i==2 else n
         ib=(base if meOld else 0) if i==2 else base
         if cnt==0: parts.append(0);continue
-        v=ib*c[0]//10000+c[1]*cnt*(10-red)//10+c[2]*(10-red)//10
+        v=ib*c[0]//10000+cnt*(c[1]*(10-red)//10)+c[2]*(10-red)//10
         if R['nag'] and i==0 and red>0: v=max(0,v-2000*cnt)
         v=v//R['r']*R['r']
         parts.append(min(c[3],v))

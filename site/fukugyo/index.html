@@ -167,7 +167,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="パソコン"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="16" width="36" height="24" rx="2" fill="#0f3d31"></rect><rect x="17" y="19" width="30" height="18" fill="#d8efe6"></rect><path d="M10 42h44l-4 6H14z" fill="#00775a"></path><path d="M22 32l6-6 5 4 8-8" fill="none" stroke="#e08a2c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月8日（令和8年分・令和9年度の税率）</p>
+ <p class="upd">更新日：2026年11月20日（令和8年分・令和9年度の税率）</p>
  <h1>【副業の税金の計算】確定申告は要る？20万円ルールの判定と増える税金【2026年】</h1>
 </div>
 
@@ -194,7 +194,7 @@ body{overflow-x:clip}
  <ul>
   <li id="o-1">確定申告は翌年3月15日までです。確定申告をすれば住民税の申告は別に要りません</li>
   <li id="o-2">副業を足したあとの所得税率は10%です。住民税は10%です</li>
-  <li>本業の会社で年末調整を受けている単身の人として計算しています</li>
+  <li>本業の会社で年末調整を受けている単身の人（協会けんぽ東京都・40歳未満・住民税は東京23区）として計算しています</li>
  </ul>
 </div>
 
@@ -278,7 +278,7 @@ body{overflow-x:clip}
  <ul>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1900.htm">国税庁「No.1900 給与所得者で確定申告が必要な人」</a>（令和8年4月1日現在法令等）</li>
   <li>国税庁「No.2260 所得税の税率」</li>
-  <li><a href="https://www.city.kawaguchi.lg.jp/material/files/group/23/sinkoku3.pdf">川口市「市民税・県民税の申告」</a>（給与以外の所得が20万円以下の場合）</li>
+  <li><a href="https://www.city.kawaguchi.lg.jp/material/files/group/23/sinkoku3.pdf">川口市「申告フローチャート」</a>（給与・年金以外に所得がある場合の市民税・県民税の申告）</li>
  </ul>
 </div>
 <div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
@@ -360,7 +360,7 @@ body{overflow-x:clip}
  function std(m){for(var i=0;i<G.length;i++){if(m<G[i][1]*1000)return G[i][0]*1000;}return 1390000;}
  function r50(v){var f=Math.floor(v);return (v-f>0.5)?f+1:f;}
  function shaho(a,old){var m=Math.floor(a/12),s=std(m),p=Math.min(Math.max(s,88000),650000);
-  return (r50(s*(985+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*0.005))*12;}
+  return (r50(s*(985+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*5/1000))*12;}
  function kiso(g){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(g<=T[i][0])return T[i][1];}return 0;}
 
  var B=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[1e15,45,4796000]];
@@ -368,7 +368,8 @@ body{overflow-x:clip}
   for(var i=0;i<B.length;i++){if(t<=B[i][0]){b=Math.floor(t*B[i][1]/100)-B[i][2];r=B[i][1];break;}}
   return {v:Math.floor(Math.floor(b*1021/1000)/100)*100,r:r};}
  function jumin(a,s){var sh=shaho(a,0),g=kyuyo(a)+s;if(g<=450000)return 0;
-  var t=Math.floor(Math.max(0,g-sh-430000)/1000)*1000,adj=t<=2000000?Math.min(50000,t):50000;
+  var jk=g<=24000000?430000:g<=24500000?290000:g<=25000000?150000:0;
+  var t=Math.floor(Math.max(0,g-sh-jk)/1000)*1000,adj=g>25000000?0:t<=2000000?Math.min(50000,t):50000;
   var shi=Math.floor(Math.max(0,Math.floor(t*6/100)-Math.floor(adj*3/100))/100)*100;
   var ken=Math.floor(Math.max(0,Math.floor(t*4/100)-Math.floor(adj*2/100))/100)*100;
   return shi+ken+5000;}
