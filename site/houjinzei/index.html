@@ -9,8 +9,8 @@
 <meta property="og:url" content="https://taxtable.jp/houjinzei/">
 <meta property="og:title" content="【法人税の早見表】所得ごとの税額と税率は？防衛特別法人税にも対応【令和8年度】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="国税庁の税率で、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入れると、国に納める税金の合計と負担率が出ます。">
-<meta name="description" content="国税庁の税率で、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入れると、国に納める税金の合計と負担率が出ます。">
+<meta property="og:description" content="国税庁の税率で、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入力すると、国に納める税金の合計と負担率を表示します。">
+<meta name="description" content="国税庁の税率で、会社の所得100万円から1億円までの法人税・地方法人税・防衛特別法人税を早見表にしました。所得を入力すると、国に納める税金の合計と負担率を表示します。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -153,7 +153,7 @@ body{overflow-x:clip}
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
- <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
  <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_head_marunage">経理丸投げの無料相談 →</a></div>
 </div></header>
 
@@ -164,7 +164,7 @@ body{overflow-x:clip}
 </div>
 
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>会社の所得を入れると、国に納める法人税が出ます</div>
+ <div class="h"><span>結論</span>会社の所得を入力すると、国に納める法人税を表示します</div>
  <div class="in">
   <div class="full">
    <label for="inc">1年間の所得（税金を計算するもとになる利益）</label>
@@ -236,7 +236,7 @@ body{overflow-x:clip}
  <tbody id="gtb"><tr><td>1,000,000</td><td>165,400</td><td>16.5%</td><td>150,000</td></tr><tr><td>2,000,000</td><td>330,900</td><td>16.5%</td><td>300,000</td></tr><tr><td>3,000,000</td><td>496,300</td><td>16.5%</td><td>450,000</td></tr><tr><td>4,000,000</td><td>661,800</td><td>16.5%</td><td>600,000</td></tr><tr><td>5,000,000</td><td>827,200</td><td>16.5%</td><td>750,000</td></tr><tr><td>6,000,000</td><td>992,700</td><td>16.5%</td><td>900,000</td></tr><tr><td>7,000,000</td><td>1,158,100</td><td>16.5%</td><td>1,050,000</td></tr><tr><td>8,000,000</td><td>1,323,600</td><td>16.5%</td><td>1,200,000</td></tr><tr><td>9,000,000</td><td>1,579,400</td><td>17.5%</td><td>1,432,000</td></tr><tr class="hit"><td>10,000,000</td><td>1,835,300</td><td>18.4%</td><td>1,664,000</td></tr><tr><td>12,000,000</td><td>2,347,100</td><td>19.6%</td><td>2,128,000</td></tr><tr><td>15,000,000</td><td>3,114,800</td><td>20.8%</td><td>2,824,000</td></tr><tr><td>20,000,000</td><td>4,394,300</td><td>22.0%</td><td>3,984,000</td></tr><tr><td>25,000,000</td><td>5,679,500</td><td>22.7%</td><td>5,144,000</td></tr><tr><td>30,000,000</td><td>7,005,400</td><td>23.4%</td><td>6,304,000</td></tr><tr><td>40,000,000</td><td>9,657,100</td><td>24.1%</td><td>8,624,000</td></tr><tr><td>50,000,000</td><td>12,308,900</td><td>24.6%</td><td>10,944,000</td></tr><tr><td>70,000,000</td><td>17,612,400</td><td>25.2%</td><td>15,584,000</td></tr><tr><td>100,000,000</td><td>25,567,700</td><td>25.6%</td><td>22,544,000</td></tr></tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">国に納める合計は、法人税・地方法人税・防衛特別法人税の合計です。所得の1,000円未満と、税額の100円未満は切り捨てています。税額控除や欠損金の繰越控除は入れていません。法人住民税と法人事業税は入っていません。</p>
+<p class="note" style="margin-top:8px">国に納める合計は、法人税・地方法人税・防衛特別法人税の合計です。所得の1,000円未満と、税額の100円未満は切り捨てています。税額控除や欠損金の繰越控除は含めていません。法人住民税と法人事業税は入っていません。</p>
 
 <h2 id="bouei">防衛特別法人税がかかる会社</h2>
 <p>防衛特別法人税は、法人税の額から500万円を引いた残りに4%をかけます。<span class="mk">資本金1億円以下の会社なら、所得がおよそ2,438万円を超えるとかかり始めます。</span>それより所得が少ない会社には、かかりません。</p>
@@ -260,7 +260,7 @@ body{overflow-x:clip}
 <p>資本金が5億円以上の会社の100%子会社は、自分の資本金が1億円以下でも全部23.2%です。前の3年の所得の平均が15億円を超える会社は、800万円までが19%です。その年の所得が10億円を超える会社は、800万円までが17%です。</p>
 
 <h2 id="local">法人税のほかに納める税金</h2>
-<p>会社は国のほかに、都道府県と市区町村にも税金を納めます。率は都道府県や市区町村ごとに少しずつ違うので、この早見表には入れていません。</p>
+<p>会社は国のほかに、都道府県と市区町村にも税金を納めます。率は都道府県や市区町村ごとに少しずつ違うので、この早見表には含めていません。</p>
 <h3>法人住民税</h3>
 <p>法人税の額にかかる法人税割と、利益に関係なくかかる均等割があります。均等割は赤字でもかかります。資本金1,000万円以下で従業員50人以下の会社なら、標準の税率で年7万円です。</p>
 <h3>法人事業税と特別法人事業税</h3>
@@ -287,7 +287,7 @@ body{overflow-x:clip}
   <li><a href="https://www.nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2025/pdf/E.pdf">国税庁「令和7年度 法人税関係法令の改正の概要」防衛特別法人税</a></li>
  </ul>
 </div>
-<div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
 <div class="close"><p class="close-h"><span class="nw">決算と法人税の申告は、</span><span class="nw">まるごと任せる</span></p><p>法人税の申告には、1年分の帳簿と決算書に加えて法人税・地方法人税・法人住民税・法人事業税の申告書が要ります。記帳から決算・申告までまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_close_marunage">経理丸投げの無料相談</a></div>
 <nav class="tools"><div class="t">早見表・計算ツール一覧</div>
  <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
@@ -351,7 +351,7 @@ body{overflow-x:clip}
  <a href="/">トップへ</a>
 </nav>
 </main>
-<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="position:absolute;left:4px;bottom:2px;font-size:8px;line-height:1;opacity:.5">mkv1</span></div></footer>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
 <div class="fbar one">
  <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="houjinzei_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
 </div>
@@ -377,7 +377,7 @@ body{overflow-x:clip}
   document.getElementById("o-all").innerHTML=f(x.t)+"<i>円</i>";
   document.getElementById("o-rt").textContent=y>0?"所得の"+(Math.floor((x.t*2000+y)/(2*y))/10)+"%":"所得の0%";
   document.getElementById("o-1").textContent=cap===0?(y>1000000000?"所得が10億円を超えるので800万円までは17%で計算しています":"所得のうち800万円までは15%、超えた分は23.2%で計算しています"):"資本金1億円を超えるので、所得の全部を23.2%で計算しています";
-  document.getElementById("o-2").textContent=!bou.checked?"令和8年3月31日までに始まる事業年度なので、防衛特別法人税は入れていません":(x.b>0?"防衛特別法人税"+f(x.b)+"円を含みます。地方法人税は"+f(x.c)+"円です":(x.h>5000000?"計算した額が100円未満で切り捨てになるので、防衛特別法人税はかかりません":"防衛特別法人税は、法人税が500万円以下なのでかかりません"));
+  document.getElementById("o-2").textContent=!bou.checked?"令和8年3月31日までに始まる事業年度なので、防衛特別法人税は含めていません":(x.b>0?"防衛特別法人税"+f(x.b)+"円を含みます。地方法人税は"+f(x.c)+"円です":(x.h>5000000?"計算した額が100円未満で切り捨てになるので、防衛特別法人税はかかりません":"防衛特別法人税は、法人税が500万円以下なのでかかりません"));
   document.getElementById("t-cap").textContent=(cap===0?"資本金1億円以下":"資本金1億円超")+"・"+(bou.checked?"令和8年4月1日以後に始まる事業年度":"令和8年3月31日までに始まる事業年度");
   var h="",hit=-1;
   for(var i=0;i<R.length;i++){if(y>=R[i]*1000000)hit=i;}

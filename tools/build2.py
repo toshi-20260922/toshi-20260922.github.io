@@ -43,7 +43,7 @@ def kojin():
     s=s[:i]+RGJS+JSK+s[j:]
     s=patch(s,'k=kokuho(g,old,0,0).t,sh=k+NEN;','k=kokuho(curR(),g,old,0,0).t,sh=k+NEN;')
     s=patch(s,"gser('k'+ao+old,","gser('k'+ao+old+JSON.stringify(curR().p),")
-    s=patch(s,'+"・大阪府";','+"・"+curR().s;\n document.getElementById("o-reg").textContent="国民健康保険は"+(curR().f<0?"入れた料率":curR().s+"の令和8年度の料率")+"で計算しています";')
+    s=patch(s,'+"・大阪府";','+"・"+curR().s;\n document.getElementById("o-reg").textContent="国民健康保険は"+(curR().f<0?"入力した料率":curR().s+"の令和8年度の料率")+"で計算しています";')
     s=patch(s,'link(inc,incr,render);seg("s-ao"','reg.addEventListener("change",function(){var x=reg.value==="x";if(x)fillCust(RG[lastR]);cust.hidden=!x;render();});cust.addEventListener("input",render);\nlink(inc,incr,render);seg("s-ao"')
     s=patch(s,'<li>単身・事業の所得だけ・大阪府で、前の年も同じ所得だった場合です</li>','<li>単身・事業の所得だけで、前の年も同じ所得だった場合です</li>\n  <li id="o-reg">国民健康保険は東京23区の令和8年度の料率で計算しています</li>')
     # 数字を計算の中身から取り直す
@@ -135,7 +135,7 @@ def houjin():
     s=patch(s,"gser('d'+old,","gser('d'+old+pref.value+JSON.stringify(curR().p),")
     s=patch(s,'link(inc,incr,render);seg("s-age"','reg.addEventListener("change",function(){var x=reg.value==="x";if(x)fillCust(RG[lastR]);else pref.value=RG[+reg.value].f;cust.hidden=!x;render();});cust.addEventListener("input",render);pref.addEventListener("change",render);\nlink(inc,incr,render);seg("s-age"')
     s=patch(s,'<li>単身・大阪府（国民健康保険・協会けんぽ大阪支部）・法人住民税の均等割は年7万円で計算しています</li>','<li id="o-reg">単身・東京23区の国民健康保険・協会けんぽ東京都で計算しています</li>\n  <li>法人住民税の均等割は年7万円で計算しています</li>')
-    s=patch(s,' var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});\n var t="";',' document.getElementById("o-reg").textContent="単身・"+(curR().f<0?"入れた料率":curR().s)+"の国民健康保険・協会けんぽ"+PF[+pref.value][0]+"で計算しています";\n var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});\n var t="";')
+    s=patch(s,' var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});\n var t="";',' document.getElementById("o-reg").textContent="単身・"+(curR().f<0?"入力した料率":curR().s)+"の国民健康保険・協会けんぽ"+PF[+pref.value][0]+"で計算しています";\n var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});\n var t="";')
     V=asyncio.run(hj.gen(s,1))
     # 分かれ目
     TH=asyncio.run(run(s.replace('link(inc,incr,render);seg("s-age"','window.__h={kojin:kojin,houjin:houjin,yakuin:yakuin,kyuyo8:kyuyo8,itaxT:itaxT,kiso:kiso,jumin:jumin,cross:cross};link(inc,incr,render);seg("s-age"'),'''()=>{'''+hj.CORP+'''var H=window.__h,o={};

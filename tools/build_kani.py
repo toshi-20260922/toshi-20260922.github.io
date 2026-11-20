@@ -91,7 +91,7 @@ EX = [
 c = B.c; td = B.td; table = B.table
 slug = 'kani-kazei'; cta = 'kani'
 title = '【簡易課税の事業区分】第何種？業種の一覧とみなし仕入率・納める消費税の計算【2026年】'
-desc = '簡易課税の事業区分は第1種から第6種まであり、みなし仕入率は90%から40%です。業種を選ぶと第何種かが分かり、業種ごとの売上を入れると75%の特例も入れて納める消費税を計算します。'
+desc = '簡易課税の事業区分は第1種から第6種まであり、みなし仕入率は90%から40%です。業種を選ぶと第何種かが分かり、業種ごとの売上を入力すると75%の特例も含めて納める消費税を計算します。'
 upd = '更新日：2026年11月20日（国税庁 No.6505・No.6509 令和8年4月1日現在法令等）'
 
 opts = ''; grp = None
@@ -109,7 +109,7 @@ inputs = ''.join('''  <div class="full">
 ''' % (i, SHU[i], NAME[i], RATE[i], i, 9000000 if i == 4 else 0) for i in range(6))
 
 calc_html = '''<div class="sum" id="calc">
- <div class="h"><span>結論</span>業種を選ぶと、簡易課税の第何種かとみなし仕入率が出ます</div>
+ <div class="h"><span>結論</span>業種を選ぶと、簡易課税の第何種かとみなし仕入率を表示します</div>
  <div class="in">
   <div class="full">
    <label for="ex">業種</label>
@@ -253,7 +253,7 @@ JS = r'''(function(){
   $("o-vds").textContent=e[1]+"は"+SHU[e[2]]+"です。"+(e[3]?e[3]+"。":"")+"売上の消費税の"+(100-R[e[2]])+"%%を納めます";
   var s=[],i;for(i=0;i<6;i++)s.push(num("s"+i));
   var r=calc(s);
-  if(!r){$("o-t").innerHTML="0<i>円</i>";$("o-te").textContent="売上を入れてください";$("o-r").innerHTML="―";$("o-re").textContent="";$("o-k").innerHTML="0<i>円</i>";$("o-how").textContent="業種ごとの税抜の売上を入れると計算します";return;}
+  if(!r){$("o-t").innerHTML="0<i>円</i>";$("o-te").textContent="売上を入力してください";$("o-r").innerHTML="―";$("o-re").textContent="";$("o-k").innerHTML="0<i>円</i>";$("o-how").textContent="業種ごとの税抜の売上を入力すると計算します";return;}
   $("o-t").innerHTML=f(r.total)+"<i>円</i>";$("o-te").textContent="国税"+f(r.koku)+"円・地方"+f(r.chiho)+"円";
   $("o-r").innerHTML=(Math.round(r.rate*10)/10)+"<i>%%</i>";$("o-re").textContent=r.how;
   $("o-k").innerHTML=f(r.T)+"<i>円</i>";

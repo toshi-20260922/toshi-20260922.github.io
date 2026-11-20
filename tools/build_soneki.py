@@ -2,9 +2,9 @@ import re
 S='/home/claude/toshi-20260922.github.io/site/'
 t=open(S+'houjinzei-keisan/index.html').read()
 T='損益分岐点の計算ツール｜売上高・変動費・固定費から損益分岐点売上高と安全余裕率を出す【計算式つき】'
-D='売上高・変動費・固定費を入れると、損益分岐点売上高・損益分岐点比率・安全余裕率・限界利益率が出ます。売上が増減したときの利益の表と、計算式・計算例・損益分岐点を下げる方法も載せています。'
+D='売上高・変動費・固定費を入力すると、損益分岐点売上高・損益分岐点比率・安全余裕率・限界利益率を表示します。売上が増減したときの利益の表と、計算式・計算例・損益分岐点を下げる方法も載せています。'
 head=t[:t.index('<body')]
-head=head.replace('法人税の計算シミュレーション｜住民税・事業税まで合計いくら？所得を入れて計算【令和8年度】',T)
+head=head.replace('法人税の計算シミュレーション｜住民税・事業税まで合計いくら？所得を入力して計算【令和8年度】',T)
 head=re.sub(r'(<meta name="description" content=")[^"]*',lambda m:m.group(1)+D,head)
 head=re.sub(r'(<meta property="og:description" content=")[^"]*',lambda m:m.group(1)+D,head)
 head=head.replace('https://taxtable.jp/houjinzei-keisan/','https://taxtable.jp/soneki-bunkiten/')
@@ -23,7 +23,7 @@ MAIN='''<main class="wrap">
  <h1>'''+T+'''</h1>
 </div>
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>売上高・変動費・固定費を入れると、赤字にならない売上高が出ます</div>
+ <div class="h"><span>結論</span>売上高・変動費・固定費を入力すると、赤字にならない売上高を表示します</div>
  <div class="in">
   <div class="full">
    <label for="sal">売上高（1年または1か月）</label>
@@ -90,7 +90,7 @@ MAIN='''<main class="wrap">
 <p>この会社は、売上高が15%（750万円）減ると利益が0になります。いまの利益は、限界利益2,000万円から固定費1,700万円を引いた300万円です。</p>
 
 <h2 id="list">売上高が増減したときの利益</h2>
-<p>上で入れた数字で、変動費率と固定費が変わらない場合の利益です。</p>
+<p>上で入力した数字で、変動費率と固定費が変わらない場合の利益です。</p>
 <div class="tw"><table>
  <thead><tr><th>売上高の<br>増減</th><th>売上高<br>（円）</th><th>限界利益<br>（円）</th><th>利益<br>（円）</th></tr></thead>
  <tbody id="tb"></tbody>

@@ -9,8 +9,8 @@
 <meta property="og:url" content="https://taxtable.jp/fukugyo/">
 <meta property="og:title" content="【副業の税金の計算】確定申告は要る？20万円ルールの判定と増える税金【2026年】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="会社員の副業で確定申告が要るかどうかを判定表にし、副業の所得ごとに増える所得税と住民税を早見表にしました。本業の年収と副業の所得を入れると、増える税金が出ます。">
-<meta name="description" content="会社員の副業で確定申告が要るかどうかを判定表にし、副業の所得ごとに増える所得税と住民税を早見表にしました。本業の年収と副業の所得を入れると、増える税金が出ます。">
+<meta property="og:description" content="会社員の副業で確定申告が要るかどうかを判定表にし、副業の所得ごとに増える所得税と住民税を早見表にしました。本業の年収と副業の所得を入力すると、増える税金を表示します。">
+<meta name="description" content="会社員の副業で確定申告が要るかどうかを判定表にし、副業の所得ごとに増える所得税と住民税を早見表にしました。本業の年収と副業の所得を入力すると、増える税金を表示します。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -160,7 +160,7 @@ body{overflow-x:clip}
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
- <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
  <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="fuku_head_marunage">経理丸投げの無料相談 →</a></div>
 </div></header>
 
@@ -172,7 +172,7 @@ body{overflow-x:clip}
 </div>
 
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>本業の年収と副業の所得を入れると、確定申告が要るかと増える税金が出ます</div>
+ <div class="h"><span>結論</span>本業の年収と副業の所得を入力すると、確定申告が要るかと増える税金を表示します</div>
  <div class="in">
   <div class="full">
    <label for="inc">本業の年収（給料と賞与の合計）</label>
@@ -233,10 +233,10 @@ body{overflow-x:clip}
  </tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">副業がアルバイトの給料のときは、所得ではなく収入（もらった額）で20万円を判定します。確定申告をする人は、副業の所得が20万円以下でも全部入れて申告します。※確定申告をすればその内容が市区町村に送られるので、住民税の申告は別に要りません。</p>
+<p class="note" style="margin-top:8px">副業がアルバイトの給料のときは、所得ではなく収入（もらった額）で20万円を判定します。確定申告をする人は、副業の所得が20万円以下でもすべて含めて申告します。※確定申告をすればその内容が市区町村に送られるので、住民税の申告は別に要りません。</p>
 
 <h2 id="list">副業で増える税金の早見表</h2>
-<p>副業の所得の行と本業の年収の列が交わる所が、増える所得税と住民税の合計です。表は副業の所得を確定申告に入れた場合の額です。所得が20万円以下で確定申告をしない人は、増えるのは住民税だけです。</p>
+<p>副業の所得の行と本業の年収の列が交わる所が、増える所得税と住民税の合計です。表は副業の所得を確定申告に含めた場合の額です。所得が20万円以下で確定申告をしない人は、増えるのは住民税だけです。</p>
 <p class="cap">単身・協会けんぽ東京都・40歳未満・年額</p>
 <div class="tw">
 <table>
@@ -244,7 +244,7 @@ body{overflow-x:clip}
  <tbody id="gtb"></tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">所得税は令和8年分（復興特別所得税を含む）、住民税は令和9年度（所得割10%）です。本業の給料にかかる社会保険料と、基礎控除のほかは控除を入れていません。副業の所得では会社の社会保険料は変わりません。</p>
+<p class="note" style="margin-top:8px">所得税は令和8年分（復興特別所得税を含む）、住民税は令和9年度（所得割10%）です。本業の給料にかかる社会保険料と、基礎控除のほかは控除を含めていません。副業の所得では会社の社会保険料は変わりません。</p>
 
 <h2 id="income">副業の所得の出し方</h2>
 <p>所得は副業の売上から、副業のためにかかった経費を引いた額です。売上が30万円でも、経費が15万円なら所得は15万円です。</p>
@@ -281,7 +281,7 @@ body{overflow-x:clip}
   <li><a href="https://www.city.kawaguchi.lg.jp/material/files/group/23/sinkoku3.pdf">川口市「申告フローチャート」</a>（給与・年金以外に所得がある場合の市民税・県民税の申告）</li>
  </ul>
 </div>
-<div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
 <div class="close"><p class="close-h"><span class="nw">副業の帳簿と確定申告を、</span><span class="nw">まるごと</span></p><p>副業の所得が20万円を超えると確定申告が要り、1年分の売上と経費の記録をそろえる必要があります。副業の規模が大きくなってきた方の記帳から確定申告まで、全国どこからでもお受けしています。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="fukugyo_close_marunage">経理丸投げの無料相談</a></div>
 <nav class="tools"><div class="t">早見表・計算ツール一覧</div>
  <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
@@ -345,7 +345,7 @@ body{overflow-x:clip}
  <a href="/">トップへ</a>
 </nav>
 </main>
-<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="position:absolute;left:4px;bottom:2px;font-size:8px;line-height:1;opacity:.5">mkv1</span></div></footer>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
 <div class="fbar one">
  <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="fuku_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
 </div>

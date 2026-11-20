@@ -9,8 +9,8 @@
 <meta property="og:url" content="https://taxtable.jp/kokuho/">
 <meta property="og:title" content="【国民健康保険と任意継続の比較】退職後はどっちが安い？年収で比べる【令和8年度】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="会社を辞めたあとの健康保険を、令和8年度の国民健康保険料と協会けんぽの任意継続で比べます。住んでいる市区町村と退職前の年収を入れると、1年間の保険料とどちらが安いかが出ます。政令指定都市19市・東京23区・47都道府県の料率に対応しています。">
-<meta name="description" content="会社を辞めたあとの健康保険を、令和8年度の国民健康保険料と協会けんぽの任意継続で比べます。住んでいる市区町村と退職前の年収を入れると、1年間の保険料とどちらが安いかが出ます。政令指定都市19市・東京23区・47都道府県の料率に対応しています。">
+<meta property="og:description" content="会社を辞めたあとの健康保険を、令和8年度の国民健康保険料と協会けんぽの任意継続で比べます。住んでいる市区町村と退職前の年収を入力すると、1年間の保険料とどちらが安いかを表示します。政令指定都市19市・東京23区・47都道府県の料率に対応しています。">
+<meta name="description" content="会社を辞めたあとの健康保険を、令和8年度の国民健康保険料と協会けんぽの任意継続で比べます。住んでいる市区町村と退職前の年収を入力すると、1年間の保険料とどちらが安いかを表示します。政令指定都市19市・東京23区・47都道府県の料率に対応しています。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -162,7 +162,7 @@ body{overflow-x:clip}
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
- <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
  <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="kokuho_head_marunage">経理丸投げの無料相談 →</a></div>
 </div></header>
 
@@ -174,7 +174,7 @@ body{overflow-x:clip}
 </div>
 
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>市区町村と退職前の年収を入れると、どちらが安いかが出ます</div>
+ <div class="h"><span>結論</span>市区町村と退職前の年収を入力すると、どちらが安いかを表示します</div>
  <div class="in">
   <div class="full">
    <label for="reg">住んでいる市区町村（国民健康保険）</label>
@@ -247,7 +247,7 @@ body{overflow-x:clip}
 </nav>
 
 <h2 id="list">退職前の年収で比べる早見表</h2>
-<p>上で選んだ条件で表示しています。入れた年収を超えない中でいちばん近い行が黄色になります。</p>
+<p>上で選んだ条件で表示しています。入力した年収を超えない中でいちばん近い行が黄色になります。</p>
 <p class="cap" id="t-cap">東京23区・40歳未満・自己都合・家族なし</p>
 <div class="tw">
 <table>
@@ -255,7 +255,7 @@ body{overflow-x:clip}
  <tbody id="ktb"></tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">国民健康保険は選んだ市区町村の令和8年度の料率で計算しています。給与所得から43万円を引いた額に所得割をかけ、均等割・平等割を足した額です。所得が低い世帯の均等割・平等割の軽減（7割・5割・2割）も入れています。任意継続は年収を12で割った月給の標準報酬月額（上限32万円）に、選んだ都道府県の協会けんぽの料率をかけています。家族は全員が同じ年代の大人として計算しています。</p>
+<p class="note" style="margin-top:8px">国民健康保険は選んだ市区町村の令和8年度の料率で計算しています。給与所得から43万円を引いた額に所得割をかけ、均等割・平等割を足した額です。所得が低い世帯の均等割・平等割の軽減（7割・5割・2割）も含めています。任意継続は年収を12で割った月給の標準報酬月額（上限32万円）に、選んだ都道府県の協会けんぽの料率をかけています。家族は全員が同じ年代の大人として計算しています。</p>
 
 <h2 id="wakare">任意継続のほうが安くなる年収</h2>
 <p>1人で加入し、自己都合で辞めた場合です。退職前の年収が表の額以上なら、任意継続のほうが安くなります。</p>
@@ -286,7 +286,7 @@ body{overflow-x:clip}
  <tr><td class="l">熊本市</td><td>535万円から</td><td>477万円から</td></tr>
  </tbody>
 </table></div>
-<p class="note" style="margin-top:8px">任意継続は、その市区町村がある都道府県の協会けんぽの料率で計算しています。東京23区は、目黒区・中野区・江戸川区を除く20区の料率です。静岡市は公式ページに料率の表が見当たらないので、一覧に入れていません。</p>
+<p class="note" style="margin-top:8px">任意継続は、その市区町村がある都道府県の協会けんぽの料率で計算しています。東京23区は、目黒区・中野区・江戸川区を除く20区の料率です。静岡市は公式ページに料率の表が見当たらないので、一覧に含めていません。</p>
 <h2 id="rate">選んだ市区町村の国民健康保険料率</h2>
 <p>令和8年度から、子ども・子育て支援金分が加わりました。</p>
 <p class="cap" id="r-cap">東京23区・令和8年度</p>
@@ -322,7 +322,7 @@ body{overflow-x:clip}
 <h3>住んでいる地域で結果は変わりますか？</h3>
 <p>変わります。国民健康保険の料率は市区町村ごとに違い、協会けんぽの任意継続の料率は住んでいる都道府県で決まります。</p>
 <h3>一覧にない市区町村に住んでいる場合は、どう比べますか？</h3>
-<p>市区町村の欄で「一覧にない市区町村（料率を入れる）」を選びます。市区町村のホームページにある所得割・均等割・平等割を入れると比べられます。</p>
+<p>市区町村の欄で「一覧にない市区町村（料率を入れる）」を選びます。市区町村のホームページにある所得割・均等割・平等割を入力すると比べられます。</p>
 <h3>健康保険組合の任意継続も同じ計算ですか？</h3>
 <p>違います。この早見表の任意継続は協会けんぽの料率と上限です。健康保険組合は組合ごとに料率と上限が決まっているので、組合に確かめてください。</p>
 <h3>家族を扶養に入れられるのはどちらですか？</h3>
@@ -356,7 +356,7 @@ body{overflow-x:clip}
   <li>表の金額は、上の資料の料率から計算しています</li>
  </ul>
 </div>
-<div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
 <div class="close"><p class="close-h"><span class="nw">事業を始める方の、</span><span class="nw">記帳と確定申告も</span></p><p>国民健康保険料は前の年の所得で決まり、事業を始めたあとの所得は帳簿と確定申告で決まります。開業した年から、記帳と確定申告をまとめてお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="kokuho_close_marunage">経理丸投げの無料相談</a></div>
 <nav class="tools"><div class="t">早見表・計算ツール一覧</div>
  <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
@@ -420,7 +420,7 @@ body{overflow-x:clip}
  <a href="/">トップへ</a>
 </nav>
 </main>
-<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="position:absolute;left:4px;bottom:2px;font-size:8px;line-height:1;opacity:.5">mkv1</span></div></footer>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
 <div class="fbar one">
  <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="kokuho_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
 </div>
@@ -457,7 +457,7 @@ function fillCust(R){for(var i=0;i<4;i++){ci(i,0).value=(R.p[i][0]/100).toFixed(
 function curR(){
  if(reg.value!=="x"){lastR=+reg.value;return RG[lastR];}
  var p=[];for(var i=0;i<4;i++){p.push([Math.round((parseFloat(ci(i,0).value)||0)*100),Math.max(0,parseInt(ci(i,1).value,10)||0),Math.max(0,parseInt(ci(i,2).value,10)||0),CAP[i]]);}
- return {n:"入れた料率",s:"入れた料率",p:p,r:1,g:0,f:-1};
+ return {n:"入力した料率",s:"入力した料率",p:p,r:1,g:0,f:-1};
 }
 
  var pref=document.getElementById("pref");

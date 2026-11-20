@@ -112,7 +112,7 @@ assert R[8] == (125, 250, 334, 7909)
 c = B.c; td = B.td; table = B.table
 slug = 'taiyonensu'; cta = 'taiyo'
 title = '【法定耐用年数の一覧】減価償却の計算と毎年の償却費【2026年】'
-desc = 'パソコンは4年・普通自動車は6年・木造の店舗は22年など、よく使う資産の法定耐用年数を一覧にしました。取得価額と使い始めた月を入れると、定額法・定率法で毎年の減価償却費と残りの額が分かります。10万円・20万円・40万円未満の扱いも出します。'
+desc = 'パソコンは4年・普通自動車は6年・木造の店舗は22年など、よく使う資産の法定耐用年数を一覧にしました。取得価額と使い始めた月を入力すると、定額法・定率法で毎年の減価償却費と残りの額が分かります。10万円・20万円・40万円未満の扱いも出します。'
 upd = '更新日：2026年11月19日（国税庁 No.2100・No.2106 令和8年4月1日現在法令等）'
 
 opts = ''
@@ -128,7 +128,7 @@ opts += '</optgroup><option value="-1">耐用年数を自分で入れる</option
 mopts = ''.join('<option value="%d"%s>%d月</option>' % (m, ' selected' if m == 4 else '', m) for m in range(1, 13))
 
 calc = '''<div class="sum" id="calc">
- <div class="h"><span>結論</span>資産を選ぶと、法定耐用年数と1年目の減価償却費が出ます</div>
+ <div class="h"><span>結論</span>資産を選ぶと、法定耐用年数と1年目の減価償却費を表示します</div>
  <div class="in">
   <div class="full">
    <label for="as">資産の種類</label>

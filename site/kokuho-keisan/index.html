@@ -9,8 +9,8 @@
 <meta property="og:url" content="https://taxtable.jp/kokuho-keisan/">
 <meta property="og:title" content="【国民健康保険料の計算】年収・所得からいくらになる？市区町村別【令和8年度】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="令和8年度の国民健康保険料を計算します。住んでいる市区町村と前の年の年収・家族の人数を入れると、1年間の保険料と内訳が出ます。政令指定都市19市と東京23区の料率を入れてあります。ほかの市区町村も料率を入れれば計算できます。">
-<meta name="description" content="令和8年度の国民健康保険料を計算します。住んでいる市区町村と前の年の年収・家族の人数を入れると、1年間の保険料と内訳が出ます。政令指定都市19市と東京23区の料率を入れてあります。ほかの市区町村も料率を入れれば計算できます。">
+<meta property="og:description" content="令和8年度の国民健康保険料を計算します。住んでいる市区町村と前の年の年収・家族の人数を入力すると、1年間の保険料と内訳を表示します。政令指定都市19市と東京23区の料率を登録しています。ほかの市区町村も料率を入れれば計算できます。">
+<meta name="description" content="令和8年度の国民健康保険料を計算します。住んでいる市区町村と前の年の年収・家族の人数を入力すると、1年間の保険料と内訳を表示します。政令指定都市19市と東京23区の料率を登録しています。ほかの市区町村も料率を入れれば計算できます。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -154,7 +154,7 @@ body{overflow-x:clip}
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
- <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
  <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="kokuho-keisan_head_marunage">経理丸投げの無料相談 →</a></div>
 </div></header>
 <main class="wrap">
@@ -164,7 +164,7 @@ body{overflow-x:clip}
  <h1>【国民健康保険料の計算】年収・所得からいくらになる？市区町村別【令和8年度】</h1>
 </div>
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>市区町村と前の年の収入を入れると、1年間の国民健康保険料が出ます</div>
+ <div class="h"><span>結論</span>市区町村と前の年の収入を入力すると、1年間の国民健康保険料を表示します</div>
  <div class="in">
   <div class="full">
    <label for="reg">住んでいる市区町村</label>
@@ -228,7 +228,7 @@ body{overflow-x:clip}
  <li><a href="#qa">国民健康保険料でよく聞かれること</a></li>
 </ol></nav>
 <h2 id="list">給与の年収別の国民健康保険料</h2>
-<p>上で選んだ家族の人数で表示しています。入れた年収を超えない中でいちばん近い行が黄色になります。</p>
+<p>上で選んだ家族の人数で表示しています。入力した年収を超えない中でいちばん近い行が黄色になります。</p>
 <p class="cap" id="t-cap">東京23区・令和8年度・家族なし</p>
 <div class="tw"><table>
  <thead><tr><th>前の年の年収<br>（万円）</th><th>40歳未満<br>（年・円）</th><th>40〜64歳<br>（年・円）</th></tr></thead>
@@ -271,7 +271,7 @@ body{overflow-x:clip}
  <tr><td class="l">熊本市</td><td>292,981</td><td>381,783</td></tr>
  </tbody>
 </table></div>
-<p class="note" style="margin-top:8px">東京23区は、目黒区・中野区・江戸川区を除く20区の料率です。大阪府は府内のどの市町村も同じ料率です。静岡市は公式ページに料率の表が見当たらないので、一覧に入れていません。</p>
+<p class="note" style="margin-top:8px">東京23区は、目黒区・中野区・江戸川区を除く20区の料率です。大阪府は府内のどの市町村も同じ料率です。静岡市は公式ページに料率の表が見当たらないので、一覧に含めていません。</p>
 <h2 id="red">所得が低い世帯の軽減</h2>
 <p>世帯の所得が基準より低いと、均等割と平等割が7割・5割・2割下がります。</p>
 <div class="tw"><table>
@@ -294,7 +294,7 @@ body{overflow-x:clip}
 <h3>市区町村で保険料はどのくらい違いますか？</h3>
 <p>年収400万円・1人で加入・40歳未満の場合で比べました。この早見表の22の地域では年270,400円（福岡市）から年391,947円（大阪府内）まで開きがあります。</p>
 <h3>一覧にない市区町村に住んでいる場合は、どう計算しますか？</h3>
-<p>市区町村の欄で「一覧にない市区町村（料率を入れる）」を選びます。市区町村のホームページにある所得割・均等割・平等割を入れると計算できます。</p>
+<p>市区町村の欄で「一覧にない市区町村（料率を入れる）」を選びます。市区町村のホームページにある所得割・均等割・平等割を入力すると計算できます。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.hokeniryo.metro.tokyo.lg.jp/documents/d/hokeniryo/tokubetuku202605-pdf">東京都保健医療局「特別区の国民健康保険料一覧表（令和8年度）」</a></li>
   <li><a href="https://www.city.sapporo.jp/hoken-iryo/kokuho/fuka.html">札幌市「国民健康保険料の決め方」</a></li>
@@ -319,7 +319,7 @@ body{overflow-x:clip}
   <li>表の金額は、上の資料の料率から計算しています</li>
 </ul></div>
 
-<div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
 <div class="close"><p class="close-h"><span class="nw">個人事業の方の、</span><span class="nw">記帳と確定申告も</span></p><p>個人事業の方の国民健康保険料は、確定申告した所得で翌年度の額が決まります。毎月の記帳から確定申告まで、全国どこからでもお受けしています。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="kokuho-keisan_close_marunage">経理丸投げの無料相談</a></div>
 <nav class="tools"><div class="t">早見表・計算ツール一覧</div>
  <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
@@ -383,7 +383,7 @@ body{overflow-x:clip}
  <a href="/">トップへ</a>
 </nav>
 </main>
-<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="position:absolute;left:4px;bottom:2px;font-size:8px;line-height:1;opacity:.5">mkv1</span></div></footer>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
 <div class="fbar one">
  <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="kokuho-keisan_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
 </div>
@@ -421,7 +421,7 @@ function fillCust(R){for(var i=0;i<4;i++){ci(i,0).value=(R.p[i][0]/100).toFixed(
 function curR(){
  if(reg.value!=="x"){lastR=+reg.value;return RG[lastR];}
  var p=[];for(var i=0;i<4;i++){p.push([Math.round((parseFloat(ci(i,0).value)||0)*100),Math.max(0,parseInt(ci(i,1).value,10)||0),Math.max(0,parseInt(ci(i,2).value,10)||0),CAP[i]]);}
- return {n:"入れた料率",s:"入れた料率",p:p,r:1,g:0,f:-1};
+ return {n:"入力した料率",s:"入力した料率",p:p,r:1,g:0,f:-1};
 }
 var inc=document.getElementById("inc"),incr=document.getElementById("incr"),fam=document.getElementById("fam"),famo=document.getElementById("famo"),kind=0,old=0;
 var ROWS=[100,150,200,250,300,350,400,450,500,600,700,800,900,1000];
@@ -434,7 +434,7 @@ function render(){
  document.getElementById("o-r").textContent=rd(x.red);
  document.getElementById("o-br").textContent="内訳は、医療分"+f(x.p[0])+"円・後期高齢者支援金分"+f(x.p[1])+"円・介護分"+f(x.p[2])+"円・子ども・子育て支援金分"+f(x.p[3])+"円です";
  document.getElementById("t-cap").textContent=R.s+"・令和8年度・"+(fm?"家族"+fm+"人":"家族なし");
- document.getElementById("o-reg").textContent=(R.f<0?"入れた料率":R.s+"の令和8年度の料率")+"で計算しています";
+ document.getElementById("o-reg").textContent=(R.f<0?"入力した料率":R.s+"の令和8年度の料率")+"で計算しています";
  document.getElementById("r-cap").textContent=R.s+"・令和8年度";
  var LB=["医療分","後期高齢者支援金分","介護分（40〜64歳）","子ども・子育て支援金分"],rh="";
  R.p.forEach(function(c,i){rh+="<tr><td class=\"l\">"+LB[i]+"</td><td>"+(c[0]/100).toFixed(2)+"%</td><td>"+f(c[1])+"</td><td>"+f(c[2])+"</td><td>"+f(c[3])+"</td></tr>";});

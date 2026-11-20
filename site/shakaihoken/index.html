@@ -8,8 +8,8 @@
 <meta property="og:url" content="https://taxtable.jp/shakaihoken/">
 <meta property="og:title" content="【社会保険料の早見表】月給でいくら引かれる？本人負担と会社負担【令和8年度・都道府県別】">
 <meta property="og:site_name" content="タックステーブル">
-<meta property="og:description" content="協会けんぽ令和8年度の料率で、標準報酬月額の全50等級について健康保険・厚生年金の本人負担と会社負担を早見表にしました。月給と都道府県を入れると、その人の金額と等級が出ます。">
-<meta name="description" content="協会けんぽ令和8年度の料率で、標準報酬月額の全50等級について健康保険・厚生年金の本人負担と会社負担を早見表にしました。月給と都道府県を入れると、その人の金額と等級が出ます。">
+<meta property="og:description" content="協会けんぽ令和8年度の料率で、標準報酬月額の全50等級について健康保険・厚生年金の本人負担と会社負担を早見表にしました。月給と都道府県を入力すると、その人の金額と等級を表示します。">
+<meta name="description" content="協会けんぽ令和8年度の料率で、標準報酬月額の全50等級について健康保険・厚生年金の本人負担と会社負担を早見表にしました。月給と都道府県を入力すると、その人の金額と等級を表示します。">
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box}
@@ -153,7 +153,7 @@ body{overflow-x:clip}
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><svg class="lgm" viewBox="0 0 30 30" aria-hidden="true"><rect width="30" height="30" rx="8" fill="#0f3d31"></rect><rect x="6" y="7" width="18" height="16" rx="2.5" fill="#ffffff"></rect><path d="M6 11h18" stroke="#9fc4b6" stroke-width="4"></path><rect x="6" y="15" width="18" height="4" fill="#e3b465"></rect><path d="M12 11v12" stroke="#0f3d31" stroke-width="1.2" opacity=".35"></path><rect x="6" y="7" width="18" height="16" rx="2.5" fill="none" stroke="#ffffff" stroke-width="1"></rect></svg><span class="lgt"><b>タックステーブル</b><small>税金と社会保険の早見表</small></span></a>
- <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修した税理士</a></nav>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
  <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="shaho_head_marunage">経理丸投げの無料相談 →</a></div>
 </div></header>
 
@@ -165,7 +165,7 @@ body{overflow-x:clip}
 </div>
 
 <div class="sum" id="calc">
- <div class="h"><span>結論</span>月給を入れると、毎月の社会保険料が出ます</div>
+ <div class="h"><span>結論</span>月給を入力すると、毎月の社会保険料を表示します</div>
  <div class="in">
   <div class="full">
    <label for="pay">月給（通勤手当・残業代を含む）</label>
@@ -215,7 +215,7 @@ body{overflow-x:clip}
 </nav>
 
 <h2 id="zentei">早見表の前提（令和8年度）</h2><ul class="sh9ul"><li>健康保険：協会けんぽの都道府県ごとの料率（東京都は9.85%）。本人と会社で半分ずつ</li><li>子ども・子育て支援金：0.23%。本人と会社で半分ずつ。表の「健康保険」に含めています</li><li>介護保険：1.62%。40歳から64歳の人だけ。本人と会社で半分ずつ</li><li>厚生年金：18.3%。本人と会社で半分ずつ。標準報酬月額は8万8,000円から65万円まで</li><li>子ども・子育て拠出金：0.36%。会社だけが負担。表の「会社負担」に含めています</li><li>本人負担の1円未満は50銭以下を切り捨て、50銭を超えると切り上げ</li><li>会社負担は、保険料の全額（円未満切り捨て）から本人負担を引いた額</li><li>雇用保険料と労災保険料は、この表に入っていません</li></ul><h2 id="list">社会保険料 早見表（全50等級）</h2>
-<p>報酬月額が入る行を見てください。上で入れた条件の金額で表示しています。</p>
+<p>報酬月額が入る行を見てください。上で入力した条件の金額で表示しています。</p>
 <p class="cap" id="t-cap">協会けんぽ 東京都・月額・単位は円</p>
 <div class="tw">
 <table class="sh9">
@@ -285,7 +285,7 @@ body{overflow-x:clip}
   <li><a href="https://www.nenkin.go.jp/oshirase/taisetu/2020/202005/20200514.html">日本年金機構「子ども・子育て拠出金率が改定されました」</a></li>
  </ul>
 </div>
-<div class="auth" id="auth"><p class="auth-h">監修した税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属・経営革新等支援機関</p><p>父の会社（製造業）で後継者側として工場・営業・財務・銀行交渉を経験しました。その後に父の会社を退職し、税理士試験に合格して独立しました。</p></div>
 <div class="close"><p class="close-h"><span class="nw">保険料を払う会社の、</span><span class="nw">帳簿と申告を</span></p><p>社会保険料は毎年のように料率が変わり、帳簿に付ける額もそのたびに変わります。記帳から決算・申告までまるごと任せて、数字合わせに追われない毎月にできます。全国どこからでもお受けしています。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="shakaihoken_close_marunage">経理丸投げの無料相談</a></div>
 <nav class="tools"><div class="t">早見表・計算ツール一覧</div>
  <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
@@ -349,7 +349,7 @@ body{overflow-x:clip}
  <a href="/">トップへ</a>
 </nav>
 </main>
-<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">誤りのご連絡</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）<span style="position:absolute;left:4px;bottom:2px;font-size:8px;line-height:1;opacity:.5">mkv3</span></div></footer>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
 <div class="fbar one">
  <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="shaho_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
 </div>
