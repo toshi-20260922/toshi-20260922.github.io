@@ -167,11 +167,11 @@ body{overflow-x:clip}
 
 <section class="hy1">
 <h2 id="list">雇用保険料の早見表</h2>
-<p>月給5万円から60万円まで、1万円ごとに載せています。その月の給料の額に近い行を見てください。下で選んだ事業の種類の金額で表示しています。</p>
-<p class="cap" id="t-cap">一般の事業・月額</p>
+<p>月給5万円から60万円まで、1万円ごとに載せています。その月の給料の額に近い行を見てください。3つの事業の種類を並べています。下で選んだ事業の列は太字になります。</p>
+<p class="cap" id="t-cap">月額・単位は円</p><style>.ky3 td.sel{font-weight:700;color:#00775a}</style>
 <div class="tw">
-<table>
- <thead><tr><th>給料の額（円）</th><th>本人負担<br>（円）</th><th>会社負担<br>（円）</th><th>合計<br>（円）</th></tr></thead>
+<table class="ky3">
+ <thead><tr><th rowspan="2">給料の額</th><th colspan="3">一般の事業</th><th colspan="2">農林水産・清酒製造</th><th colspan="2">建設の事業</th></tr><tr><th>本人</th><th>会社</th><th>合計</th><th>本人</th><th>会社</th><th>本人</th><th>会社</th></tr></thead>
  <tbody id="gtb"></tbody>
 </table>
 </div>
@@ -294,6 +294,12 @@ body{overflow-x:clip}
 <p>一般の事業で、本人負担は月1,500円・会社負担は月2,550円です。令和7年度の料率では、本人負担は1,650円でした。</p>
 <h3>パートで月8万円でも引かれますか？</h3>
 <p>週20時間以上・31日以上の見込みで雇用保険に入っていれば引かれます。一般の事業で月400円です。</p>
+<h3>雇用保険料の会社負担はいくらですか？</h3>
+<p>令和8年度の一般の事業では、給料の1,000分の8.5です。月給30万円なら会社負担は月2,550円で、本人負担の1,500円より多くなります。会社負担には、会社だけが払う雇用保険二事業の分が入っているためです。</p>
+<h3>賞与にも雇用保険料はかかりますか？</h3>
+<p>かかります。賞与の額そのものに毎月の給料と同じ料率をかけます。一般の事業で賞与50万円なら、本人負担は2,500円です。</p>
+<h3>雇用保険料率はいつから変わりますか？</h3>
+<p>料率は年度ごとに決まり、令和8年度の料率は令和8年4月1日以後に締め日が来る給料から使います。3月に締めて4月に払う給料は、令和7年度の料率のままです。</p>
 <h3>給料明細と1円違うのはなぜですか？</h3>
 <p>端数の処理が会社ごとに違うためです。法律の決まりでは50銭以下は切り捨てで50銭を超えると切り上げです。会社と本人の間で別の決まりがあれば、それに従います。</p>
 <h3>雇用保険料は年末調整で戻りますか？</h3>
@@ -395,10 +401,12 @@ body{overflow-x:clip}
   document.getElementById("o-rate").textContent=x[0]+"の料率は、本人1,000分の"+pm(x[1])+"・会社1,000分の"+pm(x[2])+"です";
   document.getElementById("o-rme").textContent="1,000分の"+pm(x[1]);document.getElementById("o-rco").textContent="1,000分の"+pm(x[2]);document.getElementById("o-rk").textContent=x[0];
   document.getElementById("o-old").textContent="令和7年度の料率なら、本人負担は"+f(me(w,x[3]))+"円でした";
-  document.getElementById("t-cap").textContent=x[0]+"・月額";
+  document.getElementById("t-cap").textContent="月額・単位は円（太字は"+x[0]+"）";
   var h="",near=Math.round(w/10000)*10000;
   for(var v=50000;v<=600000;v+=10000){var p=me(v,x[1]),c=co(v,x[2]);
-   h+="<tr"+(v===near?" class=\"hit\"":"")+"><td>"+f(v)+"</td><td>"+f(p)+"</td><td>"+f(c)+"</td><td>"+f(p+c)+"</td></tr>";}
+   h+="<tr"+(v===near?" class=\"hit\"":"")+"><td>"+f(v)+"</td>";
+   T.forEach(function(y,j){var cl=j===t?" class=\"sel\"":"",p=me(v,y[1]),c=co(v,y[2]);h+="<td"+cl+">"+f(p)+"</td><td"+cl+">"+f(c)+"</td>"+(j===0?"<td"+cl+">"+f(p+c)+"</td>":"");});
+   h+="</tr>";}
   document.getElementById("gtb").innerHTML=h;
  }
  pay.addEventListener("input",function(){payr.value=pay.value;render();});
