@@ -24,7 +24,9 @@
 #   https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r07
 #  協会けんぽ 令和8年10月分からの保険料額表(東京・厚生年金18.3%・50銭以下切捨て) https://www.kyoukaikenpo.or.jp/assets/R8.10_13%E6%9D%B1%E4%BA%AC.pdf
 #  厚生労働省「令和8(2026)年度 雇用保険料率のご案内」(労働者負担 令和7年度5.5/1,000・令和8年度5/1,000) https://www.mhlw.go.jp/content/001692566.pdf
-# 最後に原本を確かめた日:2026-11-20
+# 最後に原本を確かめた日:2026-11-21(総務省・東京都主税局・港区・中央区・横浜市2ページ・練馬区3ページ・大阪府・国税庁2つ・財務省の大綱の概要・協会けんぽ r08・厚生労働省を開いた。
+#  協会けんぽ r07 と R8.10 の保険料額表・地方税法附則3条の3の条文は 11-21 は開いていない)
+# 2026-11-21:計算の箱の判定の文(o-kk・o-kke。JS が動く前と動いたあと)・扶養2人以上の行が年収190万円超で令和8年度の控除が65万円より多いこと・地域を足した文を照らす形にした。
 # 2026-11-20:早見表が6列(年収・社会保険料・課税所得・住民税・うち所得割・月あたり)・21行(120万円と140万円の行が足された)になったので、
 #  全部の列を自分の計算で確かめる形に直した。課税所得は、住民税がかからない行(給与所得45万円以下)では画面が0円を出す(注記に書いてある)。
 # ページの前提:健康保険・介護・支援金は合わせて1回の50銭処理(furusato.py と同じ)。2026年1〜12月の各月の料率。
@@ -96,7 +98,7 @@ JS = '''([a,sh,old])=>{var q=function(i){return document.getElementById(i)};
  var n=function(i){return parseInt(q(i).textContent.replace(/[^0-9]/g,""),10)};
  var br=q("o-br").textContent.match(/均等割([0-9,]+)円・所得割([0-9,]+)円/);
  return {y:n("o-y"),m:n("o-m"),kin:br?parseInt(br[1].replace(/,/g,"")):0,sho:br?parseInt(br[2].replace(/,/g,"")):0,
-  kk:q("o-kk").textContent,cap:q("t-cap").textContent,
+  kk:q("o-kk").textContent,kke:q("o-kke").textContent,cap:q("t-cap").textContent,
   rows:[...document.querySelectorAll("#jtb tr")].map(function(tr){return [...tr.cells].map(function(c){return parseInt(c.textContent.replace(/[^0-9]/g,""),10)})}),
   hit:[...document.querySelectorAll("#jtb tr")].findIndex(function(tr){return tr.classList.contains("hit")})}}'''
 
@@ -154,6 +156,9 @@ async def body(pg):
             else:
                 ok = got['y'] == 0 and got['m'] == 0
             kk = '住民税はかかりません' if y == 0 else '均等割だけかかります' if sho == 0 else '住民税がかかります'
+            kke = '令和9年度は年収119万円までかかりません（東京23区・単身）' if y == 0 else '所得割はかかりません。均等割は年5,000円です。住民税がかからないのは年収119万円までです' if sho == 0 else '均等割と所得割の両方がかかります。住民税がかからないのは年収119万円までです'
+            n += 1
+            if got['kke'] != kke: ng('判定の説明', a, sh_on, old, got['kke'])
             if not ok or got['kk'] != kk:
                 ng(a, sh_on, old, got['y'], got['kin'], got['sho'], got['kk'], '自分', y, kin, sho, kk)
         # 早見表の全部の行と黄色の行
@@ -178,6 +183,12 @@ async def body(pg):
             L = 350000 * (k + 1) + 100000 + (add if k else 0)
             exp = [max_inc(kyuyo8, L), max_inc(kyuyo9, L)]; n += 1
             if row != exp: ng(cap, k, row, exp)
+            if k >= 2:                                 # 注記「扶養が2人以上の行は年収が190万円を超えるので、令和8年度の給与所得控除は65万円より多い」
+                n += 1
+                if not (row[0] > 1900000 and row[0] - kyuyo8(row[0]) > 650000 and row[1] - row[0] < 90000): ng('190万円超の注記', cap, k, row)
+            else:
+                n += 1
+                if row[1] - row[0] != 90000: ng('9万円の差', cap, k, row)
     # 本文・FAQ・メタの数字
     single8, single9 = max_inc(kyuyo8, 450000), max_inc(kyuyo9, 450000)
     single11 = 450000 + 690000                       # 令和11年度(最低保障69万円)
@@ -190,8 +201,13 @@ async def body(pg):
         ('令和8年度110万円、令和9年度119万円' in html, 'メタの文'),
         ('<b>119<i>万円</i></b><em>去年は110万円</em>' in html, '大きい箱の119万円'),
         ('令和9年度から9万円上がって119万円' in html and single9 - single8 == 90000, '冒頭の9万円'),
-        ('年収178万円で住民税は119万円なので、59万円の差' in html and shotoku0 == 1780000 and shotoku0 - single9 == 590000, '所得税と住民税の差'),
+        ('年収178万円で住民税は119万円（単身・東京23区）なので、59万円の差' in html and shotoku0 == 1780000 and shotoku0 - single9 == 590000, '所得税と住民税の差'),
         ('年収119万円までかかりません' in html, '判定の文'),
+        ('<b id="o-kk">住民税がかかります</b><span id="o-kke">均等割と所得割の両方がかかります。住民税がかからないのは年収119万円までです</span>' in html, 'JSの前の判定の文'),
+        ('扶養が2人以上の行は年収が190万円を超えるので、令和8年度の給与所得控除は最低額の65万円より多くなります' in html, '190万円超の注記の文'),
+        ('年収が上の表の額以下なら住民税がかからず、下の表の額以下なら所得割がかかりません' in html, '2つの表の注記の文'),
+        ('単身で東京23区に住む人の住民税がかからない年収は、令和9年度から9万円上がって119万円' in html and '東京23区では年収119万円を超えると住民税がかかりますが、所得税は178万円まではかかりません' in html and '単身で114万円になります（東京23区）' in html, '地域の入った文'),
+        ('<p class="cap" id="t-cap">令和9年度・東京23区・単身・社会保険に入っている・40歳未満</p>' in html, 'JSの前の表の見出し'),
         ('令和9年度は年35,500円です。均等割5,000円と所得割30,500円' in html and y150[:3] == (35500, 5000, 30500), 'FAQ 150万円 %s' % (y150,)),
         ('令和11年度に住民税がかからない年収は単身で114万円' in html and single11 == 1140000, 'FAQ 令和11年度'),
         ('区民税3,000円・都民税1,000円・森林環境税1,000円の年5,000円' in html, '均等割'),

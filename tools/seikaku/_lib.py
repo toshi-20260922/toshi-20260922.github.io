@@ -88,6 +88,14 @@
 #   23 資本金1億円以下の17%(所得10億円超)を事業年度の開始日を見ずに当てる(houjinzei は文に前提を書いた。令和7年3月31日以前開始の選択肢は無い)
 #   24 東京都・40歳未満の数字なのに地域と年齢が文に無い(yakuin-tedori・shakaihoken の冒頭とよくある質問)
 #   25 「東京23区」の早見表なのに法人事業税が標準税率(東京都は年の所得2,500万円超などで超過税率。houjinnari は注記を足した。表のマスは未修正)
+# ---- 申し送り(2026-11-21 4時の回の続き・tedori〜kokuho-keisan) ----
+#   26 判定の箱(#o-vd・#j1 など)が HTML では空(形16と同じ。nenshu-kabe・gakusei-kabe・part-fuyou・shakaihoken)
+#   27 「年収が190万円以下なら74万円を引きます」(令和8年分は収入219万1,000円未満まで74万円。190万円は令和8年度の住民税の側。part-fuyou)
+#   28 自分の所得税の判定を年収178万1,000円以上にしていた(課税所得1,000円は税額51円で100円未満切り捨て。178万2,000円以上。nenshu-kabe)
+#   29 特定親族特別控除に移ると親の住民税の調整控除が減る(最大9,000円。扶養控除がなくなるときは最大2,500円。gakusei-kabe)
+#   30 住民税がかからない年収119万円・114万円に「単身・東京23区」が無い(juminzei)
+# ・tools/regions.py の src の出典の文字が古い(仙台・浜松・岡山・熊本・神戸・札幌・さいたま・大阪府・東京都)。HTML は直した。regions.py から作り直すと戻る。
+# ・厚生労働省が11月11日に令和9年度の国保の賦課限度額の案(基礎69万円・支援27万円)を出している。未決定。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

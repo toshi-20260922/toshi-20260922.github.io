@@ -504,7 +504,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top kv"><div class="kv-in">
  <div class="kv-tx">
-  <p class="upd">更新日：2026年11月20日<span class="nw">（令和8年度税制改正に対応）</span></p>
+  <p class="upd">更新日：2026年11月21日<span class="nw">（令和8年度税制改正に対応）</span></p>
   <h1><span class="nw">【年収の壁の早見表】</span><span class="nw">扶養内はいくらまで？</span><span class="h1b"><span class="nw">178万・136万・130万円</span><span class="nw">【2026年】</span></span></h1>
  </div>
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="年収の壁"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="26" y="20" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="39" y="20" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="20" y="28" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="33" y="28" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="46" y="28" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="26" y="36" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="39" y="36" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="20" y="44" width="12" height="7" rx="1" fill="#e08a2c"></rect><rect x="33" y="44" width="12" height="7" rx="1" fill="#f6d3ab"></rect><rect x="46" y="44" width="12" height="7" rx="1" fill="#e08a2c"></rect><circle cx="14" cy="26" r="4" fill="#0f3d31"></circle><path d="M14 31v12M14 35l-5 4M14 35l6-3M14 43l-4 8M14 43l4 8" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"></path></svg></div>
@@ -584,12 +584,12 @@ body{overflow-x:clip}
   <div class="full"><label for="inc">1月から12月の給与収入（年収）</label><div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="10000000" step="1000" value="1300000"><span>円</span></div><input type="range" id="incr" min="500000" max="2500000" step="1000" value="1300000" aria-label="1月から12月の給与収入（年収）"></div>
   <div class="full"><label>働く人</label><div class="seg s3" id="s-who"><button type="button" class="on" data-v="0">配偶者</button><button type="button" data-v="1">19〜22歳の子</button><button type="button" data-v="2">60歳以上</button></div></div>
  </div>
- <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="vd" id="vd"><b id="o-vd">社会保険の扶養から外れます</b><span id="o-vds">年収が130万円以上なので自分で社会保険に入ります。勤め先の社会保険に入らない場合は、国民年金と国民健康保険に加入します。</span></div>
  <div class="amt jdg">
-  <div><small>自分の所得税</small><b id="j1"></b><em>178万円まで0円</em></div>
-  <div><small>自分の住民税</small><b id="j2"></b><em>119万円まで0円（目安）</em></div>
-  <div><small>家族の税金の扶養</small><b id="j3"></b><em id="j3e"></em></div>
-  <div class="s"><small>家族の社会保険の扶養</small><b id="j4"></b><em id="j4e"></em></div>
+  <div><small>自分の所得税</small><b id="j1">かからない</b><em>178万円まで0円</em></div>
+  <div><small>自分の住民税</small><b id="j2">かかる</b><em>119万円まで0円（目安）</em></div>
+  <div><small>家族の税金の扶養</small><b id="j3">入れる</b><em id="j3e">配偶者控除38万円</em></div>
+  <div class="s"><small>家族の社会保険の扶養</small><b id="j4">外れる</b><em id="j4e">130万円未満まで</em></div>
  </div>
  <p class="cn">従業員51人以上の会社で週20時間以上働く人（学生を除く）は、年収にかかわらず勤め先の社会保険に入ります。</p>
 </div>
@@ -827,7 +827,7 @@ body{overflow-x:clip}
 <h2 id="next">早見表の次に確かめること</h2><ul class="nk9ul"><li>パートの月収で見たい方：<a href="/part-fuyou/">パートの扶養の計算</a></li><li>学生アルバイトの方、学生の子がいる方：<a href="/gakusei-kabe/">学生バイトの年収の壁</a></li><li>扶養を外れたときの社会保険料：<a href="/shakaihoken/">社会保険料の早見表</a></li><li>壁を超えたあとの手取り：<a href="/tedori/">年収の手取りの早見表</a></li><li>自分にかかる所得税の額：<a href="/shotokuzei/">所得税の計算</a></li><li>住民税がかかり始める年収：<a href="/juminzei/">住民税の早見表</a></li><li>年末調整で戻る額：<a href="/nenmatsu-chosei/">年末調整の還付金の計算</a></li></ul><style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>ふるさと納税は、年収と家族で寄附の上限が決まります。<a href="/furusato/" data-cta="rel_nenshu-kabe_furusato">ふるさと納税の限度額の計算</a></li><li>会社員の副業の所得が20万円を超えたら、確定申告が要ります。<a href="/fukugyo/" data-cta="rel_nenshu-kabe_fukugyo">副業の税金の計算</a></li><li>雇用保険料は、業種ごとに率が決まっています。<a href="/koyohoken/" data-cta="rel_nenshu-kabe_koyohoken">雇用保険料の早見表</a></li><li>給与・年金・事業の収入から、扶養の62万円に入るかが分かります。<a href="/shotoku-kingaku/" data-cta="rel_nenshu-kabe_shotoku-kingaku">所得金額の計算</a></li></ul>
 <h2 id="qa">年収の壁でよく聞かれること</h2>
 <h3>2026年の年収の壁は、結局いくらですか？</h3>
-<p>給与だけなら、自分に所得税がかかるのは178万円からです。家族の税金の扶養に入れるのは136万円まで、社会保険の扶養に入れるのは130万円まで（19〜22歳は150万円・60歳以上は180万円）です。</p>
+<p>給与だけなら、年収178万円までは自分に所得税がかかりません。家族の税金の扶養に入れるのは136万円まで、社会保険の扶養に入れるのは130万円まで（19〜22歳は150万円・60歳以上は180万円）です。</p>
 <h3>社会保険の扶養から外れたら、どの保険に入りますか？</h3>
 <p>勤め先の社会保険に入る条件を満たせば勤め先の社会保険に、満たさなければ自分で国民年金と国民健康保険に入ります。</p>
 <h3>年の途中で壁を超えそうなときは、どう判断されますか？</h3>
@@ -943,7 +943,7 @@ function SPO(x){if(x<=1360000)return 38;var T=[[1690000,38],[1740000,36],[179000
 function sho(x){return Math.max(0,x-740000)}
 var who=0;
 function draw(){var x=Math.max(0,parseInt(document.getElementById("inc").value,10)||0),lim=[1300000,1500000,1800000][who],si=x<lim,ti=x<=1360000,a=0,tx;
- T("j1",x>=1781000?"かかる":"かからない");T("j2",x>1190000?"かかる":"かからない");
+ T("j1",x>=1782000?"かかる":"かからない");T("j2",x>1190000?"かかる":"かからない");
  if(ti){T("j3","入れる");T("j3e",["配偶者控除38万円","扶養控除63万円","扶養控除の対象"][who])}
  else if(who===0&&(a=SPO(x))>0){T("j3","特別控除に");T("j3e","配偶者特別控除"+a+"万円")}
  else if(who===1&&(a=TOK(sho(x)))>0){T("j3","特別控除に");T("j3e","特定親族特別控除"+a+"万円")}

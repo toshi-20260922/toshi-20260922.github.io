@@ -230,7 +230,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="パートの月収"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="18" width="36" height="30" rx="3" fill="#ffffff" stroke="#00775a" stroke-width="2.5"></rect><rect x="14" y="18" width="36" height="8" fill="#00775a"></rect><path d="M21 34h22M21 41h14" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"></path><circle cx="46" cy="44" r="8" fill="#e08a2c"></circle><text x="46" y="48" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">¥</text></svg></div>
-  <p class="upd">更新日：2026年11月20日（令和8年分に対応）</p>
+  <p class="upd">更新日：2026年11月21日（令和8年分に対応）</p>
   <h1>【パートの扶養の計算】月収いくらまで扶養内？月8万〜18万円の早見表【2026年】</h1>
 </div>
 
@@ -278,11 +278,11 @@ body{overflow-x:clip}
  <div class="in">
   <div class="full"><label for="inc">毎月の給与（通勤手当を除く）</label><div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="10000000" step="1000" value="108000"><span>円</span></div><input type="range" id="incr" min="60000" max="200000" step="1000" value="108000" aria-label="毎月の給与（通勤手当を除く）"></div>
  </div>
- <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="vd no" id="vd"><b id="o-vd">扶養内です</b><span id="o-vds">社会保険の扶養に入れます。月108,333円を超えると外れます</span></div>
  <div class="amt jdg">
-  <div class="s"><small>社会保険の扶養</small><b id="j1"></b><em>月108,333円まで</em></div>
-  <div><small>配偶者の控除</small><b id="j2"></b><em id="j2e"></em></div>
-  <div class="tot"><small>年収にすると</small><b id="j3"></b><em>12か月同じ額の場合</em></div>
+  <div class="s"><small>社会保険の扶養</small><b id="j1">入れる</b><em>月108,333円まで</em></div>
+  <div><small>配偶者の控除</small><b id="j2">38万円</b><em id="j2e">配偶者控除</em></div>
+  <div class="tot"><small>年収にすると</small><b id="j3">1,296,000<i>円</i></b><em>12か月同じ額の場合</em></div>
  </div>
 </div>
 </div>
@@ -313,7 +313,7 @@ body{overflow-x:clip}
   <tbody>
     <tr><td class="l">週20時間</td><td class="l">本人</td><td class="l">従業員51人以上の勤め先なら年収にかかわらず勤め先の社会保険に入ります</td></tr>
     <tr><td class="l">119万円</td><td class="l">本人</td><td class="l">本人に住民税がかかり始めます（令和9年度・1級地の目安）</td></tr>
-    <tr><td class="l">130万円</td><td class="l">本人</td><td class="l">配偶者の社会保険の扶養から外れ、自分で保険料を払います</td></tr>
+    <tr><td class="l">130万円</td><td class="l">本人</td><td class="l">年収130万円以上になると配偶者の社会保険の扶養から外れ、自分で保険料を払います</td></tr>
     <tr><td class="l">136万円</td><td class="l">配偶者</td><td class="l">配偶者控除が配偶者特別控除に変わります（額は38万円のまま）</td></tr>
     <tr><td class="l">169万円</td><td class="l">配偶者</td><td class="l">配偶者特別控除が少しずつ減り始めます</td></tr>
     <tr><td class="l">178万円</td><td class="l">本人</td><td class="l">本人に所得税がかかり始めます</td></tr>
@@ -379,7 +379,7 @@ body{overflow-x:clip}
 <p>令和8年分の所得税は、給与だけなら年収178万円までかかりません。給与所得控除の74万円と基礎控除の104万円を合わせた額です。</p>
 <p>住民税は基礎控除が43万円なので、早くかかり始めます。東京23区などでは年収119万円を超えると均等割4,000円と森林環境税1,000円の年5,000円がかかり、所得税より先に負担が出ます（令和9年度）。金額は<a href="/juminzei/">住民税の早見表</a>で確かめられます。</p>
 <h2 id="nenmatsu">扶養する側の年末調整で書く数字</h2>
-<p>夫や妻の勤め先の年末調整では、配偶者控除等申告書にパートの1年の見込みの所得を書きます。所得は給与の年収から給与所得控除を引いた額で、年収が190万円以下なら74万円を引きます。</p>
+<p>夫や妻の勤め先の年末調整では、配偶者控除等申告書にパートの1年の見込みの所得を書きます。所得は給与の年収から給与所得控除を引いた額で、年収が219万円以下なら74万円を引きます。</p>
 <ul class="x7ul"><li>パートの年収が136万円以下：所得は62万円以下で、配偶者控除の欄に書きます</li><li>136万円を超えて207万円以下：配偶者特別控除の欄に書きます</li><li>扶養する人の合計所得が900万円を超える：控除額が少なくなり、1,000万円を超えると受けられません</li></ul>
 <p>見込みと実際の年収がずれたときは、年末調整のやり直しか確定申告で直します。</p>
 
