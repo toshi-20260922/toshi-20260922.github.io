@@ -299,7 +299,7 @@ JS = r'''(function(){
 PIC = '<div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="年ごとに減る棒グラフ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="13" y="18" width="8" height="30" rx="1.5" fill="#0f3d31"/><rect x="24" y="26" width="8" height="22" rx="1.5" fill="#00775a"/><rect x="35" y="33" width="8" height="15" rx="1.5" fill="#00775a"/><rect x="46" y="39" width="8" height="9" rx="1.5" fill="#e08a2c"/></svg></div>'
 
 body = calc + '\n' + B.share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
-h = B.page(slug, title, desc, upd, body, JS, cta, pic=PIC)
+h = B.page(slug, title, desc, upd, body, JS, cta, pic=PIC, auth=B.auth_box('国税庁'))
 close_old = B.close_box(cta)
 close_new = ('<div class="close"><p class="close-h"><span class="nw">設備を買った年の、</span><span class="nw">帳簿と申告も</span></p>'
              '<p>減価償却は、買った年だけでなく耐用年数のあいだ毎年の決算に出てきます。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p>'

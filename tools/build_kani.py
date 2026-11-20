@@ -267,7 +267,7 @@ JS = r'''(function(){
 PIC = '<div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="6つの区分の箱"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="12" y="16" width="12" height="12" rx="2" fill="#0f3d31"/><rect x="26" y="16" width="12" height="12" rx="2" fill="#00775a"/><rect x="40" y="16" width="12" height="12" rx="2" fill="#00775a"/><rect x="12" y="32" width="12" height="12" rx="2" fill="#00775a"/><rect x="26" y="32" width="12" height="12" rx="2" fill="#00775a"/><rect x="40" y="32" width="12" height="12" rx="2" fill="#e08a2c"/></svg></div>'
 
 body = calc_html + '\n' + B.share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
-h = B.page(slug, title, desc, upd, body, JS, cta, pic=PIC)
+h = B.page(slug, title, desc, upd, body, JS, cta, pic=PIC, auth=B.auth_box('国税庁'))
 close_old = B.close_box(cta)
 close_new = ('<div class="close"><p class="close-h"><span class="nw">簡易課税にするか、</span><span class="nw">迷ったら</span></p>'
              '<p>簡易課税にするか本則課税にするかで、帳簿のつけ方と申告書が変わります。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料です。</p>'

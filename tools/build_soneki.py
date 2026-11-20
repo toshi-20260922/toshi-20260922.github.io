@@ -15,7 +15,7 @@ hdr=b[:b.index('<main class="wrap">')].replace('houjinzei_keisan_','soneki_')
 nav=b[b.index('<nav class="tools">'):b.index('</nav>',b.index('<nav class="tools">'))+6]
 nav=nav.replace('<div class="t">早見表・計算ツール一覧</div>','<div class="t">早見表・計算ツール一覧</div> <a href="/houjinzei-keisan/">法人税の計算シミュレーション（住民税・事業税まで）</a>',1) if '/houjinzei-keisan/' not in nav else nav
 foot=b[b.index('</main>'):b.index('<script',b.index('</main>'))].replace('houjinzei_keisan_','soneki_')
-auth=b[b.index('<div class="auth" id="auth">'):b.index('<div class="close">')]
+auth='<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p>このページの数字は2026年11月に私が確かめました。もとにしているのは、中小企業基盤整備機構（J-Net21）の数字です。</p><p><a href="/#auth">詳しいプロフィール</a></p></div>\n'
 MAIN='''<main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="損益分岐点のグラフ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><path d="M14 48V14M14 48h36" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"/><path d="M14 36h36" stroke="#9fc4b6" stroke-width="2.5"/><path d="M14 48L48 16" stroke="#e3b465" stroke-width="3" stroke-linecap="round"/><path d="M14 36L48 26" stroke="#0f3d31" stroke-width="3" stroke-linecap="round"/><circle cx="35" cy="29" r="4" fill="#ffffff" stroke="#b5473a" stroke-width="2.5"/></svg></div>

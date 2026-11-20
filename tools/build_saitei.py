@@ -99,6 +99,13 @@ STYLE = OSAKA[OSAKA.index('<style>'):OSAKA.index('</head>')]
 HEAD_END = '</head>'
 AUTH = re.search(r'<div class="auth" id="auth">.*?</div>', OSAKA, re.S).group(0)
 TOOLS_NAV = re.search(r'<nav class="tools">.*?</nav>', OSAKA, re.S).group(0)
+
+def auth_box(src):
+    # 監修枠。src はそのページの出典の機関名（「、」は使わない）
+    return ('<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p>'
+            '<p class="auth-r">近畿税理士会所属（登録番号127208）</p>'
+            '<p>このページの数字は2026年11月に私が確かめました。もとにしているのは、%sの数字です。</p>'
+            '<p><a href="/#auth">詳しいプロフィール</a></p></div>') % src
 FOOT = OSAKA[OSAKA.index('</main>\n<footer'):OSAKA.index('<div class="fbar one">')]
 TAIL = OSAKA[OSAKA.index('<script id="fbzj">'):]
 LOGO = re.search(r'<a class="logo" href="/">.*?</a>', OSAKA, re.S).group(0)
@@ -106,7 +113,9 @@ PIC = re.search(r'<div class="pic">.*?</div>', OSAKA, re.S).group(0)
 PIC_YEN = '<div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="人と円"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><circle cx="25" cy="24" r="8" fill="#0f3d31"/><path d="M11 50c1-10 7-15 14-15s13 5 14 15z" fill="#0f3d31"/><circle cx="46" cy="40" r="10" fill="#e3b465"/><text x="46" y="45" font-size="13" font-weight="700" text-anchor="middle" fill="#0f3d31" font-family="sans-serif">円</text></svg></div>'
 STYLE = STYLE  # 同じ見た目
 
-def page(slug, title, desc, upd, body, script, cta, pic=PIC_YEN):
+def page(slug, title, desc, upd, body, script, cta, pic=PIC_YEN, auth=None):
+    if auth is None:
+        auth = AUTH
     url = 'https://taxtable.jp/%s/' % slug
     return ('<!doctype html>\n<html lang="ja"><head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="color-scheme" content="light">\n'
             '<title>%s</title>\n<link rel="canonical" href="%s">\n<meta name="description" content="%s">\n%s</head>\n<body>\n'
@@ -114,7 +123,7 @@ def page(slug, title, desc, upd, body, script, cta, pic=PIC_YEN):
             ' <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="%s_head_marunage">経理丸投げの無料相談 →</a></div>\n</div></header>\n\n'
             '<main class="wrap">\n<div class="top">\n %s\n <p class="upd">%s</p>\n <h1>%s</h1>\n</div>\n\n%s\n%s\n%s\n%s'
             '<div class="fbar one">\n <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="%s_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>\n</div>\n\n'
-            '<script>\n%s\n</script>\n\n%s') % (title, url, desc, STYLE, LOGO, cta, pic, upd, title, body, AUTH, close_box(cta), TOOLS_NAV + '\n' + FOOT, cta, script, TAIL)
+            '<script>\n%s\n</script>\n\n%s') % (title, url, desc, STYLE, LOGO, cta, pic, upd, title, body, auth, close_box(cta), TOOLS_NAV + '\n' + FOOT, cta, script, TAIL)
 
 def close_box(cta):
     return ('<div class="close"><p class="close-h"><span class="nw">最低賃金が上がる年の、</span><span class="nw">帳簿と申告も</span></p>'
@@ -316,7 +325,7 @@ def pref_page(cfg):
     src = '<div class="src">出典・参考（2026年11月確認）\n <ul>\n%s%s </ul>\n</div>\n' % (cfg['src'], SRC_COMMON)
     body = calc + '\n' + share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + FUKUMU + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
     js = JS_PREF % dict(base=m, old=o, pn=n, date=ds(p), eff='2026-%02d-%02dT00:00:00+09:00' % (p['mo'], p['da']), ind=json.dumps(IND, ensure_ascii=False), ex_h=ex_h, ex_d=dex, ex_m=sm)
-    html_ = page(slug, title, desc, upd, body, js, cta)
+    html_ = page(slug, title, desc, upd, body, js, cta, auth=auth_box(cfg['kyoku'] + 'と厚生労働省'))
     os.makedirs(os.path.join(SITE, slug), exist_ok=True)
     open(os.path.join(SITE, slug, 'index.html'), 'w', encoding='utf-8').write(html_)
     return slug, title
@@ -909,7 +918,7 @@ def all_page():
     body = calc + '\n' + share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + FUKUMU + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
     js = JS_ALL % dict(pr=json.dumps(pr, ensure_ascii=False))
     os.makedirs(os.path.join(SITE, slug), exist_ok=True)
-    open(os.path.join(SITE, slug, 'index.html'), 'w', encoding='utf-8').write(page(slug, title, desc, upd, body, js, cta))
+    open(os.path.join(SITE, slug, 'index.html'), 'w', encoding='utf-8').write(page(slug, title, desc, upd, body, js, cta, auth=auth_box('厚生労働省')))
     return slug, title
 
 if __name__ == '__main__':

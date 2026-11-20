@@ -176,7 +176,7 @@ JS = r'''(function(){
 PIC = '<div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="電車と車"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="10" y="14" width="22" height="26" rx="5" fill="#0f3d31"/><rect x="14" y="19" width="14" height="8" rx="1.5" fill="#d8efe6"/><circle cx="15.5" cy="34" r="2" fill="#e3b465"/><circle cx="26.5" cy="34" r="2" fill="#e3b465"/><path d="M34 40h20l-3-8H37z" fill="#e08a2c"/><rect x="32" y="40" width="24" height="7" rx="2" fill="#e08a2c"/><circle cx="38" cy="49" r="3" fill="#0f3d31"/><circle cx="50" cy="49" r="3" fill="#0f3d31"/></svg></div>'
 
 body = calc + '\n' + B.share(slug) + '\n' + intro + '\n' + toc + '\n' + sec1 + '\n' + sec2 + '\n' + sec3 + '\n' + sec4 + '\n' + sec5 + '\n' + sec6 + '\n' + qa + '\n' + src
-h = B.page(slug, title, desc, upd, body, JS, cta, pic=PIC)
+h = B.page(slug, title, desc, upd, body, JS, cta, pic=PIC, auth=B.auth_box('国税庁'))
 close_old = B.close_box(cta)
 close_new = ('<div class="close"><p class="close-h"><span class="nw">通勤手当を含めた給与計算と、</span><span class="nw">帳簿と申告も</span></p>'
              '<p>通勤手当の非課税と課税の分け方は、毎月の源泉徴収と年末調整に響きます。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p>'
