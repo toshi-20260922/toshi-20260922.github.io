@@ -170,19 +170,19 @@ body{overflow-x:clip}
 <h2 id="list">退職金の額で見る税金と手取り</h2>
 <p>役員としての勤続年数が30年の場合です。下で計算した退職金の額に近い行が黄色になります。金額の単位は円、退職金<span class="nw">は万円です。</span></p>
 <div class="tw"><table>
- <thead><tr><th>退職金<br>（万円）</th><th>税金の合計</th><th>手取り</th></tr></thead>
+ <thead><tr><th>退職金<br>（万円）</th><th>税金が<br>かかる額</th><th>所得税</th><th>住民税</th><th>税金の<br>合計</th><th>手取り</th><th>税金の<br>割合</th></tr></thead>
  <tbody id="tb">
- <tr data-s="1000"><td>1,000</td><td><b>0</b><small>所得税 0</small><small>住民税 0</small></td><td><b>10,000,000</b><small>税金の割合 0.0%</small></td></tr>
- <tr data-s="1500"><td>1,500</td><td><b>0</b><small>所得税 0</small><small>住民税 0</small></td><td><b>15,000,000</b><small>税金の割合 0.0%</small></td></tr>
- <tr data-s="2000"><td>2,000</td><td><b>405,702</b><small>所得税 155,702</small><small>住民税 250,000</small></td><td><b>19,594,298</b><small>税金の割合 2.0%</small></td></tr>
- <tr data-s="3000"><td>3,000</td><td><b>1,861,869</b><small>所得税 1,111,869</small><small>住民税 750,000</small></td><td><b>28,138,131</b><small>税金の割合 6.2%</small></td></tr>
- <tr data-s="4000"><td>4,000</td><td><b>3,893,369</b><small>所得税 2,643,369</small><small>住民税 1,250,000</small></td><td><b>36,106,631</b><small>税金の割合 9.7%</small></td></tr>
- <tr data-s="5000"><td>5,000</td><td><b>6,078,019</b><small>所得税 4,328,019</small><small>住民税 1,750,000</small></td><td><b>43,921,981</b><small>税金の割合 12.2%</small></td></tr>
- <tr data-s="7000"><td>7,000</td><td><b>11,126,284</b><small>所得税 8,376,284</small><small>住民税 2,750,000</small></td><td><b>58,873,716</b><small>税金の割合 15.9%</small></td></tr>
- <tr data-s="10000"><td>10,000</td><td><b>18,879,909</b><small>所得税 14,629,909</small><small>住民税 4,250,000</small></td><td><b>81,120,091</b><small>税金の割合 18.9%</small></td></tr>
+ <tr data-s="1000"><td>1,000</td><td>0</td><td>0</td><td>0</td><td>0</td><td><b>10,000,000</b></td><td>0.0%</td></tr>
+ <tr data-s="1500"><td>1,500</td><td>0</td><td>0</td><td>0</td><td>0</td><td><b>15,000,000</b></td><td>0.0%</td></tr>
+ <tr data-s="2000"><td>2,000</td><td>2,500,000</td><td>155,702</td><td>250,000</td><td>405,702</td><td><b>19,594,298</b></td><td>2.0%</td></tr>
+ <tr data-s="3000"><td>3,000</td><td>7,500,000</td><td>1,111,869</td><td>750,000</td><td>1,861,869</td><td><b>28,138,131</b></td><td>6.2%</td></tr>
+ <tr data-s="4000"><td>4,000</td><td>12,500,000</td><td>2,643,369</td><td>1,250,000</td><td>3,893,369</td><td><b>36,106,631</b></td><td>9.7%</td></tr>
+ <tr data-s="5000"><td>5,000</td><td>17,500,000</td><td>4,328,019</td><td>1,750,000</td><td>6,078,019</td><td><b>43,921,981</b></td><td>12.2%</td></tr>
+ <tr data-s="7000"><td>7,000</td><td>27,500,000</td><td>8,376,284</td><td>2,750,000</td><td>11,126,284</td><td><b>58,873,716</b></td><td>15.9%</td></tr>
+ <tr data-s="10000"><td>10,000</td><td>42,500,000</td><td>14,629,909</td><td>4,250,000</td><td>18,879,909</td><td><b>81,120,091</b></td><td>18.9%</td></tr>
  </tbody>
 </table></div>
-<p class="note" style="margin-top:8px">勤続30年の退職所得控除は1,500万円です。退職金から1,500万円を引いて残りを2分の1にした額に、所得税と住民税がかかります。所得税には復興特別所得税を含みます。住民税は、市区町村民税6%と道府県民<span class="nw">税4%です。</span></p>
+<p class="note" style="margin-top:8px">勤続30年の退職所得控除は1,500万円です。退職金から1,500万円を引いて残りを2分の1にした額が「税金がかかる額」で、この額に所得税と住民税がかかります。所得税には復興特別所得税を含みます。住民税は、市区町村民税6%と道府県民<span class="nw">税4%です。</span></p>
 <p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
 </section>
 
@@ -225,6 +225,7 @@ body{overflow-x:clip}
  <li><a href="#list">退職金の額で見る税金と手取り</a></li>
  <li><a href="#bai">功績倍率で計算した退職金の額</a></li>
  <li><a href="#kojo">勤続年数ごとの退職所得控除</a></li>
+ <li><a href="#nen">勤続年数で手取りはどう変わるか</a></li>
  <li><a href="#how">税金の計算のしかた</a></li>
  <li><a href="#caution">会社の経費にするときの決まり</a></li>
  <li><a href="#rel">次に確かめること</a></li>
@@ -233,7 +234,7 @@ body{overflow-x:clip}
 <h2 id="bai">功績倍率で計算した退職金の額</h2>
 <p>功績倍率法は退職する直前の報酬の月額に、勤続年数と倍率を掛けて退職金を決める方法です。下の表は、上で選んだ倍率で計算した額です。単位<span class="nw">は万円です。</span></p>
 <div class="tw"><table>
- <thead><tr><th>報酬の<br>月額</th><th>勤続<br>10年</th><th>勤続<br>20年</th><th>勤続<br>30年</th><th>勤続<br>35年</th></tr></thead>
+ <thead><tr><th>報酬の<br>月額</th><th>勤続<br>10年</th><th>勤続<br>15年</th><th>勤続<br>20年</th><th>勤続<br>25年</th><th>勤続<br>30年</th><th>勤続<br>35年</th></tr></thead>
  <tbody id="tb2"></tbody>
 </table></div>
 <p class="note" style="margin-top:8px" id="bainote">功績倍率3.0で計算<span class="nw">しています。</span></p>
@@ -262,6 +263,13 @@ body{overflow-x:clip}
  </tbody>
 </table></div>
 <p class="note" style="margin-top:8px">勤続20年までは1年につき40万円（80万円に満たないときは80万円）、20年を超えた分は1年につき70万円です。1年に満たない端数は、1年に切<span class="nw">り上げます。</span></p>
+<p class="note">前の年以前4年のうちに別の退職金を受け取っていて勤続期間が重なる場合は、重なった期間の分だけ控除が減ります。確定拠出年金（iDeCoなど）の一時金は前の年以前9年で判定します（令和8年1月1日以後に受け取った一時金が対象。改正前は4年）。</p>
+<h2 id="nen">勤続年数で手取りはどう変わるか</h2>
+<p>同じ額の退職金でも、勤続年数が長いほど控除が大きくなり手取りが増えます。役員としての勤続年数が5年を超える場合の手取りです。単位は円で、退職金は万円です。</p>
+<div class="tw"><table>
+ <thead><tr><th>退職金<br>（万円）</th><th>勤続20年<br>控除800万円</th><th>勤続25年<br>控除1,150万円</th><th>勤続30年<br>控除1,500万円</th><th>勤続35年<br>控除1,850万円</th></tr></thead>
+ <tbody id="tb3"></tbody>
+</table></div>
 <h2 id="how">税金の計算のしかた</h2>
 <div class="tw"><table>
  <thead><tr><th>順</th><th>すること</th></tr></thead>
@@ -287,7 +295,7 @@ body{overflow-x:clip}
   <tr><td class="k">申告書が<br>ない場合</td><td class="l">「退職所得の受給に関する申告書」を受け取っていないときは、退職金の20.42%を差し引きます</td></tr>
  </tbody>
 </table></div>
-<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>退職金は、勤めた年数で税金がかからない額が決まります。<a href="/taishokukin/" data-cta="rel_yakuin-taishokukin_taishokukin">退職金の税金の計算</a></li><li>会社の利益から、法人税・住民税・事業税の合計を出せます。<a href="/houjinzei-keisan/" data-cta="rel_yakuin-taishokukin_houjinzei-keisan">法人税の計算</a></li><li>中小法人の法人税の税率は、所得800万円を境に変わります。<a href="/houjinzei/" data-cta="rel_yakuin-taishokukin_houjinzei">法人税の早見表</a></li><li>会社を辞めた翌年も、前の年の所得で住民税がかかります。<a href="/taishoku-jumin/" data-cta="rel_yakuin-taishokukin_taishoku-jumin">退職後の住民税の計算</a></li><li>所得税の税率は、課税される所得の額で5%から45%まで変わります。<a href="/shotokuzei/" data-cta="rel_yakuin-taishokukin_shotokuzei">所得税の計算</a></li><li>個人事業から会社にするかは、所得がいくらかで損得が分かれます。<a href="/houjinnari/" data-cta="rel_yakuin-taishokukin_houjinnari">法人成りの計算</a></li><li>社宅を会社で借りて役員に貸すなら、家賃をいくら取るかで税金が変わります。<a href="/yakuin-shataku/" data-cta="rel_yakuin-taishokukin_yakuin-shataku">役員社宅の家賃の計算</a></li><li>会社を辞めたら、国民健康保険と任意継続のどちらが安いかを比べます。<a href="/kokuho/" data-cta="rel_yakuin-taishokukin_kokuho">国民健康保険と任意継続の比較</a></li><li>住民税は、前の年の所得で決まります。<a href="/juminzei/" data-cta="rel_yakuin-taishokukin_juminzei">住民税の早見表</a></li></ul>
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>退職金は、勤めた年数で税金がかからない額が決まります。<a href="/taishokukin/" data-cta="rel_yakuin-taishokukin_taishokukin">退職金の税金の計算</a></li><li>会社の利益から、法人税・住民税・事業税の合計を出せます。<a href="/houjinzei-keisan/" data-cta="rel_yakuin-taishokukin_houjinzei-keisan">法人税の計算</a></li><li>中小法人の法人税の税率は、所得800万円を境に変わります。<a href="/houjinzei/" data-cta="rel_yakuin-taishokukin_houjinzei">法人税の早見表</a></li><li>会社を辞めた翌年も、前の年の所得で住民税がかかります。<a href="/taishoku-jumin/" data-cta="rel_yakuin-taishokukin_taishoku-jumin">退職後の住民税の計算</a></li><li>所得税の税率は、課税される所得の額で5%から45%まで変わります。<a href="/shotokuzei/" data-cta="rel_yakuin-taishokukin_shotokuzei">所得税の計算</a></li><li>個人事業から会社にするかは、所得がいくらかで損得が分かれます。<a href="/houjinnari/" data-cta="rel_yakuin-taishokukin_houjinnari">法人成りの計算</a></li><li>社宅を会社で借りて役員に貸すなら、家賃をいくら取るかで税金が変わります。<a href="/yakuin-shataku/" data-cta="rel_yakuin-taishokukin_yakuin-shataku">役員社宅の家賃の計算</a></li><li>会社を辞めたら、国民健康保険と任意継続のどちらが安いかを比べます。<a href="/kokuho/" data-cta="rel_yakuin-taishokukin_kokuho">国民健康保険と任意継続の比較</a></li><li>住民税は、前の年の所得で決まります。<a href="/juminzei/" data-cta="rel_yakuin-taishokukin_juminzei">住民税の早見表</a></li><li>退職金の額の目安は、退職する直前の役員報酬で変わります。<a href="/yakuin-tedori/" data-cta="rel_yakuin-taishokukin_yakuin-tedori">役員報酬の手取りの早見表</a></li></ul>
 <h2 id="qa"><span class="nw">役員退職金で</span><span class="nw">よく聞かれること</span></h2>
 <h3>役員退職金はいくらまで出せますか？</h3>
 <p>相当と認められる額を超えた部分は、会社の経費になりません。相当な額かどうかは、業務に従事した期間・退職の事情・同業で規模が似た会社の支給の状況などに照らして判断されます。法令に、倍率や金額の数字は書かれ<span class="nw">ていません。</span></p>
@@ -297,6 +305,12 @@ body{overflow-x:clip}
 <p>「退職所得の受給に関する申告書」を会社に出していれば会社が税金を差し引くので、原則として要りません。出していないときは20.42%が差し引かれ、確定申告で<span class="nw">精算します。</span></p>
 <h3>役員が亡くなって払う退職金にも、所得税はかかりますか？</h3>
 <p>死亡退職で払う退職金のうち相続税の対象になるものは、所得税の対象になりません。源泉徴収も<span class="nw">要りません。</span></p>
+<h3>役員退職金3,000万円の税金と手取りはいくらですか？</h3>
+<p>役員としての勤続年数が30年なら、税金は所得税1,111,869円と住民税750,000円の合計1,861,869円です。手取りは28,138,131円です。勤続年数が変わると控除が変わるので、上の表で確かめてください。</p>
+<h3>勤続年数はいつから数えますか？</h3>
+<p>退職所得控除の勤続年数は、その会社で働き始めた日から退職した日までで数えます。従業員から役員になった人は、従業員だった期間も含めます。ただし従業員のときに退職金を受け取っていれば、その期間は含めません。2分の1にしない決まりの5年は、役員だった期間だけで数えます。</p>
+<h3>退職金と役員報酬では、どちらで受け取るほうが税金は軽いですか？</h3>
+<p>同じ額なら、多くの場合は退職金のほうが軽くなります。退職金は退職所得控除を引いた残りを2分の1にして、ほかの所得と分けて税金を計算するからです。健康保険料と厚生年金保険料もかかりません。ただし会社の経費にできるのは相当と認められる額までです。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1420.htm">国税庁 タックスアンサー No.1420 退職金を受け取ったとき（退職所得）</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2732.htm">国税庁 タックスアンサー No.2732 退職手当等に対する源泉徴収</a></li>
@@ -389,7 +403,8 @@ body{overflow-x:clip}
  function fmt(n){return n.toLocaleString("ja-JP")}
  function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
  function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
- var MS=[30,50,70,100,150],YS=[10,20,30,35];
+ var MS=[30,50,70,100,150],YS=[10,15,20,25,30,35],GS=[1000,1500,2000,3000,4000,5000,7000,10000],NS=[20,25,30,35];
+ (function(){var t="";GS.forEach(function(a){t+="<tr><td>"+fmt(a)+"</td>";NS.forEach(function(n){t+="<td>"+fmt(calc(a*10000,n).net)+"</td>"});t+="</tr>"});document.getElementById("tb3").innerHTML=t})();
  function draw(){var m=num(mon,0,10000000),n=num(yrs,1,60),b=parseInt(bai.value,10),g=Math.round(m*n*b/10),c=calc(g,n);
   set("o-n",c.net);set("o-t",c.it);set("o-z",c.ju);set("o-g2",g);set("o-tz",c.it+c.ju);
   document.getElementById("o-tzl").textContent="税金の内訳は、所得税"+fmt(c.it)+"円（復興特別所得税を含む）・住民税"+fmt(c.ju)+"円です";

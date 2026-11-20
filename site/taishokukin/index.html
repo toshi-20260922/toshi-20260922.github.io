@@ -214,6 +214,8 @@ body{overflow-x:clip}
 <nav class="toc"><div class="t">目次</div><ol>
  <li><a href="#list">退職金と勤続年数で見る手取りの早見表</a></li>
  <li><a href="#kojo">退職所得控除の計算</a></li>
+ <li><a href="#utiwake">勤続30年の税金の内訳</a></li>
+ <li><a href="#nensu">勤続年数の数え方</a></li>
  <li><a href="#short">勤続5年以下の場合</a></li>
  <li><a href="#rel">次に確かめること</a></li>
  <li><a href="#qa">退職金の税金でよく聞かれること</a></li>
@@ -227,6 +229,30 @@ body{overflow-x:clip}
  </tbody>
 </table></div>
 <p>退職所得＝（退職金−退職所得控除）×2分の1。この退職所得に、所得税と住民税がかかります。</p>
+<p>上の式で計算した控除の額を、勤続年数ごとに並べました。退職金がこの額までなら、所得税も住民税もかかりません。</p>
+<div class="tw"><table>
+ <thead><tr><th>勤続年数</th><th>退職所得控除<br>（税金がかからない額）</th></tr></thead>
+ <tbody>
+  <tr><td>5年</td><td>200万円</td></tr>
+  <tr><td>10年</td><td>400万円</td></tr>
+  <tr><td>15年</td><td>600万円</td></tr>
+  <tr><td>20年</td><td>800万円</td></tr>
+  <tr><td>25年</td><td>1,150万円</td></tr>
+  <tr><td>30年</td><td>1,500万円</td></tr>
+  <tr><td>35年</td><td>1,850万円</td></tr>
+  <tr><td>40年</td><td>2,200万円</td></tr>
+ </tbody>
+</table></div>
+<h2 id="utiwake">勤続30年の税金の内訳</h2>
+<p>従業員として勤続30年で受け取る場合です。控除の1,500万円を引いて2分の1にした額が、税金のかかる退職所得です。金額の単位は円です。</p>
+<div class="tw"><table>
+ <thead><tr><th>退職金<br>（万円）</th><th>税金がかかる<br>退職所得</th><th>所得税</th><th>住民税</th><th>手取り</th><th>税金の<br>割合</th></tr></thead>
+ <tbody id="tb2"></tbody>
+</table></div>
+<p class="note">所得税は復興特別所得税を含みます。住民税は市区町村民税6%と道府県民税4%の合計です。</p>
+<h2 id="nensu">勤続年数の数え方</h2>
+<p>勤続年数は、その勤め先で働き始めた日から退職した日までの期間で数えます。1年に満たない端数は1年に切り上げます。</p>
+<p>たとえば勤続20年3か月なら21年として控除を計算します。20年を超えると1年ごとに控除が70万円増えるので、切り上げた分だけ控除が多くなります。</p>
 <h2 id="short">勤続5年以下の場合</h2>
 <p>役員として勤続5年以下で受け取る退職金は、2分の1にしません。従業員として勤続5年以下の場合は、控除を引いた残りのうち300万円を超える部分は2分の1にしません。</p>
 <p class="note">前年以前9年内に確定拠出年金（iDeCoなど）の一時金を受け取っていた場合は、勤続期間が重なる分の控除を調整します（令和8年1月1日以後に受け取った一時金が対象。改正前は4年内）。</p>
@@ -240,11 +266,16 @@ body{overflow-x:clip}
 <p>退職所得の受給に関する申告書を勤め先に出していれば、受け取るときに税金の精算が済みます。そのため確定申告はいりません。</p>
 <h3>退職金に社会保険料はかかりますか？</h3>
 <p>退職金には健康保険料・厚生年金保険料はかかりません。</p>
+<h3>勤続年数はいつから数えますか？</h3>
+<p>その勤め先で働き始めた日から数えます。退職した日までの期間に1年未満の端数があれば、1年に切り上げます。</p>
+<h3>亡くなった人の退職金にも所得税はかかりますか？</h3>
+<p>亡くなったあとに遺族が受け取る退職金は、相続税の対象になります。所得税と住民税はかかりません。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1420.htm">国税庁 タックスアンサー No.1420 退職金を受け取ったとき（退職所得）</a></li>
   <li><a href="https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">国税庁 タックスアンサー No.2260 所得税の税率</a></li>
   <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2732.htm">国税庁 タックスアンサー No.2732 退職手当等に対する源泉徴収</a>（退職所得控除の重複期間の決まり）</li>
+  <li><a href="https://laws.e-gov.go.jp/law/340CO0000000096">所得税法施行令（e-Gov法令検索）</a>（第69条 勤続年数の計算）</li>
   <li>表の金額は、上の資料の控除・税率から計算しています</li>
 </ul></div>
 
@@ -353,6 +384,8 @@ function render(){
  var hit=-1;ROWS.forEach(function(r,i){if(A>=r*10000)hit=i;});
  var h="";ROWS.forEach(function(r,i){var B=r*10000;h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(retire(B,20,0).net)+"</td><td>"+f(retire(B,30,0).net)+"</td><td>"+f(retire(B,38,0).net)+"</td></tr>";});
  document.getElementById("tb").innerHTML=h;
+ var h2="";ROWS.forEach(function(r,i){var y=retire(r*10000,30,0);h2+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(y.inc)+"</td><td>"+f(y.it)+"</td><td>"+f(y.ju)+"</td><td>"+f(y.net)+"</td><td>"+(Math.round((y.it+y.ju)/(r*10000)*1000)/10).toFixed(1)+"%</td></tr>";});
+ document.getElementById("tb2").innerHTML=h2;
 }
 link(amt,amtr,render);yrs.addEventListener("input",render);seg("s-y",function(v){yak=v;},render);render();
 
