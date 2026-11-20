@@ -96,6 +96,8 @@
 #   30 住民税がかからない年収119万円・114万円に「単身・東京23区」が無い(juminzei)
 # ・tools/regions.py の src の出典の文字が古い(仙台・浜松・岡山・熊本・神戸・札幌・さいたま・大阪府・東京都)。HTML は直した。regions.py から作り直すと戻る。
 # ・厚生労働省が11月11日に令和9年度の国保の賦課限度額の案(基礎69万円・支援27万円)を出している。未決定。
+# ・5:15 この回(4時の回)は本番を開けなかった(tt_status.txt と /part-fuyou/ は係の web-fetch が許可待ちで時間切れ)。ver=63・64 が本番に出たかは未確認。
+#   次の回が /part-fuyou/ の「年収が219万円以下なら74万円を引きます」を本番で読んで確かめる。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
