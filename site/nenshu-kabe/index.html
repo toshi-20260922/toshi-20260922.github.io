@@ -259,28 +259,52 @@ body{overflow-x:clip}
 <section class="hy1">
 <h2 id="list">年収の壁 早見表</h2>
 <p class="legend"><span><i style="background:#00775a"></i>税金の壁</span><span><i style="background:#d0661c"></i>社会保険の壁</span></p>
-<style>.wl td.b{font-size:12px;line-height:1.5;color:#5b6666}</style><table class="wl">
+<style>.wl td.b{font-size:12px;line-height:1.5;color:#5b6666}</style><style id="kbc">
+table.kb th{font-size:13px;padding:6px 8px}
+table.kb td.w{font-weight:700;color:#1f2a2a}
+table.kb td.w small{font-weight:400}
+table.kb td.o{width:96px;font-size:14px}
+table.kb td.o .v{font-weight:400;font-size:16px}
+table.kb td.n{width:132px;line-height:1.25;padding-top:10px;padding-bottom:10px}
+table.kb td.n .v{font-size:26px;font-weight:800;letter-spacing:.01em}
+table.kb td.n .v.t{font-size:20px}
+table.kb .u{font-style:normal;font-size:12px;margin-left:1px}
+table.kb td.n .u{font-weight:700}
+table.kb td.n small{font-size:12px;margin-top:2px}
+table.kb td.b{width:auto;font-size:13px}
+table.kb .bs{display:none}
+@media(min-width:641px){table.kb td.w{width:46%}}
+@media(max-width:640px){
+table.kb th:nth-child(4),table.kb td.b{display:none}
+table.kb .bs{display:block;font-size:12px;font-weight:400;color:#5b6666;line-height:1.5;margin-top:3px}
+table.kb .bs:before{content:"もとの制度：";}
+table.kb td.o{width:70px}
+table.kb td.n{width:100px}
+table.kb td.n .v{font-size:24px}
+}
+</style>
+<table class="wl kb">
   <thead><tr><th>年収の壁</th><th>令和7年</th><th>令和8・9年</th><th>もとの制度</th></tr></thead>
   <tbody>
     <tr class="g"><td colspan="4">本人</td></tr>
-    <tr><td class="w">所得税<small>超えた分に所得税がかかる</small></td><td class="o">160万円</td><td class="n">178万円<small>18万円上がった</small></td><td class="b">基礎控除と給与所得控除</td></tr>
-    <tr><td class="w">住民税（所得割）<small>単身・1級地の目安。令和7年の欄は令和8年度、令和8・9年の欄は令和9・10年度の住民税</small></td><td class="o">110万円</td><td class="n">119万円<small>9万円上がった</small></td><td class="b">住民税の非課税限度額</td></tr>
+    <tr><td class="w">所得税<small>超えた分に所得税がかかる</small><span class="bs">基礎控除と給与所得控除</span></td><td class="o"><b class="v">160</b><i class="u">万円</i></td><td class="n"><b class="v">178</b><i class="u">万円</i><small>18万円上がった</small></td><td class="b">基礎控除と給与所得控除</td></tr>
+    <tr><td class="w">住民税（所得割）<small>単身・1級地の目安。令和7年の欄は令和8年度、令和8・9年の欄は令和9・10年度の住民税</small><span class="bs">住民税の非課税限度額</span></td><td class="o"><b class="v">110</b><i class="u">万円</i></td><td class="n"><b class="v">119</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">住民税の非課税限度額</td></tr>
     <tr class="g"><td colspan="4">配偶者（配偶者の年収）</td></tr>
-    <tr><td class="w">配偶者控除<small>超えると配偶者特別控除に変わる（控除額38万円は同じ）</small></td><td class="o">123万円</td><td class="n">136万円<small>13万円上がった</small></td><td class="b">配偶者控除</td></tr>
-    <tr><td class="w">配偶者特別控除が満額<small>超えると控除額が少しずつ減る</small></td><td class="o">160万円</td><td class="n">169万円<small>9万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
-    <tr><td class="w">配偶者特別控除がなくなる</td><td class="o">201.6万円</td><td class="n">207万円<small>5.4万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
+    <tr><td class="w">配偶者控除<small>超えると配偶者特別控除に変わる（控除額38万円は同じ）</small><span class="bs">配偶者控除</span></td><td class="o"><b class="v">123</b><i class="u">万円</i></td><td class="n"><b class="v">136</b><i class="u">万円</i><small>13万円上がった</small></td><td class="b">配偶者控除</td></tr>
+    <tr><td class="w">配偶者特別控除が満額<small>超えると控除額が少しずつ減る</small><span class="bs">配偶者特別控除</span></td><td class="o"><b class="v">160</b><i class="u">万円</i></td><td class="n"><b class="v">169</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
+    <tr><td class="w">配偶者特別控除がなくなる<span class="bs">配偶者特別控除</span></td><td class="o"><b class="v">201.6</b><i class="u">万円</i></td><td class="n"><b class="v">207</b><i class="u">万円</i><small>5.4万円上がった</small></td><td class="b">配偶者特別控除</td></tr>
     <tr class="g"><td colspan="4">扶養している家族（家族の年収）</td></tr>
-    <tr><td class="w">扶養控除<small>超えると扶養控除が使えなくなる</small></td><td class="o">123万円</td><td class="n">136万円<small>13万円上がった</small></td><td class="b">扶養控除</td></tr>
-    <tr><td class="w">19〜22歳の特定親族特別控除が満額<small>超えると控除額が少しずつ減る</small></td><td class="o">150万円</td><td class="n">159万円<small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
-    <tr><td class="w">19〜22歳の特定親族特別控除がなくなる</td><td class="o">188万円</td><td class="n">197万円<small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
+    <tr><td class="w">扶養控除<small>超えると扶養控除が使えなくなる</small><span class="bs">扶養控除</span></td><td class="o"><b class="v">123</b><i class="u">万円</i></td><td class="n"><b class="v">136</b><i class="u">万円</i><small>13万円上がった</small></td><td class="b">扶養控除</td></tr>
+    <tr><td class="w">19〜22歳の特定親族特別控除が満額<small>超えると控除額が少しずつ減る</small><span class="bs">特定親族特別控除</span></td><td class="o"><b class="v">150</b><i class="u">万円</i></td><td class="n"><b class="v">159</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
+    <tr><td class="w">19〜22歳の特定親族特別控除がなくなる<span class="bs">特定親族特別控除</span></td><td class="o"><b class="v">188</b><i class="u">万円</i></td><td class="n"><b class="v">197</b><i class="u">万円</i><small>9万円上がった</small></td><td class="b">特定親族特別控除</td></tr>
     <tr class="g"><td colspan="4">ひとり親</td></tr>
-    <tr><td class="w">住民税がかからない上限<small>令和7年の欄は令和8年度、右は令和9年度の住民税</small></td><td class="o">204.4万円</td><td class="n">209万円<small>4.6万円上がった</small></td><td class="b">住民税の非課税の基準</td></tr>
-    <tr><td class="w">子の年収の上限<small>超えるとひとり親控除の対象の子でなくなる</small></td><td class="o">123万円</td><td class="n">136万円<small>13万円上がった</small></td><td class="b">ひとり親控除</td></tr>
+    <tr><td class="w">住民税がかからない上限<small>令和7年の欄は令和8年度、右は令和9年度の住民税</small><span class="bs">住民税の非課税の基準</span></td><td class="o"><b class="v">204.4</b><i class="u">万円</i></td><td class="n"><b class="v">209</b><i class="u">万円</i><small>4.6万円上がった</small></td><td class="b">住民税の非課税の基準</td></tr>
+    <tr><td class="w">子の年収の上限<small>超えるとひとり親控除の対象の子でなくなる</small><span class="bs">ひとり親控除</span></td><td class="o"><b class="v">123</b><i class="u">万円</i></td><td class="n"><b class="v">136</b><i class="u">万円</i><small>13万円上がった</small></td><td class="b">ひとり親控除</td></tr>
     <tr class="g s"><td colspan="4">社会保険</td></tr>
-    <tr class="sh"><td class="w">106万円の壁<small>2026年10月に賃金の要件がなくなった。従業員51人以上の会社で週20時間以上働く学生でない人は、勤め先の社会保険に入る</small></td><td class="o">106万円</td><td class="n">なし<small>撤廃</small></td><td class="b">短時間労働者の適用拡大</td></tr>
-    <tr class="sh"><td class="w">家族の扶養（下の2つ以外）<small>超えると自分で国民年金・国民健康保険などに入る</small></td><td class="o">130万円</td><td class="n">130万円<small>変わらず</small></td><td class="b">健康保険の被扶養者の基準</td></tr>
-    <tr class="sh"><td class="w">19〜22歳の扶養<small>配偶者は除く</small></td><td class="o">150万円</td><td class="n">150万円<small>変わらず</small></td><td class="b">19歳以上23歳未満の被扶養者の基準</td></tr>
-    <tr class="sh"><td class="w">60歳以上・障害のある人の扶養</td><td class="o">180万円</td><td class="n">180万円<small>変わらず</small></td><td class="b">60歳以上と障害者の被扶養者の基準</td></tr>
+    <tr class="sh"><td class="w">106万円の壁<small>2026年10月に賃金の要件がなくなった。従業員51人以上の会社で週20時間以上働く学生でない人は、勤め先の社会保険に入る</small><span class="bs">短時間労働者の適用拡大</span></td><td class="o"><b class="v">106</b><i class="u">万円</i></td><td class="n"><b class="v t">なし</b><small>撤廃</small></td><td class="b">短時間労働者の適用拡大</td></tr>
+    <tr class="sh"><td class="w">家族の扶養（下の2つ以外）<small>超えると自分で国民年金・国民健康保険などに入る</small><span class="bs">健康保険の被扶養者の基準</span></td><td class="o"><b class="v">130</b><i class="u">万円</i></td><td class="n"><b class="v">130</b><i class="u">万円</i><small>変わらず</small></td><td class="b">健康保険の被扶養者の基準</td></tr>
+    <tr class="sh"><td class="w">19〜22歳の扶養<small>配偶者は除く</small><span class="bs">19歳以上23歳未満の被扶養者の基準</span></td><td class="o"><b class="v">150</b><i class="u">万円</i></td><td class="n"><b class="v">150</b><i class="u">万円</i><small>変わらず</small></td><td class="b">19歳以上23歳未満の被扶養者の基準</td></tr>
+    <tr class="sh"><td class="w">60歳以上・障害のある人の扶養<span class="bs">60歳以上と障害者の被扶養者の基準</span></td><td class="o"><b class="v">180</b><i class="u">万円</i></td><td class="n"><b class="v">180</b><i class="u">万円</i><small>変わらず</small></td><td class="b">60歳以上と障害者の被扶養者の基準</td></tr>
   </tbody>
 </table>
 <p class="note" style="margin-top:8px">税金の壁は給与だけの場合の年収です。住民税は住んでいる市区町村の級地で違います。表の201.6万円は正確には201万5,999円、204.4万円は204万3,999円を指します。右端の列は、その壁を決めている税金や社会保険の制度です。</p>
