@@ -1,6 +1,8 @@
 # /(トップページ site/index.html)全ページへの入口。計算ツールのページではないので、行き先のページと食い違っていないかを数える。
 # 照らす相手(一次情報は行き先の各ページの突き合わせ tools/seikaku/<住所>.py が持つ。トップはそのページの画面の数字と比べる):
 #  1 内部リンク:行き先の site/<住所>/index.html があるか。tools/pages.json の全ページがトップから1つ以上リンクされているか。
+#    都道府県の最低賃金(/saitei-chingin-*/)はトップにパネルもリンクも置かない。「最低賃金の一覧」(/saitei-chingin/)が
+#    実在する県のページへ全部リンクしていれば、そこから到達したと数える(2026-11-20 オーナー指示)。
 #  2 名前:メニュー・立場別の一覧・カードの文字は、行き先の title と h1 の【】の中の言葉と同じか。
 #    ヒーローのタイルやタブの短い名前は、「早見表」で終わるものは【】の言葉と「の」を除いて同じか。ほかは言葉が行き先の題名か見出しにあるか。
 #  3 数字:タイル・よく聞かれること・カードの数字と、ヒーローの4つのタブ・国保と任意継続の比較の結果を、行き先のページを開いて同じ条件で読んだ結果と比べる。
@@ -171,8 +173,17 @@ async def main():
             chk('リンク先がある %s (%s)' % (h, c), os.path.exists(f), True)
         hs = set(l[0] for l in inner)
         chk('pages.json のページの数', len(PAGES), 59)
+        # 都道府県の最低賃金はトップに直接置かず、「最低賃金の一覧」から開く。
+        list_html = open(os.path.join(SITE, 'saitei-chingin', 'index.html'), encoding='utf-8').read()
+        list_hrefs = set(re.findall(r'href="(/[^"#?]*/)"', list_html))
+        existing_prefs = ['/' + name + '/' for name in sorted(os.listdir(SITE))
+                          if name.startswith('saitei-chingin-') and os.path.isfile(os.path.join(SITE, name, 'index.html'))]
+        for pth in existing_prefs:
+            chk('最低賃金の一覧からリンク ' + pth, pth in list_hrefs, True)
+        via_list = {p for p in existing_prefs if p in list_hrefs} if '/saitei-chingin/' in hs else set()
         for q in PAGES:
-            chk('トップからリンクされている ' + q['path'], q['path'] in hs, True)
+            path = q['path']
+            chk('トップからリンクされている ' + path, path in hs or (path.startswith('/saitei-chingin-') and path in via_list), True)
         ids = set(re.findall(r'\bid="([^"]+)"', raw))
         for h, c, nm, _ in links:
             if h.startswith('#'):
@@ -415,10 +426,7 @@ async def main():
                 chk('カード 最低賃金 計算の言葉 ' + h, s.endswith('時給・日給・月給で判定'), True)
         # カードの文の中の言葉が行き先のページにあるか(数字・日付・業種の数)
         for h, words in {
-            '/saitei-chingin-osaka/': ['年間休日'], '/saitei-chingin-tokyo/': ['年間休日'], '/saitei-chingin-kanagawa/': ['年間休日'],
-            '/saitei-chingin-aichi/': ['特定最低賃金'], '/saitei-chingin-hokkaido/': ['鉄鋼業', '特定最低賃金'], '/saitei-chingin-saitama/': ['12月1日', '特定最低賃金'],
-            '/saitei-chingin-fukuoka/': ['鉄鋼業', '特定最低賃金'], '/saitei-chingin-chiba/': ['鉄鋼業', '特定最低賃金'], '/saitei-chingin-hyogo/': ['特定最低賃金'],
-            '/saitei-chingin-kyoto/': ['11月16日', '1,180円'], '/saitei-chingin/': ['47都道府県', '発効日'], '/gakusei-kabe/': ['136万円', '150万円', '159万円', '197万円'],
+            '/saitei-chingin/': ['47都道府県', '発効日'], '/gakusei-kabe/': ['136万円', '150万円', '159万円', '197万円'],
             '/part-fuyou/': ['月8万〜18万円'], '/furusato/': ['2,000円'], '/genbutsu-kyuyo/': ['令和8年4月'], '/kakutei-shinkoku/': ['令和8年分', '口座振替', '決算月'],
             '/hoteifukurihi/': ['47都道府県'], '/chukosha-taiyonensu/': ['2年'], '/niwari-tokurei/': ['3割特例', '簡易課税', '届出'], '/shotoku-kingaku/': ['62万円', '合計所得金額'],
             '/tsukin-teate/': ['駐車場'], '/yatou-hiyou/': ['月給'], '/nenmatsu-chosei/': ['12月'], '/juminzei/': ['0円'],
