@@ -23,6 +23,7 @@
 # ・14時の時点で juminzei・koyohoken・shakaihoken の突き合わせが合わない(ほかのチャットが今日足した表の列に、突き合わせが追いついていない。ページの誤りかは未確認)。その3ページを受け持つ回が、足された列を自分の計算で確かめて突き合わせを直す。
 # ・ふるさと納税の特例控除の税率は、令和8年度分の住民税から「課税総所得金額−人的控除差調整額−(所得税の基礎控除額−48万円)」で決める(furusato で直した)。住宅ローン控除の住民税の限度額にも同じ加算がある。
 # ・「控除額×10%」で住民税の減りを固定する形(iryohi-kojo で直した)・入力の上限で結果だけ頭打ちになる形(shotokuzei で直した)・見出しと入力欄の id の重なり(yakuin-taishokukin で直した)・「下の早見表」のままの文(nenmatsu-chosei で直した)を、ほかのページでも探す。
+# ・14:30 本番の /furusato/ に ver=49 の直し(およそ5万8千円・更新日11月20日)が出ているのを確かめた。https://taxtable.jp/tt_status.txt は ver=23・last run 2026-11-18 00:40 のままで動いていない。公開の確かめは、直したページの文を本番で読む形にする(係の web-fetch で開ける。curl は開けない)。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
