@@ -164,7 +164,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="12月の給与明細と戻るお金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="14" width="26" height="34" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><path d="M20 23h14M20 30h14M20 37h8" stroke="#9fc4b6" stroke-width="3" stroke-linecap="round"></path><circle cx="44" cy="42" r="11" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M40 38l4 5 4-5M44 43v6M40.5 44.5h7" fill="none" stroke="#0f3d31" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月20日（国税庁「令和8年分 年末調整のしかた」に対応）</p>
+ <p class="upd">更新日：2026年11月21日（国税庁「令和8年分 年末調整のしかた」に対応）</p>
  <h1>【年末調整の還付金の計算】いくら戻る？年収別の早見表と変更点【2026年】</h1>
 </div>
 <section class="hy1">
@@ -237,9 +237,9 @@ body{overflow-x:clip}
   </details>
  </div>
  <div class="amt">
-  <div class="tot"><small>年末調整で戻る所得税の目安</small><b id="o-k">0<i>円</i></b><em id="o-e">12月の給与で精算</em></div>
-  <div><small>毎月の天引きの<br>1年分</small><b id="o-t">0<i>円</i></b><em>1月〜12月</em></div>
-  <div><small>年末調整で決まる<br>1年分の所得税</small><b id="o-z">0<i>円</i></b><em id="o-b">基礎控除</em></div>
+  <div class="tot"><small>年末調整で戻る所得税の目安</small><b id="o-k">54,080<i>円</i></b><em id="o-e">12月の給与で精算</em></div>
+  <div><small>毎月の天引きの<br>1年分</small><b id="o-t">145,680<i>円</i></b><em>1月〜12月</em></div>
+  <div><small>年末調整で決まる<br>1年分の所得税</small><b id="o-z">91,600<i>円</i></b><em id="o-b">基礎控除104万円</em></div>
  </div>
  <ul>
   <li>毎月の天引きは基礎控除58万円で計算されます。年末調整で令和8年分の基礎控除（最大104万円）に直すので、差が戻ります</li>
@@ -287,7 +287,7 @@ body{overflow-x:clip}
  </tbody>
 </table></div>
 <p>年収400万円・単身なら戻る額は30,640円、年収700万円・単身なら52,820円です。年収が665万5,556円を1円でも超えると基礎控除が104万円から67万円に下がるので、戻る額は小さくなります。</p>
-<p>年収190万円以下の方は、給与所得控除が65万円から74万円に上がる分も年末調整で反映されます。</p>
+<p>年収220万円未満の方は、給与所得控除が74万円に上がる分も年末調整で反映されます。</p>
 <h2 id="fam">家族の収入はいくらまでか</h2>
 <p>扶養控除や配偶者控除を受けられる家族の所得の上限も、令和8年12月1日から上がります。11月までの基準では外れていた家族が、年末調整で対象になることがあります。</p>
 <div class="tw"><table>
@@ -309,7 +309,7 @@ body{overflow-x:clip}
   <tr><td class="l">11月〜12月</td><td class="l">申告書の中身と添付の控除証明書を確かめる。令和8年分は家族の所得の基準が上がったので、新しく対象になる家族がいないかを確かめる</td></tr>
   <tr><td class="l">12月</td><td class="l">1年分の所得税を計算し直し、最後の給与で過不足を精算する</td></tr>
   <tr><td class="l">翌年1月</td><td class="l">精算で戻した税額は、翌年1月以降に納める源泉所得税から差し引く</td></tr>
-  <tr><td class="l">翌年1月31日まで</td><td class="l">源泉徴収票を本人に渡す。給与支払報告書を市区町村に、法定調書を税務署に出す</td></tr>
+  <tr><td class="l">2027年2月1日まで</td><td class="l">源泉徴収票を本人に渡す。給与支払報告書を市区町村に、法定調書を税務署に出す。令和8年分は1月31日が日曜日のため、期限は2月1日になる</td></tr>
  </tbody>
 </table></div>
 <h2 id="shinkoku">年末調整で精算されない人は確定申告</h2>
@@ -421,36 +421,41 @@ body{overflow-x:clip}
 (function(){
  var H=[58,68,78,88,98,104,110,118,126,134,142,150,160,170,180,190,200,220,240,260,280,300,320,340,360,380,410,440,470,500,530,560,590,620,650,680,710,750,790,830,880,930,980,1030,1090,1150,1210,1270,1330,1390];
  var R=[0, 2042, 4084, 6126, 8168, 10210, 12252, 14294, 16336, 18378, 20420, 22462, 24504, 26546, 28588, 30630, 32672, 35735, 38798, 41861, 45945],UP=[[82, 94, 260, 309, 342, 372, 402, 433, 520, 605, 684, 715, 752, 795, 854, 922, 1318, 1521, 2621, 3495], [107, 250, 289, 346, 373, 401, 430, 463, 520, 621, 705, 739, 778, 821, 882, 952, 1342, 1526, 2645, 3527]];
- function hyo(m){for(var i=0;i<H.length-1;i++){if(m<(H[i]+H[i+1])*500-(H[i]>=1030?5000:0))return H[i]*1000}return H[H.length-1]*1000}
- function r50(x){var f=Math.floor(x);return x-f>0.5+1e-9?f+1:f}
- function kr(kg){return 0.0985+0.0023+(kg?0.0162:0)}
- function sha(m,kg){var h=hyo(m),k=Math.min(Math.max(h,88000),650000);return h*kr(kg)/2+k*0.183/2+m*0.005}
- function shar(m,kg){var h=hyo(m),k=Math.min(Math.max(h,88000),650000);return r50(h*kr(kg)/2)+r50(k*0.183/2)+r50(m*0.005)}
- function gen(m,hg,kg){var a=m-sha(m,kg),ky;
-  if(a<=158333)ky=54167;else if(a<=299999)ky=a*0.3+6667;else if(a<=549999)ky=a*0.2+36667;else if(a<=708330)ky=a*0.1+91667;else ky=162500;
-  ky=Math.ceil(ky-1e-9);
-  var ki=a<=2120833?48334:a<=2162499?40000:a<=2204166?26667:a<=2245833?13334:0;
-  var b=Math.max(a-ky-ki-31667*hg,0),T=[[162500,.05105,0],[275000,.1021,8296],[579166,.2042,36374],[750000,.23483,54113],[1500000,.33693,130688],[3333333,.4084,237893],[1e18,.45945,408061]],t=0;
-  for(var i=0;i<T.length;i++){if(b<=T[i][0]){t=b*T[i][1]-T[i][2];break}}
-  return Math.floor(Math.max(t,0)/10+0.5)*10}
+ function hyo(D){for(var i=0;i<H.length-1;i++){if(D<12*((H[i]+H[i+1])*500-(H[i]>=1030?5000:0)))return H[i]*1000}return H[H.length-1]*1000}
+ function fl(n,d){return (n-n%d)/d}
+ function r50(n,d){var r=n%d,f=(n-r)/d;return r*2>d?f+1:f}
+ function krn(kg){return 985+23+(kg?162:0)}
+ var U=120000;
+ function shaU(D,kg){var h=hyo(D),k=Math.min(Math.max(h,88000),650000);return h*krn(kg)*6+k*10980+D*50}
+ function shar(D,kg){var h=hyo(D),k=Math.min(Math.max(h,88000),650000);return r50(h*krn(kg),20000)+r50(k*183,2000)+r50(D,2400)}
+ function cl(n,d){var r=n%d;return (n-r)/d+(r>0?1:0)}
+ function gen(D,hg,kg){var a=D*10000-shaU(D,kg),ky;
+  if(a<=158333*U)ky=54167;else if(a<=299999*U)ky=cl(a*3+66670*U,10*U);else if(a<=549999*U)ky=cl(a*2+366670*U,10*U);else if(a<=708330*U)ky=cl(a+916670*U,10*U);else ky=162500;
+  var ki=a<=2120833*U?48334:a<=2162499*U?40000:a<=2204166*U?26667:a<=2245833*U?13334:0;
+  var b=Math.max(a-(ky+ki+31667*hg)*U,0),T=[[162500,5105,0],[275000,10210,8296],[579166,20420,36374],[750000,23483,54113],[1500000,33693,130688],[3333333,40840,237893],[0,45945,408061]],r=T[6];
+  for(var i=0;i<6;i++){if(b<=T[i][0]*U){r=T[i];break}}
+  var dn=BigInt(U)*100000n,n=BigInt(b)*BigInt(r[1])-BigInt(r[2])*dn;
+  if(n<0n)n=0n;
+  return Number((2n*n+10n*dn)/(20n*dn))*10}
  function ksh(s){
   if(s<2200000){if(s<741000)return 0;if(s<2191000)return s-740000;if(s<2193000)return 1451000;if(s<2196000)return 1453000;return 1456000}
-  if(s<6600000){var a=Math.floor(s/4000)*1000;if(s<3600000)return a/1000*2800-80000;return a/1000*3200-440000}
-  if(s<8500000)return Math.floor(s*9/10)-1100000;return s-1950000}
+  if(s<6600000){var a=fl(s,4000);if(s<3600000)return a*2800-80000;return a*3200-440000}
+  if(s<8500000)return fl(s*9,10)-1100000;return s-1950000}
  function kiso(x){return x<=4890000?1040000:x<=6550000?670000:x<=23500000?620000:x<=24000000?480000:x<=24500000?320000:x<=25000000?160000:0}
  function hk(x){return x<=9000000?380000:x<=9500000?260000:x<=10000000?130000:0}
- function zei(k){k=Math.floor(k/1000)*1000;var T=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[1e18,.45,4796000]];
-  for(var i=0;i<T.length;i++){if(k<=T[i][0])return Math.round(k*T[i][1]-T[i][2])}}
+ function zei(k){k=fl(k,1000)*1000;var T=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000],[0,45,4796000]];
+  for(var i=0;i<6;i++){if(k<=T[i][0])return k/100*T[i][1]-T[i][2]}
+  return k/100*45-4796000}
  function calc(S,B,hg,kg,ideco,seiho,loan){
   if(B>=S||S<=0)return {ng:1};
-  var m=(S-B)/12,sh=ksh(S),he=sh<=9000000?hg:0,t=gen(m,he,kg)*12,sa=Math.round(sha(m,kg)*12),ng=0;
-  if(B>0){var b=Math.floor(B/2),a=m-shar(m,kg),c=UP[he],i=20,room=5730000;
-   for(var j=0;j<c.length;j++){if(a<c[j]*1000){i=j;break}}
-   for(var n=0;n<2;n++){var s=Math.floor(b/1000)*1000,kb=Math.min(s,room),x=r50(kb*kr(kg)/2)+r50(Math.min(s,1500000)*0.183/2)+r50(b*0.005);room-=kb;
-    if(b-x>a*10)ng=2;t+=Math.floor((b-x)*R[i]/100000);sa+=x}}
+  var D=S-B,sh=ksh(S),he=sh<=9000000?hg:0,t=gen(D,he,kg)*12,sa=fl(2*shaU(D,kg)+10000,20000),ng=0;
+  if(B>0){var b=fl(B,2),a12=D-12*shar(D,kg),c=UP[he],i=20,room=5730000;
+   for(var j=0;j<c.length;j++){if(a12<12000*c[j]){i=j;break}}
+   for(var n=0;n<2;n++){var s=fl(b,1000)*1000,kb=Math.min(s,room),x=r50(kb*krn(kg),20000)+r50(Math.min(s,1500000)*183,2000)+r50(b*5,1000);room-=kb;
+    if((b-x)*12>a12*10)ng=2;t+=fl((b-x)*R[i],100000);sa+=x}}
   if(ng)return {ng:ng};
   var ki=kiso(sh),ko=sa+ki+(hg?hk(sh):0)+ideco+seiho;
-  var z=Math.floor(Math.floor(Math.max(zei(Math.max(sh-ko,0))-loan,0)*1021/1000)/100)*100;
+  var z=fl(fl(Math.max(zei(Math.max(sh-ko,0))-loan,0)*1021,1000),100)*100;
   return {ng:0,t:t,z:z,k:t-z,ki:ki,sh:sh,sa:sa}}
  window.__nencho=calc;
  function $(i){return document.getElementById(i)}

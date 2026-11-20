@@ -172,7 +172,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="贈り物の箱"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="28" width="36" height="22" rx="2" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><rect x="11" y="20" width="42" height="9" rx="2" fill="#d8efe6" stroke="#0f3d31" stroke-width="3"></rect><path d="M32 20v30" stroke="#e08a2c" stroke-width="4"></path><path d="M32 20c-4-9-14-7-11-1 2 3 7 2 11 1zM32 20c4-9 14-7 11-1-2 3-7 2-11 1z" fill="#e3b465" stroke="#0f3d31" stroke-width="2.4" stroke-linejoin="round"></path></svg></div>
- <p class="upd">更新日：2026年11月20日（令和8年4月1日現在の法令）</p>
+ <p class="upd">更新日：2026年11月21日（令和8年4月1日現在の法令）</p>
  <h1>【贈与税の計算】いくらからかかる？もらった額ごとの税額の早見表【2026年】</h1>
 </div>
 <section class="hy1">
@@ -199,7 +199,7 @@ body{overflow-x:clip}
  <tr data-s="5000"><td>5,000</td><td><b>20,495,000</b><small>41.0%</small></td><td><b>22,895,000</b><small>45.8%</small></td></tr>
  </tbody>
 </table></div>
-<p class="note" style="margin-top:8px">1年間にもらった額の合計から基礎控除110万円を引き、国税庁の速算表で計算しています。もらった額が400万円までは、2つの税率の表で税額<span class="nw">が同じです。</span></p>
+<p class="note" style="margin-top:8px">1年間にもらった額の合計から基礎控除110万円を引き、国税庁の速算表で計算しています。もらった額が410万円までは、2つの税率の表で税額<span class="nw">が同じです。</span></p>
 <p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
 </section>
 
@@ -216,11 +216,11 @@ body{overflow-x:clip}
    <div class="seg" id="s-kind"><button type="button" class="on" data-v="0">父母・祖父母から<br><span class="nw" style="font-size:12px">（18歳以上の子・孫）</span></button><button type="button" data-v="1">それ以外<br><span class="nw" style="font-size:12px">（夫婦・兄弟など）</span></button></div>
   </div>
  </div>
- <div class="vd" id="vd"><b id="o-vd"></b><span id="o-vds"></span></div>
+ <div class="vd" id="vd"><b id="o-vd">贈与税の申告が必要です</b><span id="o-vds">もらった額が110万円を超えています。贈与税は485,000円です。翌年2月1日から3月15日までに申告して納めます</span></div>
  <div class="amt">
-  <div class="tot"><small>贈与税の額</small><b id="o-t">0<i>円</i></b><em id="o-r">もらった額に対する割合</em></div>
-  <div><small>税金を引いて<br>手元に残る額</small><b id="o-n">0<i>円</i></b><em id="o-k">使う税率</em></div>
-  <div><small>110万円を<br>引いた残り</small><b id="o-b">0<i>円</i></b><em>税率を掛ける額</em></div>
+  <div class="tot"><small>贈与税の額</small><b id="o-t">485,000<i>円</i></b><em id="o-r">もらった額の9.7%</em></div>
+  <div><small>税金を引いて<br>手元に残る額</small><b id="o-n">4,515,000<i>円</i></b><em id="o-k">特例税率</em></div>
+  <div><small>110万円を<br>引いた残り</small><b id="o-b">3,900,000<i>円</i></b><em>税率を掛ける額</em></div>
  </div>
  <ul>
   <li>その年の1月1日から12月31日までに、個人からもらった額の合計<span class="nw">で計算します</span></li>
@@ -445,9 +445,9 @@ body{overflow-x:clip}
   set("o-t",t);set("o-n",g-t);set("o-b",Math.floor(Math.max(0,g-1100000)/1000)*1000);
   document.getElementById("o-r").textContent=g>0?"もらった額の"+(t*100/g).toFixed(1)+"%":"もらった額に対する割合";
   document.getElementById("o-k").textContent=kind?"一般税率":"特例税率";
-  var nd=g>1100000;document.getElementById("vd").className=nd?"vd":"vd no";
+  var nd=t>0,ov=g>1100000;document.getElementById("vd").className=nd?"vd":"vd no";
   document.getElementById("o-vd").textContent=nd?"贈与税の申告が必要です":"贈与税の申告は不要です";
-  document.getElementById("o-vds").textContent=nd?"もらった額が110万円を超えています。贈与税は"+fmt(t)+"円です。翌年2月1日から3月15日までに申告して納めます":"もらった額が110万円以下なので、贈与税はかかりません";
+  document.getElementById("o-vds").textContent=nd?"もらった額が110万円を超えています。贈与税は"+fmt(t)+"円です。翌年2月1日から3月15日までに申告して納めます":ov?"110万円を引いた残りが1,000円未満なので、贈与税はかかりません":"もらった額が110万円以下なので、贈与税はかかりません";
   var rows=document.querySelectorAll("#tb tr"),best=null,bd=1e18;
   for(var i=0;i<rows.length;i++){rows[i].className="";var d=Math.abs(rows[i].getAttribute("data-s")*10000-g);if(d<bd){bd=d;best=rows[i]}}
   if(best)best.className="hit"}

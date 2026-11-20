@@ -10,7 +10,15 @@
 #   (市町村民税6%・道府県民税4%・それぞれ100円未満切り捨て)
 #  国税庁 No.4117 相続税の課税対象になる死亡退職金 https://www.nta.go.jp/taxes/shiraberu/taxanswer/sozoku/4117.htm
 #   (死亡後3年以内に支給が確定したものが相続税の対象)
-# 最後に原本を確かめた日:2026-11-20
+#  国税庁 No.2735 同じ年に2か所以上から退職手当等が支払われるとき https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2735.htm
+#   (勤続年数の1年未満の端数は1年に切り上げ)
+#  国税庁 質疑応答事例 死亡による退職の場合 https://www.nta.go.jp/law/shitsugi/hotei/8/02.htm
+#   (相続税の課税価格に入る死亡退職金に所得税は課税されない。3年を超えて確定したものは遺族の一時所得)
+#  広島市 退職所得に対する住民税のあらまし・さいたま市 退職所得に係る市民税・県民税について
+#   (死亡により支払われる退職手当等は相続税の対象なので住民税は課税されない)
+#  日本年金機構 標準報酬月額の定時決定及び随時改定の事務取扱いに関する事例集 https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20121017.files/jireisyu.pdf
+#   (退職手当は報酬等に該当しない。毎月の給与や賞与に上乗せして前払いされる場合は報酬等に該当する)
+# 最後に原本を確かめた日:2026-11-21
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
@@ -206,6 +214,50 @@ async def body(pg):
     n += 1   # 確定申告(No.1420:原則として不要)
     if 'そのため原則として確定申告はいりません' not in txt:
         ng('確定申告の文')
+    # ---- 2026-11-21 に足した突き合わせ ----
+    n += 1   # 社会保険料(日本年金機構の事例集:退職手当は報酬等でない。前払いは報酬等)
+    if '退職するときに受け取る退職金には、健康保険料・厚生年金保険料はかかりません' not in txt or \
+       '上乗せして前払いで受け取る退職金には、保険料がかかります' not in txt:
+        ng('社会保険料の文')
+    n += 1   # 死亡退職金(質疑応答事例・市のページ:所得税も住民税も課税されない)
+    if '所得税と住民税はかかりません' not in txt:
+        ng('死亡退職金の所得税・住民税の文')
+    n += 1   # 1年未満の端数(No.1420・No.2735)
+    if '1年に満たない端数は1年に切り上げます' not in txt:
+        ng('端数の切り上げの文')
+    # 計算の箱に直に書いた既定の結果(JS が書き換える前の HTML)。入力欄の既定の値で自分の計算と比べる
+    raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'taishokukin', 'index.html'), encoding='utf-8').read()
+    def el(i):
+        m = re.search(r'id="%s"[^>]*>(.*?)</(?:b|span|em|li)>' % i, raw, re.S)
+        return re.sub(r'<[^>]+>', '', m.group(1)) if m else ''
+    g0 = int(re.search(r'id="amt"[^>]*value="(\d+)"', raw).group(1))
+    y0 = int(re.search(r'id="yrs"[^>]*value="(\d+)"', raw).group(1))
+    e = ref(g0, y0, 0)
+    fm = lambda v: format(v, ',')
+    pct = (2000 * e['net'] + g0) // (2 * g0)
+    want = {'o-vd': '手取りは%s円です' % fm(e['net']),
+            'o-vds': '税金は所得税%s円・住民税%s円です。退職所得の受給に関する申告書を出せば受け取るときに差し引かれ、原則として確定申告は要りません' % (fm(e['it']), fm(e['ju'])),
+            'o-n': '%s円' % fm(e['net']), 'o-t': '%s円' % fm(e['tax']), 'o-k': '%s円' % fm(e['k']),
+            'o-nr': '退職金の%s%%' % (str(pct // 10) if pct % 10 == 0 else '%d.%d' % (pct // 10, pct % 10)),
+            'o-br': '税金の内訳は、所得税%s円・住民税%s円です' % (fm(e['it']), fm(e['ju'])),
+            'o-sh': '税金がかかる退職所得は%s円です' % fm(e['inc'])}
+    for i, w in want.items():
+        n += 1
+        if el(i) != w:
+            ng('直に書いた既定の結果', i, el(i), w)
+    # 幅390pxで3つの数字の箱が右にはみ出さない・数字が2行に折れない(既定の値と上限の値)
+    OV = """([g,y])=>{var a=document.getElementById("amt");a.value=String(g);a.dispatchEvent(new Event("input",{bubbles:true}));
+    var yy=document.getElementById("yrs");yy.value=String(y);yy.dispatchEvent(new Event("input",{bubbles:true}));
+    var box=document.querySelector("#calc .amt"),R=box.getBoundingClientRect(),o=0;
+    [].forEach.call(box.children,function(d){var r=d.getBoundingClientRect();o=Math.max(o,r.right-R.right);var b=d.querySelector("b");
+    var rr=document.createRange();rr.selectNodeContents(b);o=Math.max(o,rr.getBoundingClientRect().right-r.right,b.getBoundingClientRect().height>40?999:0)});
+    return [o,document.documentElement.scrollWidth-window.innerWidth]}"""
+    await pg.click('#s-y button[data-v="0"]')
+    for g, y in ((20000000, 30), (300000000, 30), (299999999, 60)):
+        n += 1
+        o = await pg.evaluate(OV, [g, y])
+        if o[0] > 0.5 or o[1] > 0:
+            ng('幅390pxのはみ出し', g, y, o)
     return n, bad
 
 run('taishokukin', body)

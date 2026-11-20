@@ -13,7 +13,12 @@
 #  協会けんぽ「令和8年3月分からの健康保険・厚生年金保険の保険料額表(東京)」 https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf
 #  厚生労働省「令和8年度 雇用保険料率のご案内」 https://www.mhlw.go.jp/content/001692566.pdf
 #  国税庁 No.1900 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1900.htm
-# 最後に原本を確かめた日:2026-11-20
+#  国税庁 No.1410 給与所得控除(令和8年分・令和9年分は収入220万円まで74万円) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm
+#  国税庁 No.1199 基礎控除(令和8年分・令和9年分と令和10年分以後の表) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm
+#  国税庁「令和8年分 給与所得の源泉徴収票等の法定調書の作成と提出の手引」(交付と提出の期限は令和9年2月1日) https://www.nta.go.jp/publication/pamph/hotei/tebiki2026/PDF/02.pdf
+# 最後に原本を確かめた日:2026-11-21(102・106・107・109・114・115の各PDF・年末調整のしかたのページ・改正Q&A・大綱・電算機計算の特例・
+#  賞与の算出率の表・協会けんぽ東京・雇用保険料率・No.1900・No.1410・No.1199・法定調書の手引を開いた)
+# 2026-11-21:ページの JS を整数(一部 BigInt)で掛けて割る形に直した。下の「7」で画面から入れられる年収(1万円きざみ)を全部照らす。
 # ページの前提(注記に書いてある):毎月同じ額の給与・令和8年度の料率を12か月に当てはめる・毎月の社会保険料は1円未満を丸めない・
 # 賞与は夏と冬の2回同じ額で保険料は50銭以下切り捨て(健康保険と支援金は合わせて丸める)。
 import os, sys, re
@@ -220,7 +225,41 @@ async def body(pg):
     # 生命保険料控除12万円+地震保険料控除5万円(年末調整のしかた 保険料控除)
     chk('保険の控除の上限', 120000 + 50000, 170000)
     chk('保険の控除の文', '申告書に書く控除額です（最大17万円）' in html and 'id="sei" inputmode="decimal" min="0" max="17"' in html, True)
-    chk('更新日', '更新日：2026年11月20日（' in html, True)
+    chk('更新日', '更新日：2026年11月21日（' in html, True)
+    # 7 2026-11-21 に足した分
+    # 画面から入れられる年収(1万円きざみ・1万〜2,000万円)を賞与なしで全部
+    allS = [x * 10000 for x in range(1, 2001)]
+    for hg in (0, 1):
+        for kg in (0, 1):
+            got = await pg.evaluate('([L,h,k])=>L.map(S=>window.__nencho(S,0,h,k,0,0,0))', [allS, hg, kg])
+            for S, g in zip(allS, got):
+                exp = ref(S, 0, hg, kg)
+                chk('全部の年収 S=%d 配偶者%d 介護%d' % (S, hg, kg), {k: g.get(k) for k in exp}, exp)
+    # 賞与あり(年収10万円きざみ・賞与は年収の1割〜5割と端の額)
+    for S in range(1500000, 20000001, 100000):
+        for B in (S // 10 // 10000 * 10000, S // 4 // 10000 * 10000, S // 2 // 10000 * 10000, 10000, 11470000, 3010000):
+            for hg, kg in ((0, 0), (1, 0), (0, 1), (1, 1)):
+                got = await pg.evaluate('([S,B,h,k])=>window.__nencho(S,B,h,k,0,0,0)', [S, B, hg, kg])
+                exp = ref(S, B, hg, kg)
+                chk('賞与あり2 S=%d B=%d 配偶者%d 介護%d' % (S, B, hg, kg), {k: got.get(k) for k in exp}, exp)
+    # 計算の箱に直に書いた既定の結果(JS が動く前の字。年収500万円・単身・40歳未満)
+    e5 = ref(5000000, 0, 0, 0)
+    chk('直に書いた既定の結果', all(x in html for x in (
+        '<b id="o-k">%s<i>円</i></b>' % format(e5['k'], ','), '<b id="o-t">%s<i>円</i></b>' % format(e5['t'], ','),
+        '<b id="o-z">%s<i>円</i></b><em id="o-b">基礎控除%d万円</em>' % (format(e5['z'], ','), e5['ki'] // 10000))), True)
+    # 給与所得控除74万円は収入220万円まで(No.1410。改正Q&A Q3-1 は収入200万円の給与所得を126万円と書く。去年は200万円×30%+8万円=68万円)
+    chk('収入200万円の給与所得', kyuyo_shotoku(2000000), 1260000)
+    chk('収入220万円の給与所得', kyuyo_shotoku(2200000), 2200000 - 740000)
+    chk('収入220万4,000円の控除は74万円より多い', 2204000 - kyuyo_shotoku(2204000) > 740000, True)
+    chk('表の行 360万円・659万6,000円', [kyuyo_shotoku(3600000), kyuyo_shotoku(6596000)], [2440000, 4836800])
+    chk('220万円の文', '年収220万円未満の方は、給与所得控除が74万円に上がる分も年末調整で反映されます。' in html and '年収190万円以下' not in html, True)
+    # 令和8年分の源泉徴収票の交付・給与支払報告書の提出の期限は令和9年2月1日(1月31日が日曜日)
+    import datetime
+    chk('2027年1月31日は日曜日', datetime.date(2027, 1, 31).weekday(), 6)
+    chk('期限の行', '<td class="l">2027年2月1日まで</td>' in html and '令和8年分は1月31日が日曜日のため、期限は2月1日になる' in html and '翌年1月31日まで' not in html, True)
+    # JS に小数の率が残っていないか(整数で掛けて割る形)
+    js = html[html.index(' var H=[58,'):html.index(' window.__nencho=calc;')]
+    chk('JS に小数の定数なし', re.findall(r'(?<![\d])0?\.\d+', js), [])
     # 5 画面の操作
     async def show():
         return [digits(await pg.inner_text('#o-' + k)) for k in 'tzk'], await pg.inner_text('#o-e'), await pg.inner_text('#o-b')

@@ -19,8 +19,15 @@
 #   (11/20 に開けた。令和8年分・9年分は220万円まで74万円・850万円超は195万円。220万円未満の給与所得の表もここにある)
 #  11/20:No.2260 も開けた(速算表7行・1,000円未満切り捨て・700万円の例 974,000円)。
 #  11/20:計算の箱が年収3,000万円で頭打ちになり、5,000万円と入れても3,000万円の結果を出していた。頭打ちを外し、4,000万円以上(税率45%)の例を足した。
-# 最後に原本を確かめた日:2026-11-20
-import os, re, sys
+#  11/21:No.2260・No.1410・No.1199・暮らしの税情報「給与所得者と税」「所得税のしくみ」・令和8年度改正Q&A・防衛特別所得税Q&A・
+#   協会けんぽ東京の保険料額表・厚生労働省の雇用保険料率を開き直した。数字は同じ。
+#   基礎控除の表は「所得税のしくみ」https://www.nta.go.jp/publication/pamph/koho/kurashi/html/01_1.htm で全行を取り直した
+#   (489万円以下104万円・489万円超655万円以下67万円・655万円超2,350万円以下62万円・48万円・32万円・16万円・2,500万円超0円。
+#    No.1199 と年末調整のしかたの表は結合セルで、係の読み取りでは行と額の対応が決まらない)。
+#  11/21:計算の箱に直に書いた既定の結果が「0円」「税率0%」のままだったので、年収500万円・40歳未満の結果に直した(下の6で照らす)。
+#   JS の雇用保険料 m*0.005 を m*5/1000 にした(月給300万円までの全部で結果は同じ)。
+# 最後に原本を確かめた日:2026-11-21
+import os, re, sys, html as _html
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
@@ -115,7 +122,8 @@ async def body(pg):
              3000000, 3599999, 3600000, 3600001, 5000000, 6599999, 6600000, 6600001,
              6655555, 6655556, 6655557, 7000000, 8499999, 8500000, 8500001, 10000000, 15000000, 20000000,
              25449999, 25450000, 25450001, 25950000, 25950001, 26450000, 26450001, 26950000, 26950001, 30000000,
-             30000001, 40000000, 50000000, 100000000, 300000000]
+             30000001, 40000000, 50000000, 100000000, 300000000,
+             1200, 1201200, 3601200, 8401200, 8403600, 8404800, 12001200, 12003600]   # 雇用保険料がちょうど50銭・50銭の前後になる月給
     for kaigo in (0, 1):
         # 所得税がかかり始める年収と、速算表の境目に課税される所得がちょうど乗る年収を自分の計算で探す
         lows = [1000] + [lo for lo, _, _ in SOKUSAN[1:]]
@@ -203,6 +211,39 @@ async def body(pg):
     if (kyuyo(1781000) - kiso(kyuyo(1781000))) // 1000 * 1000 <= 0: ng('178万1千円で課税される所得が出ない')
     if 2200000 - kyuyo(2200000) != 740000: ng('220万円の給与所得控除')
     if 8500000 - kyuyo(8500000) != 1950000: ng('850万円の給与所得控除')
+    # 6 計算の箱に直に書いた既定の結果(JS が書き換える前の HTML の文)と、入力欄の既定の年収での自分の計算
+    src = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'shotokuzei', 'index.html'), encoding='utf-8').read()
+    a0 = int(re.search(r'id="inc"[^>]*value="(\d+)"', src).group(1))
+    e = ref(a0, 0)
+    def raw(i):
+        m = re.search(r'id="%s"[^>]*>(.*?)</(?:b|em|li)>' % i, src, re.S)
+        return _html.unescape(re.sub(r'<[^>]+>', '', m.group(1))).strip() if m else None
+    pct = F(e['x'] * 1000, a0); pct = F((pct.numerator * 2 + pct.denominator) // (2 * pct.denominator), 10)
+    wants = {'o-y': '{:,}円'.format(e['x']), 'o-m': '{:,}円'.format(e['m']), 'o-d': '{:,}円'.format(e['t']),
+             'o-t': '税率%d%%' % e['p'],
+             'o-r': '年収の%s%%' % (str(pct.numerator // pct.denominator) if pct.denominator == 1 else '%.1f' % float(pct)),
+             'o-br': '給与所得{:,}円から、社会保険料{:,}円と基礎控除{:,}円を引いて計算しています'.format(e['g'], e['sh'], e['k'])}
+    for i, w in wants.items():
+        n += 1
+        if raw(i) != w: ng('既定の結果', i, raw(i), w)
+    # 7 基礎控除の全部の段(国税庁「所得税のしくみ」の表)を、自分の計算の kiso() と境目の前後で照らす
+    KISO = [(0, 1040000), (4890000, 1040000), (4890001, 670000), (6550000, 670000), (6550001, 620000), (23500000, 620000),
+            (23500001, 480000), (24000000, 480000), (24000001, 320000), (24500000, 320000), (24500001, 160000),
+            (25000000, 160000), (25000001, 0)]
+    for g, w in KISO:
+        n += 1
+        if kiso(g) != w: ng('基礎控除の段', g, kiso(g), w)
+    # 8 出典のリンクと文字(11/21 に開けた URL と資料の題名)
+    SRC = [('https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm', '国税庁 タックスアンサー No.2260 所得税の税率'),
+           ('https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1199.htm', '国税庁 タックスアンサー No.1199 基礎控除'),
+           ('https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1410.htm', '国税庁 タックスアンサー No.1410 給与所得控除'),
+           ('https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf', '国税庁「令和8年度税制改正（所得税の基礎控除の引上げ等関係）Q&A」'),
+           ('https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf', '全国健康保険協会「令和8年3月分（4月納付分）からの健康保険・厚生年金保険の保険料額表（東京都）」'),
+           ('https://www.mhlw.go.jp/content/001692566.pdf', '厚生労働省「令和8年度 雇用保険料率のご案内」')]
+    links = await pg.evaluate('()=>[...document.querySelectorAll(".src a")].map(a=>[a.getAttribute("href"),a.innerText.trim()])')
+    for u, t in SRC:
+        n += 1
+        if [u, t] not in links: ng('出典', u, t)
     return n, bad
 
 run('shotokuzei', body)

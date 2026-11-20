@@ -31,7 +31,17 @@
 #  国税庁 No.2260 所得税の税率 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm
 #  協会けんぽ 令和8年3月分からの保険料額表(東京・9.85%・子ども子育て支援金0.23%・厚生年金18.3%・等級の表) https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf
 #  厚生労働省 令和8年度の雇用保険料率(一般の事業の労働者負担 5/1,000) https://www.mhlw.go.jp/content/001672589.pdf
-# 最後に原本を確かめた日:2026-11-20
+#  「所得税の基礎控除額」に特例の上乗せを含むか(2026-11-21):
+#   川崎市「寄附金税額控除の計算方法」(令和8年度以降)の計算例は、給与収入500万円(合計所得356万円)の人で「680,000−480,000=200,000」を引いている。
+#   68万円は令和7年分の本則58万円+特例の加算10万円(合計所得336万円超489万円以下)なので、上乗せを含めた額を使っている。
+#   https://www.city.kawasaki.jp/230/cmsfiles/contents/0000017/17235/keisanhouhou.pdf
+#   国税庁 No.1199 と「暮らしの税情報」は、令和8年分の基礎控除の金額そのものを「489万円以下104万円・655万円以下67万円・2,350万円以下62万円」と書いている。
+#   https://www.nta.go.jp/publication/pamph/koho/kurashi/html/01_1.htm
+#   総務大臣通知(総税企第44号)には、租税特別措置法の特例を含むかどうかのかっこ書きは無い。地方税法の条文(e-Gov)は開けていない。
+#   含めない読み(62万円−48万円=14万円だけ引く)より、含める読み(104万円なら56万円を引く)のほうが上限は低く出る。ページは含める読み。
+# 最後に原本を確かめた日:2026-11-21(総務省 税金の控除について・総税企第44号・令和8年1月21日事務連絡・目安の表 000408217.pdf、国税庁 No.1155・No.1199・No.2260・暮らしの税情報・
+#  令和8年度改正Q&A・源泉所得税の改正のあらまし、横浜市 税額控除(令和8年度以降)、川崎市、大阪市 税額控除額の種類と計算、西宮市 人的控除額の差、印西市。
+#  大阪府・協会けんぽ・厚生労働省・日立市・名古屋市・福島市 r8jogen3.pdf・e-Gov は 11-21 には開いていない)
 #
 # 比べ方:
 #  (1) 自分の計算(社会保険料を総務省と同じ「給与収入の15%」にしたもの)と総務省の目安の表。表は千円未満を切り捨てた値なので、差が0円以上1,000円未満なら合う。
@@ -271,5 +281,60 @@ async def body(pg):
     qa = await pg.inner_text('#qa1')
     if not (57500 <= got['lim'] < 58500 and got['rate'] == 5 and '5万8千円' in qa):
         bad += 1; print('NG Q&Aの年収500万円の文', got, qa)
+    # (5) 計算の箱に直に書いた既定の結果(JS が動く前の HTML)が、年収500万円・単身の自分の計算と同じこと(2026-11-21)
+    import re
+    raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'furusato', 'index.html'), encoding='utf-8').read()
+    exp = ref(5000000, 0, 0, 0)
+    for oid, key in (('o-y', 'lim'), ('o-j', 'sho'), ('o-r', 'rate')):
+        m = re.search(r'<b id="%s">([0-9,]+)<i>' % oid, raw); n += 1
+        if not m or int(m.group(1).replace(',', '')) != exp[key]:
+            bad += 1; print('NG 箱に直に書いた既定の結果', oid, m and m.group(1), exp[key])
+    n += 1
+    if exp != {'lim': 58092, 'sho': 238100, 'rate': 5, 'x': 1796000}:      # 手で確かめた値(356万−723,144−43万→2,406,000。所得割238,100。x=2,406,000−5万−56万)
+        bad += 1; print('NG 年収500万円・単身の手計算', exp)
+    # (6) 社会保険料・iDeCo・医療費控除の入力欄(どれも所得税と住民税の両方の所得控除)。社会保険料の表示の文
+    JS2 = '''([a,sp,n1,n2,sh,ide,iry])=>{var q=function(i){return document.getElementById(i)},e=function(el,t){el.dispatchEvent(new Event(t,{bubbles:true}))};
+     var i=q("inc");i.value=String(a);e(i,"input");q("k1").value=String(n1);e(q("k1"),"change");q("k2").value=String(n2);e(q("k2"),"change");
+     document.querySelector('#s-sp button[data-v="'+sp+'"]').click();
+     q("shi").value=sh<0?"":String(sh);e(q("shi"),"input");q("ide").value=String(ide);e(q("ide"),"input");q("iry").value=String(iry);e(q("iry"),"input");
+     var n=function(i){return parseInt(q(i).textContent.replace(/[^0-9]/g,""),10)};
+     return {lim:n("o-y"),sho:n("o-j"),rate:n("o-r"),kon:q("o-kon").textContent}}'''
+    rnd2 = random.Random(20261121)
+    cases = [(5000000, 0, 0, 0, -1, 0, 0), (5000000, 0, 0, 0, 750000, 0, 0), (5000000, 0, 0, 0, -1, 276000, 0), (5000000, 0, 0, 0, -1, 0, 100000),
+             (5000000, 0, 0, 0, 0, 0, 0), (7000000, 1, 1, 0, -1, 276000, 150000), (3000000, 0, 0, 0, -1, 0, 2000000), (12000000, 0, 0, 1, 1500000, 816000, 0)]
+    for _ in range(300):
+        a = rnd2.randrange(1500000, 20000001)
+        cases.append((a, rnd2.randrange(2), rnd2.randrange(4), rnd2.randrange(3), rnd2.choice([-1, -1, rnd2.randrange(0, a // 5)]),
+                      rnd2.choice([0, 144000, 276000, 816000, rnd2.randrange(0, 900000)]), rnd2.choice([0, 0, rnd2.randrange(0, 2000001)])))
+    for a, sp_, n1, n2, sh, ide, iry in cases:
+        got = await pg.evaluate(JS2, [a, sp_, n1, n2, sh, ide, iry])
+        base = shaho(a) if sh < 0 else sh
+        exp = ref(a, sp_, n1, n2, sh=base + ide + iry); n += 1
+        if any(got[k] != exp[k] for k in ('lim', 'sho', 'rate')) or ('社会保険料は{:,}円'.format(base) not in got['kon']):
+            bad += 1; print('NG ほかの控除の入力', (a, sp_, n1, n2, sh, ide, iry), got, {k: exp[k] for k in ('lim', 'sho', 'rate')})
+    await pg.evaluate(JS2, [5000000, 0, 0, 0, -1, 0, 0])
+    # (7) 黄色の行は「入力した年収を超えない中でいちばん近い行」(200万円未満は無し)
+    ROWS = [200, 250, 300, 350, 400, 450, 500, 550, 600, 700, 800, 900, 1000, 1200, 1500, 2000]
+    for a in (0, 1999999, 2000000, 2499999, 2500000, 5000000, 5499999, 6999999, 7000000, 19999999, 20000000, 50000000):
+        await pg.evaluate(JS, [a, 0, 0, 0])
+        hit = await pg.evaluate('''()=>[...document.querySelectorAll("#tb tr.hit")].map(function(tr){return parseInt(tr.cells[0].textContent.replace(/[^0-9]/g,""),10)})''')
+        want = [r for r in ROWS if a >= r * 10000][-1:]; n += 1
+        if hit != want:
+            bad += 1; print('NG 黄色の行', a, hit, want)
+    await pg.evaluate(JS, [5000000, 0, 0, 0])
+    # (8) 「193万円の上限に届くのは、給与収入でおよそ1億円」:特例控除額=所得割×20% が193万円(77.2万円+115.8万円)になる年収を自分の計算で探す
+    n += 1
+    lo, hi = 50000000, 200000000
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if ref(mid, 0, 0, 0)['sho'] * 20 // 100 >= 772000 + 1158000: hi = mid
+        else: lo = mid + 1
+    txt = await pg.inner_text('main')
+    if not (95000000 <= lo <= 105000000 and 'およそ1億円' in txt and '193万円' in txt):
+        bad += 1; print('NG 193万円の上限に届く年収', lo)
+    # (9) 川崎市の計算例(令和8年度以降):課税総所得金額2,065,000円・人的控除額差額100,000円・所得税の基礎控除額680,000円 → 1,765,000円 → 5%
+    n += 1
+    if 2065000 - 100000 - max(0, 680000 - 480000) != 1765000 or ritsu(1765000) != 5 or kiso_i(3560000) != 1040000:
+        bad += 1; print('NG 川崎市の計算例')
     return n, bad
 run('furusato', body)

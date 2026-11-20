@@ -152,7 +152,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="ギフト"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="28" width="36" height="22" rx="2" fill="#e08a2c"></rect><rect x="12" y="22" width="40" height="8" rx="2" fill="#f6d3ab"></rect><rect x="29" y="22" width="6" height="28" fill="#00775a"></rect><path d="M32 22c-6-9-14-6-10-1M32 22c6-9 14-6 10-1" fill="none" stroke="#00775a" stroke-width="3" stroke-linecap="round"></path></svg></div>
- <p class="upd">更新日：2026年11月20日（令和8年度税制改正に対応）</p>
+ <p class="upd">更新日：2026年11月21日（令和8年度税制改正に対応）</p>
  <h1>【ふるさと納税の限度額の計算】年収と家族でいくらまで？早見表つき【2026年】</h1>
 </div>
 <section class="hy1">
@@ -198,9 +198,9 @@ body{overflow-x:clip}
   </div>
  </div>
  <div class="amt">
-  <div><small>上限額の目安<br>（2026年の寄附）</small><b id="o-y">0<i>円</i></b><em>自己負担2,000円</em></div>
-  <div><small>住民税の<br>所得割</small><b id="o-j">0<i>円</i></b><em>令和9年度</em></div>
-  <div><small>所得税の<br>税率</small><b id="o-r">0<i>%</i></b><em>計算式で使う税率</em></div>
+  <div><small>上限額の目安<br>（2026年の寄附）</small><b id="o-y">58,092<i>円</i></b><em>自己負担2,000円</em></div>
+  <div><small>住民税の<br>所得割</small><b id="o-j">238,100<i>円</i></b><em>令和9年度</em></div>
+  <div><small>所得税の<br>税率</small><b id="o-r">5<i>%</i></b><em>計算式で使う税率</em></div>
  </div>
  <ul>
   <li>2026年1月から12月に寄附した分の上限です</li>
@@ -326,7 +326,7 @@ function kyuyo8(x){if(x<741000)return 0;if(x<2191000)return x-740000;if(x<219300
 var GR=[[58,63],[68,73],[78,83],[88,93],[98,101],[104,107],[110,114],[118,122],[126,130],[134,138],[142,146],[150,155],[160,165],[170,175],[180,185],[190,195],[200,210],[220,230],[240,250],[260,270],[280,290],[300,310],[320,330],[340,350],[360,370],[380,395],[410,425],[440,455],[470,485],[500,515],[530,545],[560,575],[590,605],[620,635],[650,665],[680,695],[710,730],[750,770],[790,810],[830,855],[880,905],[930,955],[980,1005],[1030,1055],[1090,1115],[1150,1175],[1210,1235],[1270,1295],[1330,1355],[1390,1e9]];
 function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000;}return 1390000;}
 function r50(v){var q=Math.floor(v);return (v-q>0.5)?q+1:q;}
-function shahoM(m,rate,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);return r50(s*(rate+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*0.005);}
+function shahoM(m,rate,old){var s=std(m),p=Math.min(Math.max(s,88000),650000);return r50(s*(rate+23+(old?162:0))/20000)+r50(p*1830/20000)+r50(m*5/1000);}
 function jumin(g,sh,kiso){if(g<=450000)return {y:0,kin:0,sho:0};var t=Math.floor(Math.max(0,g-sh-kiso)/1000)*1000,adj=t<=2000000?Math.min(50000,t):50000;
  var a=Math.floor(Math.max(0,Math.floor(t*6/100)-Math.floor(adj*3/100))/100)*100,b=Math.floor(Math.max(0,Math.floor(t*4/100)-Math.floor(adj*2/100))/100)*100;return {y:a+b+5000,kin:5000,sho:a+b};}
 
@@ -344,7 +344,7 @@ function limit(a,sp,n1,n2,o){
  var spI=sp?(g<=9000000?380000:g<=9500000?260000:g<=10000000?130000:0):0,spR=sp?(g<=9000000?330000:g<=9500000?220000:g<=10000000?110000:0):0;
  var ti=Math.floor(Math.max(0,g-sh-kiso(g)-spI-380000*n1-630000*n2)/1000)*1000;
  var tr=Math.floor(Math.max(0,g-sh-kisoR-spR-330000*n1-450000*n2)/1000)*1000;
- var diff=50000+(spR?50000:0)+50000*n1+180000*n2,adj=g>25000000?0:tr<=2000000?Math.min(diff,tr)*0.05:Math.max(diff-(tr-2000000),50000)*0.05;
+ var diff=50000+(spR?50000:0)+50000*n1+180000*n2,adj=g>25000000?0:tr<=2000000?Math.min(diff,tr)*5/100:Math.max(diff-(tr-2000000),50000)*5/100;
  if(g<=350000*(nin+1)+100000+(nin?320000:0))return {lim:0,sho:0,rate:0};
  var spD=sp?(g<=9000000?50000:g<=9500000?40000:g<=10000000?20000:0):0,jsa=50000+spD+50000*n1+180000*n2;
  var sho=Math.max(0,Math.floor(tr/10-adj)),rate=rateOf(tr-jsa-Math.max(0,kiso(g)-480000));

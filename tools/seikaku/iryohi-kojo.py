@@ -23,7 +23,17 @@
 #   神戸市「令和9年度から適用される個人住民税の改正」 https://www.city.kobe.lg.jp/a83576/kurashi/tax/shikenminze/r9kaisei.html
 #    給与所得控除の最低保障額は69万円(令和9・10年度は74万円)。基礎控除の改正は載っていない
 #   住民税の基礎控除:合計所得2,400万円以下43万円・2,450万円以下29万円・2,500万円以下15万円・2,500万円超0円
-# 最後に原本を確かめた日:2026-11-20
+#  国税庁 質疑応答事例「人間ドックの費用」 https://www.nta.go.jp/law/shitsugi/shotoku/05/09.htm
+#   健康診断は原則対象外。重大な疾病が発見され、引き続きその疾病の治療を行った場合は対象(No.1122 は「原則として含まれません」)
+#  国税庁 No.1129 セルフメディケーション税制:12,000円を差し引いた金額(最高88,000円)。通常の医療費控除と併せて受けられない
+#  国税庁 No.2030 還付申告:その年の翌年1月1日から5年間
+#  財務省 令和8年度税制改正の大綱(1/9):基礎控除62万円+特例(令和8・9年分 489万円以下42万円・489万円超655万円以下5万円)
+#  総務省 事務連絡(令和8年1月21日) https://www.soumu.go.jp/main_content/001053325.pdf
+#   個人住民税の給与所得控除の最低保障額69万円(令和9・10年度分はさらに5万円)。基礎控除の額と調整控除は載っていない
+# 最後に原本を確かめた日:2026-11-21(No.1120・No.1122・No.1129・No.1199・No.1410・No.2260・No.2030・年末調整のしかた・
+#   人間ドックの費用・財務省の大綱・協会けんぽ東京の3月分と10月分の保険料額表・厚生労働省の雇用保険料率・総務省の事務連絡。
+#   練馬区・大田区・神戸市のページは 2026-11-20 に開いたまま)
+# 2026-11-21:計算の箱に直に書いた既定の結果(0円のままだった)を足した。JS が動く前の HTML をファイルから読んで比べる。
 # 社会保険料は、ページの注記の前提(毎月同じ額・賞与なし・令和8年度の料率を12か月)で1年分を分数で出し、1円未満を四捨五入する。
 import os, sys, re
 from fractions import Fraction as F
@@ -226,6 +236,25 @@ async def body(pg):
     n += 1
     if '令和%d年12月31日までです' % (8 + 5) not in text:
         bad += 1; print('NG 還付申告の期限の例')
+    # 5) JS が書き換える前の HTML に直に書いた既定の結果(年収500万円・医療費30万円・戻った額0円)
+    raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                            'site', 'iryohi-kojo', 'index.html'), encoding='utf-8').read()
+    dv = [int(re.search(r'id="%s"[^>]*value="(\d+)"' % i, raw).group(1)) for i in ('inc', 'med', 'hot')]
+    exp = ref(*dv)
+    for box, key in (('o-k', 'total'), ('o-t', 'shotoku'), ('o-z', 'jumin')):
+        n += 1
+        m = re.search(r'<b id="%s">([\d,]+)<i>円</i></b>' % box, raw)
+        if not m or digits(m.group(1)) != exp[key]:
+            bad += 1; print('NG 既定の結果', box, m and m.group(1), exp[key])
+    n += 1
+    if '<em id="o-e">医療費控除の額は%s円</em>' % format(exp['kojo'], ',') not in raw:
+        bad += 1; print('NG 既定の控除額の文', exp['kojo'])
+    # 6) 前提の文と、健康診断の例外の文
+    for w in ('協会けんぽ東京支部の令和8年度の料率（40歳未満）を12か月分', '協会けんぽ東京・40歳未満',
+              '重大な疾病が見つかり', '上限200万円', '総所得金額等が200万円未満の人は、<br>その5%'):
+        n += 1
+        if w not in raw:
+            bad += 1; print('NG 前提の文', w)
     return n, bad
 
 run('iryohi-kojo', body)
