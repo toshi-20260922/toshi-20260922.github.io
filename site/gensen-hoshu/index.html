@@ -180,7 +180,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="請求書と差し引く税金"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="12" width="28" height="38" rx="3" fill="#ffffff" stroke="#0f3d31" stroke-width="3"></rect><path d="M20 21h16M20 28h16M20 35h9" stroke="#9fc4b6" stroke-width="3" stroke-linecap="round"></path><circle cx="44" cy="42" r="11" fill="#e3b465" stroke="#0f3d31" stroke-width="3"></circle><path d="M39 42h10" stroke="#0f3d31" stroke-width="3.2" stroke-linecap="round"></path></svg></div>
- <p class="upd">更新日：2026年11月19日（令和8年4月1日現在の法令）</p>
+ <p class="upd">更新日：2026年11月20日（令和8年4月1日現在の法令）</p>
  <h1>【源泉徴収の早見表】報酬の源泉徴収は要る？要らない？職種の一覧と計算【2026年】</h1>
 </div>
 <section class="hy1">
@@ -279,7 +279,7 @@ body{overflow-x:clip}
   </div>
   <div class="full">
    <label for="amt" id="l-amt">1回に支払う金額</label>
-   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="1000000000" step="1000" value="100000"><span>円</span></div>
+   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="1000000000000" step="1000" value="100000"><span>円</span></div>
    <input type="range" id="amtr" min="0" max="3000000" step="10000" value="100000" aria-label="支払う金額">
   </div>
   <div class="full" id="daysbox" style="display:none">
@@ -420,7 +420,7 @@ body{overflow-x:clip}
 <h3>請求書が税込みのとき、税込みと税抜きのどちらに税率を掛けますか？</h3>
 <p>原則は税込みの額に掛けます。請求書などで報酬の額と消費税の額がはっきり分かれていれば、報酬の額だけに掛けてかまいません。</p>
 <h3>原稿料や講演料も、納期の特例でまとめて納められますか？</h3>
-<p>納められません。納期の特例を使えるのは、給与と弁護士・税理士・司法書士など一部の資格の人への報酬だけです。原稿料や講演料は、払った月の翌月10日までに納めます。</p>
+<p>納められません。納期の特例を使えるのは、給与・退職金と弁護士・税理士・司法書士など一部の資格の人への報酬だけです。原稿料や講演料は、払った月の翌月10日までに納めます。</p>
 <h3>Webサイトの制作費は、源泉徴収が要りますか？</h3>
 <p>プログラミングやサーバーの設定など、デザインに当たらない部分は要りません。ページのデザインを頼んだ部分は、デザインの報酬として要ることがあります。見積りや請求書で、作業の中身ごとに金額を分けておくと判断しやすくなります。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
@@ -518,7 +518,7 @@ body{overflow-x:clip}
  function fmt(n){return n.toLocaleString("ja-JP")}
  function set(id,n){document.getElementById(id).innerHTML=fmt(n)+"<i>円</i>"}
  function num(el,lo,hi){return Math.min(Math.max(parseInt(el.value,10)||0,lo),hi)}
- function draw(){var k=parseInt(kind.value,10),a=num(amt,0,1000000000),d=num(days,1,366),wh=+document.getElementById("who").value,py=+document.getElementById("payer").value,fx;
+ function draw(){var k=parseInt(kind.value,10),a=num(amt,0,1000000000000),d=num(days,1,366),wh=+document.getElementById("who").value,py=+document.getElementById("payer").value,fx;
   var why=k===9?"所得税法204条に無い仕事":(wh===1?"法人への支払い":(py===1&&k!==3?"給与を払っていない個人の支払い":"所得税法204条の報酬")),need=why==="所得税法204条の報酬",t=need?gensen(k,a,d):0;
   document.getElementById("o-need").textContent=need?"源泉徴収が必要です":"源泉徴収は不要です";document.getElementById("o-why").textContent=need?"所得税法204条に並んでいる報酬です。支払った月の翌月10日までに納めます":why+"なので、源泉徴収はしません";document.getElementById("vd").className=need?"vd":"vd no";
   document.getElementById("daysbox").style.display=k===3?"":"none";

@@ -14,10 +14,22 @@
 #   https://www.mhlw.go.jp/content/11600000/000637955.pdf
 # 厚生労働省「雇用保険マルチジョブホルダー制度について」(65歳以上・1つの事業所で週5時間以上20時間未満・合計20時間以上・本人の申出)
 #   https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000136389_00001.html
-# 照らすもの:結果の箱(本人負担・会社負担・合計・年間・料率・令和7年度の料率の額)・JS が作る早見表の全行(3つの事業×56行)・
+# 神奈川労働局「労働保険料の算定基礎となる賃金早見表」(賞与・通勤手当・超過勤務手当・家族手当は賃金総額に算入する)
+#   https://jsite.mhlw.go.jp/kanagawa-roudoukyoku/hourei_seido_tetsuzuki/roudou_hoken/hourei_seido/rouho_hayami.html
+# 大阪労働局「支払い賃金の確認」(通勤手当は非課税の部分も含めて賃金総額に算入する・賞与も算入する)
+#   https://jsite.mhlw.go.jp/osaka-roudoukyoku/hourei_seido_tetsuzuki/roudou_hoken/hourei_seido/kosin/keizoku/kakunin.html
+# 愛知労働局「高年齢労働者に係る雇用保険料免除措置の終了について」(令和2年4月1日からは高年齢労働者も納付が必要)
+#   https://jsite.mhlw.go.jp/aichi-roudoukyoku/hourei_seido_tetsuzuki/roudou_hoken/koureiroudousyamenjo.html
+# 青森労働局「令和8年度労働保険年度更新のお知らせ」(6月1日(月)から7月10日(金)まで)
+#   https://jsite.mhlw.go.jp/aomori-roudoukyoku/newpage_01580.html
+# 照らすもの:結果の箱(本人負担・会社負担・合計・年間・料率・令和7年度の料率の額)・
+#   JS が作る早見表の全行(56行×8列。1つの表に3つの事業を並べる形。一般の事業は本人・会社・合計、ほかの2つは本人・会社)を
+#   3つの事業のボタンごとに・選んだ事業の列の太字・よく見る月給の小さい表(6行×4列)を3つの事業ごとに・
 #   HTML に手で書いた料率の表と令和7年度との比較の表の全行・本文の例の数字・JS が書き換える前の元の文
+# 2026-11-20:ほかのチャットが早見表を「選んだ事業だけ4列」から「3つの事業を並べた8列」に変え、小さい表を足した。
+#   突き合わせが古かったので今の形に合わせた(ページの数字に誤りは無かった)。
 # 会社負担の円未満切り捨てと年間の額(0.1万円の位に四捨五入)は、原本の決まりではなくページが注に書いている目安の出し方。その書き方どおりかを見る。
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日: 2026-11-20
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
@@ -51,6 +63,17 @@ def nenkan(tot):
 
 def c(v):
     return '{:,}'.format(v)
+
+MINI = [200000, 250000, 300000, 350000, 400000, 500000]      # よく見る月給の小さい表の行
+SHORT = ['一般の事業', '農林水産・清酒製造', '建設の事業']      # 表の中の短い名前
+
+def row8(v):
+    """早見表の1行。給料の額・一般(本人・会社・合計)・農林水産/清酒製造(本人・会社)・建設(本人・会社)。"""
+    r = [c(v)]
+    for j, (_, _, me, co, _, _, _) in enumerate(GEN):
+        a = honnin(v, me); b = kaisha(v, co)
+        r += [c(a), c(b)] + ([c(a + b)] if j == 0 else [])
+    return r
 
 async def body(pg):
     n = bad = 0
@@ -93,9 +116,24 @@ async def body(pg):
         ('年間', '<em id="o-year">%s</em>' % nenkan(a + b)),
         ('料率の文', '<li id="o-rate">一般の事業の料率は、本人1,000分の%s・会社1,000分の%sです</li>' % (sen(g[2]), sen(g[3]))),
         ('令和7年度の文', '<li id="o-old">令和7年度の料率なら、本人負担は%s円でした</li>' % c(honnin(300000, g[5]))),
-        ('表の題', '<p class="cap" id="t-cap">一般の事業・月額</p>'),
+        ('表の題', '<p class="cap" id="t-cap">月額・単位は円（太字は一般の事業）</p>'),
+        ('小さい表の題', '<p class="subh" id="mini-h">よく見る月給の早見表<span class="nw">（一般の事業・令和8年度）</span></p>'),
     ]:
         chk('元の文 ' + label, want in raw, True)
+
+    # HTML に手で書いた小さい表(JS が書き換える前の元の行)。一般の事業の6行
+    import re
+    m = re.search(r'<tbody id="minib">(.*?)</tbody>', raw, re.S)
+    rawmini = [re.findall(r'<td>(.*?)</td>', tr) for tr in re.findall(r'<tr[^>]*>(.*?)</tr>', m.group(1), re.S)]
+    chk('元の小さい表', rawmini, [[c(v), c(honnin(v, g[2])), c(kaisha(v, g[3])), c(honnin(v, g[2]) + kaisha(v, g[3]))] for v in MINI])
+    chk('元の小さい表の黄色の行', re.findall(r'<tr class="hit"><td>(.*?)</td>', m.group(1)), ['300,000'])
+
+    # 早見表の頭の行(3つの事業を並べる形)
+    head = await pg.eval_on_selector_all('table.ky3 thead tr', "rs=>rs.map(r=>[...r.children].map(th=>th.textContent+'/'+(th.colSpan||1)))")
+    chk('早見表の頭の行', head, [['給料の額/1', '一般の事業/3', '農林水産・清酒製造/2', '建設の事業/2'],
+                              ['本人/1', '会社/1', '合計/1', '本人/1', '会社/1', '本人/1', '会社/1']])
+    chk('小さい表の頭の行', await pg.eval_on_selector_all('table.kmini thead th', 'ts=>ts.map(t=>t.textContent)'),
+        ['給料の額（円）', '本人負担（円）', '会社負担（円）', '合計（円）'])
 
     # 本文の例の数字
     flat = ''.join((await pg.inner_text('main')).split())
@@ -116,6 +154,11 @@ async def body(pg):
         ('QA 30万円', '一般の事業で、本人負担は月%s円・会社負担は月%s円です。令和7年度の料率では、本人負担は%s円でした。'
             % (c(honnin(300000, g0[2])), c(kaisha(300000, g0[3])), c(honnin(300000, g0[5])))),
         ('QA 8万円', '一般の事業で月%s円です。' % c(honnin(80000, g0[2]))),
+        ('QA 会社負担', '令和8年度の一般の事業では、給料の1,000分の%sです。月給30万円なら会社負担は月%s円で、本人負担の%s円より多くなります。'
+            % (sen(g0[3]), c(kaisha(300000, g0[3])), c(honnin(300000, g0[2])))),
+        ('QA 賞与', '一般の事業で賞与50万円なら、本人負担は%s円です。' % c(honnin(500000, g0[2]))),
+        ('表の説明', '下の表では月給5万円から60万円まで1万円ごとに3つの事業の種類を並べています。'),
+        ('65歳以上', '65歳以上の人も条件にあえば入り、保険料もかかります。'),
     ]:
         chk('本文 ' + label, want in flat, True)
     chk('%の換算', (g0[2] / 10, g0[3] / 10, (g0[2] + g0[3]) / 10, GEN[1][2] / 10, GEN[2][2] / 10),
@@ -143,15 +186,26 @@ async def body(pg):
         chk('箱 会社の料率 ' + name, await pg.inner_text('#o-rco'), '1,000分の' + sen(co))
         chk('箱 事業の名前 ' + name, await pg.inner_text('#o-rk'), name)
         chk('箱 料率の文 ' + name, await pg.inner_text('#o-rate'), '%sの料率は、本人1,000分の%s・会社1,000分の%sです' % (name, sen(me), sen(co)))
-        chk('早見表の題 ' + name, await pg.inner_text('#t-cap'), name + '・月額')
+        chk('早見表の題 ' + name, await pg.inner_text('#t-cap'), '月額・単位は円（太字は%s）' % name)
 
-        # JS が作る早見表の全行(5万円から60万円まで1万円ごと)
+        # JS が作る早見表の全行(5万円から60万円まで1万円ごと)。どのボタンでも3つの事業が全部並ぶ
         await pg.fill('#pay', '300000')
         rows = await pg.eval_on_selector_all('#gtb tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
-        want = [[c(v), c(honnin(v, me)), c(kaisha(v, co)), c(honnin(v, me) + kaisha(v, co))] for v in range(50000, 600001, 10000)]
+        want = [row8(v) for v in range(50000, 600001, 10000)]
         chk('早見表の行の数 ' + name, len(rows), 56)
         for r, e in zip(rows, want):
             chk('早見表 %s %s' % (name, e[0]), r, e)
+        # 太字の列は選んだ事業の列だけ(一般は2〜4列目・農林水産/清酒製造は5〜6列目・建設は7〜8列目)
+        sel = await pg.eval_on_selector_all('#gtb tr', "rs=>rs.map(r=>[...r.children].map((td,i)=>td.classList.contains('sel')?i:-1).filter(i=>i>=0).join(','))")
+        chk('太字の列 ' + name, sorted(set(sel)), [['1,2,3', '4,5', '6,7'][t]])
+
+        # よく見る月給の小さい表(選んだ事業の額に変わる)
+        chk('小さい表の題 ' + name, ''.join((await pg.inner_text('#mini-h')).split()), 'よく見る月給の早見表（%s・令和8年度）' % SHORT[t])
+        rows = await pg.eval_on_selector_all('#minib tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
+        chk('小さい表の行の数 ' + name, len(rows), len(MINI))
+        for r, v in zip(rows, MINI):
+            chk('小さい表 %s %d' % (name, v), r, [c(v), c(honnin(v, me)), c(kaisha(v, co)), c(honnin(v, me) + kaisha(v, co))])
+        chk('小さい表の黄色の行 ' + name, await pg.eval_on_selector_all('#minib tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), ['300,000'])
 
         # 黄色の行(入れた額にいちばん近い1万円の行)
         for w, near in [(300000, '300,000'), (304999, '300,000'), (305000, '310,000'), (54999, '50,000'), (600000, '600,000'), (44999, None), (700000, None)]:

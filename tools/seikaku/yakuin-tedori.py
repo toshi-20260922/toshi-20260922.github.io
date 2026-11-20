@@ -24,10 +24,22 @@
 #   https://www.city.koto.lg.jp/060502/kurashi/zekin/kuminze/zeikoujo.html
 #  杉並区「令和9年度からの改正」(住民税の給与所得控除の最低保障額は令和9年度・10年度74万円) https://www.city.suginami.tokyo.jp/s028/12563.html
 #  山形労働局「令和8年度の雇用保険料率について」(一般の事業の労働者負担1,000分の5) https://jsite.mhlw.go.jp/yamagata-roudoukyoku/koyouhoken-20260316.html
-#  開けなかった原本:東京都主税局「個人住民税」 https://www.tax.metro.tokyo.lg.jp/kazei/life/kojin_ju
+#  東京都主税局「個人住民税」(都民税4%・区市町村民税6%・均等割1,000円+3,000円・森林環境税1,000円・23区の単身は合計所得45万円以下が非課税・
+#   調整控除は合計所得2,500万円超に適用なし・200万円超は下限2,500円・基礎控除は合計所得2,400万円超で逓減) https://www.tax.metro.tokyo.lg.jp/kazei/life/kojin_ju
+#  中央区「令和9年度から適用される個人住民税の税制改正」(給与所得控除の最低保障額74万円・住民税の基礎控除は改正なし) https://www.city.chuo.lg.jp/a0009/kurashi/zeikin/juuminzei/r9kaisei.html
+#  日本年金機構 令和8年度の厚生年金保険料額表(1等級88,000円は93,000円未満・32等級650,000円は635,000円以上・18.300%・拠出金0.36%は令和8年4月以降も同じ)
+#   https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.files/R08ryougaku.pdf
+#  厚生労働省「厚生年金等の標準報酬月額の上限の段階的引上げについて」(2027年9月68万円・2028年9月71万円・2029年9月75万円)
+#   https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000147284_00024.html
+#  厚生労働省 子ども・子育て支援金制度の事務の取扱いの Q&A(問6:一般保険料率と支援金率を合算した率で被保険者負担分を出し、その端数を50銭以下切り捨て・50銭超切り上げ)
+#   https://www.mhlw.go.jp/hourei/doc/tsuchi/T260216S0101.pdf
+#  厚生労働省「令和8年度の雇用保険料率」(一般の事業の労働者負担1,000分の5) https://www.mhlw.go.jp/content/001692566.pdf
+#  国税庁 質疑応答事例「定めどおりに支給されたかどうかの判定(事前確定届出給与)」(届出どおりに支給しなかった給与は原則として損金不算入) https://www.nta.go.jp/law/shitsugi/hojin/11/16.htm
 # 会社の負担は、被保険者ごとの「全額(1円未満切り捨て)−本人負担」で出す(納入告知額は合算額の円未満切り捨て・事業主はそこから本人負担を引いた残り)。
-# 照らすもの:結果の箱(入力欄に値を入れて読む)・JS が作る表2つ・HTML に手で書いた内訳の表2つの全行・本文とよくある質問の数字・JS が書き換える前の元の文
-# 最後に原本を確かめた日:2026-11-19
+# 照らすもの:結果の箱(入力欄に値を入れて読む)・標準報酬月額と会社負担の文・逆算・JS が作る表2つ・HTML に手で書いた内訳の表2つの全行・本文とよくある質問の数字・JS が書き換える前の元の文
+# 逆算は、手取り(年)が「欲しい手取り×12」以上になるいちばん低い報酬月額(1,000円単位)を自分の計算で下から順に探して比べる。
+#  手取りは等級の境目などで報酬を上げると下がる所があるので、二分探索ではいちばん低い額にならない(11-20 にページを下から順に探す形に直した)。
+# 最後に原本を確かめた日: 2026-11-20
 import os, re, sys
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -131,7 +143,12 @@ JS = """cs=>{var inc=document.getElementById('inc'),pref=document.getElementById
 return cs.map(c=>{if(+pref.value!==c[1]){pref.value=String(c[1]);pref.dispatchEvent(new Event('change',{bubbles:true}))}
  if(!bs[c[2]].classList.contains('on'))bs[c[2]].click();
  inc.value=String(c[0]);inc.dispatchEvent(new Event('input',{bubbles:true}));
- return ['o-m','o-y','o-c','o-r','o-br'].map(i=>document.getElementById(i).textContent)})}"""
+ return ['o-m','o-y','o-c','o-r','o-br','o-std'].map(i=>document.getElementById(i).textContent)})}"""
+JSG = """cs=>{var w=document.getElementById('want'),pref=document.getElementById('pref'),bs=document.querySelectorAll('#s-age button');
+return cs.map(c=>{if(+pref.value!==c[1]){pref.value=String(c[1]);pref.dispatchEvent(new Event('change',{bubbles:true}))}
+ if(!bs[c[2]].classList.contains('on'))bs[c[2]].click();
+ w.value=c[0]===null?'':String(c[0]);w.dispatchEvent(new Event('input',{bubbles:true}));
+ return document.getElementById('o-want').textContent})}"""
 
 async def body(pg):
     n = bad = 0
@@ -186,11 +203,36 @@ async def body(pg):
     for (m, i, o), g in zip(cases, got):
         e = ref(m, PREF[i][1], o)
         want = [f(per_month(e['t'])) + '円', f(e['t']) + '円', f(e['c']) + '円', '手取り率 ' + ritsu(e['t'], e['a']) + '%',
-                '年に引かれる額は、社会保険料%s円・所得税%s円・住民税%s円です' % (f(e['s']), f(e['i']), f(e['j']))]
+                '年に引かれる額は、社会保険料%s円・所得税%s円・住民税%s円です' % (f(e['s']), f(e['i']), f(e['j'])),
+                '健康保険の標準報酬月額は%s円です。会社が負担する社会保険料は月%s円です' % (f(hyojun(m)), f(shaho(m, PREF[i][1], o)[1]))]
         n += 1
         if g != want:
             bad += 1
             if bad <= 40: print('NG 箱', m, PREF[i][0], o, g, want)
+
+    # 2b 逆算:手取り(年)が 欲しい手取り×12 以上になるいちばん低い報酬月額(1,000円単位)。下から順に探す
+    for i, o in [(12, 0), (12, 1), (26, 1), (40, 0), (14, 1)]:
+        nets = [ref(m, PREF[i][1], o) for m in range(0, 3000001, 1000)]
+        top = nets[-1]['t']
+        wants = [None, 0, 1, 50000, 85677, 85678, 100000, 240963, 240964, 390500, 390501, 400000, 716816, 716817, 1000000,
+                 1366000, 1500000, top // 12, top // 12 + 1, max(x['t'] for x in nets) // 12, max(x['t'] for x in nets) // 12 + 1, 2000000]
+        wants += list(range(60000, 1720000, 23456))
+        for k in range(2, len(nets)):                       # 報酬を上げると手取りが下がる所(等級の境目など)の手前の手取り
+            if nets[k]['t'] < nets[k - 1]['t'] and k % 3 == 0:
+                wants += [nets[k - 1]['t'] // 12, nets[k]['t'] // 12 + 1]
+        got = await pg.evaluate(JSG, [(w, i, o) for w in wants])
+        for w, g in zip(wants, got):
+            if not w: want = '欲しい手取りの月額を入力してください'
+            else:
+                k = next((k for k in range(1, len(nets)) if nets[k]['t'] >= w * 12), None)
+                if k is None: want = '報酬月額300万円でも手取りが届きません'
+                else:
+                    e = nets[k]
+                    want = '報酬月額はおよそ%s円です。このときの手取りは月%s円で、会社負担を含む年間総支払額は%s円です' % (f(k * 1000), f(per_month(e['t'])), f(e['c']))
+            n += 1
+            if g != want:
+                bad += 1
+                if bad <= 40: print('NG 逆算', w, PREF[i][0], o, g, want)
 
     # 3 JS が作る早見表(選んだ県・年齢)と見出しの文
     ROWS = list(range(10, 101, 5)) + [110, 120, 130, 140, 150]
@@ -230,6 +272,11 @@ async def body(pg):
         ('元の箱 年', '<b id="o-y">%s<i>円</i></b>' % f(e50['t'])),
         ('元の箱 会社', '<b id="o-c">%s<i>円</i></b>' % f(e50['c'])),
         ('元の文 引かれる額', '<li id="o-br">年に引かれる額は、社会保険料%s円・所得税%s円・住民税%s円です</li>' % (f(e50['s']), f(e50['i']), f(e50['j']))),
+        ('元の文 標準報酬月額と会社負担', '<li id="o-std">健康保険の標準報酬月額は%s円です。会社が負担する社会保険料は月%s円です</li>' % (f(hyojun(500000)), f(shaho(500000, 985, 0)[1]))),
+        ('表の説明', '下で選んだ年齢と都道府県の条件で表示しています。入力した報酬月額以下でいちばん近い行が黄色になります。'),
+        ('逆算の欄', 'id="want" inputmode="numeric" min="0" max="2000000" step="10000" value="400000"'),
+        ('逆算の注', '手取りがこの額以上になる報酬月額を1,000円単位で探しています。'),
+        ('会社負担の文', '会社は本人と同じ額の健康保険料と厚生年金保険料を負担します。'),
         ('元の欄', 'id="inc" inputmode="numeric" min="0" max="3000000" step="10000" value="500000"'),
         ('元の表の上の文', '<p class="cap" id="t-cap">単身・協会けんぽ東京都・40歳未満</p>'),
         ('冒頭の文', '報酬月額50万円なら手取りは月およそ%d万円で、会社は保険料を含めて年およそ%d万円を払います。' % (r_half_up(F(e50['t'], 120000)), r_half_up(F(e50['c'], 10000)))),

@@ -15,11 +15,22 @@
 #  総務省「法人住民税」(均等割 都道府県2万円+市町村5万円=年7万円・赤字でもかかる) https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_08.html
 #  中小企業庁「法人税率の軽減」(前3事業年度の所得の平均が15億円を超える法人は特例から除く・本則19%・10億円超は17%) https://www.chusho.meti.go.jp/zaimu/zeisei/tokurei/houjin_keigen.html
 #  国税庁「法人税のあらまし」申告と納付(終了の日の翌日から2か月以内・中間申告は算式の額が10万円以下なら不要) https://www.nta.go.jp/publication/pamph/hojin/aramashi2023/pdf/01-04.pdf
-# 原本で確かめられなかった所:地方法人税・防衛特別法人税の課税標準1,000円未満と税額100円未満の切り捨て(国税通則法118条・119条の一般の決まり)は
+#  国税庁「法人税のあらましと申告の手引(令和7年10月)」別表一の記載要領(地方法人税の「所得の金額に対する法人税額」は1,000円未満切り捨て・税額が100円未満なら記載しない)
+#   https://www.nta.go.jp/publication/pamph/hojin/aramashi2025/pdf/02-02.pdf
+#  国税庁「防衛特別法人税の創設」(令和8年6月改訂。基準法人税額−基礎控除額 年500万円・4%・税額0円でも申告書を出す)
+#   https://www.nta.go.jp/publication/pamph/pdf/0025004-109_1.pdf
+#  国税庁「令和8年度 法人税関係法令の改正の概要」(法人税率・地方法人税・防衛特別法人税の改正は載っていない)
+#   https://www.nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2026/pdf/A.pdf
+#  国税庁 法人税基本通達9-5-1・9-5-2(事業税は申告書を提出した日の属する事業年度の損金。直前の事業年度分は申告前でも損金にできる)
+#   https://www.nta.go.jp/law/tsutatsu/kihon/hojin/09/09_05_01.htm
+#  中小企業庁「法人税率の軽減」は、15%の期限を「令和9年3月31日までの間に開始する各事業年度」と書いている(ページには期限を書いていない)
+# 原本で確かめられなかった所:防衛特別法人税の課税標準1,000円未満と税額100円未満の切り捨て(国税通則法118条・119条の一般の決まり)は
 #  上の資料に書かれていない。租税特別措置法42条の3の2の条文そのものは開けていない。負担率の四捨五入はページの表示の決めで原本は無い。
+#  法人事業税の所得割の3段階の標準税率(総務省の PDF)は 11-20 に開けなかった。
+# 11-20:ページの式(小数の 0.15・0.232・0.103・0.04)を整数の計算と総当たりで比べた(所得0〜3億円を1,000円刻み・10億円の前後・乱数30万件。248万件で違い0)。
 # 照らすもの:結果の箱(法人税・地方法人税+防衛特別法人税・合計・負担率)・結果の文2つ・JS が作る早見表(4つの条件×19行)・
 #  JS が書き換える前の HTML の数字(結果の箱・早見表19行)・防衛特別法人税の表4行・本文とよく聞かれることの例の数字
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日: 2026-11-20
 import os, re, sys
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -120,6 +131,15 @@ async def body(pg):
     y0 = next(y for y in range(24000000, 25000000, 1000) if ref(y, 0, True)[0] > 5000000)
     chk('かかり始める所得 およそ2,438万円', int(F(y0, 10000) + F(1, 2)), 2438)
     chk('かかり始める所得の文', '所得がおよそ2,438万円を超えるとかかり始めます' in src, True)
+    chk('元の防衛特別法人税のカードの下の文字', re.search(r'id="o-bl">([^<]*)', src).group(1), '対象外')
+    # 早見表の読み方の率(法人税の率×(1+10.3%)を小数第1位に四捨五入)と、よく聞かれることの「9ポイントほど」
+    r1 = F(15 * 1103, 1000); r2 = F(232 * 1103, 10000)
+    chk('読み方 約16.5%', '所得の約%s%%（法人税15%%に、その10.3%%の地方法人税を足した率）' % (F(int(r1 * 10 + F(1, 2)), 10).__float__()) in src, True)
+    chk('読み方 約25.6%', '超えた所得の約%s%%（法人税23.2%%に、その10.3%%の地方法人税を足した率）' % (F(int(r2 * 10 + F(1, 2)), 10).__float__()) in src, True)
+    chk('率の差 9ポイントほど', int(r2 - r1 + F(1, 2)), 9)
+    chk('率の差の文', '率が9ポイントほど高くなります' in src, True)
+    # 均等割(総務省:資本金等の額1千万円以下 道府県2万円+市町村(従業者50人以下)5万円)
+    chk('均等割 年7万円', '標準の税率で年%d万円です' % ((20000 + 50000) // 10000) in src, True)
     # 税率の表
     for w in ('<td>15%</td><td>23.2%</td>', '<td>23.2%</td><td>23.2%</td>', '法人税の額×10.3%', '（法人税の額−500万円）×4%'):
         chk('税率の表 ' + w, w in src, True)
@@ -132,7 +152,7 @@ async def body(pg):
           var i=document.getElementById("inc"); i.value=String(y); i.dispatchEvent(new Event("input",{bubbles:true}));}''', [y, cap, st])
     async def read():
         return await pg.evaluate('''()=>{var g=function(id){return document.getElementById(id).textContent};
-          return {h:g("o-h"),c:g("o-c"),b:g("o-b"),a:g("o-all"),r:g("o-rt"),s1:g("o-1"),s2:g("o-2"),cap:g("t-cap"),
+          return {h:g("o-h"),c:g("o-c"),b:g("o-b"),bl:g("o-bl"),a:g("o-all"),r:g("o-rt"),s1:g("o-1"),s2:g("o-2"),cap:g("t-cap"),
           rows:[].map.call(document.querySelectorAll("#gtb tr"),function(tr){return [].map.call(tr.children,function(td){return td.textContent})}),
           hit:[].map.call(document.querySelectorAll("#gtb tr"),function(tr){return tr.className==="hit"})}}''')
     ys = [0, 1, 999, 1000, 1001, 500000, 1000000, 3000000, 5555555, 10000000, 12345678, 20000000, 30000000,
@@ -153,6 +173,7 @@ async def body(pg):
                 chk(lab + '地方法人税', num(g['c']), c)
                 chk(lab + '防衛特別法人税', num(g['b']), b)
                 chk(lab + '合計', num(g['a']), t)
+                chk(lab + '防衛特別法人税のカードの下の文字', g['bl'], '年額' if b > 0 else '対象外')
                 chk(lab + '負担率', g['r'], '所得の' + (pct_s(t, y, False) if y > 0 else '0%'))
                 chk(lab + '文1', g['s1'], s1(y, cap))
                 chk(lab + '文2', g['s2'], s2(y, cap, st))

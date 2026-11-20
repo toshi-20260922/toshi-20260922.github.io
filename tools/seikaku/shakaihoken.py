@@ -11,6 +11,12 @@
 #   https://www.mhlw.go.jp/hourei/doc/tsuchi/T260216S0101.pdf
 # 日本年金機構「厚生年金保険料額表」(18.3%で固定) https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/index.html
 # 日本年金機構「子ども・子育て拠出金率が改定されました」(令和2年4月分から0.36%) https://www.nenkin.go.jp/oshirase/taisetu/2020/202005/20200514.html
+#   拠出金の基礎は保険料額表(東京)の注記「被保険者個々の厚生年金保険の標準報酬月額および標準賞与額に、拠出金率(0.36%)を乗じて得た額の総額」。
+#   表の右端の列「うち子ども・子育て拠出金」(2026-11-20 にほかのチャットが足した列)は、厚生年金の標準報酬月額(88,000円〜650,000円)×0.36%の円未満切り捨てで照らす。
+# こども家庭庁「子ども・子育て支援金制度について」(令和8年度の支援金率0.23%・令和8年4月分から) https://www.cfa.go.jp/policies/kodomokosodateshienkinseido
+# 日本年金機構「厚生年金保険料等の免除(産前産後休業・育児休業等期間)」(事業主の申出で被保険者と事業主の両方の負担を免除)
+#   https://www.nenkin.go.jp/service/kounen/hokenryo/menjo/20140122-01.html
+# 2026-11-20 の取り直し:47都道府県の料率は協会けんぽの一覧のページで全県を開いて確かめた。全50等級の境目と折半額は東京の表の全行、大阪は10行。
 # 厚生労働省「厚生年金等の標準報酬月額の上限の段階的引上げについて」(2027年9月68万円・2028年9月71万円・2029年9月75万円)
 #   https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000147284_00024.html
 # 山形労働局「令和8年度の雇用保険料率について」(一般の事業の労働者負担は1,000分の5) https://jsite.mhlw.go.jp/yamagata-roudoukyoku/koyouhoken-20260316.html
@@ -102,7 +108,9 @@ def ref(hyo, rate, old):
     nen = r50(Fraction(p * NENKIN, 10000) / 2)
     kyo = p * KYOSHUTSU // 10000                           # 拠出金は事業主だけ。円未満切り捨て
     zen = hyo * (rate + SHIEN + (KAIGO if old else 0)) // 10000 + p * NENKIN // 10000   # 全額は円未満切り捨て(2026-11-20 に /yakuin-tedori/ と同じ方式へ直した)
-    return {'ken': ken, 'nen': nen, 'me': ken + nen, 'co': zen - ken - nen + kyo}       # 会社負担=全額−本人負担+拠出金
+    return {'ken': ken, 'nen': nen, 'me': ken + nen, 'co': zen - ken - nen + kyo, 'kyo': kyo}       # 会社負担=全額−本人負担+拠出金
+# 子ども・子育て拠出金(会社だけ):厚生年金の標準報酬月額(32等級)ごとの額。1,000円につき3円60銭 → 銭で数えて円未満を切り捨てる
+KYO_YEN = {g[1]: (g[1] // 1000 * 360) // 100 for g in GR if 88000 <= g[1] <= 650000}
 def c(v):
     return '{:,}'.format(v)
 def pc(r):
@@ -127,6 +135,16 @@ async def body(pg):
         chk('原本 大阪 %d' % hyo, (Fraction(a, 10), Fraction(b, 10), Fraction(s, 10)),
             (Fraction(hyo * 1013, 20000), Fraction(hyo * 1175, 20000), Fraction(hyo * 23, 20000)))
 
+    # 表の見出しの列(右端が拠出金の列)と、早見表が計算の箱より上にあること
+    ths = await pg.eval_on_selector_all('table.sh9 thead th', 'ts=>ts.map(t=>t.textContent)')
+    chk('表の見出しの列', ths, ['等級', '報酬月額', '標準報酬月額', '健康保険（本人）', '厚生年金（本人）', '本人合計40歳未満', '本人合計40〜64歳',
+                          '会社負担40歳未満', '会社負担40〜64歳', 'うち子ども・子育て拠出金'])
+    chk('早見表が箱より上', await pg.evaluate('!!(document.getElementById("gtb").compareDocumentPosition(document.getElementById("calc")) & 4)'), True)
+    # 拠出金の列の自分の計算:厚生年金の標準報酬月額ごとに 0.36% を掛けて円未満を切り捨てる(1,000円ごとに3.6円なので分数で出す)
+    for hyo in sorted(KYO_YEN):
+        chk('拠出金 %d' % hyo, KYO_YEN[hyo], (Fraction(hyo) * Fraction(36, 10000)).__floor__())
+    chk('拠出金 下と上', (KYO_YEN[88000], KYO_YEN[650000], len(KYO_YEN)), (316, 2340, 32))
+
     # 選択肢(47都道府県・名前と料率)
     opts = await pg.eval_on_selector_all('#pref option', 'os=>os.map(o=>o.textContent)')
     chk('選択肢', opts, ['%s（%s%%）' % (nm, pc(r)) for nm, r in RATE])
@@ -146,7 +164,7 @@ async def body(pg):
             y0, y1 = ref(g[1], rate, 0), ref(g[1], rate, 1)
             rg = c(g[3]) + '未満' if g[2] == 0 else (c(g[2]) + '以上' if g[3] == 0 else c(g[2]) + '〜' + c(g[3]) + '未満')
             chk('表 %s %d等級' % (nm, g[0]), r,
-                [str(g[0]), rg, c(g[1]), c(y0['ken']), c(y0['nen']), c(y0['me']), c(y1['me']), c(y0['co']), c(y1['co'])])
+                [str(g[0]), rg, c(g[1]), c(y0['ken']), c(y0['nen']), c(y0['me']), c(y1['me']), c(y0['co']), c(y1['co']), c(KYO_YEN[min(max(g[1], 88000), 650000)])])
 
     # 結果の箱
     async def box(m, i, old):
@@ -163,7 +181,7 @@ async def body(pg):
         chk(lab + ' 結論', await pg.inner_text('#o-vd'), '本人負担は毎月%s円です' % c(e['me']))
         chk(lab + ' 結論の下', await pg.inner_text('#o-vds'),
             '標準報酬月額は%s円（%d等級）です。会社負担は毎月%s円です' % (c(g[1]), g[0], c(e['co'])))
-        chk(lab + ' 等級の文', await pg.inner_text('#o-grade'), '%d等級は、下の早見表の黄色の行です' % g[0])
+        chk(lab + ' 等級の文', await pg.inner_text('#o-grade'), '%d等級は、上の早見表の黄色の行です' % g[0])
         chk(lab + ' 内訳', await pg.inner_text('#o-break'), '本人負担の内訳は、健康保険%s円・厚生年金%s円です' % (c(e['ken']), c(e['nen'])))
         chk(lab + ' 黄色の行', await pg.eval_on_selector_all('#gtb tr.hit', 'rs=>rs.map(r=>r.children[0].textContent)'), [str(g[0])])
     ms = [0, 1, 50000, 2000000, 5000000]
@@ -207,7 +225,10 @@ async def body(pg):
         ('元の文 本人', 'id="o-me">%s<i>' % c(t0['me'])), ('元の文 会社', 'id="o-co">%s<i>' % c(t0['co'])),
         ('元の文 合計', 'id="o-all">%s<i>' % c(t0['me'] + t0['co'])),
         ('元の文 年間', 'id="o-year">年間 約%d万円' % ((Fraction((t0['me'] + t0['co']) * 12, 10000) + Fraction(1, 2)).__floor__())),
-        ('元の文 等級', '標準報酬月額は300,000円（%d等級）です。' % grade(300000)[0]),
+        ('元の文 等級', '標準報酬月額は300,000円（%d等級）です。上の早見表の黄色の行です<' % grade(300000)[0]),
+        ('表の注 右端の列', '右端の列はそのうちの子ども・子育て拠出金で、会社だけが払います。'),
+        ('注意点 免除', '会社が申し出ると本人と会社の両方の保険料が免除されます'),
+        ('出典 こども家庭庁', 'href="https://www.cfa.go.jp/policies/kodomokosodateshienkinseido">こども家庭庁「子ども・子育て支援金制度について」'),
         ('元の文 内訳', '健康保険%s円・厚生年金%s円です' % (c(t0['ken']), c(t0['nen']))),
         ('元の文 表の見出し', 'id="t-cap">協会けんぽ 東京都・月額・単位は円<'),
         ('元の文 月給', 'id="pay" inputmode="numeric" min="0" max="2000000" step="1000" value="300000"'),

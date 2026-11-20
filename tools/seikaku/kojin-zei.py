@@ -20,7 +20,19 @@
 #   大阪府「令和8年度大阪府市町村標準保険料率等の算定結果について」(医療分の上限は66万円) https://www.pref.osaka.lg.jp/o100080/kokuho/iryouseido/hokenryouritsu/hokenryouritsu2.html
 # 照らすもの:画面の結果(22の市区町村×青色3通り×年齢2通り×利益)・JS の料率と regions.py・HTML に手で書いた表2つの全行・JS が作る表・本文の数字
 # 税額の端数:所得税と復興特別所得税の合計は100円未満切り捨て(申告納税額)・住民税の所得割は区市町村分と都道府県分でそれぞれ100円未満切り捨て・個人事業税は課税標準1,000円未満と税額100円未満を切り捨て
-# 最後に原本を確かめた日:2026-11-19
+# 2026-11-20 に確かめ直したもの:
+#   国税庁 No.1199・「給与所得者(従業員)の方へ(令和8年分)」の基礎控除の表(489万円以下104万円・655万円以下67万円・2,350万円以下62万円・48万/32万/16万)
+#   国税庁 No.2072(令和8年4月1日現在。55万円=複式簿記と期限内申告・65万円=さらに優良な電子帳簿か e-Tax・10万円=それ以外。令和9年分からの改正はこのページに無い)
+#   国税庁「令和9年分から青色申告特別控除はどう変わる?」(令和9年分から。複式簿記と e-Tax で65万円・優良な電子帳簿も満たすと75万円) https://www.nta.go.jp/taxes/shiraberu/shinkoku/kojin_jigyo/0026004-012.pdf
+#   国税庁 No.2260(速算表・1,000円未満切り捨て・復興特別所得税2.1%)
+#   東京都主税局 個人事業税(事業主控除290万円・第1種5%・第2種4%・第3種5%と3%・青色申告特別控除は所得に加算・8月と11月・法定業種は70)
+#   東京都主税局 個人住民税(調整控除・都民税4%と区市町村民税6%・均等割1,000円と3,000円・森林環境税1,000円・45万円以下は非課税・年4回)
+#   浦添市「令和9年度からの個人住民税の主な改正点」(住民税の基礎控除43万円は変更なし) https://www.city.urasoe.lg.jp/doc/2026102300129
+#   大阪市「所得控除額の計算」(住民税の基礎控除 43万円・29万円・15万円) https://www.city.osaka.lg.jp/zaisei/page/0000370588.html
+#   日野市「令和8年度国民健康保険税の税制改正に伴う変更について」(上限 67万・26万・17万・3万円。軽減 43万円・+31万円×人数・+57万円×人数) https://www.city.hino.lg.jp/kurashi/kokuhonenkin/1023198/1023199/1030606.html
+#   日本年金機構 国民年金保険料(令和8年度 月17,920円)
+# 2026-11-20 に足した照らし合わせ:青色申告特別控除の表(55万円・10万円・白色の列。5行)・黄色の行(入力した利益を超えない中でいちばん近い行)
+# 最後に原本を確かめた日:2026-11-20
 import os, sys, re, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -148,6 +160,10 @@ async def body(pg):
         e = ref(TK, d(r[0]) * 10000, 650000, 0)
         chk('JS の表 %s万円' % r[0], [d(x) for x in r[1:]], [e['tax'], e['sh'], e['net']])
     chk('表の見出し', await pg.inner_text('#t-cap'), '青色申告65万円・40歳未満・東京23区')
+    text = await pg.inner_text('main')
+    def has(label, s):
+        chk(label + ' 「' + s + '」', s in text, True)
+    f = lambda v: format(v, ',')
     # 4 手で書いた表2つ(各27行)
     tbs = await pg.evaluate('()=>[].map.call(document.querySelectorAll("table.x7t10"),function(t){return [].map.call(t.tBodies[0].rows,function(r){return [].map.call(r.cells,function(c){return c.textContent;});});})')
     chk('手で書いた表の数', len(tbs), 2)
@@ -161,11 +177,24 @@ async def body(pg):
             want = [e['it'], e['ju'], e['jg'], e['k'], NEN, tot, e['net'], half_up(Fraction(e['net'], 12)), '%d.%d%%' % (p10 // 10, p10 % 10)]
             chk('表%d %s' % (old, r[0]), [d(x) for x in r[1:9]] + [r[9]], want)
     chk('trNone の残り', html.count('trNone'), 0)
+    # 4-2 青色申告特別控除の表(手で書いた5行。65万円の手取りと、55万円・10万円・白色のときに減る額)
+    ab = await pg.evaluate('()=>[].map.call(document.querySelectorAll(":is(#ao ~ .tw):not(#ao ~ .tw ~ .tw) tbody tr"),function(r){return [].map.call(r.cells,function(c){return c.textContent;});})')
+    chk('青色の表の利益の並び', [d(r[0]) for r in ab], [300, 500, 700, 1000, 1500])
+    for r in ab:
+        a = d(r[0]) * 10000; n65 = ref(TK, a, 650000, 0)['net']
+        want = [f(n65)] + ['−' + f(n65 - ref(TK, a, x, 0)['net']) for x in (550000, 100000, 0)]
+        chk('青色の表 %s' % r[0], r[1:], want)
+    # 4-3 黄色の行は、入力した利益を超えない中でいちばん近い行
+    RW = [200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1500]
+    for a in (1990000, 2000000, 5990000, 6000000, 14990000, 15000000, 50000000):
+        hit = await pg.evaluate('''(a)=>{var inc=document.getElementById("inc");inc.value=a;inc.dispatchEvent(new Event("input"));
+          var t=[].map.call(document.querySelectorAll("#tb tr.hit"),function(r){return r.cells[0].textContent;});return t;}''', a)
+        w = [x for x in RW if x * 10000 <= a]
+        chk('黄色の行 %d' % a, [d(x) for x in hit], w[-1:])
+    await pg.evaluate(READ, [0, 650000, 0, [5000000]])
+    has('黄色の行の文', '入力した利益を超えない中でいちばん近い行が黄色になります')
+    has('均等割と森林環境税', '均等割と森林環境税が合わせて5,000円')
     # 5 本文の数字(東京23区・青色65万円・40歳未満)
-    text = await pg.inner_text('main')
-    def has(label, s):
-        chk(label + ' 「' + s + '」', s in text, True)
-    f = lambda v: format(v, ',')
     R5 = lambda ao, old=0, a=5000000: ref(TK, a, ao, old)
     a5 = R5(650000)
     has('冒頭', '手取りは年%s円（月あたり%s円・手取り率%s%%）' % (f(a5['net']), f(half_up(Fraction(a5['net'], 12))), '%.1f' % (half_up(Fraction(a5['net'] * 1000, 5000000)) / 10)))

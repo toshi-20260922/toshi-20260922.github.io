@@ -7,7 +7,7 @@
 #  国税庁「令和8年度税制改正による基礎控除の引上げ等」(本則62万円・加算42万円と5万円・給与所得控除の最低74万円・69万1,000円から220万円未満の表)
 #   https://www.nta.go.jp/publication/pamph/gensen/2026kaisei.pdf  https://www.nta.go.jp/users/gensen/2026kiso/pdf/0026005-024.pdf
 #  国税庁 No.2072 青色申告特別控除(65万円・令和8年4月1日現在法令等) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2072.htm
-#  東京都主税局「個人事業税」(事業主控除 年290万円・第1種5%・青色申告特別控除は適用なし) https://www.tax.metro.tokyo.lg.jp/kazei/work/kojin_ji
+#  東京都主税局「個人事業税」(事業主控除 年290万円・第1種5%・第2種4%・第3種5%(一部3%)・青色申告特別控除は適用なし) https://www.tax.metro.tokyo.lg.jp/kazei/work/kojin_ji
 #  東京都主税局「個人住民税」(都民税4%・区市町村民税6%・均等割と森林環境税で5,000円・調整控除・2,500万円超は調整控除なし・45万円以下は非課税・
 #   給与所得控除74万円は令和9年度分から) https://www.tax.metro.tokyo.lg.jp/kazei/life/kojin_ju
 #  総務省「個人住民税」 https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_06.html
@@ -30,7 +30,7 @@
 #   横浜市「令和8年度保険料の料率等について」 https://www.city.yokohama.lg.jp/kurashi/koseki-zei-hoken/kokuho/hokenryo/r7hokennryouritu.html
 #   ほかの19の市区町村は tools/regions.py(2026/11/16 に公式ページで確かめた値)と同じかだけを見る。
 # 照らすもの:結果の箱(個人事業・法人・差・役員報酬の月額・社会保険料・分岐点の文)・JS が作る10行の表・HTML に手で書いた早見表3枚の全マス・本文の分岐点の数字
-#  国税庁 No.5300 租税公課等の損金算入の可否と租税の損金算入時期(都道府県民税と市町村民税の本税は損金にならない・事業税は申告書を出した事業年度の損金)
+#  国税庁 No.5300 損金の額に算入される租税公課等の範囲と損金算入時期(都道府県民税と市町村民税の本税は損金にならない・事業税は申告書を出した事業年度の損金)
 #   https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5300.htm
 #  法人税基本通達9-5-1・9-5-2(事業税と特別法人事業税の損金算入の時期) https://www.nta.go.jp/law/tsutatsu/kihon/hojin/09/09_05_01.htm
 # 決め(2026-11-20 に直した):
@@ -326,7 +326,9 @@ async def body(pg):
         ('質問1', '役員報酬を月30万円にするなら利益%d万円から、月50万円なら%d万円から法人のほうが' % (t3[0], t5[0])),
         ('質問3', '役員報酬が月30万円なら%d万円で月50万円なら%d万円です。' % (t3[1], t5[1])),
         ('国民年金の月額', '国民年金（月{:,}円）'.format(NENKIN_KOKUMIN // 12)),
-        ('事業主控除', '事業主控除290万円を超える所得に5%'),
+        ('事業主控除', '事業主控除290万円を超える所得に3〜5%（この計算は5%）'),
+        ('住民税の標準税率', '住民税はどの地域も標準税率（所得割10%、均等割と森林環境税で年5,000円）です。'),
+        ('黄色の行の文', '入力した利益を超えない中でいちばん近い行が黄色になります。'),
         ('均等割', '法人住民税の均等割は年7万円'),
         ('前提 事業税', '前の年の分の法人事業税・特別法人事業税を会社の経費に含めています'),
         ('前提 均等割', '法人住民税の均等割は、法人税の計算で経費にならないので所得から引いていません'),
@@ -335,6 +337,26 @@ async def body(pg):
         chk('本文 ' + label, want in flat, True)
     chk('均等割 2万円+5万円', 20000 + 50000, 70000)
     # 書き換える前の元の文と既定の選び方
+    # 書き換える前の元の文(HTML に直に書いた既定の結果)が、既定の条件(東京23区・東京都・40歳未満・利益800万円)の自分の計算と同じか
+    k0 = kojin(8000000, 0, RR[0]); h0 = houjin(8000000, 0, 985); d0 = h0['net'] - k0; c0 = (cross(0, RR[0], 985) + 100000) // 10000
+    sgn = '+' if d0 >= 0 else '−'
+    for label, want in [
+        ('勝ち', '<b id="o-win">%s</b>' % ('法人のほうが多く残ります' if d0 >= 0 else '個人事業のままのほうが多く残ります')),
+        ('分岐点', '<span id="o-wd">年{:,}円多く残ります。この条件で法人のほうが多く残るのは、利益が{:,}万円からです</span>'.format(abs(d0), c0)),
+        ('個人事業', '<b id="o-k">{:,}<i>円</i></b>'.format(k0)),
+        ('法人', '<b id="o-h">{:,}<i>円</i></b>'.format(h0['net'])),
+        ('差', '>%s{:,}<i>円</i></b><em id="o-w">%s</em>'.format(abs(d0)) % (sgn, '法人のほうが多い' if d0 >= 0 else '個人事業のほうが多い')),
+        ('報酬', '<li id="o-1">法人は役員報酬を月{:,}円とし、会社に残る利益をゼロにしています</li>'.format(h0['m'])),
+        ('社会保険料', '<li id="o-2">法人の社会保険料は、本人負担と会社負担を合わせて年{:,}円です</li>'.format(h0['sh'])),
+        ('箱の色', '<div class="vd%s" id="vd">' % (' no' if d0 >= 0 else '')),
+        ('既定の利益', 'id="inc" inputmode="numeric" min="0" max="50000000" step="10000" value="8000000"'),
+    ]:
+        chk('元の文 ' + label, want in raw, True)
+    # 黄色の行:入力した利益を超えない中でいちばん近い行(400万円より下は無し)
+    for a, want in ((3990000, []), (4000000, ['400']), (5990000, ['500']), (8000000, ['800']), (11990000, ['1,000']), (19990000, ['1,500']), (50000000, ['2,000'])):
+        await pg.evaluate(SET, [0, 12, 0, a, None])
+        chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', 'rs=>rs.map(r=>r.children[0].textContent)'), want)
+    await pg.evaluate(SET, [0, 12, 0, 8000000, None])
     chk('元の文 地域', '<li id="o-reg">単身・東京23区の国民健康保険・協会けんぽ東京都で計算しています</li>' in raw, True)
     chk('既定の都道府県', '<option value="12" selected>東京都（9.85%）</option>' in raw, True)
     chk('既定の市区町村', await pg.evaluate("()=>document.getElementById('reg').options[0].textContent"), '東京23区（下の3区を除く20区）')
