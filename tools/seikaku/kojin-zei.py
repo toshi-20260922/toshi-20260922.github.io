@@ -32,7 +32,12 @@
 #   日野市「令和8年度国民健康保険税の税制改正に伴う変更について」(上限 67万・26万・17万・3万円。軽減 43万円・+31万円×人数・+57万円×人数) https://www.city.hino.lg.jp/kurashi/kokuhonenkin/1023198/1023199/1030606.html
 #   日本年金機構 国民年金保険料(令和8年度 月17,920円)
 # 2026-11-20 に足した照らし合わせ:青色申告特別控除の表(55万円・10万円・白色の列。5行)・黄色の行(入力した利益を超えない中でいちばん近い行)
-# 最後に原本を確かめた日:2026-11-20
+# 2026-11-21 に確かめ直したもの:国税庁「給与所得者(従業員)の方へ(令和8年分)」の基礎控除の表・No.1199(令和8年4月1日現在)・No.2072・No.2260・
+#   「令和8年度税制改正(所得税の基礎控除の引上げ等関係)Q&A」(題名と令和8年5月)・東京都主税局 個人事業税と個人住民税・
+#   東京都保健医療局「令和8年度 特別区国民健康保険料一覧表」・世田谷区「保険料の計算方法」・横浜市「保険料について」(令和8年度の軽減 43万円・+31万円・+57万円)・
+#   仙台市「令和9年度(令和8年分)から適用される個人市県民税の税制改正等について」(住民税の基礎控除は改正なし・非課税の所得45万円以下は同じ)・日本年金機構 国民年金保険料
+# 2026-11-21 に足した照らし合わせ:計算の箱に直に書いた既定の結果(JS が書き換える前の HTML。申し送りの形11・16)
+# 最後に原本を確かめた日:2026-11-21
 import os, sys, re, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -177,6 +182,18 @@ async def body(pg):
             want = [e['it'], e['ju'], e['jg'], e['k'], NEN, tot, e['net'], half_up(Fraction(e['net'], 12)), '%d.%d%%' % (p10 // 10, p10 % 10)]
             chk('表%d %s' % (old, r[0]), [d(x) for x in r[1:9]] + [r[9]], want)
     chk('trNone の残り', html.count('trNone'), 0)
+    # 4-0 計算の箱に直に書いた既定の結果(JS が動く前の HTML)。既定は東京23区・利益500万円・青色65万円・40歳未満
+    e0 = ref(regions.REG[0], d(re.search(r'id="inc"[^>]*value="(\d+)"', html).group(1)), 650000, 0)
+    def raw(i):
+        return re.sub(r'<[^>]+>', '', re.search(r'id="%s">(.*?)</(?:b|em|li)>' % i, html).group(1))
+    chk('既定の入力', re.search(r'id="inc"[^>]*value="(\d+)"', html).group(1), '5000000')
+    chk('箱の既定 手取り', raw('o-n'), f(e0['net']) + '円')
+    chk('箱の既定 手取り率', raw('o-nr'), '利益の%d%%' % half_up(Fraction(e0['net'] * 100, 5000000)))
+    chk('箱の既定 税金', raw('o-t'), f(e0['tax']) + '円')
+    chk('箱の既定 社会保険料', raw('o-s'), f(e0['sh']) + '円')
+    chk('箱の既定 税金の内訳', raw('o-br'), '税金の内訳は、所得税%s円・住民税%s円・個人事業税%s円です' % (f(e0['it']), f(e0['ju']), f(e0['jg'])))
+    chk('箱の既定 社会保険料の内訳', raw('o-sh'), '社会保険料は、国民健康保険%s円と国民年金%s円です' % (f(e0['k']), f(NEN)))
+    chk('箱の既定 地域', raw('o-reg'), '国民健康保険は%sの令和8年度の料率で計算しています' % regions.REG[0]['s'])
     # 4-2 青色申告特別控除の表(手で書いた5行。65万円の手取りと、55万円・10万円・白色のときに減る額)
     ab = await pg.evaluate('()=>[].map.call(document.querySelectorAll(":is(#ao ~ .tw):not(#ao ~ .tw ~ .tw) tbody tr"),function(r){return [].map.call(r.cells,function(c){return c.textContent;});})')
     chk('青色の表の利益の並び', [d(r[0]) for r in ab], [300, 500, 700, 1000, 1500])

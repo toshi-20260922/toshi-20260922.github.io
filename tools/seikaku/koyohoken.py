@@ -22,14 +22,22 @@
 #   https://jsite.mhlw.go.jp/aichi-roudoukyoku/hourei_seido_tetsuzuki/roudou_hoken/koureiroudousyamenjo.html
 # 青森労働局「令和8年度労働保険年度更新のお知らせ」(6月1日(月)から7月10日(金)まで)
 #   https://jsite.mhlw.go.jp/aomori-roudoukyoku/newpage_01580.html
-# 照らすもの:結果の箱(本人負担・会社負担・合計・年間・料率・令和7年度の料率の額)・
+# 照らすもの(2026-11-21 に足したものは下の「2026-11-21」の行):結果の箱(本人負担・会社負担・合計・年間・料率・令和7年度の料率の額)・
 #   JS が作る早見表の全行(56行×8列。1つの表に3つの事業を並べる形。一般の事業は本人・会社・合計、ほかの2つは本人・会社)を
 #   3つの事業のボタンごとに・選んだ事業の列の太字・よく見る月給の小さい表(6行×4列)を3つの事業ごとに・
 #   HTML に手で書いた料率の表と令和7年度との比較の表の全行・本文の例の数字・JS が書き換える前の元の文
 # 2026-11-20:ほかのチャットが早見表を「選んだ事業だけ4列」から「3つの事業を並べた8列」に変え、小さい表を足した。
 #   突き合わせが古かったので今の形に合わせた(ページの数字に誤りは無かった)。
 # 会社負担の円未満切り捨てと年間の額(0.1万円の位に四捨五入)は、原本の決まりではなくページが注に書いている目安の出し方。その書き方どおりかを見る。
-# 最後に原本を確かめた日: 2026-11-20
+# 2026-11-21:足したもの。(1)早見表と小さい表を1つのセルごとに数える形(56行×8列×3つの事業)
+#   (2)端数の境目を式から出して全部当てる形(賃金×料率の円未満がちょうど50銭になる賃金と、その1円下・1円上。
+#      令和8年度の本人の料率と令和7年度の本人の料率の両方。低い・中くらい・高い・入力の上限の近く)
+#   (3)会社負担の切り捨ての境目(ちょうど割り切れる賃金とその1円下) (4)手で計算した額との照らし(自分の式の確かめ)
+#   (5)開いた直後の画面 (6)空の入力 (7)スライダーを3つの事業で (8)題名・説明の文
+# 2026-11-21 に開けた原本:厚生労働省「令和8年度 雇用保険料率のご案内」(料率・期間・注記)・山形労働局「令和8年度の雇用保険料率について」・
+#   大阪労働局「労働保険料の計算方法」(源泉控除は50銭以下切り捨て・50銭1厘以上切り上げ。現金で払う場合は50銭未満切り捨て・50銭以上切り上げ)・
+#   青森労働局「令和8年度労働保険年度更新のお知らせ」(6月1日(月)〜7月10日(金))。ほかの原本は 2026-11-20 に確かめたまま。
+# 最後に原本を確かめた日: 2026-11-21
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
@@ -64,6 +72,31 @@ def nenkan(tot):
 def c(v):
     return '{:,}'.format(v)
 
+def sakai(r, bases):
+    """賃金×料率(1,000分の r)の円未満がちょうど50銭になる賃金を、bases のそれぞれの額以上でいちばん近い所から2つずつ探し、
+    その1円下・ちょうど・1円上を返す。"""
+    out = []
+    for b in bases:
+        w = b; k = 0
+        while k < 2:
+            x = F(w) * r / 1000
+            if x - (x.numerator // x.denominator) == F(1, 2):
+                out += [w - 1, w, w + 1]; k += 1
+            w += 1
+    return out
+
+def wari(r, bases):
+    """賃金×料率がちょうど割り切れる賃金(1円以上の額になる所)と、その1円下。会社負担の切り捨ての境目。"""
+    out = []
+    for b in bases:
+        w = max(b, 1)
+        while (F(w) * r / 1000).denominator != 1 or F(w) * r / 1000 < 1:
+            w += 1
+        out += [w - 1, w]
+    return out
+
+BASES = [1, 5000, 87654, 299000, 654321, 999000, 9990000]
+
 MINI = [200000, 250000, 300000, 350000, 400000, 500000]      # よく見る月給の小さい表の行
 SHORT = ['一般の事業', '農林水産・清酒製造', '建設の事業']      # 表の中の短い名前
 
@@ -82,6 +115,20 @@ async def body(pg):
         n += 1
         if got != want:
             bad += 1; print('NG', label, repr(got), repr(want))
+
+    # 自分の式の確かめ。原本の料率から手で計算した額(式を通さずに書いた数字)
+    for w, r, want in [(300000, F(5), 1500), (300000, F(6), 1800), (300100, F(5), 1500), (300101, F(5), 1501), (300300, F(5), 1501), (300301, F(5), 1502),
+                       (250, F(6), 1), (251, F(6), 2), (249, F(6), 1), (100, F(5), 0), (101, F(5), 1), (1000, F(11, 2), 5), (1001, F(11, 2), 6),
+                       (1000, F(13, 2), 6), (1001, F(13, 2), 7), (123456, F(5), 617), (123456, F(6), 741), (300000, F(11, 2), 1650), (300000, F(13, 2), 1950)]:
+        chk('手計算 本人 %d %s' % (w, r), honnin(w, r), want)
+    for w, r, want in [(300000, F(17, 2), 2550), (300000, F(19, 2), 2850), (300000, F(21, 2), 3150), (123456, F(17, 2), 1049), (123456, F(19, 2), 1172),
+                       (123456, F(21, 2), 1296), (1999, F(17, 2), 16), (2000, F(17, 2), 17)]:
+        chk('手計算 会社 %d %s' % (w, r), kaisha(w, r), want)
+    # 端数の境目の賃金が式から出ているか(一般は100円+200円ごと・6/1,000は250円+500円ごと・令和7年度は1,000円+2,000円ごと)
+    chk('境目 5', sakai(F(5), [1])[:6], [99, 100, 101, 299, 300, 301])
+    chk('境目 6', sakai(F(6), [1])[:6], [249, 250, 251, 749, 750, 751])
+    chk('境目 5.5', sakai(F(11, 2), [1])[:6], [999, 1000, 1001, 2999, 3000, 3001])
+    chk('境目 6.5', sakai(F(13, 2), [1])[:6], [999, 1000, 1001, 2999, 3000, 3001])
 
     raw = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'site', 'koyohoken', 'index.html'), encoding='utf-8').read()
 
@@ -127,6 +174,21 @@ async def body(pg):
     rawmini = [re.findall(r'<td>(.*?)</td>', tr) for tr in re.findall(r'<tr[^>]*>(.*?)</tr>', m.group(1), re.S)]
     chk('元の小さい表', rawmini, [[c(v), c(honnin(v, g[2])), c(kaisha(v, g[3])), c(honnin(v, g[2]) + kaisha(v, g[3]))] for v in MINI])
     chk('元の小さい表の黄色の行', re.findall(r'<tr class="hit"><td>(.*?)</td>', m.group(1)), ['300,000'])
+
+    # 題名・説明の文(ファイルの中身)
+    chk('題名', '<title>【雇用保険料の早見表】給料から引かれる額と会社負担は？料率【令和8年度】</title>' in raw, True)
+    chk('題名と og:title', raw.count('【雇用保険料の早見表】給料から引かれる額と会社負担は？料率【令和8年度】'), 2)
+    chk('説明の文', raw.count('content="厚生労働省が公表している令和8年度の雇用保険料率にもとづき、月給5万円から60万円までの本人負担と会社負担を早見表にしました。給料や賞与の額を入力すると、その月の雇用保険料を表示します。"'), 2)
+
+    # 開いた直後の画面(何も押す前)。一般の事業・30万円
+    chk('開いた直後 入力欄', ''.join(ch for ch in await pg.input_value('#pay') if ch.isdigit()), '300000')
+    chk('開いた直後 ボタン', await pg.eval_on_selector_all('.seg button.on', 'bs=>bs.map(b=>b.dataset.t)'), ['0'])
+    for sel_, want in [('#o-me', c(a) + '円'), ('#o-co', c(b) + '円'), ('#o-all', c(a + b) + '円'), ('#o-year', nenkan(a + b)),
+                       ('#o-rme', '1,000分の5'), ('#o-rco', '1,000分の8.5'), ('#o-rk', '一般の事業'),
+                       ('#o-old', '令和7年度の料率なら、本人負担は1,650円でした'), ('#t-cap', '月額・単位は円（太字は一般の事業）')]:
+        chk('開いた直後 ' + sel_, await pg.inner_text(sel_), want)
+    chk('開いた直後 早見表の行の数', await pg.eval_on_selector_all('#gtb tr', 'rs=>rs.length'), 56)
+    chk('開いた直後 黄色の行', await pg.eval_on_selector_all('#gtb tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), ['300,000'])
 
     # 早見表の頭の行(3つの事業を並べる形)
     head = await pg.eval_on_selector_all('table.ky3 thead tr', "rs=>rs.map(r=>[...r.children].map(th=>th.textContent+'/'+(th.colSpan||1)))")
@@ -174,7 +236,10 @@ async def body(pg):
     for t, name, me, co, ni, me7, tot7 in GEN:
         await pg.click('.seg button[data-t="%d"]' % t)
         chk('選ばれたボタン ' + name, await pg.eval_on_selector_all('.seg button.on', 'bs=>bs.map(b=>b.dataset.t)'), [str(t)])
-        for w in ws:
+        # 式から出した境目:本人負担(令和8年度と令和7年度の料率)がちょうど50銭になる賃金の前後・会社負担が割り切れる賃金とその1円下
+        ws2 = sorted(set(ws + sakai(me, BASES) + sakai(me7, BASES) + wari(co, BASES)))
+        chk('境目の賃金の数 ' + name, len(ws2) >= len(ws) + 60, True)
+        for w in ws2:
             await pg.fill('#pay', str(w))
             a = honnin(w, me); b = kaisha(w, co)
             chk('箱 本人負担 %s %d' % (name, w), await pg.inner_text('#o-me'), c(a) + '円')
@@ -193,8 +258,11 @@ async def body(pg):
         rows = await pg.eval_on_selector_all('#gtb tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
         want = [row8(v) for v in range(50000, 600001, 10000)]
         chk('早見表の行の数 ' + name, len(rows), 56)
+        HEAD8 = ['給料の額', '一般 本人', '一般 会社', '一般 合計', '農林水産・清酒製造 本人', '農林水産・清酒製造 会社', '建設 本人', '建設 会社']
         for r, e in zip(rows, want):
-            chk('早見表 %s %s' % (name, e[0]), r, e)
+            chk('早見表の列の数 %s %s' % (name, e[0]), len(r), 8)
+            for h8, x, y in zip(HEAD8, r, e):
+                chk('早見表 %s %s %s' % (name, e[0], h8), x, y)
         # 太字の列は選んだ事業の列だけ(一般は2〜4列目・農林水産/清酒製造は5〜6列目・建設は7〜8列目)
         sel = await pg.eval_on_selector_all('#gtb tr', "rs=>rs.map(r=>[...r.children].map((td,i)=>td.classList.contains('sel')?i:-1).filter(i=>i>=0).join(','))")
         chk('太字の列 ' + name, sorted(set(sel)), [['1,2,3', '4,5', '6,7'][t]])
@@ -204,7 +272,21 @@ async def body(pg):
         rows = await pg.eval_on_selector_all('#minib tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
         chk('小さい表の行の数 ' + name, len(rows), len(MINI))
         for r, v in zip(rows, MINI):
-            chk('小さい表 %s %d' % (name, v), r, [c(v), c(honnin(v, me)), c(kaisha(v, co)), c(honnin(v, me) + kaisha(v, co))])
+            chk('小さい表の列の数 %s %d' % (name, v), len(r), 4)
+            for h4, x, y in zip(['給料の額', '本人負担', '会社負担', '合計'], r, [c(v), c(honnin(v, me)), c(kaisha(v, co)), c(honnin(v, me) + kaisha(v, co))]):
+                chk('小さい表 %s %d %s' % (name, v, h4), x, y)
+        # 空の入力は0円
+        await pg.fill('#pay', '')
+        chk('空の入力 本人負担 ' + name, await pg.inner_text('#o-me'), '0円')
+        chk('空の入力 会社負担 ' + name, await pg.inner_text('#o-co'), '0円')
+        chk('空の入力 合計 ' + name, await pg.inner_text('#o-all'), '0円')
+        # スライダー(5,000円きざみ)。6/1,000 と 5.5・6.5/1,000 は 5,000円きざみでも端数が出ない額と出る額がある
+        for w in (50000, 255000, 505000, 1000000):
+            await pg.evaluate("v=>{var e=document.getElementById('payr');e.value=v;e.dispatchEvent(new Event('input',{bubbles:true}))}", str(w))
+            chk('スライダー 入力欄 %s %d' % (name, w), d(await pg.input_value('#pay')), w)
+            chk('スライダー 本人負担 %s %d' % (name, w), await pg.inner_text('#o-me'), c(honnin(w, me)) + '円')
+            chk('スライダー 会社負担 %s %d' % (name, w), await pg.inner_text('#o-co'), c(kaisha(w, co)) + '円')
+            chk('スライダー 令和7年度 %s %d' % (name, w), await pg.inner_text('#o-old'), '令和7年度の料率なら、本人負担は%s円でした' % c(honnin(w, me7)))
         chk('小さい表の黄色の行 ' + name, await pg.eval_on_selector_all('#minib tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), ['300,000'])
 
         # 黄色の行(入れた額にいちばん近い1万円の行)

@@ -81,6 +81,13 @@
 # ・furusato:所得税の基礎控除額に特例の上乗せを含む読みのまま(川崎市の計算例は含める形)。条文では確認できていない。
 # ・4:22 この回は本番を開けなかった(係の web-fetch は許可待ちで時間切れ・curl は403)。ver=61・62 が本番に出たかは未確認。
 #   あとの回が /kakutei-shinkoku/ の「延ばした期間に納める税金には、利子税がかかります。」か /zoyozei/ の「410万円までは」を本番で読んで確かめる。
+# ---- 申し送り(2026-11-21 4時の回) ----
+# ・4:03に始めて gensen-hoshu〜koyohoken の8ページを済ませた。ver=63。
+# ・この回に見つかった誤りの形。ほかのページでも探す:
+#   22 「社会保険診療報酬支払基金」(令和8年10月1日から「医療情報基盤・診療報酬審査支払機構」。国税庁 No.2792 は新しい名前。gensen-hoshu)
+#   23 資本金1億円以下の17%(所得10億円超)を事業年度の開始日を見ずに当てる(houjinzei は文に前提を書いた。令和7年3月31日以前開始の選択肢は無い)
+#   24 東京都・40歳未満の数字なのに地域と年齢が文に無い(yakuin-tedori・shakaihoken の冒頭とよくある質問)
+#   25 「東京23区」の早見表なのに法人事業税が標準税率(東京都は年の所得2,500万円超などで超過税率。houjinnari は注記を足した。表のマスは未修正)
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

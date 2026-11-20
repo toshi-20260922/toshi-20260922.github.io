@@ -36,7 +36,11 @@
 # 2026-11-20 に確かめたこと:食事の月額は令和8年4月1日以後に支給する食事から3,500円→7,500円・夜食代は300円→650円。
 #  通勤手当は令和7年4月(10km以上の引上げ)と令和8年4月(65km以上の4段と駐車場5,000円)の2回改正。どれもページと同じ。
 # 照らすもの:window.__tsukin と __shokuji・結果の箱・黄色の行・HTML に手で書いた表の全行・本文の数字・JS が書き換える前の元の文
-# 最後に原本を確かめた日: 2026-11-20
+# 2026-11-21 に確かめたこと:上の国税庁のページ(2026tsukin・2026shokuji・No.2582・2585・2594・2597・2600・2591・2603・2606・2601・2508)は
+#  どれも令和8年4月1日現在法令等のままで数字は同じ。源泉徴収票の「支払金額」は非課税の通勤手当を除いた額(2025tsukin の Q&A の Q15)。
+#  従業員から受け取る食事代は課税の売上げ(No.6471)・社宅の使用料は非課税(質疑応答事例「社宅に係る仕入税額控除」)。
+#  計算の箱に直に書いた既定の結果(非課税の限度 0円・「非課税の限度」・「判定」)を既定の入力の結果に直し、下で元の HTML と比べる形にした。
+# 最後に原本を確かめた日: 2026-11-21
 import os, sys, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
@@ -234,7 +238,7 @@ async def body(pg):
     # 現物給与の価額(日本年金機構)は都道府県ごとに違う。県名なしの1地域の額(食事の月額・住宅の1畳や1平方メートル当たり)を載せていないこと
     chk('現物給与の価額を1地域で固定していない', bool(re.search(r'1畳|畳1畳|1平方メートル(当|あ)たり|1人1[かヶケ]?月(当|あ)たり', flat)), False)
     chk('パートの通勤手当は月を単位', '短い期間だけ雇う人も、月を単位にして限度額を計算します。' in flat, True)
-    chk('更新日', '更新日：2026年11月20日' in flat, True)
+    chk('更新日', '更新日：2026年11月21日' in flat, True)
     for i, (lo, new, old) in enumerate(DAN[8:], 8):      # 上がった額の小さい字
         chk('上がった額 %d行目' % i, new - old, [7000, 14000, 20900, 27700][i - 8])
 
@@ -244,6 +248,16 @@ async def body(pg):
                      'step="0.1" value="12"' in raw, 'id="price" inputmode="numeric" min="0" max="1000000" step="100" value="13000"' in raw,
                      'id="futan" inputmode="numeric" min="0" max="1000000" step="100" value="6500"' in raw), (True, True, True, True))
     chk('元の文 箱', ('<b id="o-tj">通勤手当は全額非課税です</b>' in raw, '<b id="o-sj">食事の補助は非課税です</b>' in raw), (True, True))
+    # 計算の箱に直に書いた既定の結果(JS が動く前の HTML)を、既定の入力(電車・バス 15,000円/食事 13,000円・本人 6,500円)の自分の計算と比べる
+    r0 = ref_tsukin(0, Fraction(12), 15000, 0)
+    def raw_of(i):
+        m = re.search(r'id="%s">(.*?)</(?:b|span)>' % i, raw, flags=re.S)
+        return re.sub(r'<[^>]+>', '', m.group(1)) if m else None
+    chk('元の文 非課税の限度', raw_of('o-lim'), c(r0[0]) + '円')
+    chk('元の文 課税される額', raw_of('o-t'), c(r0[2]) + '円')
+    chk('元の文 通勤の説明', raw_of('o-l'), '電車・バスは合理的な経路の運賃で月%s円まで非課税です' % c(JOGEN))
+    chk('元の文 食事の課税される額', raw_of('o-s'), c(ref_shokuji(13000, 6500)) + '円')
+    chk('元の文 食事の説明', raw_of('o-m'), '会社の負担は%s円。2つの条件を満たしています' % c(13000 - 6500))
     chk('元の文 既定の食事は非課税', ref_shokuji(13000, 6500), 0)
     chk('元の文 既定の通勤手当は非課税', ref_tsukin(0, Fraction(12), 15000, 0)[2], 0)
     html = re.sub(r'<script.*?</script>|<style.*?</style>', '', raw, flags=re.S)
