@@ -66,23 +66,20 @@ async def body(pg):
         chk('控除 %d年' % y, await pg.evaluate('n=>window.__kojo(n)', y), kojo(y))
 
     # HTML に手で書いた表1(勤続30年・退職金ごとの税金と手取り)の全行
+    # 2026-11-20:表1は列が7つになった(退職金・課税される退職所得・所得税・住民税・税金の合計・手取り・税金の割合)
     rows = await pg.eval_on_selector_all('#tb tr', """rs=>rs.map(r=>({s:r.getAttribute('data-s'),
-        c:[...r.children].map(td=>[...td.querySelectorAll('b,small')].map(e=>e.textContent))
-        ,t:r.children[0].textContent}))""")
+        c:[...r.children].map(td=>td.textContent.trim())}))""")
     chk('表1の行の数', [r['s'] for r in rows], ['1000', '1500', '2000', '3000', '4000', '5000', '7000', '10000'])
     for r in rows:
         g = int(r['s']) * 10000; e = ref(g, 30)
         tax = g - e['net']
         wari = (Fraction(tax * 1000, g) + Fraction(1, 2)).__floor__()      # 0.1%の位に四捨五入
-        chk('表1 %s 退職金の列' % r['s'], d(r['t']), int(r['s']))
-        chk('表1 %s 税金の合計' % r['s'], d(r['c'][1][0]), tax)
-        chk('表1 %s 所得税' % r['s'], r['c'][1][1], '所得税 {:,}'.format(e['it']))
-        chk('表1 %s 住民税' % r['s'], r['c'][1][2], '住民税 {:,}'.format(e['ju']))
-        chk('表1 %s 手取り' % r['s'], d(r['c'][2][0]), e['net'])
-        chk('表1 %s 税金の割合' % r['s'], r['c'][2][1], '税金の割合 %d.%d%%' % (wari // 10, wari % 10))
-
+        kz = max(0, g - kojo(30)) // 2 // 1000 * 1000
+        chk('表1 %s 全部の列' % r['s'], r['c'],
+            ['{:,}'.format(int(r['s'])), '{:,}'.format(kz), '{:,}'.format(e['it']), '{:,}'.format(e['ju']),
+             '{:,}'.format(tax), '{:,}'.format(e['net']), '%d.%d%%' % (wari // 10, wari % 10)])
     # HTML に手で書いた表3(勤続年数ごとの控除と3,000万円の手取り)の全行
-    rows = await pg.eval_on_selector_all('#kojo + p + .tw tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
+    rows = await pg.eval_on_selector_all(':is(#kojo ~ .tw):not(#kojo ~ .tw ~ .tw) tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
     chk('表3の行の数', [r[0] for r in rows], ['%d年' % y for y in (5, 10, 15, 20, 25, 30, 35, 40)])
     for r in rows:
         y = d(r[0]); e = ref(30000000, y)
@@ -123,7 +120,7 @@ async def body(pg):
         await pg.select_option('#bai', bv)
         bs = '%d.%d' % (bf.numerator * 10 // bf.denominator // 10, bf.numerator * 10 // bf.denominator % 10)
         t2 = await pg.eval_on_selector_all('#tb2 tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
-        want = [['%d万円' % x] + ['{:,}'.format(int(x * y * bf)) for y in (10, 20, 30, 35)] for x in (30, 50, 70, 100, 150)]
+        want = [['%d万円' % x] + ['{:,}'.format(int(x * y * bf)) for y in (10, 15, 20, 25, 30, 35)] for x in (30, 50, 70, 100, 150)]
         chk('表2 倍率' + bs, t2, want)
         chk('表2の注 倍率' + bs, await pg.inner_text('#bainote'), '功績倍率%sで計算しています。報酬の月額×勤続年数×功績倍率です。' % bs)
         for m, y in [(300000, 1), (300000, 5), (500000, 6), (800000, 10), (1000000, 20), (1000000, 30), (1500000, 35),

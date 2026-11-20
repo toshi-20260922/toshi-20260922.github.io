@@ -9,6 +9,8 @@
 #  日本年金機構「従業員に賞与を支給したときの手続き」(標準賞与額の上限は健康保険が年度の累計573万円・厚生年金は1か月あたり150万円。同じ月に2回以上なら合算)
 #    https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20141203.html
 #  全国健康保険協会の保険料額表(標準報酬月額の等級1〜50の区切り。区切りは令和2年9月から変わっていない)
+#    2026-11-20 に上の令和8年の東京都の表(R8_13tokyo.pdf)で等級1〜50の区切りを全部取り直し、下の GRADE と同じと確かめた。
+#    日本年金機構の令和8年度の厚生年金保険料額表(20200825.files/R08ryougaku.pdf)の32等級とも同じ。
 #    https://www.kyoukaikenpo.or.jp/~/media/Files/shared/hokenryouritu/r5/ippan/r50210gunma.pdf
 #  日本年金機構「保険料額表(厚生年金保険と協会けんぽ管掌の健康保険)」(令和8年度の拠出金率1,000分の3.6・厚生年金の上限32等級65万円)
 #    https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.html
@@ -147,7 +149,7 @@ async def body(pg):
     def pc(fr):                    # 率を%の文字にする(末尾の0を落とす)
         s = '%.3f' % float(fr * 100)   # 表示だけ。値は分数で持つ
         return s.rstrip('0').rstrip('.') + '%'
-    tbl = await pg.eval_on_selector_all('#rate + .tw tbody tr', 'rs=>rs.map(r=>[r.cells[1].textContent,r.cells[2].textContent])')
+    tbl = await pg.eval_on_selector_all(':is(#rate ~ .tw):not(#rate ~ .tw ~ .tw) tbody tr', 'rs=>rs.map(r=>[r.cells[1].textContent,r.cells[2].textContent])')
     exp = [[pc(F(985,10000)/2)]*2, [pc(KAIGO/2)]*2, [pc(SIEN/2)]*2, [pc(NENKIN/2)]*2, [pc(KYOSHUTSU), 'なし'],
            [pc(KOYO_J), pc(F(5,1000))], [pc(ROSAI), 'なし']]
     chk('料率の表の行数', len(tbl), 7)

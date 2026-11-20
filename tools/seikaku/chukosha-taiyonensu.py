@@ -7,7 +7,7 @@
 #  国税庁「法人の減価償却制度の改正に関するQ&A」(平成24年2月)参考資料 200%定率法の償却率・改定償却率・保証率 https://www.nta.go.jp/publication/pamph/hojin/kaisei_gaiyo2011/pdf/1112kaisei_faq.pdf
 #  国税庁 資料編(定額法の償却率・耐用年数省令別表第八) https://www.nta.go.jp/law/joho-zeikaishaku/shotoku/shinkoku/070412/pdf/3.pdf
 #  国税庁「主な減価償却資産の耐用年数表」(車両・運搬具:その他6年・貨物その他5年・小型車とダンプ式4年・二輪三輪3年) https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/pdf/2100_01.pdf
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 # 端数:期ごとの償却費の1円未満は切り捨て(ページの今の動き。法人の償却限度額を超えない向き)。
 import os, sys, re
 from fractions import Fraction as F
@@ -173,5 +173,18 @@ async def body(pg):
         n += 1
         if want.get(val, '?') not in t or ('（%s年）' % val) not in t:
             bad += 1; print('NG 車の種類', val, t)
+    # 5 早見表が上・計算の箱が下の並び(2026-11-20):id の重なりなし・早見表が箱より上・黄色の行は1つで全部2年の行
+    ids = await pg.evaluate('()=>[...document.querySelectorAll("[id]")].map(e=>e.id)')
+    n += 1
+    if len(ids) != len(set(ids)):
+        bad += 1; print('NG id の重なり', sorted(i for i in set(ids) if ids.count(i) > 1))
+    pos = await pg.evaluate('()=>[document.querySelector("#list").getBoundingClientRect().top,document.querySelector("#calc").getBoundingClientRect().top]')
+    n += 1
+    if not pos[0] < pos[1]:
+        bad += 1; print('NG 早見表が計算の箱より下', pos)
+    hit = await pg.evaluate('()=>[...document.querySelectorAll("main tr.hit")].map(r=>[...r.querySelectorAll("td")].map(d=>d.innerText.replace(/\\s+/g,"")))')
+    n += 1
+    if not (len(hit) == 1 and '経過46か月以上' in hit[0][0] and hit[0][1:] == ['2年'] * 4):
+        bad += 1; print('NG 黄色の行', hit)
     return n, bad
 run('chukosha-taiyonensu', body)

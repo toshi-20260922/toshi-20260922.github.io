@@ -15,6 +15,11 @@
 #   7 余った </span>・<trNone>・「はじめに戻す」で同じ値の別の選択肢が選ばれる・「近い行が黄色」の文と動きの違い
 # ・1ページずつ係(Agent)に分けて8ページを同時に見ると1回で3巡(24ページ)進む。係には git と finish.py・gate.py を触らせない。
 # ・この回は https://taxtable.jp/tt_status.txt を開けなかった(curl は403・WebFetch は許可待ちで時間切れ)。ver=33〜35 が本番に出たかは次の回が確かめる。
+# ---- 申し送り(2026-11-20 13時の回) ----
+# ・表の上に「全画面」のボタンが画面で入るようになった。表を '#id + .tw' で選ぶと取れない。':is(#id ~ .tw):not(#id ~ .tw ~ .tw) tbody tr' で選ぶ。
+# ・ほかのチャットがページの言葉・表の列・並びを変えると突き合わせが古くなる。合わないと出たら、先にページの今の形を見てから誤りかどうかを決める。
+# ・係(Agent)は git diff を流せない。昨日からの差分は係に頼まず、今のページ全体を読ませる。
+# ・text_units.py は計算の箱の「結論」の見出し(div.h)を書き出さない。県名なしで1地域の数字が固定されていないかを別に見る(hoteifukurihi で直した)。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

@@ -8,9 +8,11 @@
 #  総務省「法人住民税」(法人税割 1.0%・6.0%、均等割の表) https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/150790_08.html
 #  東京都主税局「特別法人事業税」(基準法人所得割額の37%) https://www.tax.metro.tokyo.lg.jp/kazei/work/tokubetsu_houjin
 #  埼玉県「第6号様式 記載の手引」(所得割の3つの欄の分け方・欄ごとに課税標準1,000円未満と税額100円未満を切り捨て・均等割の月割) https://www.pref.saitama.lg.jp/documents/195692/r8_kisai-no-tebiki.pdf
-# 原本で確かめられなかった所:17%の「年10億円」を12か月未満の年度で月割にする条文(措置法42条の3の2第3項)は開けていない。ここでは月割で照らしている。
+#  財務省「令和7年度 税制改正の解説」租税特別措置法等(法人税関係)(17%の「年10億円」は12か月未満の年度で 10億円÷12×月数=措法42の3の2③・15%と17%の特例は令和9年3月31日までに開始する事業年度・17%は令和7年4月1日以後開始) https://www.mof.go.jp/tax_policy/tax_reform/outline/fy2025/explanation/PDF/p0425-0554.pdf
+#  財務省「令和8年度 税制改正の解説」同(税率・年800万円・年10億円・適用期限に変更なし) https://www.mof.go.jp/tax_policy/tax_reform/outline/fy2026/explanation/PDF/p0504-0716.pdf
+#  国税庁 No.5762 欠損金の繰越控除(10年。平成30年4月1日前に開始した事業年度の分は9年) https://www.nta.go.jp/taxes/shiraberu/taxanswer/hojin/5762.htm
 #  地方法人税・防衛特別法人税の課税標準1,000円未満と税額100円未満の切り捨ては国税通則法の一般の決まりによる(上の資料には書かれていない)。
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 import os, sys
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -149,5 +151,23 @@ async def body(pg):
     await pg.fill('#inc', '1000001000'); await pg.dispatch_event('#inc', 'input'); n += 1
     if '17%' not in await pg.inner_text('#o-2'):
         bad += 1; print('NG 17%の文', await pg.inner_text('#o-2'))
+    # 早見表が上・計算の箱が下の並び(2026-11-20):id の重なりなし・早見表が箱より上・黄色の行は入力した所得を超えない中でいちばん近い行
+    ids = await pg.evaluate("Array.from(document.querySelectorAll('[id]')).map(e=>e.id)"); n += 1
+    if len(ids) != len(set(ids)):
+        bad += 1; print('NG id の重なり', [i for i in set(ids) if ids.count(i) > 1])
+    n += 1
+    if not await pg.evaluate("!!(document.getElementById('list').compareDocumentPosition(document.getElementById('calc'))&4)"):
+        bad += 1; print('NG 早見表が箱より下')
+    for I in (0, 999999, 1000000, 5000000, 7999999, 8000000, 29999999, 30000000, 99999999):
+        await pg.fill('#inc', str(I)); await pg.dispatch_event('#inc', 'input')
+        hit = await pg.eval_on_selector_all('#tb tr.hit', 'rs=>rs.map(r=>r.cells[0].innerText)')
+        le = [v for v in ROWS if v * 10000 <= I]
+        want = [format(le[-1], ',')] if le else []
+        n += 1
+        if hit != want:
+            bad += 1; print('NG 黄色の行', I, hit, want)
+    n += 1
+    if '入力した所得を超えない中でいちばん近い行が黄色になります。' not in await pg.content():
+        bad += 1; print('NG 黄色の行の文')
     return n, bad
 run('houjinzei-keisan', body)

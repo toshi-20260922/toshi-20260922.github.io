@@ -136,7 +136,7 @@ async def body(pg):
     # 4 種類ごとの式の表・納期の特例の表・消費税と交通費の表
     def flat(t):
         return ''.join(t.split())
-    rate = [[flat(x) for x in r] for r in await pg.eval_on_selector_all('#rate + .tw tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.innerText))")]
+    rate = [[flat(x) for x in r] for r in await pg.eval_on_selector_all(':is(#rate ~ .tw):not(#rate ~ .tw ~ .tw) tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.innerText))")]
     chk('式の表', rate, [
         ['原稿料・講演料・デザイン料弁護士・税理士などの報酬出演料・契約金', '支払う金額×10.21%100万円を超える部分は20.42%'],
         ['司法書士・土地家屋調査士・海事代理士の報酬', '（1回の支払い−1万円）×10.21%'],
@@ -144,7 +144,7 @@ async def body(pg):
         ['ホステス・コンパニオンの報酬', '（1回の支払い−5,000円×計算期間の日数）×10.21%'],
         ['広告宣伝のための賞金', '（賞金−50万円）×10.21%'],
         ['プロボクサーの報酬', '（1回の支払い−5万円）×10.21%']])
-    pay = [[flat(x) for x in r] for r in await pg.eval_on_selector_all('#pay + p + .tw tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.innerText))")]
+    pay = [[flat(x) for x in r] for r in await pg.eval_on_selector_all(':is(#pay ~ .tw):not(#pay ~ .tw ~ .tw) tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.innerText))")]
     chk('納期の特例の表', pay, [
         ['弁護士・税理士・司法書士などの報酬', '使えます（7月10日と翌年1月20日）'],
         ['原稿料・講演料', '使えません（翌月10日）'],

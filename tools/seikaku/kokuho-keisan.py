@@ -209,7 +209,7 @@ async def body(pg):
     for a, want in [(4000000, ['400']), (4490000, ['400']), (4500000, ['450']), (999999, []), (1000000, ['100']), (30000000, ['1,000'])]:
         await pg.fill('#inc', str(a))
         chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), want)
-    chk('黄色の行の文', '入れた年収を超えない中でいちばん近い行が黄色になります。' in raw, True)
+    chk('黄色の行の文', '入力した年収を超えない中でいちばん近い行が黄色になります。' in raw, True)
 
     # 一覧にない市区町村(料率を入れる)。選んでいた地域の料率が入り、端数は1円・独自減額なしで計算する
     await pg.select_option('#reg', '15')
@@ -227,7 +227,7 @@ async def body(pg):
         g = a if kind else kyuyo(a)
         t, ps, red = hoken(dx, g, age, fam, famo)
         chk('入れた料率 %d %d' % (kind, a), res[0][:3], [c(t) + '円', c(t // 12) + '円', RD[red]])
-    chk('入れた料率の文', await pg.inner_text('#o-reg'), '入れた料率で計算しています')
+    chk('入れた料率の文', await pg.inner_text('#o-reg'), '入力した料率で計算しています')
 
     # 市区町村ごとの保険料の表(手で書いた22行。給与400万円・1人)
     rows = await pg.eval_on_selector_all('#hikaku ~ .tw', "ws=>[...ws[0].querySelectorAll('tbody tr')].map(r=>[...r.children].map(td=>td.innerText))")
@@ -252,7 +252,7 @@ async def body(pg):
     ]:
         chk('本文 ' + label, want in flat, True)
     chk('最も高いのは大阪府', hi[0], '大阪市・堺市')
-    desc = '政令指定都市19市と東京23区の料率を入れてあります。'
+    desc = '政令指定都市19市と東京23区の料率を登録しています。'
     chk('description と og', raw.count(desc), 2)
     chk('政令指定都市の数(静岡市を除く20市のうち)', len([d for d in D if d[0].endswith('市') or d[0] == '大阪市・堺市']) + 1, 19)   # 大阪市・堺市は2市
 

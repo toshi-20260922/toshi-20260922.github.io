@@ -148,6 +148,8 @@ async def body(pg):
 
     tabs = await pg.evaluate('''()=>[...document.querySelectorAll("main table")].map(t=>[...t.querySelectorAll("tbody tr")].map(r=>[...r.cells].map(c=>c.innerText.trim())))''')
     # 2 速算表の全行
+    # 2026-11-20:年収別の表(早見表)が計算の箱の上へ動いたので、行の数と列の数で3つの表を選び直す
+    tabs = [[t for t in tabs if t and len(t[0]) == 3][0], [t for t in tabs if t and len(t[0]) == 4][0], [t for t in tabs if t and len(t[0]) == 7][0]]
     t1 = tabs[0]
     names = ['195万円未満', '195万円以上 330万円未満', '330万円以上 695万円未満', '695万円以上 900万円未満',
              '900万円以上 1,800万円未満', '1,800万円以上 4,000万円未満', '4,000万円以上']

@@ -68,7 +68,7 @@ def s1(y, cap):
 def s2(y, cap, st):
     h, c, b, t = ref(y, cap, st)
     if not st:
-        return '令和8年3月31日までに始まる事業年度なので、防衛特別法人税は入れていません'
+        return '令和8年3月31日までに始まる事業年度なので、防衛特別法人税は含めていません'
     if b > 0:
         return '防衛特別法人税%s円を含みます。地方法人税は%s円です' % (yen(b), yen(c))
     if h > 5000000:

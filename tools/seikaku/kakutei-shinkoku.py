@@ -23,7 +23,7 @@
 #  国税通則法基本通達 第10条関係(日曜・祝日・一般の休日(1月2日と3日)・土曜・12月29日から31日は翌日)
 #   https://www.nta.go.jp/law/tsutatsu/kihon/tsusoku/01/03/10.htm
 #  祝日は国民の祝日に関する法律。春分の日と秋分の日は国立天文台の暦要項(2027年まで公表。2028年からは計算による見込みの日)。
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 import os, sys, re, datetime, calendar
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, SITE
@@ -143,7 +143,7 @@ async def body(pg):
     # 2 HTML に手で書いた曜日の全部(このページの「M月D日（曜）」は全部2027年の日付)
     src = open(os.path.join(SITE, 'kakutei-shinkoku', 'index.html'), encoding='utf-8').read()
     static = re.sub(r'<script.*?</script>', '', src, flags=re.S)
-    static = static.replace('更新日：2026年11月19日', '')
+    static = static.replace('更新日：2026年11月20日', '')
     for m in re.finditer(r'(?:(\d{4})年)?(\d{1,2})月(\d{1,2})日（(.)）', static):
         d = D(2027, int(m.group(2)), int(m.group(3)))
         chk('曜日 ' + m.group(0), (m.group(1) or '2027', m.group(4)), ('2027', W[d.weekday()]))

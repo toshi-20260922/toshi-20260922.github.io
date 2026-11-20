@@ -219,6 +219,6 @@ async def body(pg):
     chk('賞与と控除を入れた表示', v, [e['t'], e['z'], abs(e['k'])])
     chk('不足の字', msg, '12月の給与で精算' if e['k'] >= 0 else '戻らず、この額が不足します')
     await pg.fill('#inc', '2001'); v, msg, kb = await show(); chk('2,000万円超の字', msg.startswith('年収2,000万円を超える人は年末調整の対象外'), True)
-    await pg.fill('#inc', '300'); await pg.fill('#bon', '300'); v, msg, kb = await show(); chk('賞与が年収以上', msg, '賞与は、年収より小さい額を入れてください')
+    await pg.fill('#inc', '300'); await pg.fill('#bon', '300'); v, msg, kb = await show(); chk('賞与が年収以上', msg, '賞与は、年収より小さい額を入力してください')
     return n, bad
 run('nenmatsu-chosei', body)

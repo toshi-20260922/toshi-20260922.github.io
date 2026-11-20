@@ -12,7 +12,11 @@
 #  国税庁「消費税及び地方消費税の申告書(一般用)の書き方」(課税標準額は1,000円未満切り捨て・計算の途中の1円未満はその都度切り捨て・
 #   差引税額は100円未満切り捨て・譲渡割額は×22/78で100円未満切り捨て)
 #   https://www.nta.go.jp/publication/pamph/shohi/kaisei/yoshiki/pdf/202411_01.pdf
-# 最後に原本を確かめた日:2026-11-19
+#  国税庁「2割特例 特設ページ」(令和5年10月1日から令和8年9月30日までの日の属する課税期間。3月決算法人は令和9年3月期まで)
+#   https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/invoice_2tokurei.htm
+#  2026-11-20:特集の頁からの3割特例のリーフレットは 0026004-099-01-1.pdf。0026002-095.pdf はこの日開けなかった。
+#  2026-11-20:飲食料品の税率を令和9年4月1日から2年間1%にする案(国税庁 令和8年9月の案内は法案の成立が前提)。成立は未確認。ページは10%だけで計算。
+# 最後に原本を確かめた日:2026-11-20
 import os, sys, re, datetime, calendar
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
@@ -110,7 +114,7 @@ async def body(pg):
     chk('個人 届出の期限の文', '2027年分から簡易課税にする届出は%d年%d月%d日まで' % (d27.year, d27.month, d27.day) in msg and '2026年分が最後' in msg, True)
     await pg.click('#kei button[data-v="0"]')
     # 3 決算月ごとの表(HTML の表・JS の TBL・結果の文)
-    rows = await pg.eval_on_selector_all('#list + p + .tw tbody tr', 'rs=>rs.map(r=>Array.from(r.cells).map(c=>c.innerText.replace(/\\s+/g,"")))')
+    rows = await pg.eval_on_selector_all(':is(#list ~ .tw):not(#list ~ .tw ~ .tw) tbody tr', 'rs=>rs.map(r=>Array.from(r.cells).map(c=>c.innerText.replace(/\\s+/g,"")))')
     tbl = await pg.evaluate('window.__nw.TBL')
     chk('表の行数', len(rows), 12)
     for mo in range(1, 13):
@@ -125,12 +129,12 @@ async def body(pg):
         chk('結果の文 %d月' % mo, await pg.inner_text('#o-msg'),
             '2割特例の最後の期は%sです。次の%sを簡易課税にする届出は%sまで（申告期限の延長がある法人は%sまで）です。' % tuple(e))
     # 4 個人事業者の表
-    k = await pg.eval_on_selector_all('#kojin + .tw tbody tr', 'rs=>rs.map(r=>Array.from(r.cells).map(c=>c.innerText.replace(/\\s+/g,"")))')
+    k = await pg.eval_on_selector_all(':is(#kojin ~ .tw):not(#kojin ~ .tw ~ .tw) tbody tr', 'rs=>rs.map(r=>Array.from(r.cells).map(c=>c.innerText.replace(/\\s+/g,"")))')
     chk('個人の表 2026年分', k[0][:2], ['2026年分', '2割特例（最後）・簡易課税・本則課税'])
     chk('個人の表 2027・2028年分', k[1], ['2027年分2028年分', '3割特例・簡易課税・本則課税', '%d年%d月%d日2026年分に2割特例を使った人' % (d27.year, d27.month, d27.day)])
     chk('個人の表 2029年分から', k[2], ['2029年分から', '簡易課税・本則課税', '%d年%d月%d日2028年分に3割特例を使った人' % (d29.year, d29.month, d29.day)])
     # 5 事業区分の表(No.6505・No.6509)と選ぶ欄
-    g = await pg.eval_on_selector_all('#gyoshu + p + .tw tbody tr', 'rs=>rs.map(r=>Array.from(r.cells).map(c=>c.innerText.replace(/\\s+/g,"")))')
+    g = await pg.eval_on_selector_all(':is(#gyoshu ~ .tw):not(#gyoshu ~ .tw ~ .tw) tbody tr', 'rs=>rs.map(r=>Array.from(r.cells).map(c=>c.innerText.replace(/\\s+/g,"")))')
     for i, rate in enumerate((90, 80, 70, 60, 50, 40)):
         r = g[i]
         chk('事業区分 %d' % (i + 1), (r[0][:3], r[1], r[2]), ('第%d種' % (i + 1), '%d%%' % rate, '%d%%' % (100 - rate)))
@@ -144,7 +148,7 @@ async def body(pg):
     kk = h100(e['ut'] - e['ut'] * 50 // 100)
     for label, s in [('例 売上の消費税', '売上の消費税（国税）は%s円です' % format(e['ut'], ',')),
                      ('例 簡易課税', '国税%s円、地方消費税%s円で合計%s円です' % (format(kk, ','), format(e['kan'] - kk, ','), format(e['kan'], ','))),
-                     ('例 本則課税', '差し引けるのは%s円と%s円で合計%s円です' % (format(2700000 * 78 // 1000, ','), format(300000 * 78 // 1000 * 70 // 100, ','), format(e['hon'], ','))),
+                     ('例 本則課税', '差し引けるのは%s円と%s円です。納める合計は%s円です' % (format(2700000 * 78 // 1000, ','), format(300000 * 78 // 1000 * 70 // 100, ','), format(e['hon'], ','))),
                      ('結論 3月決算', '3月決算の会社なら%sが最後で、次の期を簡易課税にする届出は<b class="nw">%sまで</b>です' % (houjin(3)[0][0], houjin(3)[0][2][:-3]))]:
         chk(label, s in html, True)
     return n, bad

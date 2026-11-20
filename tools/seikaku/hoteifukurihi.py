@@ -10,7 +10,7 @@
 #   https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.files/R08ryougaku.pdf
 #  厚生労働省・こども家庭庁「子ども・子育て支援金に関するQ&A」令和8年2月12日 問6(本人負担は一般保険料率と支援金率を合算した率で折半してから端数処理)
 #   https://www.mhlw.go.jp/hourei/doc/tsuchi/T260216S0101.pdf
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 import os, sys
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -138,7 +138,7 @@ async def body(pg):
     e = ref(985, [(300000, 0, 1)])
     txt = await pg.inner_text('body')
     f = lambda v: '{:,}'.format(v)
-    for s in ['会社負担の法定福利費は月%s円です' % f(e['co']), '預り金（社会保険料）%s' % f(e['me']),
+    for s in ['東京都・標準報酬月額30万円・40歳未満の人1人なら、会社負担の法定福利費は月%s円です' % f(e['co']), '預り金（社会保険料）%s' % f(e['me']),
               '普通預金 %s' % f(300000 - e['me']), '法定福利費 %s' % f(e['co']), '普通預金 %s' % f(e['total']),
               '東京都9.85%・大阪府10.13%', '1.62%', '0.23%', '18.3%', '0.36%',
               '（%s円から%s円）' % (f(STD[0]), f(STD[-1])), '（88,000円から650,000円）', '年度の合計573万円', '150万円']:

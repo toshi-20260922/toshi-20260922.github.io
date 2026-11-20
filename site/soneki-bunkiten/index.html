@@ -155,7 +155,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="損益分岐点のグラフ"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><path d="M14 48V14M14 48h36" stroke="#0f3d31" stroke-width="2.5" stroke-linecap="round"/><path d="M14 36h36" stroke="#9fc4b6" stroke-width="2.5"/><path d="M14 48L48 16" stroke="#e3b465" stroke-width="3" stroke-linecap="round"/><path d="M14 36L48 26" stroke="#0f3d31" stroke-width="3" stroke-linecap="round"/><circle cx="35" cy="29" r="4" fill="#ffffff" stroke="#b5473a" stroke-width="2.5"/></svg></div>
- <p class="upd">公開日：2026年11月16日　更新日：2026年11月19日</p>
+ <p class="upd">公開日：2026年11月16日　更新日：2026年11月20日</p>
  <h1>【損益分岐点の計算】売上がいくらで黒字になる？変動費と固定費から計算</h1>
 </div>
 <section class="hy1">
@@ -363,7 +363,7 @@ function render(){var S=num(sal),V=num(vc),F=num(fc),r=calc(S,V,F),bt=r.ok?t10(F
  document.getElementById("o-b").innerHTML=(r.ok?pt(bt):"—")+"<i>%</i>";
  document.getElementById("o-c").innerHTML=(r.ok?pt(1000-bt):"—")+"<i>%</i>";
  document.getElementById("o-1").textContent="限界利益"+sg(r.m)+"円・限界利益率"+pt(S>0?t10(r.m,S):0)+"%・利益"+sg(r.pf)+"円";
- document.getElementById("o-2").textContent=!r.ok?"変動費が売上高以上なので、売上高を増やしても黒字になりません":(r.pf>=0?"売上高が"+gap+"円減ると、利益が0になります":"売上高があと"+gap+"円増えると、利益が0になります");
+ document.getElementById("o-2").textContent=!r.ok?(S===0?"売上高が0円なので、損益分岐点売上高を計算できません":"変動費が売上高以上なので、売上高を増やしても黒字になりません"):(r.pf>=0?"売上高が"+gap+"円減ると、利益が0になります":"売上高があと"+gap+"円増えると、利益が0になります");
  var t="";[-30,-20,-10,0,10,20,30].forEach(function(d){var s=S*(100+d)/100,m=r.m*(100+d)/100,pf=(r.m*(100+d)-F*100)/100;
   t+="<tr"+(d===0?" class=\"hit\"":"")+"><td>"+(d>0?"+":(d<0?"−":""))+Math.abs(d)+"%</td><td>"+f(s)+"</td><td>"+sg(m)+"</td><td>"+sg(pf)+"</td></tr>";});
  document.getElementById("tb").innerHTML=t;}

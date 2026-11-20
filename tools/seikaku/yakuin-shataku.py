@@ -7,7 +7,7 @@
 #      国税庁 No.2597「使用人に社宅や寮などを貸したとき」 https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2597.htm
 #      国税庁「主な減価償却資産の耐用年数表」 https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/pdf/2100_01.pdf
 # 端数:原本に端数処理の定めは無い。ページは「各項目の1円未満を四捨五入」と断っているので、その断りどおりかを見る。
-# 最後に原本を確かめた日:2026-11-19
+# 最後に原本を確かめた日:2026-11-20
 import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
