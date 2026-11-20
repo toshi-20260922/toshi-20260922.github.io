@@ -171,7 +171,7 @@ body{overflow-x:clip}
  <thead><tr><th>前の年の年収<br>（万円）</th><th>40歳未満<br>（年・円）</th><th>40〜64歳<br>（年・円）</th></tr></thead>
  <tbody id="tb"></tbody>
 </table></div>
-<p class="note" style="margin-top:8px">給与の年収は、令和7年分の給与所得控除で給与所得にしてから計算しています。40〜64歳の列は、家族も同じ年代として計算しています。</p>
+<p class="note" style="margin-top:8px">給与の年収は、令和7年分の給与所得控除で給与所得にしてから計算しています。40〜64歳の列は、家族も同じ年代として計算しています。年収が高い行は上限の額で止まります。</p>
 <p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
 </section>
 
@@ -234,12 +234,29 @@ body{overflow-x:clip}
 <p>国民健康保険料は前の年の所得から43万円を引いた額にかかる所得割と、1人ごとの均等割・1世帯ごとの平等割の合計です。<span class="mk">料率は市区町村ごとに違うので、住んでいる市区町村を選んで計算します。</span>上限は多くの市区町村で1年96万円（40〜64歳の人は113万円）です。</p>
 <nav class="toc"><div class="t">目次</div><ol>
  <li><a href="#list">給与の年収別の国民健康保険料</a></li>
+ <li><a href="#zentei">計算の前提</a></li>
+ <li><a href="#sageru">保険料が下がるもの・下がらないもの</a></li>
  <li><a href="#rate">選んだ市区町村の保険料率</a></li>
  <li><a href="#hikaku">市区町村ごとの保険料</a></li>
  <li><a href="#red">所得が低い世帯の軽減</a></li>
  <li><a href="#rel">次に確かめること</a></li>
  <li><a href="#qa">国民健康保険料でよく聞かれること</a></li>
 </ol></nav>
+<h2 id="zentei">計算の前提</h2>
+<ul>
+ <li>令和8年度（2026年4月から2027年3月）の保険料で、2025年の所得で計算しています</li>
+ <li>収入があるのは本人だけで、家族はみな18歳以上として数えています</li>
+ <li>所得割は所得から43万円を引いた額にかかります。社会保険料控除などの所得控除は引きません</li>
+ <li>所得が低い世帯の軽減は含めています。会社都合で辞めた人の軽減は含めていません</li>
+</ul>
+
+<h2 id="sageru">保険料が下がるもの・下がらないもの</h2>
+<ul>
+ <li>下がる：事業の経費・青色申告特別控除など所得そのものを減らすもの</li>
+ <li>下がらない：小規模企業共済・iDeCo・生命保険料控除など所得控除だけが増えるもの</li>
+ <li>上限に届いている人は、所得が少し下がっても保険料が変わらないことがあります</li>
+</ul>
+
 <h2 id="rate">選んだ市区町村の保険料率</h2>
 <p class="cap" id="r-cap">東京23区・令和8年度</p>
 <div class="tw"><table>
@@ -300,6 +317,12 @@ body{overflow-x:clip}
 <p>年収400万円・1人で加入・40歳未満の場合で比べました。この早見表の22の地域では年270,400円（福岡市）から年391,947円（大阪府内）まで開きがあります。</p>
 <h3>一覧にない市区町村に住んでいる場合は、どう計算しますか？</h3>
 <p>市区町村の欄で「一覧にない市区町村（料率を入れる）」を選びます。市区町村のホームページにある所得割・均等割・平等割を入力すると計算できます。</p>
+<h3>国民健康保険料の上限はいくらですか？</h3>
+<p>東京23区の令和8年度は1年96万円です。40〜64歳の人は介護分を足して113万円です。上限は区分ごとに決まっていて市区町村で違います。</p>
+<h3>iDeCoや小規模企業共済で国民健康保険料は下がりますか？</h3>
+<p>下がりません。国民健康保険料は所得控除を引く前の所得で計算します。所得税と住民税は下がります。</p>
+<h3>独立した2年目に保険料が上がることはありますか？</h3>
+<p>あります。保険料は前の年の所得で決まるので、1年目の事業の所得が会社員のときの給与所得より多いと2年目に上がります。</p>
 <div class="src">出典・参考（2026年11月確認）<ul>
   <li><a href="https://www.hokeniryo.metro.tokyo.lg.jp/documents/d/hokeniryo/tokubetuku202605-pdf">東京都保健医療局「特別区の国民健康保険料一覧表（令和8年度）」</a></li>
   <li><a href="https://www.city.sapporo.jp/hoken-iryo/kokuho/fuka.html">札幌市「国民健康保険料の決め方」</a></li>
@@ -429,7 +452,7 @@ function curR(){
  return {n:"入力した料率",s:"入力した料率",p:p,r:1,g:0,f:-1};
 }
 var inc=document.getElementById("inc"),incr=document.getElementById("incr"),fam=document.getElementById("fam"),famo=document.getElementById("famo"),kind=0,old=0;
-var ROWS=[100,150,200,250,300,350,400,450,500,600,700,800,900,1000];
+var ROWS=[100,150,200,250,300,350,400,450,500,600,700,800,900,1000,1200,1500,2000];
 
 function render(){
  var a=Math.max(0,parseInt(inc.value,10)||0),g=kind?a:kyuyo7(a),fm=+fam.value,fo=Math.min(+famo.value,fm),R=curR(),x=kokuho(R,g,old,fm,fo);
