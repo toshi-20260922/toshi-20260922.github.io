@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>【確定申告シミュレーション】所得税はいくら戻る？いくら納める？【令和8年分】</title>
+<link rel="canonical" href="https://taxtable.jp/kakutei-shinkoku-keisan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://taxtable.jp/kakutei-shinkoku-keisan/">
+<meta property="og:title" content="【確定申告シミュレーション】所得税はいくら戻る？いくら納める？【令和8年分】">
+<meta property="og:site_name" content="タックステーブル">
+<meta property="og:description" content="給与と源泉徴収税額・副業や事業の所得・医療費・ふるさと納税・社会保険料を入力すると、令和8年分の確定申告で戻る所得税と納める所得税が分かります。医療費30万円とふるさと納税で年収ごとにいくら戻るかの早見表付きです。">
+<meta name="description" content="給与と源泉徴収税額・副業や事業の所得・医療費・ふるさと納税・社会保険料を入力すると、令和8年分の確定申告で戻る所得税と納める所得税が分かります。医療費30万円とふるさと納税で年収ごとにいくら戻るかの早見表付きです。">
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.seg3{grid-template-columns:1fr 1fr 1fr}
+.seg3 button{font-size:13px;line-height:1.4}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#1d6b4a;flex:none;min-width:0}
+.hd .logo i{display:none}
+.hd .logo img{width:35px;height:38px;flex:none;display:block;object-fit:contain}
+.lgt{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.lgt b{font-size:17px;font-weight:900;letter-spacing:.01em;color:#1d6b4a;white-space:nowrap}
+.lgt small{font-size:11px;font-weight:500;letter-spacing:.02em;color:#1f2a2a;margin-top:1px;white-space:nowrap}
+@media (max-width:480px){.hd .logo{gap:6px}.hd .logo img{width:31px;height:34px}.lgt b{font-size:15px}.lgt small{font-size:10px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><img src="/img/top/logo.png" alt="" width="35" height="38" loading="eager"><span class="lgt"><b>TaxTable</b><small>タックステーブル</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="shinkoku_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="申告書と戻る矢印"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><rect x="14" y="12" width="26" height="36" rx="2" fill="#0f3d31"/><path d="M19 22h16M19 29h16M19 36h10" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/><circle cx="44" cy="44" r="10" fill="#e3b465"/><path d="M49 44h-9m3-4-4 4 4 4" fill="none" stroke="#0f3d31" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+ <p class="upd">公開日：2026年11月21日　更新日：2026年11月21日（国税庁 令和8年分の給与所得控除・基礎控除・税率）</p>
+ <h1>【確定申告シミュレーション】所得税はいくら戻る？いくら納める？【令和8年分】</h1>
+</div>
+
+<section class="hy1">
+<h2 id="hayami">確定申告で戻る所得税の早見表</h2>
+<p>会社員が医療費控除やふるさと納税で確定申告をすると、年末調整で引かれた所得税の一部が戻ります。戻る額は、控除の額に本人の所得税率と1.021を掛けた額がおおよその目安です。</p>
+<p class="cap">令和8年分・独身の会社員（年末調整済み）が申告した場合</p>
+<div class="tw">
+<table>
+ <thead><tr><th>年収</th><th>所得税率</th><th>年末調整で<br>引かれた所得税<br>（円）</th><th>医療費30万円<br>で戻る額<br>（円）</th><th>ふるさと納税<br>5万円で戻る額<br>（円）</th></tr></thead>
+ <tbody><tr><td>300万円</td><td>5%</td><td>27,056</td><td>10,210</td><td>2,450</td></tr><tr><td>400万円</td><td>5%</td><td>57,176</td><td>10,210</td><td>2,451</td></tr><tr><td>500万円</td><td>5%</td><td>90,358</td><td>10,210</td><td>2,450</td></tr><tr><td>600万円</td><td>10%</td><td>147,534</td><td>20,420</td><td>4,901</td></tr><tr><td>700万円</td><td>20%</td><td>274,138</td><td>38,798</td><td>9,802</td></tr><tr><td>800万円</td><td>20%</td><td>427,288</td><td>40,840</td><td>9,802</td></tr><tr><td>1,000万円</td><td>20%</td><td>774,428</td><td>40,840</td><td>9,802</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">社会保険料は年収の15%として計算しています。医療費は保険金などで補塡される額を引いた後の額です。ふるさと納税は所得税から戻る額だけで、住民税から引かれる額は含めていません。ワンストップ特例を使うと所得税からは戻らず、その分も住民税から引かれます。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>1年分の所得税と引かれた源泉徴収税額の差が、戻る額か納める額です</div>
+ <div class="in">
+  <div class="full">
+   <label for="q">給与の収入（源泉徴収票の「支払金額」）</label>
+   <div class="row"><input type="number" id="q" inputmode="numeric" min="0" max="10000000000" step="1" value="5000000"><span>円</span></div>
+   <label for="wq">給与から引かれた所得税（源泉徴収票の「源泉徴収税額」）</label>
+   <div class="row"><input type="number" id="wq" inputmode="numeric" min="0" max="10000000000" step="1" value="90358"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="jo">給与以外の所得（副業・事業の売上から経費を引いた額）</label>
+   <div class="row"><input type="number" id="jo" inputmode="numeric" min="0" max="10000000000" step="1" value="0"><span>円</span></div>
+   <label for="wj">報酬から引かれた所得税（支払調書の源泉徴収税額）</label>
+   <div class="row"><input type="number" id="wj" inputmode="numeric" min="0" max="10000000000" step="1" value="0"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="sha">社会保険料（給与から引かれた額と国民年金・国民健康保険の合計）</label>
+   <div class="row"><input type="number" id="sha" inputmode="numeric" min="0" max="10000000000" step="1" value="750000"><span>円</span></div>
+   <label for="ide">iDeCo・小規模企業共済の掛金（1年の合計）</label>
+   <div class="row"><input type="number" id="ide" inputmode="numeric" min="0" max="10000000000" step="1" value="0"><span>円</span></div>
+   <label for="sei">生命保険料・地震保険料の控除額（合計で最大17万円）</label>
+   <div class="row"><input type="number" id="sei" inputmode="numeric" min="0" max="170000" step="1" value="0"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label for="iryo">1年に払った医療費（保険金などで補塡される額を引いた額）</label>
+   <div class="row"><input type="number" id="iryo" inputmode="numeric" min="0" max="10000000000" step="1" value="300000"><span>円</span></div>
+   <label for="kifu">ふるさと納税などの寄附額（ワンストップ特例を使わない分）</label>
+   <div class="row"><input type="number" id="kifu" inputmode="numeric" min="0" max="10000000000" step="1" value="0"><span>円</span></div>
+   <label for="loan">住宅ローン控除の額（税額から引く額）</label>
+   <div class="row"><input type="number" id="loan" inputmode="numeric" min="0" max="10000000000" step="1" value="0"><span>円</span></div>
+  </div>
+  <div class="full">
+   <label>配偶者控除（配偶者の合計所得金額が62万円以下）</label>
+   <div class="seg" id="s-hg"><button type="button" class="on" data-v="0">なし</button><button type="button" data-v="1">あり</button></div>
+   <label for="fu">扶養している16歳以上の家族（19〜22歳を除く）</label>
+   <select id="fu"><option value="0">0人</option><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option></select>
+   <label for="tf">扶養している19〜22歳の子（特定扶養親族）</label>
+   <select id="tf"><option value="0">0人</option><option value="1">1人</option><option value="2">2人</option></select>
+  </div>
+ </div>
+ <div class="vd" id="vd"><b id="o-vd">確定申告で10,210円が戻ります</b><span id="o-vds">1年分の所得税80,148円に対して、源泉徴収で90,358円が引かれています</span></div>
+ <div class="amt jdg">
+  <div><small id="o-al">戻る所得税</small><b id="o-a">10,210<i>円</i></b><em>復興特別所得税を含む</em></div>
+  <div><small>1年分の所得税</small><b id="o-t">80,148<i>円</i></b><em>税率5%</em></div>
+ </div>
+ <ul>
+  <li id="o-br">合計所得金額3,560,000円・所得控除の合計1,990,000円・課税所得1,570,000円</li>
+  <li id="o-ko">医療費控除200,000円・寄附金控除0円・基礎控除1,040,000円</li>
+  <li id="o-nd">給与以外の所得が20万円以下なので、医療費控除などを受けないなら確定申告はしなくてもかまいません</li>
+  <li>住民税は含めていません。申告した内容は市区町村に送られ、翌年度の住民税にも反映されます</li>
+ </ul>
+</div>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/kakutei-shinkoku-keisan/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/kakutei-shinkoku-keisan/">Xでポストする</a>
+</div>
+
+<p>確定申告では、所得から所得控除を引いた課税所得に税率を掛けて1年分の所得税を出します。その額をすでに引かれた源泉徴収税額と比べます。<span class="mk">引かれた額の方が多ければ差額が戻り、少なければ差額を納めます。</span>令和8年分は基礎控除が最大104万円になり、給与所得控除の最低額は74万円です。</p>
+
+<nav class="toc">
+ <div class="t">目次</div>
+ <ol>
+  <li><a href="#hayami">確定申告で戻る所得税の早見表</a></li>
+  <li><a href="#nagare">戻る額と納める額の計算の流れ</a></li>
+  <li><a href="#rei">戻る人と納める人の例</a></li>
+  <li><a href="#kojo">確定申告で受けられる主な控除</a></li>
+  <li><a href="#hasu">端数の決まり</a></li>
+  <li><a href="#rel">次に確かめること</a></li>
+  <li><a href="#qa">確定申告の計算でよく聞かれること</a></li>
+ </ol>
+</nav>
+
+<h2 id="nagare">戻る額と納める額の計算の流れ</h2>
+<ol>
+ <li>給与の収入から給与所得控除を引いて給与所得を出します。副業や事業の所得を足すと合計所得金額です</li>
+ <li>社会保険料・医療費控除・寄附金控除・配偶者控除・扶養控除・基礎控除などの所得控除を引きます。1,000円未満は切り捨てて課税所得にします</li>
+ <li>課税所得に税率を掛けて控除額を引くと所得税です。住宅ローン控除はこの所得税から引きます</li>
+ <li>残った所得税に2.1%の復興特別所得税を足すと、1年分の所得税です</li>
+ <li>給与や報酬から引かれた源泉徴収税額との差が、戻る額か納める額です</li>
+</ol>
+<p class="cap">令和8年分・所得税の速算表</p>
+<div class="tw">
+<table>
+ <thead><tr><th>課税所得</th><th>税率</th><th>控除額</th></tr></thead>
+ <tbody><tr><td>195万円以下</td><td>5%</td><td>0円</td></tr><tr><td>195万円超330万円以下</td><td>10%</td><td>97,500円</td></tr><tr><td>330万円超695万円以下</td><td>20%</td><td>427,500円</td></tr><tr><td>695万円超900万円以下</td><td>23%</td><td>636,000円</td></tr><tr><td>900万円超1,800万円以下</td><td>33%</td><td>1,536,000円</td></tr><tr><td>1,800万円超4,000万円以下</td><td>40%</td><td>2,796,000円</td></tr><tr><td>4,000万円超</td><td>45%</td><td>4,796,000円</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">195万円ちょうどの人は5%です。基礎控除は合計所得金額489万円以下なら104万円で、655万円以下は67万円・2,350万円以下は62万円です。</p>
+
+<h2 id="rei">戻る人と納める人の例</h2>
+<p>よくある4つの例を、この計算で出しました。独身で配偶者や扶養の家族がいない場合です。</p>
+<p class="cap">令和8年分・独身の場合</p>
+<div class="tw">
+<table>
+ <thead><tr><th>例</th><th>1年分の<br>所得税（円）</th><th>引かれた<br>所得税（円）</th><th>確定申告</th></tr></thead>
+ <tbody><tr><td class="l">会社員・医療費40万円</td><td>41,861</td><td>57,176</td><td>戻る 15,315円</td></tr><tr><td class="l">会社員・ふるさと納税10万円</td><td>254,126</td><td>274,138</td><td>戻る 20,012円</td></tr><tr><td class="l">会社員・副業の所得50万円</td><td>132,219</td><td>90,358</td><td>納める 41,800円</td></tr><tr><td class="l">フリーランス・報酬300万円</td><td>28,588</td><td>306,300</td><td>戻る 277,712円</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">会社員の社会保険料は年収の15%として計算しています。会社員の「引かれた所得税」は年末調整で決まった額です。フリーランスの例は、1回100万円以下の報酬の合計が300万円で10.21%の306,300円が引かれた場合です。経費を引いた所得は200万円で、社会保険料（国民年金と国民健康保険）は40万円としています。</p>
+
+<h2 id="kojo">確定申告で受けられる主な控除</h2>
+<ul>
+ <li>医療費控除：1年の医療費から10万円（総所得金額等が200万円未満の人はその5%）を引いた額です。上限は200万円です</li>
+ <li>寄附金控除：ふるさと納税などの寄附額から2,000円を引いた額です。総所得金額等の40%が上限です</li>
+ <li>住宅ローン控除の1年目：2年目からは年末調整で受けられます</li>
+ <li>雑損控除：災害や盗難で住宅や家財に損害を受けた場合です</li>
+</ul>
+<p>国民年金・国民健康保険の保険料や、iDeCoの掛金を年末調整で出していない人も確定申告で控除できます。配偶者特別控除・老人扶養親族・障害者控除・寡婦控除などは、この計算に含めていません。</p>
+
+<h2 id="hasu">端数の決まり</h2>
+<ul>
+ <li>課税所得は1,000円未満を切り捨てます</li>
+ <li>復興特別所得税は住宅ローン控除などを引いた後の所得税（基準所得税額）の2.1%で、1円未満を切り捨てます</li>
+ <li>納める額は100円未満を切り捨てます。戻る額は1円単位です</li>
+</ul>
+
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>医療費控除で戻る所得税と住民税を、年収と医療費から出せます。<a href="/iryohi-kojo/" data-cta="rel_kakutei-shinkoku-keisan_iryohi-kojo">医療費控除の計算</a></li><li>自己負担2,000円で済む寄附の上限を、年収と家族から出せます。<a href="/furusato/" data-cta="rel_kakutei-shinkoku-keisan_furusato">ふるさと納税の限度額の計算</a></li><li>副業の所得が20万円を超えたら確定申告が要るかを判定できます。<a href="/fukugyo/" data-cta="rel_kakutei-shinkoku-keisan_fukugyo">副業の税金の計算</a></li><li>会社員の年末調整で戻る所得税の目安が分かります。<a href="/nenmatsu-chosei/" data-cta="rel_kakutei-shinkoku-keisan_nenmatsu-chosei">年末調整の還付金の計算</a></li><li>給与・年金・事業の収入から合計所得金額を出せます。<a href="/shotoku-kingaku/" data-cta="rel_kakutei-shinkoku-keisan_shotoku-kingaku">所得金額の計算</a></li><li>年収ごとの所得税と税率を早見表で確かめられます。<a href="/shotokuzei/" data-cta="rel_kakutei-shinkoku-keisan_shotokuzei">所得税の計算</a></li><li>事業の利益から税金と国民健康保険を引いた手取りが分かります。<a href="/kojin-zei/" data-cta="rel_kakutei-shinkoku-keisan_kojin-zei">個人事業主の手取りの早見表</a></li><li>報酬から引かれる10.21%の源泉徴収税額を確かめられます。<a href="/gensen-hoshu/" data-cta="rel_kakutei-shinkoku-keisan_gensen-hoshu">源泉徴収の早見表</a></li><li>令和8年分の確定申告は、令和9年2月16日から3月15日です。<a href="/kakutei-shinkoku/" data-cta="rel_kakutei-shinkoku-keisan_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>確定申告の内容は、翌年度の住民税にも反映されます。<a href="/juminzei/" data-cta="rel_kakutei-shinkoku-keisan_juminzei">住民税の早見表</a></li><li>退職所得の受給に関する申告書を出していない人は、確定申告で精算します。<a href="/taishokukin/" data-cta="rel_kakutei-shinkoku-keisan_taishokukin">退職金の税金の計算</a></li></ul>
+
+<h2 id="qa">確定申告の計算でよく聞かれること</h2>
+<h3>会社員でも確定申告で税金は戻りますか？</h3>
+<p>医療費控除やふるさと納税（ワンストップ特例を使わない分）・住宅ローン控除の1年目は、年末調整では受けられません。確定申告をすると、引かれた所得税の一部が戻ります。年収500万円で医療費30万円なら10,210円が戻ります。</p>
+<h3>戻る額はどのくらいが目安ですか？</h3>
+<p>控除が増えた額に本人の所得税率を掛け、1.021倍した額が目安です。税率10%の人が医療費控除20万円を受けると、約2万円が戻ります。</p>
+<h3>副業の所得があると納める額はいくらですか？</h3>
+<p>副業の所得に本人の税率を掛けた額がおおよその目安です。年収500万円の会社員で副業の所得が50万円なら、41,800円を納めます。</p>
+<h3>フリーランスの源泉徴収された報酬は戻りますか？</h3>
+<p>報酬から引かれた10.21%は所得税の前払いです。経費や控除を引いた1年分の所得税より多く引かれていれば、差額が戻ります。</p>
+<h3>確定申告はいつまでですか？</h3>
+<p>令和8年分は令和9年2月16日から3月15日までです。税金が戻るだけの還付申告は、翌年1月1日から5年間出せます。</p>
+
+<div class="src">出典・参考（2026年11月確認）
+ <ul>
+  <li><a href="https://www.nta.go.jp/publication/pamph/gensen/2026kaisei.pdf">国税庁「令和8年度税制改正による所得税の基礎控除の引上げ、給与所得控除の最低保障額の引上げ等について」</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2260.htm">国税庁 タックスアンサー No.2260 所得税の税率</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1120.htm">国税庁 タックスアンサー No.1120 医療費を支払ったとき（医療費控除）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1150.htm">国税庁 タックスアンサー No.1150 一定の寄附金を支払ったとき（寄附金控除）</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1191.htm">国税庁 タックスアンサー No.1191 配偶者控除</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1180.htm">国税庁 タックスアンサー No.1180 扶養控除</a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1900.htm">国税庁 タックスアンサー No.1900 給与所得者で確定申告が必要な人</a></li>
+  <li>所得税法第73条・第78条・第83条・第84条・第89条／復興財源確保法第13条／国税通則法第119条</li>
+ </ul>
+</div>
+
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p>このページの数字は2026年11月に私が確かめました。もとにしているのは、国税庁の数字です。</p><p><a href="/#auth">詳しいプロフィール</a></p></div>
+<div class="close"><p class="close-h"><span class="nw">確定申告の計算と提出を、</span><span class="nw">まるごと任せる</span></p><p>副業や事業の所得がある人の確定申告は、記帳から申告までまるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="shinkoku_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>
+ <a href="/niwari-tokurei/">消費税の計算</a>
+ <a href="/kakutei-shinkoku/">確定申告の期限の早見表</a>
+ <a href="/yatou-hiyou/">人を雇う費用の計算</a>
+ <a href="/houjinzei-keisan/">法人税の計算</a>
+ <a href="/soneki-bunkiten/">損益分岐点の計算</a>
+ <a href="/hoteifukurihi/">法定福利費の計算</a>
+ <a href="/zoyozei/">贈与税の計算</a>
+ <a href="/shotokuzei/">所得税の計算</a>
+ <a href="/taishokukin/">退職金の税金の計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の計算</a>
+ <a href="/iryohi-kojo/">医療費控除の計算</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の計算</a>
+ <a href="/furusato/">ふるさと納税の限度額の計算</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税の計算</a>
+ <a href="/gensen-hoshu/">源泉徴収の早見表</a>
+ <a href="/genbutsu-kyuyo/">非課税の限度額の早見表</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取りの早見表</a>
+ <a href="/houjinnari/">法人成りの計算</a>
+ <a href="/kojin-zei/">個人事業主の手取りの早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料の早見表</a>
+ <a href="/tedori/">年収の手取りの早見表</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/nenshu-kabe/">年収の壁の早見表</a>
+ <a href="/fukugyo/">副業の税金の計算</a>
+ <a href="/gakusei-kabe/">学生バイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの扶養の計算</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算</a>
+ <a href="/taishoku-jumin/">退職後の住民税の計算</a>
+ <a href="/hensai/">借入の返済の計算</a>
+ <a href="/saitei-chingin/">最低賃金の一覧</a>
+ <a href="/saitei-chingin-tokyo/">東京の最低賃金</a>
+ <a href="/saitei-chingin-kanagawa/">神奈川県の最低賃金</a>
+ <a href="/saitei-chingin-aichi/">愛知県の最低賃金</a>
+ <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
+ <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
+ <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
+ <a href="/taiyonensu/">法定耐用年数の一覧</a>
+ <a href="/saitei-chingin-okinawa/">沖縄県の最低賃金</a>
+ <a href="/saitei-chingin-kumamoto/">熊本県の最低賃金</a>
+ <a href="/saitei-chingin-ibaraki/">茨城県の最低賃金</a>
+ <a href="/saitei-chingin-hiroshima/">広島県の最低賃金</a>
+ <a href="/saitei-chingin-kagoshima/">鹿児島県の最低賃金</a>
+ <a href="/kani-kazei/">簡易課税の事業区分</a>
+ <a href="/saitei-chingin-mie/">三重県の最低賃金</a>
+ <a href="/saitei-chingin-shizuoka/">静岡県の最低賃金</a>
+ <a href="/saitei-chingin-miyagi/">宮城県の最低賃金</a>
+ <a href="/saitei-chingin-niigata/">新潟県の最低賃金</a>
+ <a href="/saitei-chingin-nagano/">長野県の最低賃金</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="shinkoku_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script>
+(function(){
+ var $=function(i){return document.getElementById(i)},hg=0;
+ function f(n){return Math.round(n).toLocaleString("ja-JP");}
+ function num(i){var v=parseInt(String($(i).value).replace(/[^0-9]/g,""),10);return isNaN(v)?0:v;}
+ function fl(a,b){return (a-a%b)/b;}
+ function kyuyo(x){if(x<741000)return 0;if(x<2191000)return x-740000;if(x<2193000)return 1451000;if(x<2196000)return 1453000;if(x<2200000)return 1456000;
+  if(x<6600000){var a=fl(x,4000)*4000;return x<3600000?fl(a*7,10)-80000:fl(a*8,10)-440000;}
+  if(x<8500000)return fl(x*9,10)-1100000;return x-1950000;}
+ function kiso(t){var T=[[4890000,1040000],[6550000,670000],[23500000,620000],[24000000,480000],[24500000,320000],[25000000,160000]];for(var i=0;i<T.length;i++){if(t<=T[i][0])return T[i][1];}return 0;}
+ function haigu(t){return t<=9000000?380000:t<=9500000?260000:t<=10000000?130000:0;}
+ var ZT=[[1950000,5,0],[3300000,10,97500],[6950000,20,427500],[9000000,23,636000],[18000000,33,1536000],[40000000,40,2796000]];
+ function zei(k){for(var i=0;i<ZT.length;i++){if(k<=ZT[i][0])return fl(k*ZT[i][1],100)-ZT[i][2];}return fl(k*45,100)-4796000;}
+ function rate(k){for(var i=0;i<ZT.length;i++){if(k<=ZT[i][0])return ZT[i][1];}return 45;}
+ function calc(q,wq,jo,wj,sha,ide,sei,iryo,kifu,h,fu,tf,loan){
+  var g=kyuyo(q),tot=g+jo,ki=kiso(tot),hk=h?haigu(tot):0;
+  var iryd=Math.min(2000000,Math.max(0,iryo-Math.min(100000,fl(tot*5,100)))),kfd=Math.max(0,Math.min(kifu,fl(tot*40,100))-2000);
+  var koj=sha+ide+Math.min(sei,170000)+iryd+kfd+hk+380000*fu+630000*tf+ki,kz=fl(Math.max(0,tot-koj),1000)*1000;
+  var san=zei(kz),kij=Math.max(0,san-loan),fk=fl(kij*21,1000),tz=kij+fk,d=tz-wq-wj;
+  return {g:g,tot:tot,ki:ki,hk:hk,iryd:iryd,kfd:kfd,koj:koj,kz:kz,san:san,kij:kij,fk:fk,tz:tz,pay:d>0?fl(d,100)*100:0,ref:d<0?-d:0,rt:rate(kz)};}
+ window.__shinkoku=calc;
+ function render(){
+  var wq=num("wq"),wj=num("wj"),jo=num("jo"),q=num("q");
+  var r=calc(q,wq,jo,wj,num("sha"),num("ide"),num("sei"),num("iryo"),num("kifu"),hg,+$("fu").value,+$("tf").value,num("loan"));
+  var vd=$("vd");
+  if(r.ref>0){$("o-vd").textContent="確定申告で"+f(r.ref)+"円が戻ります";$("o-al").textContent="戻る所得税";$("o-a").innerHTML=f(r.ref)+"<i>円</i>";vd.className="vd";}
+  else if(r.pay>0){$("o-vd").textContent="確定申告で"+f(r.pay)+"円を納めます";$("o-al").textContent="納める所得税";$("o-a").innerHTML=f(r.pay)+"<i>円</i>";vd.className="vd no";}
+  else{$("o-vd").textContent="戻る額も納める額もありません";$("o-al").textContent="戻る所得税";$("o-a").innerHTML="0<i>円</i>";vd.className="vd";}
+  $("o-vds").textContent="1年分の所得税"+f(r.tz)+"円に対して、源泉徴収で"+f(wq+wj)+"円が引かれています";
+  $("o-t").innerHTML=f(r.tz)+"<i>円</i>";$("o-t").nextElementSibling.textContent="税率"+r.rt+"%";
+  $("o-br").textContent="合計所得金額"+f(r.tot)+"円・所得控除の合計"+f(r.koj)+"円・課税所得"+f(r.kz)+"円";
+  $("o-ko").textContent="医療費控除"+f(r.iryd)+"円・寄附金控除"+f(r.kfd)+"円・基礎控除"+f(r.ki)+"円"+(r.hk?"・配偶者控除"+f(r.hk)+"円":"");
+  var nd;
+  if(q>20000000)nd="給与の収入が2,000万円を超えるので、確定申告が必要です";
+  else if(q>0&&jo>200000)nd="給与以外の所得が20万円を超えるので、確定申告が必要です";
+  else if(q>0)nd="給与以外の所得が20万円以下なので、医療費控除などを受けないなら確定申告はしなくてもかまいません";
+  else nd=r.pay>0?"納める所得税があるので、確定申告が必要です":"引かれすぎた源泉徴収税額は、確定申告をすると戻ります";
+  $("o-nd").textContent=nd;
+ }
+ ["q","wq","jo","wj","sha","ide","sei","iryo","kifu","loan"].forEach(function(i){$(i).addEventListener("input",render);});
+ ["fu","tf"].forEach(function(i){$(i).addEventListener("change",render);});
+ document.querySelectorAll("#s-hg button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("#s-hg button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");hg=+b.dataset.v;render();});});
+ render();
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script><style id="fsxc">.fsb{display:inline-block;margin:8px 0 6px;padding:6px 12px;border:1px solid #0f3d31;border-radius:6px;background:#ffffff;color:#0f3d31;font-weight:700;font-size:13px;cursor:pointer}.fso{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#ffffff;overflow:auto;padding:0 12px 24px}.fso .fsh{position:sticky;top:0;left:0;background:#ffffff;padding:10px 0;display:flex;justify-content:flex-end}.fso table{min-width:100%}</style><script id="fsx">(function(){var ws=document.querySelectorAll("main .tw");for(var i=0;i<ws.length;i++){(function(w){if(w.querySelectorAll("tr").length<6)return;var b=document.createElement("button");b.type="button";b.className="fsb";b.textContent="表全体を拡大表示する";b.addEventListener("click",function(){var o=document.createElement("div");o.className="fso";var h=document.createElement("div");h.className="fsh";var c=document.createElement("button");c.type="button";c.className="fsb";c.textContent="閉じる";h.appendChild(c);o.appendChild(h);var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");o.appendChild(t);document.body.appendChild(o);document.body.style.overflow="hidden";c.addEventListener("click",function(){document.body.removeChild(o);document.body.style.overflow="";});});w.parentNode.insertBefore(b,w);})(ws[i]);}})();</script>
+</body></html>
