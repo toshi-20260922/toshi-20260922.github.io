@@ -298,5 +298,15 @@
   "path": "/kakutei-shinkoku-keisan/",
   "label": "確定申告シミュレーション",
   "kw": "確定申告 シミュレーション 還付 いくら戻る 納める 所得税"
+ },
+ {
+  "path": "/saitei-chingin-gifu/",
+  "label": "岐阜県の最低賃金",
+  "kw": "最低賃金 岐阜県 ぎふ 時給"
+ },
+ {
+  "path": "/saitei-chingin-okayama/",
+  "label": "岡山県の最低賃金",
+  "kw": "最低賃金 岡山県 おかやま 倉敷 時給"
  }
 ]

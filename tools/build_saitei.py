@@ -542,7 +542,8 @@ PREFS += [
       qa='<h3>神戸と姫路で最低賃金は違いますか？</h3>\n<p>違いません。兵庫県の最低賃金は県内のどこでも時給1,172円です。製造業の6業種の事業場だけは特定最低賃金がかかり、12月1日から1,173円〜1,243円です。</p>\n',
       src='  <li><a href="https://jsite.mhlw.go.jp/hyogo-roudoukyoku/content/contents/002875983.pdf">兵庫労働局「兵庫県の最低賃金」</a>（地域別最低賃金と特定最低賃金）</li>\n  <li><a href="https://jsite.mhlw.go.jp/hyogo-roudoukyoku/home/sintyaku_itiran/news_topics/houdou/2026.html">兵庫労働局「報道発表 2026年」</a>（9月1日 兵庫県最低賃金 時間額1,172円に改正決定）</li>\n  <li><a href="https://www.nishi.or.jp/smph/kurashi/rodo/rodogyosei/saiteichingin.html">西宮市「最低賃金」</a>（特定最低賃金の額・2026年11月9日更新）</li>\n  <li><a href="https://web.pref.hyogo.lg.jp/sr05/saiteitingin.html">兵庫県「最低賃金」</a>（令和7年度の特定最低賃金の額）</li>\n',
       rel=[('saitei-chingin-osaka', '大阪の最低賃金', '大阪府は1,231円で、兵庫県より59円高い額です。'),
-           ('saitei-chingin-kyoto', '京都府の最低賃金', '京都府は11月16日から1,180円で、兵庫県より8円高い額です。')]),
+           ('saitei-chingin-kyoto', '京都府の最低賃金', '京都府は11月16日から1,180円で、兵庫県より8円高い額です。'),
+           ('saitei-chingin-okayama', '岡山県の最低賃金', '岡山県は1,104円で、兵庫県より68円低い額です。')]),
  dict(name='京都府', slug='kyoto', short='京都', word='京都府の最低賃金', kyoku='京都労働局', upd='2026年11月20日',
       mid='京都府の特定最低賃金は、11月16日からどれも京都府最低賃金より低い額です',
       intro='京都府の特定最低賃金はどれも1,180円より低くなったので、業種にかかわらず1,180円以上が最低ラインです。',
@@ -644,7 +645,8 @@ PREFS += [
          + '<h3>自動車の部品工場で働く人の最低賃金はいくらですか？</h3>\n<p>自動車・同附属品製造業の特定最低賃金は1,105円で、広島県最低賃金1,141円より低い額です。10月11日からは1,141円以上が必要です。</p>\n',
       src='  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002815206.pdf">広島労働局「広島県最低賃金の改正について 令和8年10月11日から1,141円へ」</a>（令和8年9月11日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002823834.pdf">広島労働局「広島県の最低賃金」</a>（リーフレット・令和8年9月）</li>\n  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002469689.pdf">広島労働局「広島県特定（産業別）最低賃金の改正について」</a>（令和7年11月28日・令和7年12月31日発効）</li>\n  <li><a href="https://jsite.mhlw.go.jp/hiroshima-roudoukyoku/content/contents/002882326.pdf">広島労働局「広島県特定最低賃金の改正決定の必要性の有無について」</a>（令和8年10月7日答申）</li>\n',
       rel=[('saitei-chingin-osaka', '大阪の最低賃金', '大阪府は1,231円で、広島県より90円高い額です。'),
-           ('saitei-chingin-fukuoka', '福岡県の最低賃金', '福岡県は1,114円で、広島県より27円低い額です。')]),
+           ('saitei-chingin-fukuoka', '福岡県の最低賃金', '福岡県は1,114円で、広島県より27円低い額です。'),
+           ('saitei-chingin-okayama', '岡山県の最低賃金', '岡山県は1,104円で、広島県より37円低い額です。')]),
  dict(name='鹿児島県', slug='kagoshima', short='鹿児島', word='鹿児島県の最低賃金', kyoku='鹿児島労働局', upd='2026年11月21日',
       mid='鹿児島県の特定最低賃金は、10月25日からどれも鹿児島県最低賃金より低い額です',
       intro='新車の販売店も、10月25日からは1,090円以上が最低ラインです。',
@@ -686,6 +688,7 @@ PREFS += [
          + '<h3>自動車の部品工場で働く人の最低賃金はいくらですか？</h3>\n<p>輸送用機械器具等製造業の特定最低賃金はいま1,111円で、三重県最低賃金1,143円より低い額です。いまは1,143円以上が必要です。12月21日からの1,167円は答申の額で、決まったらこのページに入れます。</p>\n',
       src='  <li><a href="https://jsite.mhlw.go.jp/mie-roudoukyoku/content/contents/002796736.pdf">三重労働局「三重県最低賃金が改正されます」</a>（令和8年9月1日・10月1日から1,143円）</li>\n  <li><a href="https://jsite.mhlw.go.jp/mie-roudoukyoku/content/contents/002796152.pdf">三重労働局「三重県内の最低賃金」</a>（リーフレット・令和8年10月1日発効版）</li>\n  <li><a href="https://jsite.mhlw.go.jp/mie-roudoukyoku/content/contents/002861359.pdf">三重労働局「2業種の三重県特定最低賃金改正を答申」</a>（令和8年10月21日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/mie-roudoukyoku/content/contents/002788911.pdf">令和8年度 第4回三重地方最低賃金審議会 議事要旨</a>（令和8年8月21日）</li>\n',
       rel=[('saitei-chingin-aichi', '愛知県の最低賃金', '愛知県は1,195円で、三重県より52円高い額です。'),
+           ('saitei-chingin-gifu', '岐阜県の最低賃金', '岐阜県は1,121円で、三重県より22円低い額です。'),
            ('saitei-chingin-shizuoka', '静岡県の最低賃金', '静岡県は1,154円で、三重県より11円高い額です。')]),
  dict(name='静岡県', slug='shizuoka', short='静岡', word='静岡県の最低賃金', kyoku='静岡労働局', upd='2026年11月20日',
       mid='静岡県の特定最低賃金は、いまはどれも静岡県最低賃金より低い額です',
@@ -766,7 +769,53 @@ PREFS += [
          + '<h3>精密機械や電子部品の工場で働く人の最低賃金はいくらですか？</h3>\n<p>計量器・電子部品などの製造業の特定最低賃金はいま1,095円で、長野県最低賃金1,117円より低い額です。いまは1,117円以上が必要です。12月25日からの1,151円は答申の額で、決まったらこのページに入れます。</p>\n',
       src='  <li><a href="https://jsite.mhlw.go.jp/nagano-roudoukyoku/content/contents/houdou8-32.pdf">長野労働局「長野県最低賃金が改正されます ～10月2日から時間額1,117円に～」</a>（令和8年9月2日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/nagano-roudoukyoku/content/contents/002765894.pdf">長野労働局「長野県最低賃金『時間額1117円』を答申」</a>（令和8年8月6日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/nagano-roudoukyoku/content/contents/houdou8-38.pdf">長野労働局「長野県はん用機械器具等製造業最低賃金『時間額1,161円』を答申」</a>（令和8年10月21日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/nagano-roudoukyoku/content/contents/houdou8-39.pdf">長野労働局「長野県計量器等製造業最低賃金『時間額1,151円』を答申」</a>（令和8年10月27日）</li>\n  <li><a href="https://saiteichingin.mhlw.go.jp/check/?p=19">厚生労働省「最低賃金早見表」長野県</a>（特定最低賃金のいまの額）</li>\n',
       rel=[('saitei-chingin-niigata', '新潟県の最低賃金', '新潟県は1,108円で、長野県より9円低い額です。'),
-           ('saitei-chingin-aichi', '愛知県の最低賃金', '愛知県は1,195円で、長野県との差は78円です。')]),
+           ('saitei-chingin-aichi', '愛知県の最低賃金', '愛知県は1,195円で、長野県との差は78円です。'),
+           ('saitei-chingin-gifu', '岐阜県の最低賃金', '岐阜県は1,121円で、長野県より4円高い額です。')]),
+ dict(name='岐阜県', slug='gifu', short='岐阜', word='岐阜県の最低賃金', kyoku='岐阜労働局', upd='2026年11月21日',
+      mid='岐阜県の特定最低賃金は、いまはどれも岐阜県最低賃金より低い額です',
+      intro='自動車と航空機の部品工場で働く人も、12月20日までは1,121円以上が最低ラインです。',
+      tokutei='''<p>岐阜県には3つの特定最低賃金があります。いまはどの業種も岐阜県最低賃金1,121円より低いので、業種にかかわらず1,121円以上が最低ラインです。</p>
+<p class="cap">岐阜県の特定最低賃金・時間額</p>
+''' + table(['業種', 'いまの額', '令和8年度'], [
+          [td('自動車・同附属品製造業', 'l'), td('1,117円'), td('1,168円を答申')],
+          [td('航空機・同附属品製造業', 'l'), td('1,049円'), td('1,125円を答申')],
+          [td('電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業', 'l'), td('965円'), td('確認できません')]]) +
+          '<p class="note" style="margin-top:8px">自動車と航空機の2業種は、岐阜地方最低賃金審議会が令和8年10月21日の第499回審議会で答申しました。岐阜労働局のページには、令和8年12月21日に改正されると書かれています。改正決定の公示はまだ確かめていないので、この計算には含めていません。確かめたらこの欄と計算を直します。</p>\n',
+      near=['岐阜県', '愛知県', '三重県', '滋賀県', '福井県', '石川県', '富山県', '長野県'],
+      near_lead='岐阜県と隣の7県の令和8年度の最低賃金です。岐阜から名古屋に通う人は、愛知県内の事業場なら愛知県の額で判定します。',
+      near_note='岐阜県は全国で16番目の額です。愛知県とは74円の差があり、三重県より22円・滋賀県より15円低い額です。富山県より2円・長野県より4円・石川県より8円・福井県より9円高い額です。',
+      ex_month=180000,
+      qa='<h3>岐阜県の最低賃金はいつから1,121円ですか？</h3>\n<p>令和8年10月1日からです。前の年度の1,065円は令和7年10月18日からだったので、1年たたずに56円上がりました。</p>\n'
+         + '<h3>自動車の部品工場で働く人の最低賃金はいくらですか？</h3>\n<p>自動車・同附属品製造業の特定最低賃金はいま1,117円で、岐阜県最低賃金1,121円より4円低い額です。いまは1,121円以上が必要です。12月21日からの1,168円は答申の額で、決定を確かめたらこのページに入れます。</p>\n',
+      src='  <li><a href="https://jsite.mhlw.go.jp/gifu-roudoukyoku/roudoukyoku/gyoumu_naiyou/roudou_kijyun/chingin/sangyoubetu_itiran/sangyoubetu_itiran_00005.html">岐阜労働局「岐阜県の最低賃金」</a>（令和8年10月1日から1,121円・特定最低賃金）</li>\n  <li><a href="https://jsite.mhlw.go.jp/gifu-roudoukyoku/content/contents/002779518.pdf">岐阜地方最低賃金審議会「令和8年度岐阜県最低賃金の改正決定に関する公益代表委員見解」</a></li>\n  <li><a href="https://jsite.mhlw.go.jp/gifu-roudoukyoku/content/contents/saichinshingikai_gijiroku_.html">岐阜労働局「岐阜地方最低賃金審議会 議事録」</a>（第499回・令和8年10月21日）</li>\n  <li><a href="https://www.pref.gifu.lg.jp/page/329757.html">岐阜県「最低賃金について知りたい。」</a></li>\n',
+      rel=[('saitei-chingin-aichi', '愛知県の最低賃金', '愛知県は1,195円で、岐阜県より74円高い額です。'),
+           ('saitei-chingin-mie', '三重県の最低賃金', '三重県は1,143円で、岐阜県より22円高い額です。'),
+           ('saitei-chingin-nagano', '長野県の最低賃金', '長野県は1,117円で、岐阜県より4円低い額です。')]),
+ dict(name='岡山県', slug='okayama', short='岡山', word='岡山県の最低賃金', kyoku='岡山労働局', upd='2026年11月21日',
+      ind=[['鉄鋼業', 1166, '2025年12月27日'],
+           ['船舶製造・修理業・舶用機関製造業', 1159, '2026年1月1日']],
+      mid='鉄鋼業と船舶製造・修理業は特定最低賃金と比べます。業種を選ぶと切り替わります',
+      intro='鉄鋼業と造船の事業場は、岡山県最低賃金より高い特定最低賃金がかかります。',
+      tokutei='''<p>岡山県には7つの特定最低賃金があります。10月2日からは鉄鋼業の1,166円と船舶製造・修理業の1,159円が岡山県最低賃金1,104円より高い額です。ほかの5業種は1,104円で判定します。</p>
+<p class="cap">岡山県の特定最低賃金・時間額</p>
+''' + table(['業種', '特定最低<br>賃金', '10月2日から<br>判定する額'], [
+          [td('鉄鋼業', 'l'), td('1,166円'), td('1,166円')],
+          [td('船舶製造・修理業・舶用機関製造業', 'l'), td('1,159円'), td('1,159円')],
+          [td('生産用機械器具製造業など（空気圧縮機・冷凍機・玉軸受・農業用機械・半導体製造装置・事務用機械器具など）', 'l'), td('1,103円'), td('1,104円')],
+          [td('電子部品・デバイス・電子回路・電気機械器具・情報通信機械器具製造業', 'l'), td('1,090円'), td('1,104円')],
+          [td('自動車・同附属品製造業', 'l'), td('1,083円'), td('1,104円')],
+          [td('耐火物製造業', 'l'), td('1,074円'), td('1,104円')],
+          [td('各種商品小売業', 'l'), td('933円'), td('1,104円')]]) +
+          '<p class="note" style="margin-top:8px">特定最低賃金の額は、岡山労働局「岡山県の最低賃金」の表によります（令和7年度に改正された額です）。令和8年度の改正は、労働局の表がまだ更新されていないので確認できません。改正が決まったらこの欄と計算を直します。生産用機械器具製造業などの1,103円は、岡山県最低賃金より1円低い額です。</p>\n',
+      near=['岡山県', '兵庫県', '鳥取県', '広島県', '島根県', '香川県', '徳島県', '大阪府'],
+      near_lead='岡山県と中国・四国・近畿の近くの府県の令和8年度の最低賃金です。県外の事業場で働く人は、その事業場がある都道府県の額で判定します。',
+      near_note='岡山県は全国で26番目の額です。広島県とは37円・兵庫県とは68円の差があり、徳島県より1円・鳥取県より14円・香川県と島根県より12円高い額です。',
+      ex_month=180000,
+      qa='<h3>岡山県の最低賃金はいつから1,104円ですか？</h3>\n<p>令和8年10月2日からです。前の年度の1,047円は令和7年12月1日からだったので、10か月ほどで57円上がりました。</p>\n'
+         + '<h3>倉敷の製鉄所や造船所で働く人の最低賃金はいくらですか？</h3>\n<p>鉄鋼業の特定最低賃金は1,166円で、船舶製造・修理業は1,159円です。どちらも岡山県最低賃金1,104円より高いので、特定最低賃金で判定します。下請けでも、事業場の業種が鉄鋼業や造船業なら同じです。</p>\n',
+      src='  <li><a href="https://jsite.mhlw.go.jp/okayama-roudoukyoku/hourei_seido_tetsuzuki/chinginkankei/saitin/saitin02.html">岡山労働局「岡山県の最低賃金」</a>（岡山県最低賃金と特定最低賃金の表）</li>\n  <li><a href="https://jsite.mhlw.go.jp/okayama-roudoukyoku/newpage_502shimonn_00010.html">岡山労働局「岡山県最低賃金の答申」</a>（令和8年8月6日・1,104円）</li>\n  <li><a href="https://jsite.mhlw.go.jp/okayama-roudoukyoku/content/contents/002355913.pdf">岡山労働局「岡山県最低賃金 1,104円を答申！」</a>（令和8年8月6日）</li>\n  <li><a href="https://jsite.mhlw.go.jp/okayama-roudoukyoku/news_topics/2026houdou.html">岡山労働局「報道発表資料 2026年」</a>（9月2日 改正決定）</li>\n',
+      rel=[('saitei-chingin-hiroshima', '広島県の最低賃金', '広島県は1,141円で、岡山県より37円高い額です。'),
+           ('saitei-chingin-hyogo', '兵庫県の最低賃金', '兵庫県は1,172円で、岡山県より68円高い額です。')]),
 ]
 
 if __name__ == '__main__':
@@ -782,7 +831,7 @@ if __name__ == '__main__':
 HAVE = {'大阪府': 'osaka', '東京都': 'tokyo', '神奈川県': 'kanagawa', '北海道': 'hokkaido', '愛知県': 'aichi',
         '埼玉県': 'saitama', '福岡県': 'fukuoka', '千葉県': 'chiba', '兵庫県': 'hyogo', '京都府': 'kyoto',
         '沖縄県': 'okinawa', '熊本県': 'kumamoto', '茨城県': 'ibaraki', '広島県': 'hiroshima', '鹿児島県': 'kagoshima',
-        '三重県': 'mie', '静岡県': 'shizuoka', '宮城県': 'miyagi', '新潟県': 'niigata', '長野県': 'nagano'}
+        '三重県': 'mie', '静岡県': 'shizuoka', '宮城県': 'miyagi', '新潟県': 'niigata', '長野県': 'nagano', '岐阜県': 'gifu', '岡山県': 'okayama'}
 
 JS_ALL = r'''(function(){
  var PR=%(pr)s;
