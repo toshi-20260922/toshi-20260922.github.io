@@ -336,5 +336,15 @@ async def body(pg):
     n += 1
     if 2065000 - 100000 - max(0, 680000 - 480000) != 1765000 or ritsu(1765000) != 5 or kiso_i(3560000) != 1040000:
         bad += 1; print('NG 川崎市の計算例')
+    # (10) よくある質問「年収220万円以上の人の住民税の所得割は変わりません」(2026-11-21 夜):令和8年度(最低保障65万円)と令和9年度(74万円)の給与所得が
+    #      220万円以上では同じで、219万9,999円では違うこと。大阪府「令和8年度の主な税制改正の紹介」・横浜市 R8kaisei.html(220万円超は改正なし)
+    def kyuyo_r8nendo(a):
+        if a < 651000: return 0
+        if a < 1900000: return a - 650000
+        return kyuyo(a) if a >= 2200000 else a // 4000 * 4000 * 7 // 10 - 80000
+    n += 1
+    if not (all(kyuyo(a) == kyuyo_r8nendo(a) for a in range(2200000, 6600000, 1000)) and kyuyo(2199999) != kyuyo_r8nendo(2199999)
+            and '年収220万円以上の人の住民税の所得割は変わりません' in txt):
+        bad += 1; print('NG 220万円の文')
     return n, bad
 run('furusato', body)

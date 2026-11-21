@@ -18,7 +18,7 @@
 #   (死亡により支払われる退職手当等は相続税の対象なので住民税は課税されない)
 #  日本年金機構 標準報酬月額の定時決定及び随時改定の事務取扱いに関する事例集 https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20121017.files/jireisyu.pdf
 #   (退職手当は報酬等に該当しない。毎月の給与や賞与に上乗せして前払いされる場合は報酬等に該当する)
-# 最後に原本を確かめた日:2026-11-21
+# 最後に原本を確かめた日:2026-11-21(2回目:No.1420・No.2732・別紙・総務省・財務省 令和8年度改正の大綱の概要)
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
@@ -258,6 +258,15 @@ async def body(pg):
         o = await pg.evaluate(OV, [g, y])
         if o[0] > 0.5 or o[1] > 0:
             ng('幅390pxのはみ出し', g, y, o)
+    # 勤続年数に端数を入れたとき(ラベル「1年未満は切り上げ」・No.1420 の例1:10年2か月は11年)
+    for yak in (0, 1):
+        await pg.click('#s-y button[data-v="%d"]' % yak)
+        for g, yf, yi in ((20000000, '20.25', 21), (20000000, '10.2', 11), (5000000, '4.5', 5), (5000000, '5.1', 6),
+                          (3000000, '0.5', 1), (20000000, '30', 30)):
+            got = await pg.evaluate(READ, [g, yf])
+            e = ref(g, yi, yak); n += 1
+            if num(got['k']) != e['k'] or num(got['t']) != e['tax'] or num(got['n']) != e['net']:
+                ng('勤続年数の端数', g, yf, yak, got['k'], got['t'], got['n'], e)
     return n, bad
 
 run('taishokukin', body)

@@ -360,7 +360,7 @@ function itaxT(t){t=Math.floor(Math.max(0,t)/1000)*1000;var b=0;for(var i=0;i<BR
 
 var amt=document.getElementById("amt"),amtr=document.getElementById("amtr"),yrs=document.getElementById("yrs"),yak=0;
 function retire(A,Y,yak){
- Y=Math.max(1,Math.floor(Y));var k=Y<=20?Math.max(800000,400000*Y):8000000+700000*(Y-20);
+ Y=Math.max(1,Math.ceil(Y));var k=Y<=20?Math.max(800000,400000*Y):8000000+700000*(Y-20);
  var r=Math.max(0,A-k),inc;
  if(Y<=5&&yak)inc=r;else if(Y<=5)inc=r<=3000000?r/2:1500000+(r-3000000);else inc=r/2;
  inc=Math.floor(inc/1000)*1000;
