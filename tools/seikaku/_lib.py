@@ -111,6 +111,9 @@
 # ・近くの県と「同じ額」と書く文は RAW で同じ額の県を全部出してから書く(熊本は山形・島根・香川。発効前の岩手は断りを付ける)。
 # ・6時すぎ:この回も本番を開けなかった(web-fetch の係は taxtable.jp の3つとも許可待ちで時間切れ)。ver=61〜66 が本番に出たかは未確認。
 #   11-21 の全41の持ち場は 06:01 に済み、まとめ(taxtable_zen_tool_kiroku.md)と報告もこの回が出した。あとの回は何もしない。
+# ---- 最優先(2026-11-21 10時の回・本人の指示) ----
+# ・WebFetch・web-fetch の係・ネットを開く係(Agent)は使わない。「許可待ちで時間切れ」は本人に承認の確認が届いていたということ(夜中じゅう)。
+#   本人「なぜ無限に承認を得ようとするの？やめろ」「承認を得ようとして得られると思うのか」。原本は WebSearch だけ。読めない数字は計算を変えず「確認できません」と書く。
 import os, sys, asyncio
 from playwright.async_api import async_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
