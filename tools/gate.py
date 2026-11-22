@@ -19,6 +19,12 @@ allp = {p['path'].strip('/') for p in PAGES}
 for f in files:
     s = open(f, encoding='utf-8').read()
     me = os.path.basename(os.path.dirname(f)) if f.endswith('/index.html') and os.path.dirname(f) != SITE else ''
+    # 普段の会話で言わない「算出」(2026/11/22 本人「算出とか言うかよ　計算ちゃうんか」)。国税庁の表・法令の名前だけ例外。
+    _vis = re.sub(r'<script.*?</script>|<style.*?</style>|<[^>]+>', '', s, flags=re.S)
+    for _m in re.finditer(r'算出(?!率)', _vis):
+        if _vis[_m.start():_m.start() + 6] == '算出所得税額':
+            continue
+        bad(f, '算出(計算と書く)', _vis[max(0, _m.start() - 15):_m.end() + 10].replace('\n', ' '))
     if '税理士事務所' in s:
         bad(f, '税理士事務所', '')
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)
@@ -82,6 +88,23 @@ for _where, _st, _en, _tag, _want in [
             bad(os.path.join(SITE, 'index.html'), '早見表の一覧に早見表でない名前', _where + ' ' + _n)
         if not _want and '早見表' in _n:
             bad(os.path.join(SITE, 'index.html'), '計算ツールの一覧に早見表の名前', _where + ' ' + _n)
+
+# 同じページはトップページの中で同じ名前にする(2026/11/22)。早見表の名前と計算の名前はそれぞれ1つまで。
+_all = {}
+for _st, _en, _tag in [('<button type="button">早見表一覧</button>', '</div></div>', 'a'), ('<button type="button">計算ツール</button>', '</div></div>', 'a'),
+                       ('<p>早見表メニュー</p>', '</div>', 'span'), ('class="pop"', '</ul>', 'span'),
+                       (_top[_mi.start():_mi.start() + 40] if _mi else '\0', 'id="tools"', 'b'), (_top[_ti.start():_ti.start() + 40] if _ti else '\0', '</section>', 'b')]:
+    _i = _top.find(_st)
+    if _i < 0:
+        continue
+    _b = _top[_i:_top.find(_en, _i)]
+    _pat = r'<a href="(/[^"#]+)"[^>]*>([^<]*)</a>' if _tag == 'a' else r'<a href="(/[^"#]+)"[^>]*>(?:(?!</a>).)*?<%s>(.*?)</%s>' % (_tag, _tag)
+    for _h, _n in re.findall(_pat, _b, re.S):
+        _all.setdefault(_h, set()).add(re.sub(r'<br>|\s', '', _n))
+for _h, _ns in _all.items():
+    for _grp in ([x for x in _ns if '早見表' in x], [x for x in _ns if '早見表' not in x]):
+        if len(_grp) > 1:
+            bad(os.path.join(SITE, 'index.html'), '同じページの名前が場所で違う', _h + ' ' + '／'.join(sorted(_grp)))
 
 # 2 画面で数えるもの
 JS = r'''() => {
