@@ -313,5 +313,25 @@
   "path": "/saitei-chingin-okayama/",
   "label": "岡山県の最低賃金",
   "kw": "最低賃金 岡山県 おかやま 倉敷 時給"
+ },
+ {
+  "path": "/saitei-chingin-tochigi/",
+  "label": "栃木県の最低賃金",
+  "kw": "最低賃金 栃木県 とちぎ 宇都宮 時給"
+ },
+ {
+  "path": "/saitei-chingin-gunma/",
+  "label": "群馬県の最低賃金",
+  "kw": "最低賃金 群馬県 ぐんま 前橋 高崎 時給"
+ },
+ {
+  "path": "/saitei-chingin-shiga/",
+  "label": "滋賀県の最低賃金",
+  "kw": "最低賃金 滋賀県 しが 大津 時給"
+ },
+ {
+  "path": "/saitei-chingin-yamaguchi/",
+  "label": "山口県の最低賃金",
+  "kw": "最低賃金 山口県 やまぐち 下関 時給"
  }
 ]
