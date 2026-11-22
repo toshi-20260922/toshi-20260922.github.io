@@ -113,6 +113,44 @@ import kotoba as _kotoba
 for _f, _c in _kotoba.find():
     bad(os.path.join(ROOT, _f), '言い方(kotoba.py)', _c)
 
+# 全ページ共通の部品が全ページ同じか(2026/11/22 本人「やるべきことやってよ」。トップだけ違うロゴ・ファビコンの欠けを本人が見つけた)
+# ヘッダー・画面下のボタン・フッター・監修・制作税理士の欄を、全ページで比べる。いちばん多い形と違うページを問題として数える。
+# 運営方針(policy)のヘッダーと画面下のボタンには「開業相談」があり、ほかのページと違う(本人の判断待ち。2026/11/22 報告)。
+_EXC = {'header': {'policy'}, 'fbar': {'policy'}}
+def _common(name, pat, clean):
+    _vals = {}
+    for _f in files:
+        _rel = os.path.relpath(os.path.dirname(_f), SITE)
+        if _rel == '.' or _rel.startswith('saitei-chingin-') and name == 'auth' and False:
+            continue
+        _s = open(_f, encoding='utf-8').read()
+        _m = re.search(pat, _s, re.S)
+        _v = clean(_m.group(0)) if _m else '(無い)'
+        _vals.setdefault(_v, []).append(_rel)
+    if len(_vals) <= 1:
+        return
+    _main = max(_vals, key=lambda k: len(_vals[k]))
+    for _v, _ps in _vals.items():
+        if _v == _main:
+            continue
+        for _rel in _ps:
+            if _rel in _EXC.get(name, set()):
+                continue
+            bad(os.path.join(SITE, _rel, 'index.html'), '共通の部品がほかのページと違う', name)
+_cl = lambda x: re.sub(r'\s+', ' ', re.sub(r' data-cta="[^"]*"| style="[^"]*"', '', x))
+_common('header', r'<header.*?</header>', _cl)
+_common('fbar', r'<div class="fbar[^"]*">.*?</div>', _cl)
+_common('footer', r'<footer.*?</footer>', _cl)
+_common('auth', r'<p class="auth-h">.*?</p><p class="auth-n">.*?</p><p class="auth-r">.*?</p>', _cl)
+_common('favicon', r'<link rel="icon"[^>]*>\s*<link rel="apple-touch-icon"[^>]*>', _cl)
+# トップページのロゴもほかのページと同じか
+_tl = re.search(r'<a class="logo" href="/">.*?</a>', _top, re.S)
+_sl = re.search(r'<a class="logo" href="/">.*?</a>', open(files[1] if os.path.dirname(files[0]) == SITE else files[0], encoding='utf-8').read(), re.S)
+_tl = re.search(r'<a class="(?:logo|nlg)" href="/">.*?</a>', _top, re.S)
+_lk = lambda x: (re.findall(r'src="([^"]+)"', x), re.findall(r'<b>(.*?)</b>', x), re.findall(r'<small>(.*?)</small>', x))
+if not _tl or not _sl or _lk(_tl.group(0)) != _lk(_sl.group(0)):
+    bad(os.path.join(SITE, 'index.html'), '共通の部品がほかのページと違う', 'トップページのロゴ')
+
 # 2 画面で数えるもの
 JS = r'''() => {
  const main = document.querySelector('main') || document.body;
@@ -124,6 +162,27 @@ JS = r'''() => {
  }
  const z = t.match(/[Ａ-Ｚａ-ｚ０-９]+/g); if (z) out.zen = z.slice(0, 5);
  out.ov = document.documentElement.scrollWidth - window.innerWidth;
+ // 表の中で2文字ずつ縦に折れる狭い列(2026/11/22 年収の壁の4列目。本人「見やすい？プロゴとくらべて」)
+ // 文字1つずつの位置を取り、行の数を数える。1行あたり2文字以下で3行以上に折れるセルを数える。
+ out.narrow = [];
+ for (const c of document.querySelectorAll('main td, main th')) {
+   if (!c.getBoundingClientRect().width) continue;
+   const tops = new Set(); let n = 0;
+   const w = document.createTreeWalker(c, NodeFilter.SHOW_TEXT);
+   while (w.nextNode()) {
+     const tn = w.currentNode;
+     for (let k = 0; k < tn.length; k++) {
+       if (/\s/.test(tn.data[k])) continue;
+       const rg = document.createRange(); rg.setStart(tn, k); rg.setEnd(tn, k + 1);
+       const rc = rg.getClientRects()[0]; if (!rc) continue;
+       tops.add(rc.top); n++;
+     }
+   }
+   const lh = parseFloat(getComputedStyle(c).fontSize) || 14;
+   const ys = [...tops].sort((a, b) => a - b); let lines = 0, last = -1e9;
+   for (const y of ys) { if (y - last > lh * 0.7) { lines++; last = y; } }
+   if (n >= 4 && lines >= 3 && n / lines <= 2) out.narrow.push((c.innerText || '').replace(/\s/g, '').slice(0, 12) + ' ' + Math.round(c.getBoundingClientRect().width) + 'px');
+ }
  return out;
 }'''
 async def main():
@@ -142,6 +201,7 @@ async def main():
                 if w == 390:
                     for x in r['touten']: bad(f, '「、」2つ以上', x)
                     for x in r['zen']: bad(f, '全角英数字', x)
+                    for x in r['narrow'][:3]: bad(f, '表の列が狭くて縦に折れる', x)
                 await pg.close()
         await b.close()
 asyncio.run(main())

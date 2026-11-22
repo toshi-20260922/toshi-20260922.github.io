@@ -86,6 +86,18 @@ def fsx(me, s):
         return s
     return s.replace('</body>', FSX + '\n</body>', 1)
 
+
+# 表の列が2文字ずつ縦に折れないようにする(2026/11/22 本人「見やすい？プロゴとくらべて」「やるべきことやってよ」)。
+# 表のセルに最低の幅(4文字ぶん)を付け、8文字以下の短いセル(金額・日付・順位・見出し)は折り返さない。表が広くなったら .tw の中で横に動かせる。
+TDW = ('<style id="tdwc">main .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}main .tw th,main .tw td{min-width:4em}main .tw .tdn{white-space:nowrap}</style>'
+       '<script id="tdw">(function(){function f(){var c=document.querySelectorAll("main .tw th,main .tw td");for(var i=0;i<c.length;i++){'
+       'var t=(c[i].textContent||"").replace(/\\s/g,"");if(t.length&&t.length<=8)c[i].classList.add("tdn");else c[i].classList.remove("tdn");}}'
+       'f();var m=document.querySelector("main");if(m&&window.MutationObserver){var b=0;new MutationObserver(function(){if(b)return;b=1;setTimeout(function(){b=0;f();},0);}).observe(m,{childList:true,subtree:true,characterData:true});}})();</script>')
+def tdw(me, s):
+    if 'id="tdw"' in s or '<main' not in s:
+        return s
+    return s.replace('</body>', TDW + '\n</body>', 1)
+
 # ファビコン(2026/11/20)。head に rel="icon" か rel="apple-touch-icon" が無いページは </head> の直前に足す。何度流しても同じ結果になる。
 ICON = '<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
 APPLE = '<link rel="apple-touch-icon" href="/apple-touch-icon.png">'
@@ -117,6 +129,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = hayami_first(me, s)
     s = pubdate(me, s)
     s = fsx(me, s)
+    s = tdw(me, s)
     s = icons(s)
     if '<nav class="tools">' in s:
         s = re.sub(r'<nav class="tools">.*?</nav>', lambda m: nav_for(me), s, count=1, flags=re.S)
