@@ -59,6 +59,30 @@ for f in files:
     if not link_ok('apple-touch-icon', '/apple-touch-icon.png'):
         bad(f, 'apple-touch-icon', 'なし')
 
+# トップページの一覧の名前(2026/11/22 本人「早見表の項目に計算ツールを置いてる」「ツール名として早見表にしないと異常」)
+# 早見表の一覧に置く名前には「早見表」を入れる。計算ツールの一覧に置く名前に「早見表」を入れない。
+_top = open(os.path.join(SITE, 'index.html'), encoding='utf-8').read()
+def _names(start, end, tag):
+    i = _top.find(start)
+    if i < 0:
+        return []
+    b = _top[i:_top.find(end, i)]
+    if tag == 'a':
+        return re.findall(r'<a href="/[^"#]+"[^>]*>([^<]*)</a>', b)
+    return [re.sub(r'<br>', '', x) for x in re.findall(r'<a href="/[^"#]+"[^>]*>(?:(?!</a>).)*?<%s>(.*?)</%s>' % (tag, tag), b, re.S)]
+_mi = re.search(r'id="list"', _top); _ti = re.search(r'id="tools"', _top)
+for _where, _st, _en, _tag, _want in [
+    ('メニューの早見表一覧', '<button type="button">早見表一覧</button>', '</div></div>', 'a', True),
+    ('最初の画面の早見表メニュー', '<p>早見表メニュー</p>', '</div>', 'span', True),
+    ('下の早見表一覧', _top[_mi.start():_mi.start() + 40] if _mi else '\0', 'id="tools"', 'b', True),
+    ('メニューの計算ツール', '<button type="button">計算ツール</button>', '</div></div>', 'a', False),
+    ('下の計算ツール一覧', _top[_ti.start():_ti.start() + 40] if _ti else '\0', '</section>', 'b', False)]:
+    for _n in _names(_st, _en, _tag):
+        if _want and '早見表' not in _n:
+            bad(os.path.join(SITE, 'index.html'), '早見表の一覧に早見表でない名前', _where + ' ' + _n)
+        if not _want and '早見表' in _n:
+            bad(os.path.join(SITE, 'index.html'), '計算ツールの一覧に早見表の名前', _where + ' ' + _n)
+
 # 2 画面で数えるもの
 JS = r'''() => {
  const main = document.querySelector('main') || document.body;
