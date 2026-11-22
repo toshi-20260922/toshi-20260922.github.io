@@ -142,7 +142,8 @@ body{overflow-x:clip}
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());(function(){var n=false;try{var q=location.search;if(/[?&]naibu=1(&|$)/.test(q))localStorage.setItem('tt_naibu','1');if(/[?&]naibu=0(&|$)/.test(q))localStorage.removeItem('tt_naibu');n=localStorage.getItem('tt_naibu')==='1';}catch(e){}gtag('config','G-CW5VSP86R1',n?{traffic_type:'internal'}:{});})();</script>
 <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");</script>
 <style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"></head>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #00775a;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#00775a}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}</style>
+</head>
 <body>
 <header class="hd"><div class="wrap">
  <a class="logo" href="/"><img src="/img/top/logo.png" alt="" width="35" height="38" loading="eager"><span class="lgt"><b>TaxTable</b><small>タックステーブル</small></span></a>
@@ -152,7 +153,7 @@ body{overflow-x:clip}
 <main class="wrap">
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="ギフト"><circle cx="32" cy="32" r="31" fill="#eef6f2"></circle><rect x="14" y="28" width="36" height="22" rx="2" fill="#e08a2c"></rect><rect x="12" y="22" width="40" height="8" rx="2" fill="#f6d3ab"></rect><rect x="29" y="22" width="6" height="28" fill="#00775a"></rect><path d="M32 22c-6-9-14-6-10-1M32 22c6-9 14-6 10-1" fill="none" stroke="#00775a" stroke-width="3" stroke-linecap="round"></path></svg></div>
- <p class="upd">更新日：2026年11月21日（令和8年度税制改正に対応）</p>
+ <p class="upd">更新日：2026年11月22日（令和8年度税制改正に対応）</p>
  <h1>【ふるさと納税の限度額の計算】年収と家族でいくらまで？早見表つき【2026年】</h1>
 </div>
 <section class="hy1">
@@ -197,6 +198,7 @@ body{overflow-x:clip}
    </details>
   </div>
  </div>
+ <div class="vd" id="vd"><b id="o-vd">ふるさと納税の上限額の目安は58,092円です</b><span id="o-vds">この額までの寄附なら自己負担は2,000円です。確定申告をしない会社員で寄附先が5団体以内なら、ワンストップ特例を使えます</span></div>
  <div class="amt">
   <div><small>上限額の目安<br>（2026年の寄附）</small><b id="o-y">58,092<i>円</i></b><em>自己負担2,000円</em></div>
   <div><small>住民税の<br>所得割</small><b id="o-j">238,100<i>円</i></b><em>令和9年度</em></div>
@@ -274,6 +276,7 @@ body{overflow-x:clip}
  <a href="/shakaihoken/">社会保険料の早見表</a>
  <a href="/koyohoken/">雇用保険料の早見表</a>
  <a href="/tedori/">年収の手取りの早見表</a>
+ <a href="/tedori-gyakusan/">手取り年収の逆算</a>
  <a href="/juminzei/">住民税の早見表</a>
  <a href="/nenshu-kabe/">年収の壁の早見表</a>
  <a href="/fukugyo/">副業の税金の計算</a>
@@ -359,7 +362,7 @@ function render(){
  var a=Math.max(0,parseInt(inc.value,10)||0),x=limit(a,sp,+k1.value,+k2.value,{sh:sv,ide:iv,iry:mv});
  var shu=sv>=0?sv:shahoM(Math.floor(a/12),985,0)*12;
  document.getElementById("o-kon").textContent="社会保険料は"+f(shu)+"円"+(sv>=0?"（入力した額）":"（協会けんぽ東京都・40歳未満で計算）")+"です"+(iv||mv?"。iDeCoなど"+f(iv)+"円と医療費控除"+f(mv)+"円を引いています":"。給与だけで計算しています")+"。住民税の非課税の判定は1級地（東京23区など）の額です";
- document.getElementById("o-y").innerHTML=f(x.lim)+"<i>円</i>";
+ document.getElementById("o-y").innerHTML=f(x.lim)+"<i>円</i>";document.getElementById("o-vd").textContent=x.lim?"ふるさと納税の上限額の目安は"+f(x.lim)+"円です":"住民税の所得割がかからないので上限額はありません";document.getElementById("o-vds").textContent=x.lim?"この額までの寄附なら自己負担は2,000円です。確定申告をしない会社員で寄附先が5団体以内なら、ワンストップ特例を使えます":"ふるさと納税をしても税金は減らず、寄附額がそのまま負担になります";
  document.getElementById("o-j").innerHTML=f(x.sho)+"<i>円</i>";
  document.getElementById("o-r").innerHTML=x.rate+"<i>%</i>";
  var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});
