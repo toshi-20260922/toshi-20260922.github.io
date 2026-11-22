@@ -237,7 +237,7 @@ body{overflow-x:clip}
  <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/kakutei-shinkoku-keisan/">Xでポストする</a>
 </div>
 
-<p>確定申告では、所得から所得控除を引いた課税所得に税率を掛けて1年分の所得税を出します。その額をすでに引かれた源泉徴収税額と比べます。<span class="mk">引かれた額の方が多ければ差額が戻り、少なければ差額を納めます。</span>令和8年分は基礎控除が最大104万円になり、給与所得控除の最低額は74万円です。</p>
+<p>確定申告では、所得から所得控除を引いた課税所得に税率を掛けて1年分の所得税を計算します。その額をすでに引かれた源泉徴収税額と比べます。<span class="mk">引かれた額の方が多ければ差額が戻り、少なければ差額を納めます。</span>令和8年分は基礎控除が最大104万円になり、給与所得控除の最低額は74万円です。</p>
 
 <nav class="toc">
  <div class="t">目次</div>
@@ -254,7 +254,7 @@ body{overflow-x:clip}
 
 <h2 id="nagare">戻る額と納める額の計算の流れ</h2>
 <ol>
- <li>給与の収入から給与所得控除を引いて給与所得を出します。副業や事業の所得を足すと合計所得金額です</li>
+ <li>給与の収入から給与所得控除を引いて給与所得を計算します。副業や事業の所得を足すと合計所得金額です</li>
  <li>社会保険料・医療費控除・寄附金控除・配偶者控除・扶養控除・基礎控除などの所得控除を引きます。1,000円未満は切り捨てて課税所得にします</li>
  <li>課税所得に税率を掛けて控除額を引くと所得税です。住宅ローン控除はこの所得税から引きます</li>
  <li>残った所得税に2.1%の復興特別所得税を足すと、1年分の所得税です</li>
@@ -296,7 +296,7 @@ body{overflow-x:clip}
  <li>納める額は100円未満を切り捨てます。戻る額は1円単位です</li>
 </ul>
 
-<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>医療費控除で戻る所得税と住民税を、年収と医療費から出せます。<a href="/iryohi-kojo/" data-cta="rel_kakutei-shinkoku-keisan_iryohi-kojo">医療費控除の計算</a></li><li>自己負担2,000円で済む寄附の上限を、年収と家族から出せます。<a href="/furusato/" data-cta="rel_kakutei-shinkoku-keisan_furusato">ふるさと納税の限度額の計算</a></li><li>副業の所得が20万円を超えたら確定申告が要るかを判定できます。<a href="/fukugyo/" data-cta="rel_kakutei-shinkoku-keisan_fukugyo">副業の税金の計算</a></li><li>会社員の年末調整で戻る所得税の目安が分かります。<a href="/nenmatsu-chosei/" data-cta="rel_kakutei-shinkoku-keisan_nenmatsu-chosei">年末調整の還付金の計算</a></li><li>給与・年金・事業の収入から合計所得金額を出せます。<a href="/shotoku-kingaku/" data-cta="rel_kakutei-shinkoku-keisan_shotoku-kingaku">所得金額の計算</a></li><li>年収ごとの所得税と税率を早見表で確かめられます。<a href="/shotokuzei/" data-cta="rel_kakutei-shinkoku-keisan_shotokuzei">所得税の計算</a></li><li>事業の利益から税金と国民健康保険を引いた手取りが分かります。<a href="/kojin-zei/" data-cta="rel_kakutei-shinkoku-keisan_kojin-zei">個人事業主の手取りの早見表</a></li><li>報酬から引かれる10.21%の源泉徴収税額を確かめられます。<a href="/gensen-hoshu/" data-cta="rel_kakutei-shinkoku-keisan_gensen-hoshu">源泉徴収の早見表</a></li><li>令和8年分の確定申告は、令和9年2月16日から3月15日です。<a href="/kakutei-shinkoku/" data-cta="rel_kakutei-shinkoku-keisan_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>確定申告の内容は、翌年度の住民税にも反映されます。<a href="/juminzei/" data-cta="rel_kakutei-shinkoku-keisan_juminzei">住民税の早見表</a></li><li>退職所得の受給に関する申告書を出していない人は、確定申告で精算します。<a href="/taishokukin/" data-cta="rel_kakutei-shinkoku-keisan_taishokukin">退職金の税金の計算</a></li></ul>
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>医療費控除で戻る所得税と住民税を、年収と医療費から出せます。<a href="/iryohi-kojo/" data-cta="rel_kakutei-shinkoku-keisan_iryohi-kojo">医療費控除の計算</a></li><li>自己負担2,000円で済む寄附の上限を、年収と家族から出せます。<a href="/furusato/" data-cta="rel_kakutei-shinkoku-keisan_furusato">ふるさと納税の限度額の計算</a></li><li>副業の所得が20万円を超えたら確定申告が要るかを判定できます。<a href="/fukugyo/" data-cta="rel_kakutei-shinkoku-keisan_fukugyo">副業の税金の計算</a></li><li>会社員の年末調整で戻る所得税の目安が分かります。<a href="/nenmatsu-chosei/" data-cta="rel_kakutei-shinkoku-keisan_nenmatsu-chosei">年末調整の還付金の計算</a></li><li>給与・年金・事業の収入から合計所得金額を計算できます。<a href="/shotoku-kingaku/" data-cta="rel_kakutei-shinkoku-keisan_shotoku-kingaku">所得金額の計算</a></li><li>年収ごとの所得税と税率を早見表で確かめられます。<a href="/shotokuzei/" data-cta="rel_kakutei-shinkoku-keisan_shotokuzei">所得税の計算</a></li><li>事業の利益から税金と国民健康保険を引いた手取りが分かります。<a href="/kojin-zei/" data-cta="rel_kakutei-shinkoku-keisan_kojin-zei">個人事業主の手取りの早見表</a></li><li>報酬から引かれる10.21%の源泉徴収税額を確かめられます。<a href="/gensen-hoshu/" data-cta="rel_kakutei-shinkoku-keisan_gensen-hoshu">源泉徴収の早見表</a></li><li>令和8年分の確定申告は、令和9年2月16日から3月15日です。<a href="/kakutei-shinkoku/" data-cta="rel_kakutei-shinkoku-keisan_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>確定申告の内容は、翌年度の住民税にも反映されます。<a href="/juminzei/" data-cta="rel_kakutei-shinkoku-keisan_juminzei">住民税の早見表</a></li><li>退職所得の受給に関する申告書を出していない人は、確定申告で精算します。<a href="/taishokukin/" data-cta="rel_kakutei-shinkoku-keisan_taishokukin">退職金の税金の計算</a></li></ul>
 
 <h2 id="qa">確定申告の計算でよく聞かれること</h2>
 <h3>会社員でも確定申告で税金は戻りますか？</h3>

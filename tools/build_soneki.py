@@ -1,7 +1,7 @@
 import re
 S='/home/claude/toshi-20260922.github.io/site/'
 t=open(S+'houjinzei-keisan/index.html').read()
-T='損益分岐点の計算ツール｜売上高・変動費・固定費から損益分岐点売上高と安全余裕率を出す【計算式つき】'
+T='損益分岐点の計算ツール｜売上高・変動費・固定費から損益分岐点売上高と安全余裕率を計算【計算式つき】'
 D='売上高・変動費・固定費を入力すると、損益分岐点売上高・損益分岐点比率・安全余裕率・限界利益率を表示します。売上が増減したときの利益の表と、計算式・計算例・損益分岐点を下げる方法も載せています。'
 head=t[:t.index('<body')]
 head=head.replace('法人税の計算シミュレーション｜住民税・事業税まで合計いくら？所得を入力して計算【令和8年度】',T)
@@ -59,10 +59,10 @@ MAIN='''<main class="wrap">
  <ul>
   <li id="o-1">限界利益0円・限界利益率0%・利益0円</li>
   <li id="o-2">売上高が0円減ると、利益が0になります</li>
-  <li>売上高・変動費・固定費は、同じ期間（1年か1か月）の額を入れます</li>
+  <li>売上高・変動費・固定費は、同じ期間（1年か1か月）の額を入力します</li>
  </ul>
 </div>
-<div class="rcta"><p>損益分岐点を出すには、毎月の帳簿で変動費と固定費が分かれている必要があります。記帳から決算・申告まで、まとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="soneki_result_marunage">経理丸投げの無料相談</a></div>
+<div class="rcta"><p>損益分岐点を計算するには、毎月の帳簿で変動費と固定費が分かれている必要があります。記帳から決算・申告まで、まとめてお受けしています。</p><a href="https://oyama-toshiro.com/contact/" data-cta="soneki_result_marunage">経理丸投げの無料相談</a></div>
 <div class="share">
  <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/soneki-bunkiten/">LINEで送る</a>
  <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/soneki-bunkiten/">Xでポストする</a>

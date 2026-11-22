@@ -106,6 +106,13 @@ for _h, _ns in _all.items():
         if len(_grp) > 1:
             bad(os.path.join(SITE, 'index.html'), '同じページの名前が場所で違う', _h + ' ' + '／'.join(sorted(_grp)))
 
+# 言い方の点検(tools/kotoba.py の NG に当たる所)。直しは python3 tools/kotoba.py --fix
+import sys as _sys
+_sys.path.insert(0, os.path.join(ROOT, 'tools'))
+import kotoba as _kotoba
+for _f, _c in _kotoba.find():
+    bad(os.path.join(ROOT, _f), '言い方(kotoba.py)', _c)
+
 # 2 画面で数えるもの
 JS = r'''() => {
  const main = document.querySelector('main') || document.body;
