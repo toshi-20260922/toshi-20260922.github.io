@@ -139,6 +139,8 @@ def run(slug, body, width=390):
             pg = await b.new_page(viewport={'width': width, 'height': 800})
             errs = []
             pg.on('pageerror', lambda e: errs.append(str(e)))
+            # 表のセルの折り返し止め(finish.py の tdn)は見た目だけの印なので、突き合わせでは付けない(2026-11-23)
+            await pg.add_init_script("(function(){var a=DOMTokenList.prototype.add;DOMTokenList.prototype.add=function(){var x=[].slice.call(arguments).filter(function(c){return c!=='tdn'});if(x.length)return a.apply(this,x);};})();")
             await pg.goto(url(slug))
             n, bad = await body(pg)
             await b.close()
