@@ -132,7 +132,7 @@ async def body(pg):
     # 1 早見表(HTML に手で書いた18行)
     rows = await pg.eval_on_selector_all(':is(#list ~ .tw):not(#list ~ .tw ~ .tw) tbody tr', """rs=>rs.map(r=>{
         var t=r.children, w=t[0].cloneNode(true), sm=w.querySelector('small'), s=sm?sm.textContent:''; if(sm)sm.remove();
-        return {x:w.textContent.trim(), sm:s, oya:t[1].textContent.trim(), sh:t[2].textContent.trim(), me:t[3].textContent.trim(), cls:t[2].className}})""")
+        return {x:w.textContent.trim(), sm:s, oya:t[1].textContent.trim(), sh:t[2].textContent.trim(), me:t[3].textContent.trim(), cls:t[2].className.split(' ').filter(c=>c!=='tdn').join(' ')}})""")
     XS = [100, 110, 119, 120, 130, 136, 140, 150, 159, 160, 163, 170, 178, 180, 190, 197, 200, 210]
     chk('早見表の行', [r['x'] for r in rows], ['%d万円' % v for v in XS])
     LBL = {W_JU: 'ここまで住民税0', W_FUYO: 'ここまで扶養控除', SHAHO: '親の社会保険から外れる', W_MAN: 'ここまで満額',
