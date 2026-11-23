@@ -40,14 +40,14 @@ if __name__=='__main__':
         V=asyncio.run(gen(s,st));bad=0;n=0
         for old,t in ((0,T[0]),(1,T[1])):
             for row in t:
-                p=str(num(row[0].replace('万円','')));r=V[str(old)][p];n+=1
-                if num(row[1])!=int((r['kt']+5000)//10000): bad+=1;print('kt',old,p,row[1],r['kt'])
+                p=str(num(row[0].split('|')[0].replace('万円','')));r=V[str(old)][p];n+=1
+                if num(row[0].split('|')[1].replace('個人事業の負担','').replace('万',''))!=int((r['kt']+5000)//10000): bad+=1;print('kt',old,p,row[0],r['kt'])
                 for i,c in enumerate(r['c']):
                     n+=1
-                    if num(row[2+i])!=int((c['d']+5000)//10000): bad+=1; print('cell',st,old,p,i,row[2+i],c['d']) if bad<12 else None
-                a=row[12].split('|');n+=1
-                if num(a[0])!=int((r['all']['d']+5000)//10000) or a[-1]!='月%d万'%int((r['all']['m']+5000)//10000): bad+=1;print('all',old,p,row[12],r['all'])
-        for row in T[2]:
+                    if num(row[1+i])!=int((c['d']+5000)//10000): bad+=1; print('cell',st,old,p,i,row[1+i],c['d']) if bad<12 else None
+                a=row[11].split('|');n+=1
+                if num(a[0])!=int((r['all']['d']+5000)//10000) or a[-1]!='月%d万'%int((r['all']['m']+5000)//10000): bad+=1;print('all',old,p,row[11],r['all'])
+        for row in T[6]:
             p=str(num(row[0].replace('万円','')));r=V['0'][p]
             for i,c in enumerate(r['c']):
                 n+=1

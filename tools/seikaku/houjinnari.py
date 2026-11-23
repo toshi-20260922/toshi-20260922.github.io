@@ -134,7 +134,7 @@ def kokuho(R, g, old):
         tot += min(c[3], v // R['r'] * R['r'])
     return tot
 def kojin(a, old, R):
-    g = max(0, a - min(650000, a)); sh = kokuho(R, g, old) + NENKIN_KOKUMIN
+    g = max(0, a - min(650000, a)); sh = kokuho(R, g, old) + (0 if old == 2 else NENKIN_KOKUMIN)   # 60〜64歳は国民年金なし
     it = shotokuzei(g - sh - kiso(g)); ju = jumin(g, sh)
     jg = max(0, a - 2900000) // 1000 * 1000 * 5 // 100 // 100 * 100
     return a - it - ju - jg - sh
@@ -229,7 +229,7 @@ async def body(pg):
         got = await pg.evaluate(SET, [ri, pi, old, a, cust])
         R = R or RR[ri]; rate = PREF[pi][1]
         kk = kojin(a, old, R); h = houjin(a, old, rate); df = h['net'] - kk
-        tag = '%s %s %s %d' % (R.get('s', '入れた料率'), PREF[pi][0], '40〜59歳' if old else '40歳未満', a)
+        tag = '%s %s %s %d' % (R.get('s', '入れた料率'), PREF[pi][0], ('40歳未満', '40〜59歳', '60〜64歳')[old], a)
         chk('個人事業 ' + tag, d(got['k']), kk)
         chk('法人 ' + tag, d(got['h']), h['net'])
         chk('差 ' + tag, got['d'], ('+' if df >= 0 else '−') + '{:,}円'.format(abs(df)))
@@ -238,7 +238,7 @@ async def body(pg):
         chk('社会保険料 ' + tag, got['o2'], '法人の社会保険料は、本人負担と会社負担を合わせて年{:,}円です'.format(h['sh']))
         return got
     for ri in range(len(RR)):
-        for old in (0, 1):
+        for old in (0, 1, 2):
             for a in PROF:
                 await one(ri, RR[ri]['f'], old, a)
     # 都道府県47(東京23区の国保のまま)
@@ -285,35 +285,53 @@ async def body(pg):
             chk('10行の表の行の数', len(got['tb']), 10)
     await pg.evaluate(SET, [0, 12, 0, 8000000, None])
 
-    # 6 HTML に手で書いた早見表3枚の全マス(東京23区・協会けんぽ東京都)
+    # 6 HTML に書いた早見表の全マス(比べ方2つ×年齢3つ=6枚)と会社に残るお金(年齢3つ)。東京23区・協会けんぽ東京都
     PRS = [400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1800, 2000, 2500, 3000]
     MS = [20, 30, 40, 50, 60, 70, 80, 90, 100, 120]
-    tabs = await pg.eval_on_selector_all('table.x7tb', """ts=>ts.map(t=>({h:[...t.querySelectorAll('thead th')].map(x=>x.textContent),
-        r:[...t.querySelectorAll('tbody tr')].map(r=>[...r.children].map(c=>({t:c.textContent,c:c.className,s:(c.querySelector('small')||{}).textContent||''})))}))""")
-    chk('早見表の数', len(tabs), 3)
+    tabs = await pg.eval_on_selector_all('table.x7tb', """ts=>ts.map(t=>({c:(t.closest('[data-c]')||{dataset:{c:'n'}}).dataset.c,a:(t.closest('[data-a]')||{dataset:{a:'-'}}).dataset.a,
+        h:[...t.querySelectorAll('thead th')].map(x=>x.textContent),
+        r:[...t.querySelectorAll('tbody tr')].map(r=>[...r.children].map(c=>({t:c.textContent,c:c.className})))}))""")
+    chk('早見表の並び', [(t['c'], t['a']) for t in tabs], [(c, str(o)) for c in 'ft' for o in (0, 1, 2)] + [('n', str(o)) for o in (0, 1, 2)])
     def sg(v):
         return ('+{:,}'.format(v)) if v > 0 else ('−{:,}'.format(-v) if v < 0 else '0')
-    for ti, old in ((0, 0), (1, 1)):
-        T = tabs[ti]
-        chk('表%d の見出し' % (ti + 1), T['h'], ['事業の利益（年）', '個人事業のまま'] + ['報酬月%d万' % m for m in MS] + ['全額を報酬'])
-        chk('表%d の行' % (ti + 1), [r[0]['t'] for r in T['r']], ['{:,}万円'.format(p) for p in PRS])
+    for T in tabs[:6]:
+        mode, old = T['c'], int(T['a']); nm = '%s%d' % (mode, old)
+        chk('表%s の見出し' % nm, T['h'], ['事業の利益（年）'] + ['報酬月%d万' % m for m in MS] + ['全額を報酬'])
+        chk('表%s の行の数' % nm, len(T['r']), len(PRS))
         for row, p in zip(T['r'], PRS):
             a = p * 10000; kk = kojin(a, old, RR[0])
-            chk('表%d %d 個人事業のまま' % (ti + 1, p), row[1]['t'], '{:,}'.format(man(a - kk)))
+            lab = ('個人事業の負担{:,}万' if mode == 'f' else '個人事業の手取り{:,}万').format(man(a - kk) if mode == 'f' else man(kk))
+            chk('表%s %d 左の列' % (nm, p), row[0]['t'], '{:,}万円'.format(p) + lab)
+            vals = []
+            for mm in MS:
+                dv, P, nk = cell(a, mm * 10000, old, RR[0], 985)
+                vals.append((man(dv if mode == 'f' else dv - nk), P))
+            h = houjin(a, old, 985); av = man(h['net'] - kk)
+            ok = [v for v, P in vals if P >= 0] + [av]; best = max(ok) if max(ok) > 0 else None; marked = False
+            for ci, (v, P) in enumerate(vals):
+                cl = 'x7g' if P < 0 else ('x7p' if v > 0 else '')
+                if not marked and P >= 0 and v == best: cl += ' x7b'; marked = True
+                chk('表%s %d 報酬月%d万' % (nm, p, MS[ci]), row[1 + ci]['t'], '赤字' if (mode == 't' and P < 0) else sg(v))
+                chk('表%s %d 報酬月%d万 の色と枠' % (nm, p, MS[ci]), row[1 + ci]['c'], cl.strip())
+            cl = 'x7p' if av > 0 else ''
+            if not marked and av == best: cl += ' x7b'
+            chk('表%s %d 全額を報酬' % (nm, p), row[11]['t'], sg(av) + '月%d万' % man(h['m']))
+            chk('表%s %d 全額を報酬 の色と枠' % (nm, p), row[11]['c'], cl.strip())
+    for T in tabs[6:]:
+        old = int(T['a'])
+        chk('残るお金%d の見出し' % old, T['h'], ['事業の利益（年）'] + ['報酬月%d万' % m for m in MS])
+        for row, p in zip(T['r'], PRS):
             for ci, mm in enumerate(MS):
-                dv, P, _ = cell(a, mm * 10000, old, RR[0], 985); v = man(dv)
-                chk('表%d %d 報酬月%d万' % (ti + 1, p, mm), row[2 + ci]['t'], sg(v))
-                chk('表%d %d 報酬月%d万 の色' % (ti + 1, p, mm), row[2 + ci]['c'], 'x7g' if P < 0 else ('x7p' if v > 0 else ''))
-            h = houjin(a, old, 985); v = man(h['net'] - kk)
-            chk('表%d %d 全額を報酬' % (ti + 1, p), row[12]['t'], sg(v) + '月%d万' % man(h['m']))
-            chk('表%d %d 全額を報酬 の色' % (ti + 1, p), row[12]['c'], 'x7p' if v > 0 else '')
-    T = tabs[2]
-    chk('表3 の見出し', T['h'], ['事業の利益（年）'] + ['報酬月%d万' % m for m in MS])
-    for row, p in zip(T['r'], PRS):
-        for ci, mm in enumerate(MS):
-            _, P, nk = cell(p * 10000, mm * 10000, 0, RR[0], 985); v = man(nk)
-            chk('表3 %d 報酬月%d万' % (p, mm), row[1 + ci]['t'], ('−{:,}'.format(-v)) if v < 0 else '{:,}'.format(v))
-            chk('表3 %d 報酬月%d万 の色' % (p, mm), row[1 + ci]['c'], 'x7g' if P < 0 else '')
+                _, P, nk = cell(p * 10000, mm * 10000, old, RR[0], 985); v = man(nk)
+                chk('残るお金%d %d 報酬月%d万' % (old, p, mm), row[1 + ci]['t'], ('−{:,}'.format(-v)) if v < 0 else '{:,}'.format(v))
+                chk('残るお金%d %d 報酬月%d万 の色' % (old, p, mm), row[1 + ci]['c'], 'x7g' if P < 0 else '')
+    # 切り替え:比べ方と年齢を選ぶと、その表だけが見える。年齢はつまみとそろう
+    for c, a in (('t', 2), ('f', 1), ('t', 0), ('f', 0)):
+        await pg.click('#bkc button[data-v="%s"]' % c); await pg.click('#bkt button[data-v="%d"]' % a)
+        vis = await pg.eval_on_selector_all('table.x7tb', "ts=>ts.map(t=>t.offsetParent!==null)")
+        want = [cc == c and o == a for cc in 'ft' for o in (0, 1, 2)] + [o == a for o in (0, 1, 2)]
+        chk('見える表 %s%d' % (c, a), vis, want)
+        chk('つまみの年齢 %s%d' % (c, a), await pg.eval_on_selector('#bka .on', 'e=>e.dataset.v'), str(a))
 
     # 7 本文の分岐点の数字(10万円刻みで、それより上はずっと法人のほうが軽くなる利益)
     def th(m, old):
