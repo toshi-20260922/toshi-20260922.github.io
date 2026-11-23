@@ -11,6 +11,7 @@ if os.path.exists(OK):
 
 files = sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))) + [os.path.join(SITE, 'index.html')]
 probs = []
+HIKAKU = json.load(open(os.path.join(ROOT, 'tools', 'hikaku_bun.json'), encoding='utf-8'))
 def bad(f, kind, detail):
     probs.append((f.replace(SITE + '/', ''), kind, detail))
 
@@ -50,6 +51,14 @@ for f in files:
         hy, ca = s.find('class="hy1"'), s.find('id="calc"')
         if hy < 0 or hy > ca:
             bad(f, '早見表が計算の箱より上に無い', 'tools/hayami_first.json に見出しの id を足して finish.py を流す')
+    # 同業他社と比べるページ(決算分析・ベンチマーク)には、競合他社との比較の文が必須(2026/11/23 本人「これは必須なのよ絶対な」)。
+    # tools/hikaku_bun.json の pages に載せたページと、id="bench" を持つページを数える。文は一字も変えない。
+    if me and (me in HIKAKU['pages'] or 'id="bench"' in s):
+        _pos = _vis.find(HIKAKU['bun'])
+        if _pos < 0:
+            bad(f, '競合他社との比較の文が無い', HIKAKU['bun'])
+        elif 'id="calc"' in s and s.find(HIKAKU['bun']) < s.find('id="calc"'):
+            bad(f, '競合他社との比較の文が結果より上にある', '計算の結果のすぐ下に置く')
     if me and me != 'policy' and me not in allp:
         bad(f, 'pages.json に無いページ', me)
     head = s.split('</head>', 1)[0]
