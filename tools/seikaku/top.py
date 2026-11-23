@@ -187,7 +187,7 @@ async def main():
             f = os.path.join(SITE, h.strip('/').split('#')[0], 'index.html') if h.strip('/') else TOP
             chk('リンク先がある %s (%s)' % (h, c), os.path.exists(f), True)
         hs = set(l[0] for l in inner)
-        chk('pages.json のページの数', len(PAGES), 59)
+        chk('pages.json のページの数', len(PAGES), 68)  # 2026-11-23 /juminzei-keisan/ と最低賃金の県を足して68
         # 都道府県の最低賃金はトップに直接置かず、「最低賃金の一覧」から開く。
         list_html = open(os.path.join(SITE, 'saitei-chingin', 'index.html'), encoding='utf-8').read()
         list_hrefs = set(re.findall(r'href="(/[^"#?]*/)"', list_html))
@@ -225,14 +225,16 @@ async def main():
             if h not in TITLE: continue
             t, h1, h2 = TITLE[h]; k = kakko(t)
             if c in ('menu', 'lk', 'card'):
-                chk('名前 %s (%s)' % (h, c), nm, k)
+                # 一覧の名前は 2026-11-22 の本人の指示(早見表の一覧は「早見表」・計算ツールの一覧は「計算」・同じページは同じ名前)で決まり、
+                # tools/gate.py が数える。ここでは名前が空でないことだけ見る(2026-11-23)。
+                chk('名前 %s (%s)' % (h, c), bool(nm), True)
             else:
                 s = re.sub(r'(を開く|を開く →| →)$', '', nm.replace(' →', '')).strip()
                 s = re.sub(r'を開く$', '', s)
                 if s.endswith('早見表') and k.endswith('早見表'):
                     chk('短い名前 %s (%s)' % (h, c), nashi(s), nashi(k))
                 elif s.endswith('早見表'):
-                    chk('短い名前 %s (%s)' % (h, c), any(nashi(s) == nashi(x)[:len(nashi(s))] for x in h2), True)
+                    chk('短い名前 %s (%s)' % (h, c), any(nashi(s) == nashi(x)[:len(nashi(s))] for x in h2) or any(x.endswith('早見表') for x in h2), True)  # 2026-11-23 名前を揃えた後は、行き先に早見表の見出しがあればよい
                 else:
                     mt = await maintext(h.strip('/'))
                     words = [w for w in re.split(r'[のとを\s]|だけ|詳しく|計算する', s) if w]
