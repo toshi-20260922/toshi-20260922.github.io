@@ -79,7 +79,7 @@ async def body(pg):
         ck(any(o[5] == b[1] and abs(F(o[4].replace('%', '')) - b[2]) <= F(1, 20) for b in best), s, '率と計算の名前', o[4], o[5], [(b[1], float(b[2])) for b in best])
     # 業種を選ぶと、表と同じ区分が出るか
     html = await pg.content()
-    rei = dict(re.findall(r'<tr><td class="l">([^<]+)</td><td>(第\d種)</td>', html))
+    rei = dict(re.findall(r'<tr><td class="l(?: tdn)?">([^<]+)</td><td(?: class="tdn")?>(第\d種)</td>', html))
     ck(len(rei) == 39, '業種の例の行の数', len(rei))
     opts = await pg.evaluate("[...document.querySelectorAll('#ex option')].map(o=>[o.value,o.text])")
     for v, t in opts:

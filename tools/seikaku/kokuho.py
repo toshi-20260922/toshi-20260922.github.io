@@ -381,7 +381,7 @@ async def body(pg):
               '神戸市「国民健康保険料の額」', '岡山市「令和8年度国民健康保険料率のお知らせ」', '広島市「国民健康保険料の計算方法」', '北九州市「国民健康保険料の計算方法」',
               '福岡市「国民健康保険料の計算方法」', '熊本市「国民健康保険 保険料について」']:
         chk('出典の文字 ' + t, raw.count('>' + t + '</a>'), 1)
-    chk('更新日', '更新日：2026年11月21日（' in raw, True)
+    chk('更新日', '更新日：2026年11月23日（' in raw, True)
     chk('span の開きと閉じの数', raw.count('<span'), raw.count('</span>'))
     chk('id の重なり', len(set(__import__('re').findall(r'\sid="([^"]+)"', raw))), len(__import__('re').findall(r'\sid="([^"]+)"', raw)))
     return n, bad
