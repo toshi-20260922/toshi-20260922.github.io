@@ -164,16 +164,20 @@ async def body(pg):
             chk('控除あり S=%d' % S, {k: got.get(k) for k in exp}, exp)
     # 2 HTML に手で書いた早見表の全行
     html = open(os.path.join(SITE, 'nenmatsu-chosei', 'index.html'), encoding='utf-8').read()
+    # 2026-11-24:早見表を「年収・戻る額(単身)・戻る額(配偶者控除あり)」の3列にし、天引きと調整後の所得税は内訳の表(tb2)へ分けた
     rows = re.findall(r'<tr data-s="(\d+)">(.*?)</tr>', html)
     chk('早見表の行の数', len(rows), 22)
     chk('早見表の列の題', re.search(r'<thead><tr>(.*?)</tr></thead>\s*<tbody id="tb">', html, re.S).group(1),
-        '<th>年収<br>万円</th><th>基礎控除<br>令和8年分</th><th>天引きの<br>1年分</th><th>調整後の<br>所得税</th><th>戻る額<br>単身</th><th>戻る額<br>配偶者<br>控除あり</th>')
-    for s, tds in rows:
+        '<th>年収</th><th>戻る額<br>単身</th><th>戻る額<br>配偶者控除あり</th>')
+    rows2 = re.findall(r'<tr>(<td>[\d,]+万円</td>.*?)</tr>', html[html.index('id="tb2"'):html.index('</tbody>', html.index('id="tb2"'))])
+    chk('内訳の表の行の数', len(rows2), 22)
+    for (s, tds), t2 in zip(rows, rows2):
         c = [digits(x) for x in re.findall(r'<td>(.*?)</td>', tds)]
+        c2 = [digits(x) for x in re.findall(r'<td>(.*?)</td>', t2)]
         S = int(s) * 10000; a = ref(S, 0, 0, 0); h = ref(S, 0, 1, 0)
-        # 2026-11-20:2列目に「基礎控除 令和8年分」が足された。年収から給与所得を出し、合計所得の帯で決める(基礎控除等 106.pdf)
-        chk('早見表 %s万円' % s, c, [int(s), kiso(kyuyo_shotoku(S)) // 10000, a['t'], a['z'], a['k'], max(h['k'], 0) if h['k'] >= 0 else h['k']])
-        chk('早見表 %s万円 基礎控除の字' % s, re.findall(r'<td>(.*?)</td>', tds)[1], '%d万円' % (kiso(kyuyo_shotoku(S)) // 10000))
+        chk('早見表 %s万円' % s, c, [int(s), a['k'], h['k']])
+        chk('早見表 %s万円 年収の字' % s, re.findall(r'<td>(.*?)</td>', tds)[0], '{:,}万円'.format(int(s)))
+        chk('内訳 %s万円' % s, c2, [int(s), a['t'], a['z'], kiso(kyuyo_shotoku(S)) // 10000])
     # 3 文の中の金額
     r6 = ref(6000000, 0, 0, 0)
     chk('冒頭の600万円', '年収600万円・単身の場合、戻る額の目安は%s円です' % format(r6['k'], ',') in html, True)
@@ -217,7 +221,7 @@ async def body(pg):
     chk('月の基礎控除', 48334 * 12 // 10000, 58)
     # 6 2026-11-20 に足した分:並び替えのあとの文と、合計所得900万円の境目
     chk('早見表は上にある', html.index('id="list"') < html.index('id="calc"'), True)
-    chk('計算の箱の文は「上の早見表」', '<li>上の早見表は、賞与なし・40歳未満・控除の申告なしの額です</li>' in html and '下の早見表' not in html, True)
+    chk('計算の箱の文は「上の早見表」', '<li>上の早見表は、選んだ年齢と賞与で計算した額です。控除の申告は入れていません</li>' in html and '下の早見表' not in html, True)
     chk('900万円の注記', '合計所得が900万円を超える年収1,200万円以上の行は、毎月の天引きを配偶者なしで計算しています。' in html, True)
     over = [int(s) for s, _ in rows if kyuyo_shotoku(int(s) * 10000) > 9000000]
     chk('合計所得900万円超の行', over, [1200, 1500, 2000])
@@ -270,6 +274,24 @@ async def body(pg):
     v, msg, kb = await show()
     chk('既定の500万円', v, [e['t'], e['z'], e['k']]); chk('既定の基礎控除の字', kb, '基礎控除104万円')
     hit = await pg.evaluate('document.querySelector("#tb tr.hit").getAttribute("data-s")'); chk('黄色の行', hit, '500')
+    # 早見表の切り替えと行のタップ(2026-11-24 本人「黄色くならないし」「えらべないし」)
+    async def tbl():
+        return await pg.evaluate("()=>[...document.querySelectorAll('#tb tr')].map(r=>[r.getAttribute('data-s'),...[...r.cells].map(c=>c.textContent)])")
+    for ag in (0, 1):
+        for bn in (0, 1):
+            await pg.click('#nca button[data-v="%d"]' % ag); await pg.click('#ncb button[data-v="%d"]' % bn)
+            got = await tbl()
+            for r in got:
+                S = int(r[0]) * 10000; B = S // 4 if bn else 0
+                chk('切り替え 年齢%d 賞与%d %s万円' % (ag, bn, r[0]), [(-1 if r[2].startswith('−') else 1) * digits(r[2]), (-1 if r[3].startswith('−') else 1) * digits(r[3])], [ref(S, B, 0, ag)['k'], ref(S, B, 1, ag)['k']])
+            chk('切り替えと計算の箱の年齢 %d' % ag, await pg.evaluate("document.querySelector('#s-a .on').getAttribute('data-v')"), str(ag))
+    await pg.click('#tb tr[data-s="300"]')
+    chk('行をタップすると年収が入る', await pg.input_value('#inc'), '300')
+    chk('行をタップすると黄色', await pg.evaluate('document.querySelector("#tb tr.hit").getAttribute("data-s")'), '300')
+    await pg.fill('#bon', '150'); await pg.dispatch_event('#bon', 'input')
+    chk('賞与を入れても黄色', await pg.evaluate('(document.querySelector("#tb tr.hit")||{}).getAttribute ? document.querySelector("#tb tr.hit").getAttribute("data-s") : null'), '300')
+    chk('賞与を入れると賞与ありの表', await pg.evaluate("document.querySelector('#ncb .on').getAttribute('data-v')"), '1')
+    await pg.fill('#bon', '0'); await pg.dispatch_event('#bon', 'input'); await pg.click('#nca button[data-v="0"]')
     await pg.fill('#inc', '700'); await pg.click('#s-h button[data-v="1"]'); await pg.click('#s-a button[data-v="1"]')
     e = ref(7000000, 0, 1, 1); v, msg, kb = await show()
     chk('700万円・配偶者・40〜64歳', v, [e['t'], e['z'], e['k']]); chk('基礎控除の字67万円', kb, '基礎控除67万円')

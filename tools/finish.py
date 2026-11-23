@@ -71,18 +71,22 @@ def pubdate(me, s):
         return s
     return s.replace('<p class="upd">更新日', '<p class="upd">公開日：%s　更新日' % jd(d), 1)
 
-# 表の全画面表示(プロゴの「表全体を拡大表示する」)。6行以上の表に付ける。
+# 表の全画面表示。6行以上の表に付ける。2026-11-24 本人「拡大表示するという表現もめちゃくちゃ」「全体が表示されないし拡大すらされない」
+# → ボタンの名前を「表全体を見る」にし、表を画面の幅に縮めて全体を一度に出す。
 FSX = ('<style id="fsxc">.fsb{display:inline-block;margin:8px 0 6px;padding:6px 12px;border:1px solid #0f3d31;border-radius:6px;background:#ffffff;color:#0f3d31;font-weight:700;font-size:13px;cursor:pointer}'
        '.fso{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#ffffff;overflow:auto;padding:0 12px 24px}'
-       '.fso .fsh{position:sticky;top:0;left:0;background:#ffffff;padding:10px 0;display:flex;justify-content:flex-end}.fso table{min-width:100%}</style>'
+       '.fso .fsh{position:sticky;top:0;left:0;background:#ffffff;padding:10px 0;display:flex;justify-content:flex-end}.fso table{min-width:0;margin:0}.fsz{overflow:hidden}</style>'
        '<script id="fsx">(function(){var ws=document.querySelectorAll("main .tw");for(var i=0;i<ws.length;i++){(function(w){if(w.querySelectorAll("tr").length<6)return;'
-       'var b=document.createElement("button");b.type="button";b.className="fsb";b.textContent="表全体を拡大表示する";'
+       'var b=document.createElement("button");b.type="button";b.className="fsb";b.textContent="表全体を見る";'
        'b.addEventListener("click",function(){var o=document.createElement("div");o.className="fso";var h=document.createElement("div");h.className="fsh";'
        'var c=document.createElement("button");c.type="button";c.className="fsb";c.textContent="閉じる";h.appendChild(c);o.appendChild(h);'
-       'var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");o.appendChild(t);document.body.appendChild(o);document.body.style.overflow="hidden";'
+       'var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");[].forEach.call(t.querySelectorAll("[id]"),function(e){e.removeAttribute("id")});var bx=document.createElement("div");bx.className="fsz";bx.appendChild(t);o.appendChild(bx);document.body.appendChild(o);document.body.style.overflow="hidden";t.style.width="max-content";var W=o.clientWidth-24,tw=t.offsetWidth,k=Math.min(1,W/tw);t.style.transformOrigin="0 0";t.style.transform="scale("+k+")";bx.style.height=Math.ceil(t.offsetHeight*k)+"px";bx.style.width=Math.floor(tw*k)+"px";'
        'c.addEventListener("click",function(){document.body.removeChild(o);document.body.style.overflow="";});});w.parentNode.insertBefore(b,w);})(ws[i]);}})();</script>')
 def fsx(me, s):
-    if 'id="fsx"' in s or '<main' not in s:
+    if FSX in s or '<main' not in s:
+        return s
+    s = re.sub(r'<style id="fsxc">.*?</style><script id="fsx">.*?</script>\n?', '', s, flags=re.S)
+    if '<main' not in s:
         return s
     return s.replace('</body>', FSX + '\n</body>', 1)
 
