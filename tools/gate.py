@@ -221,6 +221,13 @@ for x in probs:
     seen.add(x)
     print('\t'.join(x))
 n = len(seen)
+# トップの立場のパネルごとのツールの本数(2026/11/23 本人「ジャンルのパネルもあるのにさ、全くツールなくない？」)。
+# 3本に満たないパネルを「注意」として毎回出す(公開は止めない)。題材の候補を作るときに先に埋める。
+_top = open(os.path.join(SITE, 'index.html'), encoding='utf-8').read()
+for _m in re.finditer(r'<div class="pnl[^"]*" id="(p\d+)" role="tabpanel">(.*?)<a class="go', _top, re.S):
+    _k = len(re.findall(r'<li><a href="/', _m.group(2)))
+    if _k < 3:
+        print('注意\tindex.html\tトップの立場のパネル %s のツールが %d 本(3本に満たない)' % (_m.group(1), _k))
 print('問題 %d 件' % n)
 if n == 0:
     open(OK, 'w').write('ok\n')
