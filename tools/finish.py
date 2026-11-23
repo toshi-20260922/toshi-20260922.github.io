@@ -82,6 +82,26 @@ FSX = ('<style id="fsxc">.fsb{display:inline-block;margin:8px 0 6px;padding:6px 
        'var c=document.createElement("button");c.type="button";c.className="fsb";c.textContent="閉じる";h.appendChild(c);o.appendChild(h);'
        'var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");[].forEach.call(t.querySelectorAll("[id]"),function(e){e.removeAttribute("id")});var bx=document.createElement("div");bx.className="fsz";bx.appendChild(t);o.appendChild(bx);document.body.appendChild(o);document.body.style.overflow="hidden";t.style.width="max-content";var W=o.clientWidth-24,tw=t.offsetWidth,k=Math.min(1,W/tw);t.style.transformOrigin="0 0";t.style.transform="scale("+k+")";bx.style.height=Math.ceil(t.offsetHeight*k)+"px";bx.style.width=Math.floor(tw*k)+"px";'
        'c.addEventListener("click",function(){document.body.removeChild(o);document.body.style.overflow="";});});w.parentNode.insertBefore(b,w);})(ws[i]);}})();</script>')
+
+# 答えの列だけの表(tools/kotae_retsu.json)。元の表はそのまま残し「ほかの列も見る」の中に入れる。答えの表は元の表から写すので数字は必ず同じ。
+KR = json.load(open(os.path.join(ROOT, 'tools', 'kotae_retsu.json'), encoding='utf-8'))
+KRC = '<style id="krc">.ucw{overflow-x:auto;margin:0 0 8px}.ucw table{width:100%}.ucn tr.hit td{background:#fff59d}.ucn tr.x7hl td{background:#eaf5d8;font-weight:700}.ucb{display:block;margin:4px 0 14px;padding:0;border:0;background:none;font-family:inherit;font-weight:700;color:#00775a;font-size:14px;cursor:pointer;text-decoration:underline}</style>'
+def kotae(me, s):
+    s = re.sub(r'<style id="krc">.*?</style><script id="krj">.*?</script>\n?', '', s, flags=re.S)
+    if me not in KR:
+        return s
+    js = ('<script id="krj">(function(){var C=%s;var w=document.querySelector("main .tw");if(!w)return;var t=w.querySelector("table");if(!t)return;'
+          'var ths=t.querySelectorAll("thead th"),hid=[];for(var i=0;i<ths.length;i++)if(C.indexOf(i)<0)hid.push(ths[i].textContent.replace(/\\s+/g,""));'
+          'var u=document.createElement("div");u.className="ucw";var nt=document.createElement("table");nt.className="ucn";u.appendChild(nt);'
+          'var fb=w.previousElementSibling&&w.previousElementSibling.className==="fsb"?w.previousElementSibling:null;w.parentNode.insertBefore(u,fb||w);'
+          'var bt=document.createElement("button");bt.type="button";bt.className="ucb";var lb="ほかの列も見る（"+hid.slice(0,3).join("・")+(hid.length>3?"など":"")+"）";bt.textContent=lb;w.parentNode.insertBefore(bt,w);w.hidden=true;'
+          'bt.addEventListener("click",function(){w.hidden=!w.hidden;bt.textContent=w.hidden?lb:"ほかの列を閉じる";});'
+          'function cp(r){var x=document.createElement("tr");x.className=r.className;for(var k=0;k<C.length;k++){var c=r.children[C[k]];if(c){var y=c.cloneNode(true);y.removeAttribute("id");[].forEach.call(y.querySelectorAll("[id]"),function(e){e.removeAttribute("id")});x.appendChild(y);}}return x;}'
+          'function build(){nt.innerHTML="";var th=document.createElement("thead");var hr=t.querySelector("thead tr");if(hr)th.appendChild(cp(hr));nt.appendChild(th);var tb=document.createElement("tbody");'
+          '[].forEach.call(t.querySelectorAll("tbody tr"),function(r){var x=cp(r);x.addEventListener("click",function(){r.click();});tb.appendChild(x);});nt.appendChild(tb);}'
+          'build();new MutationObserver(build).observe(t,{subtree:true,childList:true,attributes:true,attributeFilter:["class"],characterData:true});})();</script>') % json.dumps(KR[me])
+    return s.replace('</body>', KRC + js + '\n</body>', 1)
+
 def fsx(me, s):
     if FSX in s or '<main' not in s:
         return s
@@ -133,6 +153,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = hayami_first(me, s)
     s = pubdate(me, s)
     s = fsx(me, s)
+    s = kotae(me, s)
     s = tdw(me, s)
     s = icons(s)
     if '<nav class="tools">' in s:

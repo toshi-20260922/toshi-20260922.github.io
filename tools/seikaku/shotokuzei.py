@@ -159,7 +159,7 @@ async def body(pg):
                 wr = '年収の%s%%' % (str(pct.numerator // pct.denominator) if pct.denominator == 1 else '%.1f' % float(pct))
                 if rr != wr: ng('箱の割合', a, kaigo, rr, wr)
 
-    tabs = await pg.evaluate('''()=>[...document.querySelectorAll("main table")].map(t=>[...t.querySelectorAll("tbody tr")].map(r=>[...r.cells].map(c=>c.innerText.trim())))''')
+    tabs = await pg.evaluate('''()=>[...document.querySelectorAll("main table:not(.ucn)")].map(t=>[...t.querySelectorAll("tbody tr")].map(r=>[...r.cells].map(c=>c.innerText.trim())))''')
     # 2 速算表の全行
     # 2026-11-20:年収別の表(早見表)が計算の箱の上へ動いたので、行の数と列の数で3つの表を選び直す
     tabs = [[t for t in tabs if t and len(t[0]) == 3][0], [t for t in tabs if t and len(t[0]) == 4][0], [t for t in tabs if t and len(t[0]) == 7][0]]
@@ -186,7 +186,7 @@ async def body(pg):
         last = re.sub(r'\s+', ' ', row[6])
         want = [row[0], '{:,}'.format(e['g']), '{:,}'.format(e['sh']), '{:,}'.format(e['k']), '{:,}'.format(e['t']),
                 ('%d%%' % e['p']) if e['t'] > 0 else '—', '{:,} 月 {:,}'.format(e['x'], e['m'])]
-        if row[:6] + [last] != want: ng('年収別の表', row, want)
+        if [x.replace(' ', '').replace('\n', '') for x in row[:6] + [last]] != [x.replace(' ', '') for x in want]: ng('年収別の表', row, want)   # 元の表は「ほかの列も見る」で隠れていて改行の空白が出ないので、空白を除いて比べる
     if len(tabs[2]) != 25: ng('年収別の表の行数', len(tabs[2]))
     # 5 文の中の数字
     txt = await pg.inner_text('main')
