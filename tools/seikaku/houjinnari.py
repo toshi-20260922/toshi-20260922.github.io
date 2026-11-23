@@ -333,6 +333,25 @@ async def body(pg):
         chk('見える表 %s%d' % (c, a), vis, want)
         chk('つまみの年齢 %s%d' % (c, a), await pg.eval_on_selector('#bka .on', 'e=>e.dataset.v'), str(a))
 
+    # 6-2 つまみ:手取りで比べるとき、法人のほうが社長の手取りが多くなる利益の幅(会社が赤字でない範囲)
+    def win(m, old):
+        ok = [a for a in range(3000000, 30000001, 100000) if (lambda c: c[1] >= 0 and c[0] - c[2] > 0)(cell(a, m, old, RR[0], 985))]
+        if ok: chk('幅がつながっている %d %d' % (m, old), ok, list(range(ok[0], ok[-1] + 1, 100000)))
+        return (ok[0], ok[-1]) if ok else None
+    await pg.click('#bkc button[data-v="t"]')
+    for old in (0, 1, 2):
+        await pg.click('#bka button[data-v="%d"]' % old)
+        for m in range(100000, 1200001, 50000):
+            await pg.evaluate("m=>{var b=document.getElementById('bkm');b.value=String(m);b.dispatchEvent(new Event('input',{bubbles:true}));}", m)
+            got = await pg.evaluate("()=>['bko-v','bko-s','bko-k'].map(i=>{var e=document.getElementById(i);return e.hidden?null:e.textContent;})")
+            w = win(m, old)
+            want = (['利益{:,}万〜{:,}万円'.format(w[0] // 10000, w[1] // 10000), 'のときだけ法人のほうが社長の手取りが多くなります', '利益がこれより多いと増えた分は会社に残るので、個人事業のほうが手取りが多くなります'] if w
+                    else ['個人事業のほうが手取りが多い', '法人のほうが社長の手取りが多くなる利益はありません', None])
+            chk('つまみ 手取り %d %d' % (old, m), got, want)
+    await pg.click('#bkc button[data-v="f"]'); await pg.click('#bka button[data-v="0"]')
+    await pg.evaluate("()=>{var b=document.getElementById('bkm');b.value='300000';b.dispatchEvent(new Event('input',{bubbles:true}));}")
+    chk('つまみ 負担の合計に戻す', await pg.evaluate("()=>document.getElementById('bko-v').textContent+'|'+document.getElementById('bko-s').textContent"), '利益590万円から|法人のほうが税金と社会保険料の合計が軽くなります')
+
     # 7 本文の分岐点の数字(10万円刻みで、それより上はずっと法人のほうが軽くなる利益)
     def th(m, old):
         last = 0
@@ -346,7 +365,8 @@ async def body(pg):
         ('読み方1', '利益{:,}万円から、法人のほうが軽くなります（40〜59歳は{:,}万円から）。それより下では'.format(*al)),
         ('読み方2', '利益%d万円から、法人のほうが軽くなります（40〜59歳は%d万円から）。' % tuple(t5)),
         ('読み方3', '利益%d万円から、法人のほうが軽くなります（40〜59歳は%d万円から）。会社に残したお金は' % tuple(t3)),
-        ('質問1', '役員報酬を月30万円にするなら利益%d万円から、月50万円なら%d万円から法人のほうが' % (t3[0], t5[0])),
+        ('質問1 手取り', '社長の手取りで比べると、利益を全額役員報酬で払う形で利益{:,}万円から法人のほうが多くなります（40〜59歳は{:,}万円から）。'.format(*al)),
+        ('質問1', '役員報酬が月30万円なら利益%d万円から法人のほうが軽くなります。月50万円なら%d万円からです。' % (t3[0], t5[0])),
         ('質問3', '役員報酬が月30万円なら%d万円で月50万円なら%d万円です。' % (t3[1], t5[1])),
         ('国民年金の月額', '国民年金（月{:,}円）'.format(NENKIN_KOKUMIN // 12)),
         ('事業主控除', '事業主控除290万円を超える所得に3〜5%（この計算は5%）'),
