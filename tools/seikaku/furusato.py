@@ -164,7 +164,7 @@ JS = '''([a,sp,n1,n2])=>{var q=function(i){return document.getElementById(i)},e=
  var i=q("inc");i.value=String(a);e(i,"input");q("k1").value=String(n1);e(q("k1"),"change");q("k2").value=String(n2);e(q("k2"),"change");
  document.querySelector('#s-sp button[data-v="'+sp+'"]').click();
  var n=function(i){return parseInt(q(i).textContent.replace(/[^0-9]/g,""),10)};
- return {lim:n("o-y"),sho:n("o-j"),rate:n("o-r")}}'''
+ return {lim:n("o-y"),sho:n("o-j"),rate:parseInt((q("o-kon").textContent.match(/所得税の税率は([0-9]+)%/)||[0,-1])[1],10)}}'''
 
 def kazoku():
     return [(sp, n1, n2) for sp in (0, 1) for n1 in range(4) for n2 in range(3)]
@@ -255,7 +255,9 @@ async def body(pg):
     if [r[0] for r in rows] != [200, 250, 300, 350, 400, 450, 500, 550, 600, 700, 800, 900, 1000, 1200, 1500, 2000]:
         bad += 1; print('NG 早見表の行', [r[0] for r in rows])
     for r in rows:
-        for j, fam in enumerate([(0, 0, 0), (1, 0, 0), (1, 1, 0)]):
+        chk_cols = [(0, 0, 0), (1, 0, 0), (1, 1, 0), (1, 0, 1), (1, 1, 1), (0, 1, 0)]; n += 1
+        if len(r) != 7: bad += 1; print('NG 早見表の列の数', r)
+        for j, fam in enumerate(chk_cols):
             exp = ref(r[0] * 10000, *fam)['lim']; n += 1
             if r[1 + j] != exp:
                 bad += 1; print('NG 早見表', r[0], fam, r[1 + j], exp)
@@ -285,7 +287,7 @@ async def body(pg):
     import re
     raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'furusato', 'index.html'), encoding='utf-8').read()
     exp = ref(5000000, 0, 0, 0)
-    for oid, key in (('o-y', 'lim'), ('o-j', 'sho'), ('o-r', 'rate')):
+    for oid, key in (('o-y', 'lim'), ('o-j', 'sho'), ('o-a', 'lim')):
         m = re.search(r'<b id="%s">([0-9,]+)<i>' % oid, raw); n += 1
         if not m or int(m.group(1).replace(',', '')) != exp[key]:
             bad += 1; print('NG 箱に直に書いた既定の結果', oid, m and m.group(1), exp[key])
@@ -298,7 +300,7 @@ async def body(pg):
      document.querySelector('#s-sp button[data-v="'+sp+'"]').click();
      q("shi").value=sh<0?"":String(sh);e(q("shi"),"input");q("ide").value=String(ide);e(q("ide"),"input");q("iry").value=String(iry);e(q("iry"),"input");
      var n=function(i){return parseInt(q(i).textContent.replace(/[^0-9]/g,""),10)};
-     return {lim:n("o-y"),sho:n("o-j"),rate:n("o-r"),kon:q("o-kon").textContent}}'''
+     return {lim:n("o-y"),sho:n("o-j"),rate:parseInt((q("o-kon").textContent.match(/所得税の税率は([0-9]+)%/)||[0,-1])[1],10),kon:q("o-kon").textContent}}'''
     rnd2 = random.Random(20261121)
     cases = [(5000000, 0, 0, 0, -1, 0, 0), (5000000, 0, 0, 0, 750000, 0, 0), (5000000, 0, 0, 0, -1, 276000, 0), (5000000, 0, 0, 0, -1, 0, 100000),
              (5000000, 0, 0, 0, 0, 0, 0), (7000000, 1, 1, 0, -1, 276000, 150000), (3000000, 0, 0, 0, -1, 0, 2000000), (12000000, 0, 0, 1, 1500000, 816000, 0)]
@@ -313,6 +315,21 @@ async def body(pg):
         if any(got[k] != exp[k] for k in ('lim', 'sho', 'rate')) or ('社会保険料は{:,}円'.format(base) not in got['kon']):
             bad += 1; print('NG ほかの控除の入力', (a, sp_, n1, n2, sh, ide, iry), got, {k: exp[k] for k in ('lim', 'sho', 'rate')})
     await pg.evaluate(JS2, [5000000, 0, 0, 0, -1, 0, 0])
+    # (6-2) すでに寄附した額:あと寄附できる額(0円より下は0円)と箱の文
+    JS3 = '''([a,sp,n1,n2,kv])=>{var q=function(i){return document.getElementById(i)},e=function(el,t){el.dispatchEvent(new Event(t,{bubbles:true}))};
+     var i=q("inc");i.value=String(a);e(i,"input");q("k1").value=String(n1);e(q("k1"),"change");q("k2").value=String(n2);e(q("k2"),"change");
+     document.querySelector('#s-sp button[data-v="'+sp+'"]').click();q("kif").value=String(kv);e(q("kif"),"input");
+     return {a:parseInt(q("o-a").textContent.replace(/[^0-9]/g,""),10),s:q("o-vds").textContent}}'''
+    for a, fam, kv in [(5000000, (0, 0, 0), 0), (5000000, (0, 0, 0), 30000), (5000000, (0, 0, 0), 58092), (5000000, (0, 0, 0), 70000),
+                       (8000000, (1, 1, 0), 50000), (1000000, (0, 0, 0), 10000), (12000000, (1, 0, 1), 200000)]:
+        got = await pg.evaluate(JS3, [a, *fam, kv]); lim = ref(a, *fam)['lim']; ato = lim - kv
+        if not lim: ws = 'ふるさと納税をしても税金は減らず、寄附額がそのまま負担になります'
+        elif kv == 0: ws = 'この額までの寄附なら自己負担は2,000円です。確定申告をしない会社員で寄附先が5団体以内なら、ワンストップ特例を使えます'
+        elif ato >= 0: ws = 'すでに{:,}円寄附しているので、あと{:,}円まで自己負担2,000円で寄附できます'.format(kv, ato)
+        else: ws = '上限を{:,}円超えています。超えた分は自己負担になります'.format(-ato)
+        n += 1
+        if got != {'a': max(0, ato), 's': ws}: bad += 1; print('NG すでに寄附した額', a, fam, kv, got, max(0, ato), ws)
+    await pg.evaluate(JS3, [5000000, 0, 0, 0, 0])
     # (7) 黄色の行は「入力した年収を超えない中でいちばん近い行」(200万円未満は無し)
     ROWS = [200, 250, 300, 350, 400, 450, 500, 550, 600, 700, 800, 900, 1000, 1200, 1500, 2000]
     for a in (0, 1999999, 2000000, 2499999, 2500000, 5000000, 5499999, 6999999, 7000000, 19999999, 20000000, 50000000):

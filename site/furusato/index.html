@@ -158,12 +158,12 @@ body{overflow-x:clip}
 </div>
 <section class="hy1">
 <h2 id="list">年収と家族で見る限度額（上限額）の早見表</h2>
-<p>入力した年収を超えない中でいちばん近い行が黄色になります。</p>
+<p>会社員（給与だけ）の年収ごとに、2026年に寄附できる上限の額を出しました。自己負担の2,000円を含みます。2026年分の寄附は12月31日までです。</p>
 <div class="tw"><table>
- <thead><tr><th>年収<br>（万円）</th><th>単身<br>（円）</th><th>夫婦<br>（円）</th><th>夫婦と<br>高校生（円）</th></tr></thead>
+ <thead><tr><th>年収<br>（万円）</th><th>単身・<br>共働き</th><th>夫婦</th><th>夫婦と<br>高校生</th><th>夫婦と<br>大学生</th><th>夫婦と<br>高校生・<br>大学生</th><th>共働き・<br>高校生</th></tr></thead>
  <tbody id="tb"></tbody>
 </table></div>
-<p class="note" style="margin-top:8px">夫婦は収入のない配偶者、高校生は16〜18歳の子1人の場合です。2026年の寄附の上限で、令和8年分の所得税と令和9年度の住民税で計算しています。</p>
+<p class="note" style="margin-top:8px">単位は円です。夫婦は収入のない配偶者がいる場合です。高校生は16〜18歳の子が1人、大学生は19〜22歳の子が1人の場合です。共働きで配偶者控除を受けない人は「単身・共働き」の列を見てください。「共働き・高校生」は、高校生の子を自分の扶養に入れている場合です。子どもが16歳未満なら、子どもがいない列と同じです（年収850万円以下の場合）。令和8年分の所得税と令和9年度の住民税で計算しています。下の計算に入力した年収を超えない中でいちばん近い行が黄色になります。</p>
 <p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
 </section>
 
@@ -174,6 +174,10 @@ body{overflow-x:clip}
    <label for="inc">2026年の年収（給与）</label>
    <div class="row"><input type="number" id="inc" inputmode="numeric" min="0" max="50000000" step="10000" value="5000000"><span>円</span></div>
    <input type="range" id="incr" min="1500000" max="20000000" step="10000" value="5000000" aria-label="年収">
+  </div>
+  <div class="full">
+   <label for="kif">2026年にすでに寄附した額</label>
+   <div class="row"><input type="number" id="kif" inputmode="numeric" min="0" max="50000000" step="1000" value="0"><span>円</span></div>
   </div>
   <div class="full">
    <label>配偶者（収入なし）</label>
@@ -202,11 +206,11 @@ body{overflow-x:clip}
  <div class="amt">
   <div><small>上限額の目安<br>（2026年の寄附）</small><b id="o-y">58,092<i>円</i></b><em>自己負担2,000円</em></div>
   <div><small>住民税の<br>所得割</small><b id="o-j">238,100<i>円</i></b><em>令和9年度</em></div>
-  <div><small>所得税の<br>税率</small><b id="o-r">5<i>%</i></b><em>計算式で使う税率</em></div>
+  <div><small>あと寄附<br>できる額</small><b id="o-a">58,092<i>円</i></b><em>寄附した額を引いた額</em></div>
  </div>
  <ul>
   <li>2026年1月から12月に寄附した分の上限です</li>
-  <li id="o-kon">給与だけ・ほかの控除なし・協会けんぽ東京都・40歳未満で計算しています。住民税の非課税の判定は1級地（東京23区など）の額です</li>
+  <li id="o-kon">社会保険料は723,144円（協会けんぽ東京都・40歳未満で計算）です。給与だけで計算しています。上限額の式で使う所得税の税率は5%です。住民税がかからない年収の判定は、東京23区など大都市の基準で計算しています</li>
   <li>生命保険料控除・住宅ローン控除・寡婦やひとり親などの控除・70歳以上の扶養親族は含めていません。給与以外の所得がある場合も含めていません</li>
   <li>16歳未満の子は、住民税の所得割がかかる年収850万円以下の人なら上限額に影響しません</li>
  </ul>
@@ -347,7 +351,7 @@ function rateOf(t){if(t<0)return 0;for(var i=0;i<BR.length;i++){if(t<=BR[i][0])r
 function itaxT(t){t=Math.floor(Math.max(0,t)/1000)*1000;var b=0;for(var i=0;i<BR.length;i++){if(t<=BR[i][0]){b=Math.floor(t*BR[i][1]/100)-BR[i][2];break;}}return Math.floor(Math.floor(b*1021/1000)/100)*100;}
 
 var inc=document.getElementById("inc"),incr=document.getElementById("incr"),k1=document.getElementById("k1"),k2=document.getElementById("k2"),sp=0;
-var shi=document.getElementById("shi"),ide=document.getElementById("ide"),iry=document.getElementById("iry");
+var shi=document.getElementById("shi"),ide=document.getElementById("ide"),iry=document.getElementById("iry"),kif=document.getElementById("kif");
 function limit(a,sp,n1,n2,o){
  o=o||{};var g=kyuyo8(a),sh=o.sh>=0?o.sh:shahoM(Math.floor(a/12),985,0)*12;sh+=(o.ide||0)+(o.iry||0);
  if(a>8500000&&n1+n2>0)g-=Math.ceil((Math.min(a,10000000)-8500000)/10);
@@ -366,15 +370,15 @@ function render(){
  var sv=shi.value===""?-1:Math.max(0,parseInt(shi.value,10)||0),iv=Math.max(0,parseInt(ide.value,10)||0),mv=Math.min(2000000,Math.max(0,parseInt(iry.value,10)||0));
  var a=Math.max(0,parseInt(inc.value,10)||0),x=limit(a,sp,+k1.value,+k2.value,{sh:sv,ide:iv,iry:mv});
  var shu=sv>=0?sv:shahoM(Math.floor(a/12),985,0)*12;
- document.getElementById("o-kon").textContent="社会保険料は"+f(shu)+"円"+(sv>=0?"（入力した額）":"（協会けんぽ東京都・40歳未満で計算）")+"です"+(iv||mv?"。iDeCoなど"+f(iv)+"円と医療費控除"+f(mv)+"円を引いています":"。給与だけで計算しています")+"。住民税の非課税の判定は1級地（東京23区など）の額です";
- document.getElementById("o-y").innerHTML=f(x.lim)+"<i>円</i>";document.getElementById("o-vd").textContent=x.lim?"ふるさと納税の上限額の目安は"+f(x.lim)+"円です":"住民税の所得割がかからないので上限額はありません";document.getElementById("o-vds").textContent=x.lim?"この額までの寄附なら自己負担は2,000円です。確定申告をしない会社員で寄附先が5団体以内なら、ワンストップ特例を使えます":"ふるさと納税をしても税金は減らず、寄附額がそのまま負担になります";
+ document.getElementById("o-kon").textContent="社会保険料は"+f(shu)+"円"+(sv>=0?"（入力した額）":"（協会けんぽ東京都・40歳未満で計算）")+"です"+(iv||mv?"。iDeCoなど"+f(iv)+"円と医療費控除"+f(mv)+"円を引いています":"。給与だけで計算しています")+"。上限額の式で使う所得税の税率は"+x.rate+"%です。住民税がかからない年収の判定は、東京23区など大都市の基準で計算しています";
+ document.getElementById("o-y").innerHTML=f(x.lim)+"<i>円</i>";document.getElementById("o-vd").textContent=x.lim?"ふるさと納税の上限額の目安は"+f(x.lim)+"円です":"住民税の所得割がかからないので上限額はありません";var kv=Math.max(0,parseInt(kif.value,10)||0),ato=x.lim-kv;document.getElementById("o-vds").textContent=!x.lim?"ふるさと納税をしても税金は減らず、寄附額がそのまま負担になります":(kv===0?"この額までの寄附なら自己負担は2,000円です。確定申告をしない会社員で寄附先が5団体以内なら、ワンストップ特例を使えます":(ato>=0?"すでに"+f(kv)+"円寄附しているので、あと"+f(ato)+"円まで自己負担2,000円で寄附できます":"上限を"+f(-ato)+"円超えています。超えた分は自己負担になります"));
+ document.getElementById("o-a").innerHTML=(ato<0?"0":f(ato))+"<i>円</i>";
  document.getElementById("o-j").innerHTML=f(x.sho)+"<i>円</i>";
- document.getElementById("o-r").innerHTML=x.rate+"<i>%</i>";
- var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});
- var h="";ROWS.forEach(function(r,i){var A=r*10000;h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(limit(A,0,0,0).lim)+"</td><td>"+f(limit(A,1,0,0).lim)+"</td><td>"+f(limit(A,1,1,0).lim)+"</td></tr>";});
+  var hit=-1;ROWS.forEach(function(r,i){if(a>=r*10000)hit=i;});
+ var h="";ROWS.forEach(function(r,i){var A=r*10000;h+="<tr"+(i===hit?" class=\"hit\"":"")+"><td>"+f(r)+"</td><td>"+f(limit(A,0,0,0).lim)+"</td><td>"+f(limit(A,1,0,0).lim)+"</td><td>"+f(limit(A,1,1,0).lim)+"</td><td>"+f(limit(A,1,0,1).lim)+"</td><td>"+f(limit(A,1,1,1).lim)+"</td><td>"+f(limit(A,0,1,0).lim)+"</td></tr>";});
  document.getElementById("tb").innerHTML=h;
 }
-link(inc,incr,render);shi.addEventListener("input",render);ide.addEventListener("input",render);iry.addEventListener("input",render);k1.addEventListener("change",render);k2.addEventListener("change",render);seg("s-sp",function(v){sp=v;},render);render();
+link(inc,incr,render);shi.addEventListener("input",render);ide.addEventListener("input",render);iry.addEventListener("input",render);kif.addEventListener("input",render);k1.addEventListener("change",render);k2.addEventListener("change",render);seg("s-sp",function(v){sp=v;},render);render();
 
 })();
 </script>
