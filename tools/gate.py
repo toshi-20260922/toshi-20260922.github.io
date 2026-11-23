@@ -26,6 +26,12 @@ for f in files:
         if _vis[_m.start():_m.start() + 6] == '算出所得税額':
             continue
         bad(f, '算出(計算と書く)', _vis[max(0, _m.start() - 15):_m.end() + 10].replace('\n', ' '))
+    # 表の4桁以上の数字はカンマを入れる(2026/11/23 法人成りの表で「1113」を見つけた)
+    for _m in re.finditer(r'<td[^>]*>([+−-]?\d{4,})(?:<small>|</td>)', s):
+        bad(f, '表の数字にカンマが無い', _m.group(1))
+    # 早見表の大見出しを1つの年齢に固定しない。年齢で変わる表は切り替えか、同じ見出しの下に並べる(2026/11/23 本人「40歳以上の人が見たら私が使える早見表がない」)
+    for _m in re.finditer(r'<h2[^>]*>([^<]*早見表[^<]*（[^<]*歳[^<]*）)</h2>', s):
+        bad(f, '早見表の見出しが1つの年齢に固定', _m.group(1))
     if '税理士事務所' in s:
         bad(f, '税理士事務所', '')
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)

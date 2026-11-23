@@ -144,13 +144,13 @@ def houjin():
        o[old].k500=5000000-H.kojin(5000000,old);});return o;}'''))
     print('分かれ目',TH)
     def sg(n):
-        v=round(n/10000);return ('+%d'%v) if v>0 else ('−%d'%-v if v<0 else '0')
+        v=round(n/10000);return ('+{:,}'.format(v)) if v>0 else ('−{:,}'.format(-v) if v<0 else '0')
     T=list(re.finditer(r'(<table class="x7tb x7t1[0-9]">.*?</thead>)(.*?)(</table>)',s,flags=re.S));assert len(T)==3
     out=[];PRS=[400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1800,2000,2500,3000]
     for ti,old in ((0,'0'),(1,'1')):
         h=''
         for p in PRS:
-            r=V[old][str(p)];h+='<tr><td>%s万円</td><td class="x7k">%d</td>'%(f(p),round(r['kt']/10000))
+            r=V[old][str(p)];h+='<tr><td>%s万円</td><td class="x7k">%s</td>'%(f(p),'{:,}'.format(round(r['kt']/10000)))
             for c in r['c']:
                 cls='x7g' if c['P']<0 else ('x7p' if round(c['d']/10000)>0 else '')
                 h+='<td class="%s">%s</td>'%(cls,sg(c['d']))
@@ -160,7 +160,7 @@ def houjin():
     for p in PRS:
         r=V['0'][str(p)];h+='<tr><td>%s万円</td>'%f(p)
         for c in r['c']:
-            v=round(c['n']/10000);h+='<td class="%s">%s</td>'%('x7g' if c['P']<0 else '',('−%d'%-v) if v<0 else str(v))
+            v=round(c['n']/10000);h+='<td class="%s">%s</td>'%('x7g' if c['P']<0 else '',('−{:,}'.format(-v)) if v<0 else '{:,}'.format(v))
         h+='</tr>'
     out.append(h)
     # 元の表の書き方(tbodyの有無)を保つ

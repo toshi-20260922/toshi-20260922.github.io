@@ -292,14 +292,14 @@ async def body(pg):
         r:[...t.querySelectorAll('tbody tr')].map(r=>[...r.children].map(c=>({t:c.textContent,c:c.className,s:(c.querySelector('small')||{}).textContent||''})))}))""")
     chk('早見表の数', len(tabs), 3)
     def sg(v):
-        return ('+%d' % v) if v > 0 else ('−%d' % -v if v < 0 else '0')
+        return ('+{:,}'.format(v)) if v > 0 else ('−{:,}'.format(-v) if v < 0 else '0')
     for ti, old in ((0, 0), (1, 1)):
         T = tabs[ti]
         chk('表%d の見出し' % (ti + 1), T['h'], ['事業の利益（年）', '個人事業のまま'] + ['報酬月%d万' % m for m in MS] + ['全額を報酬'])
         chk('表%d の行' % (ti + 1), [r[0]['t'] for r in T['r']], ['{:,}万円'.format(p) for p in PRS])
         for row, p in zip(T['r'], PRS):
             a = p * 10000; kk = kojin(a, old, RR[0])
-            chk('表%d %d 個人事業のまま' % (ti + 1, p), row[1]['t'], str(man(a - kk)))
+            chk('表%d %d 個人事業のまま' % (ti + 1, p), row[1]['t'], '{:,}'.format(man(a - kk)))
             for ci, mm in enumerate(MS):
                 dv, P, _ = cell(a, mm * 10000, old, RR[0], 985); v = man(dv)
                 chk('表%d %d 報酬月%d万' % (ti + 1, p, mm), row[2 + ci]['t'], sg(v))
@@ -312,7 +312,7 @@ async def body(pg):
     for row, p in zip(T['r'], PRS):
         for ci, mm in enumerate(MS):
             _, P, nk = cell(p * 10000, mm * 10000, 0, RR[0], 985); v = man(nk)
-            chk('表3 %d 報酬月%d万' % (p, mm), row[1 + ci]['t'], ('−%d' % -v) if v < 0 else str(v))
+            chk('表3 %d 報酬月%d万' % (p, mm), row[1 + ci]['t'], ('−{:,}'.format(-v)) if v < 0 else '{:,}'.format(v))
             chk('表3 %d 報酬月%d万 の色' % (p, mm), row[1 + ci]['c'], 'x7g' if P < 0 else '')
 
     # 7 本文の分岐点の数字(10万円刻みで、それより上はずっと法人のほうが軽くなる利益)
