@@ -603,24 +603,25 @@ footer .wrap{padding:18px 16px}
  <div>
   <p class="lb">無料ツール　登録不要</p>
   <h2>会社を退職後、<br>国保にするか任意継続にするか。</h2>
-  <p>退職前の年収・年齢・一緒に入る家族の人数を入力すると、大阪府の国民健康保険と会社の健康保険の任意継続のどちらが安いかを表示します。人から聞いた話ではなく自分の数字で比べてから決められます。</p>
+  <p>退職前の年収・年齢・家族・住んでいる所を入力すると、国民健康保険と会社の健康保険の任意継続のどちらが安いかを表示します。政令指定都市と東京23区などの22市区から選べます。人から聞いた話ではなく、自分の数字で比べてから決められます。</p>
   <div class="lks">
    <a href="https://oyama-toshiro.com/contact/" data-cta="top_sim_marunage">独立したあとの経理と申告を任せたい方へ（経理丸投げの無料相談）</a>
    <a href="/kokuho-keisan/" data-cta="top_sim_keisan">国民健康保険料だけを詳しく計算する</a>
   </div>
  </div>
  <div class="sc">
-  <p class="hh">国保と任意継続の比較<small>入れるのは3つ</small></p>
+  <p class="hh">国保と任意継続の比較<small>入れるのは4つ</small></p>
   <div class="r"><label for="ka">退職前の年収</label><input type="number" id="ka" inputmode="numeric" step="10000" placeholder="例：4,000,000" value="4000000"></div>
   <div class="r"><span>年齢</span><div class="seg" id="kold"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜64歳</button></div></div>
   <div class="r"><label for="kf">一緒に入る家族</label><select id="kf"><option value="0">いない</option><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option></select></div>
+  <div class="r"><label for="kreg">住んでいる所</label><select id="kreg"><option value="0">東京23区</option><option value="1">目黒区</option><option value="2">中野区</option><option value="3">江戸川区</option><option value="4">札幌市</option><option value="5">仙台市</option><option value="6">さいたま市</option><option value="7">千葉市</option><option value="8">横浜市</option><option value="9">川崎市</option><option value="10">相模原市</option><option value="11">新潟市</option><option value="12">浜松市</option><option value="13">名古屋市</option><option value="14">京都市</option><option value="15">大阪市・堺市</option><option value="16">神戸市</option><option value="17">岡山市</option><option value="18">広島市</option><option value="19">北九州市</option><option value="20">福岡市</option><option value="21">熊本市</option></select></div>
   <div class="out">
    <div><span>国民健康保険（1年）</span><b id="ko-k">391,947円</b></div>
    <div><span>任意継続（1年）</span><b id="ko-n">397,824円</b></div>
    <div class="w"><span id="ko-w">国民健康保険のほうが安い</span><b id="ko-d">年5,877円</b></div>
   </div>
   <a class="gob" href="/kokuho/" data-cta="top_sim_kokuho">国保と任意継続の比較を開く</a>
-  <p class="nt">大阪府・令和8年度・自己都合の退職・家族は収入なしの場合。任意継続は月給を年収÷12とした標準報酬月額で出しています</p>
+  <p class="nt" id="ko-nt">令和8年度・自己都合の退職・家族は収入なしの場合。任意継続は住んでいる都道府県の協会けんぽの料率で、月給を年収÷12とした標準報酬月額（上限32万円）で出しています。一覧に無い市区町村は、「国保と任意継続の比較を開く」で料率を入力して計算できます</p>
  </div>
 </div></section>
 
@@ -804,14 +805,26 @@ setTab(0);
 var KC=[[950,34990,33908,660000],[306,11191,10845,260000],[260,18682,0,170000],[28,1841,0,30000]];
 /* 令和7年分の給与所得（令和8年度の国民健康保険料の計算に使う） */
 function kyuyo7(x){if(x<651000)return 0;if(x<1900000)return x-650000;if(x<6600000){var A=Math.floor(x/4000)*4000;return x<3600000?A/4000*2800-80000:A/4000*3200-440000;}if(x<8500000)return Math.floor(x*9/10)-1100000;return x-1950000;}
-function kokuho(a,old,fam){var g=kyuyo7(a),n=1+fam,base=Math.max(0,g-(g<=24000000?430000:(g<=24500000?290000:(g<=25000000?150000:0)))),red=g<=430000?7:(g<=430000+310000*n?5:(g<=430000+570000*n?2:0)),t=0;
- KC.forEach(function(c,i){if(i===2&&!old)return;t+=Math.min(c[3],Math.floor(base*c[0]/10000)+n*Math.floor(c[1]*(10-red)/10)+Math.floor(c[2]*(10-red)/10));});return t;}
-function nini(a,old){var s=Math.min(std(Math.floor(a/12)),320000);return Math.floor(s*(1013+23+(old?162:0))/10000)*12;}
+var KRG=[{"n":"東京23区（目黒区・中野区・江戸川区を除く20区）","s":"東京23区","p":[[751,47600,0,670000],[280,17600,0,260000],[243,17800,0,170000],[27,1873,0,30000]],"r":1,"g":0,"f":12},{"n":"目黒区","s":"目黒区","p":[[751,47600,0,670000],[280,17600,0,260000],[235,17800,0,170000],[27,1873,0,30000]],"r":1,"g":0,"f":12},{"n":"中野区","s":"中野区","p":[[803,47100,0,670000],[294,17400,0,260000],[253,17700,0,170000],[27,1873,0,30000]],"r":1,"g":0,"f":12},{"n":"江戸川区","s":"江戸川区","p":[[783,48900,0,670000],[284,17400,0,260000],[245,17400,0,170000],[27,1870,0,30000]],"r":1,"g":0,"f":12},{"n":"札幌市","s":"札幌市","p":[[861,20550,32540,670000],[256,6330,10010,260000],[233,6020,7550,170000],[29,1100,1000,30000]],"r":10,"g":0,"f":0},{"n":"仙台市","s":"仙台市","p":[[796,27850,26700,670000],[300,10410,9980,260000],[244,9440,7070,170000],[27,1010,900,30000]],"r":1,"g":0,"f":3},{"n":"さいたま市","s":"さいたま市","p":[[764,43300,0,670000],[273,14900,0,260000],[237,16100,0,170000],[26,1700,0,30000]],"r":100,"g":0,"f":10},{"n":"千葉市","s":"千葉市","p":[[721,23280,26640,670000],[285,8880,10320,260000],[257,16560,0,170000],[31,1800,0,30000]],"r":1,"g":0,"f":11},{"n":"横浜市","s":"横浜市","p":[[833,40870,0,670000],[262,13380,0,260000],[284,16200,0,170000],[34,1770,0,30000]],"r":1,"g":0,"f":13},{"n":"川崎市","s":"川崎市","p":[[826,43261,0,670000],[289,15306,0,260000],[267,15828,0,170000],[32,1742,0,30000]],"r":1,"g":0,"f":13},{"n":"相模原市","s":"相模原市","p":[[675,29000,18000,670000],[278,11500,7000,260000],[232,12000,6000,170000],[28,1360,800,30000]],"r":100,"g":0,"f":13},{"n":"新潟市","s":"新潟市","p":[[740,14700,19200,670000],[310,7200,9000,260000],[250,14100,0,170000],[27,1600,0,30000]],"r":100,"g":0,"f":14},{"n":"浜松市","s":"浜松市","p":[[720,25000,22000,670000],[235,11000,8000,260000],[190,14500,0,170000],[33,2000,0,30000]],"r":1,"g":0,"f":21},{"n":"名古屋市","s":"名古屋市","p":[[883,50591,0,670000],[258,15784,0,260000],[234,16120,0,170000],[26,1863,0,30000]],"r":10,"g":1,"f":22},{"n":"京都市","s":"京都市","p":[[794,30080,17930,670000],[266,10360,6180,260000],[251,11090,5370,170000],[28,1170,660,30000]],"r":1,"g":0,"f":25},{"n":"大阪市・堺市（大阪府内は全市町村で同じ）","s":"大阪市・堺市","p":[[950,34990,33908,660000],[306,11191,10845,260000],[260,18682,0,170000],[28,1841,0,30000]],"r":1,"g":0,"f":26},{"n":"神戸市","s":"神戸市","p":[[738,33700,21800,670000],[297,13510,8740,260000],[278,13970,6880,170000],[26,1330,830,30000]],"r":1,"g":0,"f":27},{"n":"岡山市","s":"岡山市","p":[[815,28320,20880,670000],[295,10320,6960,260000],[260,10920,5280,170000],[29,1200,720,30000]],"r":1,"g":0,"f":32},{"n":"広島市","s":"広島市","p":[[818,31228,30403,670000],[264,10342,10069,260000],[252,10443,7860,170000],[27,1128,1044,30000]],"r":1,"g":0,"f":33},{"n":"北九州市","s":"北九州市","p":[[831,23200,26400,670000],[340,9720,11060,260000],[290,9550,8220,170000],[28,930,1000,30000]],"r":1,"g":0,"f":39},{"n":"福岡市","s":"福岡市","p":[[558,19807,18664,670000],[314,10441,9838,260000],[261,10160,7751,170000],[28,1039,911,30000]],"r":1,"g":0,"f":39},{"n":"熊本市","s":"熊本市","p":[[634,28400,18100,670000],[298,13300,8500,260000],[294,20300,0,170000],[25,1700,0,30000]],"r":1,"g":0,"f":42}];
+var KPF=[["北海道",1028],["青森県",985],["岩手県",951],["宮城県",1010],["秋田県",1001],["山形県",975],["福島県",950],["茨城県",952],["栃木県",982],["群馬県",968],["埼玉県",967],["千葉県",973],["東京都",985],["神奈川県",992],["新潟県",921],["富山県",959],["石川県",970],["福井県",971],["山梨県",955],["長野県",963],["岐阜県",980],["静岡県",961],["愛知県",993],["三重県",977],["滋賀県",988],["京都府",989],["大阪府",1013],["兵庫県",1012],["奈良県",991],["和歌山県",1006],["鳥取県",986],["島根県",994],["岡山県",1005],["広島県",978],["山口県",1015],["徳島県",1024],["香川県",1002],["愛媛県",998],["高知県",1005],["福岡県",1011],["佐賀県",1055],["長崎県",1006],["熊本県",1008],["大分県",1008],["宮崎県",977],["鹿児島県",1013],["沖縄県",944]];
+function kokuhoR(R,g,meOld,fam,famOld){
+ var n=1+fam,base=Math.max(0,g-(g<=24000000?430000:(g<=24500000?290000:(g<=25000000?150000:0))));
+ var red=g<=430000?7:(g<=430000+310000*n?5:(g<=430000+570000*n?2:0));
+ var parts=[];R.p.forEach(function(c,i){
+  var cnt=i===2?((meOld?1:0)+famOld):n,ib=i===2?(meOld?base:0):base;
+  if(!cnt){parts.push(0);return;}
+  var v=Math.floor(ib*c[0]/10000)+cnt*Math.floor(c[1]*(10-red)/10)+Math.floor(c[2]*(10-red)/10);
+  if(R.g&&i===0&&red>0)v=Math.max(0,v-2000*cnt);
+  v=Math.floor(v/R.r)*R.r;parts.push(Math.min(c[3],v));});
+ return {t:parts.reduce(function(a,b){return a+b;},0),p:parts,red:red};
+}
+function kokuho(a,old,fam){var R=KRG[+document.getElementById("kreg").value];return kokuhoR(R,kyuyo7(a),old,fam,old?fam:0).t;}
+function nini(a,old){var R=KRG[+document.getElementById("kreg").value],s=Math.min(std(Math.floor(a/12)),320000),v=s*(KPF[R.f][1]+23+(old?162:0));return (v-v%10000)/10000*12;}
 var ka=document.getElementById("ka"),kf=document.getElementById("kf"),kold=0;
 function kr(){var a=Math.max(0,parseInt(ka.value,10)||0),k=kokuho(a,kold,+kf.value),n=nini(a,kold);
  document.getElementById("ko-k").textContent=f(k)+"円";document.getElementById("ko-n").textContent=f(n)+"円";
  document.getElementById("ko-w").textContent=k<n?"国民健康保険のほうが安い":(k>n?"任意継続のほうが安い":"同じ額");document.getElementById("ko-d").textContent=k===n?"":"年"+f(Math.abs(k-n))+"円";}
-ka.addEventListener("input",kr);kf.addEventListener("change",kr);
+ka.addEventListener("input",kr);kf.addEventListener("change",kr);document.getElementById("kreg").addEventListener("change",kr);
 document.querySelectorAll("#kold button").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("#kold button").forEach(function(x){x.classList.remove("on");});b.classList.add("on");kold=+b.dataset.v;kr();});});
 kr();
 /* 働き方の札 */
