@@ -32,6 +32,9 @@ for f in files:
     # 早見表の大見出しを1つの年齢に固定しない。年齢で変わる表は切り替えか、同じ見出しの下に並べる(2026/11/23 本人「40歳以上の人が見たら私が使える早見表がない」)
     for _m in re.finditer(r'<h2[^>]*>([^<]*早見表[^<]*（[^<]*歳[^<]*）)</h2>', s):
         bad(f, '早見表の見出しが1つの年齢に固定', _m.group(1))
+    # 答えの列だけの表にしたページに「右に動かすと」の案内を残さない(2026-11-24)
+    if me in json.load(open(os.path.join(ROOT, 'tools', 'kotae_retsu.json'), encoding='utf-8')) and re.search(r'右に動かす|横に動かす|横にスクロール', re.sub(r'<script.*?</script>', '', s, flags=re.S)):
+        bad(f, '答えの列だけの表なのに横に動かす案内が残っている', '')
     if '税理士事務所' in s:
         bad(f, '税理士事務所', '')
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)
