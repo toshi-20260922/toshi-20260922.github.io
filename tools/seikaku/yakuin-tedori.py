@@ -248,7 +248,7 @@ async def body(pg):
         chk('黄色の行', [k for k, t in enumerate(trs) if t[0] == 'hit'], [hit] if hit >= 0 else [])
         for r, (_, tds) in zip(ROWS, trs):
             e = ref(r * 10000, PREF[i][1], o)
-            chk('表1 %d万円 %s' % (r, PREF[i][0]), tds, [str(r), f(per_month(e['t'])), ritsu(e['t'], e['a']) + '%', f(e['c'])])
+            chk('表1 %d万円 %s' % (r, PREF[i][0]), tds, [str(r) + '万円', f(per_month(e['t'])), ritsu(e['t'], e['a']) + '%', f(e['c'])])
     # 会社が払う総額の表(40歳未満・東京都)
     trs = await pg.eval_on_selector_all('#ctb tr', 'ts=>ts.map(t=>[].map.call(t.children,d=>d.textContent))')
     chk('表2の行', [t[0] for t in trs], ['30万円', '50万円', '80万円', '100万円'])

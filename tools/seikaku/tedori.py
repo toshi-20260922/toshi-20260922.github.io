@@ -205,10 +205,10 @@ async def body(pg):
         chk('黄色の行', [k for k, t in enumerate(trs) if t[0] == 'hit'], [hit] if hit >= 0 else [])
         for r, (_, tds) in zip(ROWS, trs):
             e = ref(r * 10000, PREF[i][1], o)
-            chk('表 %d万円 %s %d' % (r, PREF[i][0], o), tds, [f(r), f(e['t']), f(e['t'] // 12), ritsu(e['t'], e['a']) + '%',
+            chk('表 %d万円 %s %d' % (r, PREF[i][0], o), tds, [f(r) + '万円', f(e['t']), f(e['t'] // 12), ritsu(e['t'], e['a']) + '%',
                                                         f(e['k']), f(e['n']), f(e['e']), f(e['i']), f(e['j'])])
     ths = await pg.eval_on_selector_all('table.td9 thead th', 'ts=>ts.map(t=>t.textContent)')
-    chk('表の見出し', ths, ['年収（万円）', '手取り（年）', '月あたり', '手取り率', '健康保険', '厚生年金', '雇用保険', '所得税', '住民税'])
+    chk('表の見出し', ths, ['年収', '手取り（年）', '月あたり', '手取り率', '健康保険', '厚生年金', '雇用保険', '所得税', '住民税'])
 
     # 4 HTML に手で書いた表
     def rows_after(hid, k=0):

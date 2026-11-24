@@ -169,7 +169,7 @@ async def body(pg):
         await pg.fill('#inc', str(I)); await pg.dispatch_event('#inc', 'input')
         hit = await pg.eval_on_selector_all('#tb tr.hit', 'rs=>rs.map(r=>r.cells[0].innerText)')
         le = [v for v in ROWS if v * 10000 <= I]
-        want = [format(le[-1], ',')] if le else []
+        want = [format(le[-1], ',') + '万円'] if le else []
         n += 1
         if hit != want:
             bad += 1; print('NG 黄色の行', I, hit, want)

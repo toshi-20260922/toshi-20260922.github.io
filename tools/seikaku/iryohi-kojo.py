@@ -211,7 +211,7 @@ async def body(pg):
         bad += 1; print('NG 早見表の行の数', len(rows))
     for ds, tr in rows:
         cells = re.findall(r'<b>([\d,]+)</b><br><small>([\d,]+)</small>', tr)
-        first = digits(re.search(r'<td>([\d,]+)</td>', tr).group(1))
+        first = digits(re.search(r'<td>([\d,]+)(?:万円)?</td>', tr).group(1))
         n += 1
         if first != int(ds) or len(cells) != 5:
             bad += 1; print('NG 早見表の行', ds, first, len(cells))

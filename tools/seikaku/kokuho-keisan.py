@@ -229,14 +229,14 @@ async def body(pg):
     # 11-20 にページの表へ 1,200・1,500・2,000万円の行が足された(上限に届く行)。行の並びはページの今の形に合わせ、額は自分の計算で出す
     ROWS = [100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000, 1200, 1500, 2000]
     chk('年収別の表の見出し', await pg.eval_on_selector_all(':is(#list ~ .tw):not(#list ~ .tw ~ .tw) thead th', "ts=>ts.map(t=>t.innerText.replace(/\\s+/g,''))"),
-        ['前の年の年収（万円）', '40歳未満（年・円）', '40〜64歳（年・円）'])
+        ['前の年の年収', '40歳未満（年・円）', '40〜64歳（年・円）'])
     for i, d in enumerate(D):
         await pg.select_option('#reg', str(i))
         await pg.click('#s-k button[data-v="0"]')
         for fam in range(4):
             await pg.select_option('#fam', str(fam))
             rows = await pg.eval_on_selector_all('#tb tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
-            want = [[c(r), c(hoken(d, kyuyo(r * 10000), 0, fam, 0)[0]), c(hoken(d, kyuyo(r * 10000), 1, fam, fam)[0])] for r in ROWS]
+            want = [[c(r) + '万円', c(hoken(d, kyuyo(r * 10000), 0, fam, 0)[0]), c(hoken(d, kyuyo(r * 10000), 1, fam, fam)[0])] for r in ROWS]
             chk('年収別の表 %s 家族%d' % (d[0], fam), rows, want)
             # 「年収が高い行は上限の額で止まります」: 2,000万円の行は4つの区分とも限度額
             capsum = d[4] + sum(CAP[1:])
@@ -251,7 +251,7 @@ async def body(pg):
     await pg.select_option('#reg', '0')
     for a, want in [(4000000, ['400']), (4490000, ['400']), (4500000, ['450']), (999999, []), (1000000, ['100']), (30000000, ['2,000']), (11999999, ['1,000']), (12000000, ['1,200']), (19999999, ['1,500']), (20000000, ['2,000'])]:
         await pg.fill('#inc', str(a))
-        chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), want)
+        chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), [w + '万円' for w in want])
     chk('高い行の注記', '年収が高い行は上限の額で止まります。' in raw, True)
     chk('黄色の行の文', '入力した年収を超えない中でいちばん近い行が黄色になります。' in raw, True)
 

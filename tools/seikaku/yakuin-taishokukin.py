@@ -89,7 +89,7 @@ async def body(pg):
         wari = (Fraction(tax * 1000, g) + Fraction(1, 2)).__floor__()      # 0.1%の位に四捨五入
         kz = max(0, g - kojo(30)) // 2 // 1000 * 1000
         chk('表1 %s 全部の列' % r['s'], r['c'],
-            ['{:,}'.format(int(r['s'])), '{:,}'.format(kz), '{:,}'.format(e['it']), '{:,}'.format(e['ju']),
+            ['{:,}万円'.format(int(r['s'])), '{:,}'.format(kz), '{:,}'.format(e['it']), '{:,}'.format(e['ju']),
              '{:,}'.format(tax), '{:,}'.format(e['net']), '%d.%d%%' % (wari // 10, wari % 10)])
     # HTML に手で書いた表3(勤続年数ごとの控除と3,000万円の手取り)の全行
     rows = await pg.eval_on_selector_all(':is(#kojo ~ .tw):not(#kojo ~ .tw ~ .tw) tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
@@ -102,9 +102,9 @@ async def body(pg):
     # JS が作る表4(勤続年数で手取りはどう変わるか)の全行と、見出しに手で書いた控除の額
     heads = await pg.eval_on_selector_all(':is(#nen ~ .tw):not(#nen ~ .tw ~ .tw) thead th', "hs=>hs.map(h=>h.innerText.replace(/\\s+/g,''))")
     NS4 = (20, 25, 30, 35)
-    chk('表4の見出し', heads, ['退職金（万円）'] + ['勤続%d年控除%s万円' % (y, man(kojo(y))) for y in NS4])
+    chk('表4の見出し', heads, ['退職金'] + ['勤続%d年控除%s万円' % (y, man(kojo(y))) for y in NS4])
     rows = await pg.eval_on_selector_all('#tb3 tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
-    chk('表4の行の数', [r[0] for r in rows], ['{:,}'.format(x) for x in (1000, 1500, 2000, 3000, 4000, 5000, 7000, 10000)])
+    chk('表4の行の数', [r[0] for r in rows], ['{:,}万円'.format(x) for x in (1000, 1500, 2000, 3000, 4000, 5000, 7000, 10000)])
     for r in rows:
         g = d(r[0]) * 10000
         for i, y in enumerate(NS4):

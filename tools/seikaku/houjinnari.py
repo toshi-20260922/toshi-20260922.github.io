@@ -414,7 +414,7 @@ async def body(pg):
     # 黄色の行:入力した利益を超えない中でいちばん近い行(400万円より下は無し)
     for a, want in ((3990000, []), (4000000, ['400']), (5990000, ['500']), (8000000, ['800']), (11990000, ['1,000']), (19990000, ['1,500']), (50000000, ['2,000'])):
         await pg.evaluate(SET, [0, 12, 0, a, None])
-        chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', 'rs=>rs.map(r=>r.children[0].textContent)'), want)
+        chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', 'rs=>rs.map(r=>r.children[0].textContent)'), [w + '万円' for w in want])
     await pg.evaluate(SET, [0, 12, 0, 8000000, None])
     chk('元の文 地域', '<li id="o-reg">単身・東京23区の国民健康保険・協会けんぽ東京都で計算しています</li>' in raw, True)
     chk('既定の都道府県', '<option value="12" selected>東京都（9.85%）</option>' in raw, True)

@@ -102,6 +102,20 @@ def kotae(me, s):
           'build();new MutationObserver(build).observe(t,{subtree:true,childList:true,attributes:true,attributeFilter:["class"],characterData:true});})();</script>') % json.dumps(KR[me])
     return s.replace('</body>', KRC + js + '\n</body>', 1)
 
+
+# 表の1列目の「年収（万円）」の書き方をやめ、見出しは「年収」、マスは「950万円」と書く(2026-11-24 本人「年収は万円もおかしいし」)。
+# 表を JS で作り直すページもあるので、表の中身が変わるたびに書き直す。
+MANEN = ('<script id="manen">(function(){function fix(t){var th=t.querySelector("thead th");if(!th)return;var h=th.innerHTML;'
+         'if(!/(<br>)?（?万円）?$/.test(h.trim())&&th.getAttribute("data-mn")!=="1")return;'
+         'if(th.getAttribute("data-mn")!=="1"){th.innerHTML=h.trim().replace(/(<br>)?（?万円）?$/,"");th.setAttribute("data-mn","1");}'
+         '[].forEach.call(t.querySelectorAll("tbody tr"),function(r){var c=r.cells[0];if(!c)return;var s=c.textContent.trim();if(/^[0-9,]+$/.test(s))c.textContent=s+"万円";});}'
+         'var ts=document.querySelectorAll("main table");for(var i=0;i<ts.length;i++)(function(t){fix(t);var b=t.querySelector("tbody");if(b)new MutationObserver(function(){fix(t)}).observe(b,{childList:true,subtree:true});})(ts[i]);})();</script>')
+def manen(me, s):
+    s = re.sub(r'<script id="manen">.*?</script>\n?', '', s, flags=re.S)
+    if '<main' not in s or not re.search(r'<th>[^<]*(<br>)?（?万円）?</th>', s):
+        return s
+    return s.replace('</body>', MANEN + '\n</body>', 1)
+
 def fsx(me, s):
     if FSX in s or '<main' not in s:
         return s
@@ -153,6 +167,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = hayami_first(me, s)
     s = pubdate(me, s)
     s = fsx(me, s)
+    s = manen(me, s)
     s = kotae(me, s)
     s = tdw(me, s)
     s = icons(s)

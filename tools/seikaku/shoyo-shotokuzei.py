@@ -169,7 +169,7 @@ async def body(pg):
     chk('早見表の行の数', len(tb), 11)
     for r in tb:
         m = int(r[0]) * 10000
-        chk('早見表 給与の欄', r[1], r[0])
+        chk('早見表 給与の欄', r[1], r[0] + '万円')
         for fu in range(4):
             chk('早見表 %s万 扶養%d人' % (r[0], fu), r[2 + fu], pct(ref(m, 500000, fu, 0)['i']))
         chk('早見表 %s万 税額' % r[0], num(r[6]), ref(m, 500000, 0, 0)['zei'])
