@@ -159,6 +159,42 @@ def icons(s):
         return s
     return head + add + s[h:]
 
+
+# 計測(GA4・Clarity)を、本人のブラウザと自動の確認からは外す(2026/11/25 本人「自分が触ったらクリックに数えられるようになってない？」)。
+# ?notrack=1 または従来の ?naibu=1 で目印を付け、付いている間と navigator.webdriver のときはタグ自体を読み込まない。
+# ?notrack=0 または ?naibu=0 で目印を消す。決めるのはここ1か所だけ。
+GA_ID = 'G-CW5VSP86R1'
+CLARITY_ID = 'z9qg6yckbq'
+TRACK = (
+    '<script id="tt-track">(function(){var s=false;try{var q=location.search;'
+    'if(/[?&](?:notrack|naibu)=1(?:&|$)/.test(q))localStorage.setItem("tt_naibu","1");'
+    'if(/[?&](?:notrack|naibu)=0(?:&|$)/.test(q))localStorage.removeItem("tt_naibu");'
+    's=localStorage.getItem("tt_naibu")==="1";}catch(e){}'
+    'try{if(navigator.webdriver)s=true;}catch(e){}'
+    'if(s)return;'
+    'var g=document.createElement("script");g.async=1;g.src="https://www.googletagmanager.com/gtag/js?id=%s";'
+    'document.head.appendChild(g);window.dataLayer=window.dataLayer||[];'
+    'function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag("js",new Date());gtag("config","%s");'
+    '(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};'
+    't=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;'
+    'y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","%s");'
+    '})();</script>'
+) % (GA_ID, GA_ID, CLARITY_ID)
+def track(s):
+    # 古い計測タグとこの仕掛けを外してから入れ直す(何度流しても同じ結果)
+    s = re.sub(r'<script id="tt-track">.*?</script>\n?', '', s, flags=re.S)
+    s = re.sub(r'<script\b[^>]*src="https://www\.googletagmanager\.com/gtag/js\?id=G-CW5VSP86R1"[^>]*(?:></script>|\s*/>)\n?', '', s, flags=re.I)
+    def _drop_old(m):
+        b = m.group(0)
+        if 'G-CW5VSP86R1' in b or 'clarity.ms/tag' in b or 'tt_naibu' in b:
+            return ''
+        return b
+    s = re.sub(r'<script\b[^>]*>.*?</script>\n?', _drop_old, s, flags=re.S)
+    h = s.find('</head>')
+    if h < 0:
+        return s
+    return s[:h] + TRACK + '\n' + s[h:]
+
 changed = 0
 for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     me = os.path.basename(os.path.dirname(f))
@@ -171,6 +207,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = kotae(me, s)
     s = tdw(me, s)
     s = icons(s)
+    s = track(s)
     if '<nav class="tools">' in s:
         s = re.sub(r'<nav class="tools">.*?</nav>', lambda m: nav_for(me), s, count=1, flags=re.S)
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)
@@ -188,6 +225,13 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     if s != o:
         open(f, 'w', encoding='utf-8').write(s)
         changed += 1
+
+# トップページは上の作り直しの対象外なので、計測タグだけそろえる
+_tf = os.path.join(SITE, 'index.html')
+_ts = open(_tf, encoding='utf-8').read()
+if track(_ts) != _ts:
+    open(_tf, 'w', encoding='utf-8').write(track(_ts))
+    changed += 1
 
 json.dump(PUB, open(PUBF, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('finish.py: 書き換えたページ', changed)

@@ -46,6 +46,24 @@ for f in files:
         bad(f, 'og:url', ogu.group(1) if ogu else 'なし')
     if me and not re.search(r'<meta property="og:title" content="[^"]+">', s):
         bad(f, 'og:title', 'なし')
+    # 計測タグは finish.py の tt-track の1か所だけ。目印付きと自動操作では読み込まない(2026/11/25)
+    _tn = len(re.findall(r'<script id="tt-track">', s))
+    if _tn != 1:
+        bad(f, '計測タグ', 'tt-track が %d 個' % _tn)
+    else:
+        _tb = re.search(r'<script id="tt-track">(.*?)</script>', s, re.S).group(1)
+        if 'G-CW5VSP86R1' not in _tb or 'z9qg6yckbq' not in _tb:
+            bad(f, '計測タグ', '測定IDが違う')
+        if 'notrack' not in _tb or 'navigator.webdriver' not in _tb or 'tt_naibu' not in _tb:
+            bad(f, '計測タグ', '除外の仕掛けが足りない')
+    if re.search(r'<script\b[^>]*src="https://www\.googletagmanager\.com/gtag/js', s):
+        bad(f, '計測タグ', 'gtag を常に読み込むタグが残っている')
+    for _sm in re.finditer(r'<script\b[^>]*>.*?</script>', s, re.S):
+        if 'id="tt-track"' in _sm.group(0):
+            continue
+        if 'G-CW5VSP86R1' in _sm.group(0) or 'clarity.ms/tag' in _sm.group(0) or 'tt_naibu' in _sm.group(0):
+            bad(f, '計測タグ', 'tt-track の外に計測のスクリプトが残っている')
+            break
     for h in re.findall(r'href="(/[^"#?]*)"', s):
         p = os.path.join(SITE, h.lstrip('/'))
         q = os.path.join(ROOT, 'live', h.lstrip('/'))
