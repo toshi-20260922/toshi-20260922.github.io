@@ -141,15 +141,19 @@ def manen(me, s):
     return s.replace('</body>', MANEN + '\n</body>', 1)
 
 
-# 早見表の黄色の行(2026-11-25 本人「設計がおかしい　プロゴを確認しろ」)。
-# プロゴと同じく、黄色は冒頭の文の例(入力欄の最初の値)の行だけに付け、下で入力しても動かさない。
-# 入力した結果は計算の箱の中だけに出す。上の表に戻らせない。全ページで1つの決まり。
-HIT = ('<style id="hitc">main table tr.hit td{background:transparent!important}main table tr.ex td{background:#fff59d!important}</style>'
-       '<script id="hitj">(function(){var K={};function k(tr){var c=tr.cells&&tr.cells[0];return c?c.textContent.replace(/\\s/g,""):""}'
-       'function mark(){document.querySelectorAll("main table tr").forEach(function(tr){var on=!!K[k(tr)];if(tr.classList.contains("ex")!==on)tr.classList.toggle("ex",on);});}'
-       'function init(){document.querySelectorAll("main table tr.hit").forEach(function(tr){var x=k(tr);if(x)K[x]=1;});mark();'
-       'var q=0;new MutationObserver(function(){if(q)return;q=1;requestAnimationFrame(function(){q=0;mark();});}).observe(document.querySelector("main"),{childList:true,subtree:true});}'
-       'if(document.readyState==="complete")init();else window.addEventListener("load",init);})();</script>')
+# 早見表の黄色の行(2026-11-25)。黄色は下の計算ツールに入力した値に当たる行に付く(各ページのJSが tr.hit を付ける)。
+# 黄色の意味は表の上の一文(tools/kiiro_bun.json)で書く。
+HIT = '<style id="hitc">table tr.hit td{background:#fff59d}</style><script id="hitj"></script>'
+KB = json.load(open(os.path.join(ROOT, 'tools', 'kiiro_bun.json'), encoding='utf-8'))
+def kiiro(me, s):
+    s = re.sub(r'<p class="kiiro">.*?</p>\n?', '', s)
+    if me not in KB or 'class="hy1"' not in s:
+        return s
+    a = s.find('<section class="hy1">'); b = s.find('</section>', a)
+    i = s.find('<div class="tw">', a)
+    if i < 0 or i > b:
+        return s
+    return s[:i] + '<p class="kiiro">%s</p>\n' % KB[me] + s[i:]
 def hitlb(me, s):
     s = re.sub(r'<style id="hitc">.*?</style><script id="hitj">.*?</script>\n?', '', s, flags=re.S)
     if 'tr.hit' not in s:
@@ -276,6 +280,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = hayami_first(me, s)
     s = yabun(me, s)
     s = intro_first(me, s)
+    s = kiiro(me, s)
     s = pubdate(me, s)
     s = fsx(me, s)
     s = manen(me, s)
