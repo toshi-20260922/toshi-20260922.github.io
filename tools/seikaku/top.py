@@ -45,6 +45,7 @@ LIM = [63, 73, 83, 93, 101, 107, 114, 122, 130, 138, 146, 155, 165, 175, 185, 19
 SOKUSAN = [(1950000, 5, 0), (3300000, 10, 97500), (6950000, 20, 427500), (9000000, 23, 636000),
            (18000000, 33, 1536000), (40000000, 40, 2796000), (None, 45, 4796000)]
 KOKUHO23 = [(751, 47600, 670000), (280, 17600, 260000), (27, 1873, 30000)]     # 40歳未満:医療・支援金・子ども分(所得割×1万分の1, 均等割, 上限)
+KOKUHO_CARE = (243, 17800, 170000)                                          # 40〜64歳の介護分(東京23区)
 
 def std(m):
     for s, t in zip(STD, LIM):
@@ -83,16 +84,19 @@ def jumin(g, sh):
     t = max(0, g - sh - kiso_ju(g)) // 1000 * 1000
     adj = 0 if g > 25000000 else (min(50000, t) if t <= 2000000 else 50000)
     return max(0, t * 6 // 100 - adj * 3 // 100) // 100 * 100 + max(0, t * 4 // 100 - adj * 2 // 100) // 100 * 100 + 5000
-def yakuin(m):
-    """(本人負担, 会社負担)の月額。協会けんぽ東京都・40歳未満。会社負担=全額(円未満切り捨て)−本人負担+子ども・子育て拠出金(円未満切り捨て)。"""
+def yakuin(m, old=0):
+    """(本人負担, 会社負担)の月額。協会けんぽ東京都。old は 0=40歳未満、1=40〜59歳、2=60〜64歳(介護保険料あり)。会社負担=全額(円未満切り捨て)−本人負担+子ども・子育て拠出金(円未満切り捨て)。"""
     s = std(m); p = min(max(s, 88000), 650000)
-    ken = half(F(s * (985 + 23), 20000)); nen = half(F(p * 1830, 20000))
-    return ken + nen, s * (985 + 23) // 10000 + p * 1830 // 10000 - ken - nen + p * 36 // 10000
-def kojin_futan(a):
-    """個人事業のままの税金・社会保険料の合計(青色申告65万円・東京23区の国保・国民年金・個人事業税5%)。"""
+    kai = 162 if old else 0
+    ken = half(F(s * (985 + 23 + kai), 20000)); nen = half(F(p * 1830, 20000))
+    return ken + nen, s * (985 + 23 + kai) // 10000 + p * 1830 // 10000 - ken - nen + p * 36 // 10000
+def kojin_futan(a, old=0):
+    """個人事業のままの税金・社会保険料の合計。old は 0=40歳未満、1=40〜59歳(介護分あり)、2=60〜64歳(介護分あり・国民年金なし)。"""
     g = max(0, a - min(650000, a)); base = max(0, g - 430000)
     red = 7 if g <= 430000 else (5 if g <= 740000 else (2 if g <= 1000000 else 0))
-    sh = sum(min(c, base * r // 10000 + k * (10 - red) // 10) for r, k, c in KOKUHO23) + 17920 * 12
+    rows = KOKUHO23 if not old else KOKUHO23[:2] + [KOKUHO_CARE] + KOKUHO23[2:]
+    sh = sum(min(c, base * r // 10000 + k * (10 - red) // 10) for r, k, c in rows)
+    if old != 2: sh += 17920 * 12
     jg = max(0, a - 2900000) // 1000 * 1000 * 5 // 100 // 100 * 100
     return shotokuzei(g - sh - kiso(g)) + jumin(g, sh) + jg + sh
 def jigyo(a):
@@ -108,9 +112,9 @@ def corp(p):
     kz = hz // 1000 * 1000
     return (hz + kz * 103 // 1000 // 100 * 100 + max(0, kz - 5000000) // 1000 * 1000 * 4 // 100 // 100 * 100 + sum(jigyo(a))
             + kz * 1 // 100 // 100 * 100 + kz * 6 // 100 // 100 * 100 + 70000)
-def houjin_futan(a, m):
-    """役員報酬を月 m 円にして残りを会社に残すときの税金・社会保険料の合計。"""
-    me, co = yakuin(m); r = m * 12; g = kyuyo(r); p = a - r - co * 12
+def houjin_futan(a, m, old=0):
+    """役員報酬を月 m 円にして残りを会社に残すときの税金・社会保険料の合計。old は yakuin と同じ。"""
+    me, co = yakuin(m, old); r = m * 12; g = kyuyo(r); p = a - r - co * 12
     return me * 12 + co * 12 + shotokuzei(g - me * 12 - kiso(g)) + jumin(g, me * 12) + (corp(p) if p > 0 else 70000)
 
 def num(t):
@@ -250,7 +254,17 @@ async def main():
         for li in await pg.eval_on_selector_all('.pop li a', "as=>as.map(a=>[a.getAttribute('href'),a.querySelector('em').firstChild.textContent,a.querySelector('em b').textContent])"):
             tile[li[0]] = (li[1], li[2])
         nby = await pg.inner_text('p.nby')
-        qa = await pg.eval_on_selector_all('.pnl', "ps=>ps.map(p=>[p.id].concat(['.q','.a','.n'].map(s=>(p.querySelector('.qa '+s)||{}).textContent||'')))")
+        qa = await pg.eval_on_selector_all('.pnl', """ps=>ps.map(p=>{
+          function tx(sel){
+            var e=p.querySelector('.qa '+sel); if(!e) return '';
+            if(sel!=='.q') return e.textContent||'';
+            return [].map.call(e.childNodes, function(n){
+              if(n.nodeType===1 && n.classList && n.classList.contains('qlb')) return '';
+              return n.textContent||'';
+            }).join('');
+          }
+          return [p.id, tx('.q'), tx('.a'), tx('.n')];
+        })""")
         qa = {x[0]: x[1:] for x in qa}
         cards = {}
         for h, s in await pg.eval_on_selector_all('ul.cards a', "as=>as.map(a=>[a.getAttribute('href'),a.querySelector('span').textContent])"):
@@ -349,7 +363,7 @@ async def main():
                 '所得税 {:,}円 住民税 {:,}円 個人事業税 {:,}円 国保・年金 {:,}円 手取り {:,}円'.format(it, ju, jg, ko + nen, te), '税金・保険料の合計（年） {:,}円'.format(a - te))], [True] * 4)
             chk('自分の計算 個人事業 %d' % a, kojin_futan(a), a - te)
         chk('タブ 個人事業 の注', topv[0]['nt'].startswith('40歳未満・単身・所得税は令和%d年分、住民税は令和%d年度。青色申告65万円控除・東京23区の国保（令和%d年度）・国民年金。個人事業税は税率5%%の業種。' % (REIWA, REIWA + 1, REIWA)), True)
-        chk('質問 個人事業 問い', qa['p4'][0], 'よく聞かれること：個人事業の利益が500万円なら、税金と社会保険料の合計は？')
+        chk('質問 個人事業 問い', qa['p4'][0], '個人事業の利益が500万円なら、税金と社会保険料の合計は？')
         chk('質問 個人事業 答え', qa['p4'][1], '年%s万円' % man1(5000000 - KO[5000000]))
         chk('質問 個人事業 注', qa['p4'][2], '40歳未満・単身・東京23区・令和%d年分。法人成りの分岐点 早見表の「個人事業のまま」の額' % REIWA)
         chk('カード 個人事業', (cards['/kojin-zei/'].startswith('利益200万〜2,000万円の'), '利益200万〜2,000万円' in TITLE['/kojin-zei/'][0]), (True, True))
@@ -368,17 +382,40 @@ async def main():
             chk('タブ 法人成り 札 %d' % a, [x in t_['card'] for x in (('法人にしたほうが多い額（年）' if df >= 0 else '個人事業のほうが多い額（年）') + ' {:,}円'.format(abs(df)),
                 '手取りは個人事業で {:,}円、法人にすると {:,}円'.format(k, h), '法人の役員報酬（月） {:,}円'.format(m))], [True] * 3)
         chk('タブ 法人成り の注', topv[0]['nt'].startswith('40歳未満・単身・令和%d年分。個人事業は青色申告65万円控除・東京23区の国保。法人は利益を全部役員報酬にし、協会けんぽ東京都・均等割7万円。' % REIWA), True)
-        # 行き先の早見表(40歳未満)の「個人事業のまま」「報酬月30万」の列
-        hy = await dp.eval_on_selector_all(':is(#bunki ~ .tw):not(#bunki ~ .tw ~ .tw) tbody tr', "rs=>rs.map(r=>[...r.children].map(c=>c.textContent))")
-        hd = await dp.eval_on_selector_all(':is(#bunki ~ .tw):not(#bunki ~ .tw ~ .tw) thead th', "ts=>ts.map(t=>t.textContent)")
-        chk('行き先 早見表の列', hd[:3], ['事業の利益（年）', '個人事業のまま', '報酬月20万'])
-        c30 = hd.index('報酬月30万')
-        HY = {int(num(r[0])): (int(num(r[1])), int(num(r[c30]))) for r in hy}
-        for pm, (ko_, df_) in HY.items():                     # 自分の計算が行き先の表の全行と合うか
-            a = pm * 10000
-            chk('自分の計算 個人事業のまま %d' % pm, r_half_up(F(kojin_futan(a), 10000)), ko_)
-            d30 = kojin_futan(a) - houjin_futan(a, 300000)
-            chk('自分の計算 報酬月30万 %d' % pm, (1 if d30 >= 0 else -1) * r_half_up(F(abs(d30), 10000)), df_)
+        # 行き先の早見表。年齢トグルの中にあり、見出しの <br> は文字にならない。個人の負担は1列目の小さい字。
+        bk = await dp.evaluate("""() => {
+          const norm = s => (s || '').replace(/\\s+/g, '');
+          return ['0', '1', '2'].map(a => {
+            const table = document.querySelector('[data-c="f"] [data-a="' + a + '"] table');
+            if (!table) return null;
+            const hd = [...table.querySelectorAll('thead th')].map(t => norm(t.textContent));
+            const rows = [...table.querySelectorAll('tbody tr')].map(r => {
+              const cells = [...r.children];
+              const first = cells[0];
+              const small = first.querySelector('small');
+              const head = [...first.childNodes].filter(n => n !== small).map(n => n.textContent).join('');
+              return {profit: head, burden: small ? small.textContent : '',
+                      cells: cells.slice(1).map(c => (c.childNodes[0] ? c.childNodes[0].textContent : c.textContent).trim())};
+            });
+            return {a, hd, rows};
+          });
+        }""")
+        HY = {}
+        AGE = {0: '40歳未満', 1: '40〜59歳', 2: '60〜64歳'}
+        for blk in bk:
+            label = AGE.get(int(blk['a']), '?') if blk else '?'
+            chk('行き先 年齢の表がある ' + label, blk is not None, True)
+            if not blk or '報酬月30万' not in blk['hd']: continue
+            old = int(blk['a']); hd = blk['hd']
+            chk('行き先 早見表の列 ' + label, hd[:3], ['事業の利益（年）', '報酬月20万', '報酬月30万'])
+            i30 = hd.index('報酬月30万') - 1
+            for row in blk['rows']:
+                pm = int(num(row['profit'])); a = pm * 10000
+                ko_ = int(num(row['burden'])); df_ = int(num(row['cells'][i30]))
+                if old == 0: HY[pm] = (ko_, df_)
+                chk('自分の計算 個人の負担 %s %d' % (label, pm), r_half_up(F(kojin_futan(a, old), 10000)), ko_)
+                d30 = kojin_futan(a, old) - houjin_futan(a, 300000, old)
+                chk('自分の計算 報酬月30万 %s %d' % (label, pm), (1 if d30 >= 0 else -1) * r_half_up(F(abs(d30), 10000)), df_)
         lap = await pg.eval_on_selector_all('a.lap tbody tr', "rs=>rs.map(r=>[r.className].concat([...r.children].map(c=>c.textContent)))")
         chk('ヒーローの表 題', await pg.eval_on_selector('a.lap .pt', "e=>[e.querySelector('b').textContent,e.querySelector('span').textContent]"),
             ['法人成りの分岐点 早見表', '役員報酬が月30万円のとき。税金・社会保険料の合計の目安'])
@@ -393,15 +430,18 @@ async def main():
         chk('ヒーローの表', lap, want)
         # 月30万円の分岐点:行き先の「3. 役員報酬を月30万円にする場合」の文(10万円きざみ)
         mt = await maintext('houjinnari')
-        m_ = re.search(r'3\.役員報酬を月30万円にする場合利益([\d,]+)万円から、法人のほうが軽くなります', mt)
+        m_ = re.search(r'3\.役員報酬を月30万円にする場合利益([\d,]+)万円から、法人のほうが軽くなります（40〜59歳は([\d,]+)万円から）', mt)
         chk('行き先 月30万円の分岐点の文', bool(m_), True)
-        last = 0
-        for a in range(3000000, 30000001, 100000):
-            if kojin_futan(a) - houjin_futan(a, 300000) <= 0: last = a
-        chk('自分の計算 月30万円の分岐点', '{:,}'.format((last + 100000) // 10000), m_.group(1) if m_ else '')
-        chk('質問 法人成り 問い', qa['p1'][0], 'よく聞かれること：役員報酬を月30万円にするなら、法人成りは利益いくらから？')
-        chk('質問 法人成り 答え', qa['p1'][1], '利益%s万円から' % (m_.group(1) if m_ else ''))
-        chk('質問 法人成り 注', qa['p1'][2], '40歳未満・単身・東京23区・令和%d年分。税金と社会保険料の合計で比べた場合' % REIWA)
+        for old, grp in ((0, 1), (1, 2)):
+            last = 0
+            for a in range(3000000, 30000001, 100000):
+                if kojin_futan(a, old) - houjin_futan(a, 300000, old) <= 0: last = a
+            chk('自分の計算 月30万円の分岐点 ' + AGE[old], '{:,}'.format((last + 100000) // 10000), m_.group(grp) if m_ else '')
+        yt = await maintext('yakuin-tedori')
+        chk('質問 法人成り 問い', qa['p1'][0], '役員報酬は、いつ変えられる？')
+        chk('質問 法人成り 答え', qa['p1'][1], '事業年度が始まってから3か月以内')
+        chk('質問 法人成り 注', qa['p1'][2], '毎月同じ額を払う定期同額給与の場合。それ以外の時期に変えると、変えた分は会社の経費になりません（法人税法施行令69条）')
+        chk('役員報酬を変える時期は行き先にある', '3か月以内' in mt and '定期同額給与' in yt and '経費になりません' in yt, True)
         chk('行き先 前提の見出し', '試算の前提（令和%d年分・東京23区・単身）' % REIWA in TITLE['/houjinnari/'][2], True)
 
         # 3-7 国保と任意継続の比較(大阪府)
