@@ -127,12 +127,15 @@ def manen(me, s):
     return s.replace('</body>', MANEN + '\n</body>', 1)
 
 
-# 入力した額に近い行の印(2026-11-25 本人「黄色になります？何が？」「スクロールしていって操作して、また戻ってきて読み返して」)。
-# 説明の文を読ませない。計算の箱に何か入力したあとだけ行に色を付け、その行に「入力した額」と書く。全ページで1つの決まり。
-HIT = ('<style id="hitc">table tr.hit td{background:#fff59d}'
-       'body.hitok table tr.hit td:first-child::after{content:"入力した額";display:block;font-size:11px;font-weight:700;color:#8a6d00;line-height:1.3}</style>'
-       '<script id="hitj">(function(){function ok(e){if(e.target&&e.target.closest&&e.target.closest("main")&&/^(INPUT|SELECT|BUTTON)$/.test(e.target.tagName)&&!e.target.closest("table")&&!e.target.classList.contains("fsb"))document.body.classList.add("hitok");}'
-       'document.addEventListener("input",ok,true);document.addEventListener("change",ok,true);})();</script>')
+# 早見表の黄色の行(2026-11-25 本人「設計がおかしい　プロゴを確認しろ」)。
+# プロゴと同じく、黄色は冒頭の文の例(入力欄の最初の値)の行だけに付け、下で入力しても動かさない。
+# 入力した結果は計算の箱の中だけに出す。上の表に戻らせない。全ページで1つの決まり。
+HIT = ('<style id="hitc">main table tr.hit td{background:transparent!important}main table tr.ex td{background:#fff59d!important}</style>'
+       '<script id="hitj">(function(){var K={};function k(tr){var c=tr.cells&&tr.cells[0];return c?c.textContent.replace(/\\s/g,""):""}'
+       'function mark(){document.querySelectorAll("main table tr").forEach(function(tr){var on=!!K[k(tr)];if(tr.classList.contains("ex")!==on)tr.classList.toggle("ex",on);});}'
+       'function init(){document.querySelectorAll("main table tr.hit").forEach(function(tr){var x=k(tr);if(x)K[x]=1;});mark();'
+       'var q=0;new MutationObserver(function(){if(q)return;q=1;requestAnimationFrame(function(){q=0;mark();});}).observe(document.querySelector("main"),{childList:true,subtree:true});}'
+       'if(document.readyState==="complete")init();else window.addEventListener("load",init);})();</script>')
 def hitlb(me, s):
     s = re.sub(r'<style id="hitc">.*?</style><script id="hitj">.*?</script>\n?', '', s, flags=re.S)
     if 'tr.hit' not in s:
