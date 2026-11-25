@@ -175,7 +175,7 @@ body{overflow-x:clip}
 </table>
 </div>
 <p class="note" style="margin-top:8px">本人負担は健康保険（子ども・子育て支援金を含む）と厚生年金の合計です。40〜64歳は介護保険も含みます。円未満は50銭以下を切り捨て、50銭を超えると切り上げています。会社負担は保険料の全額（円未満切り捨て）から本人負担を引き、子ども・子育て拠出金（厚生年金の標準報酬月額×0.36%・円未満切り捨て）を足した額です。右端の列はそのうちの子ども・子育て拠出金で、会社だけが払います。事業所では全員分をまとめて端数を処理するので、1人分を足した額と合わないことがあります。厚生年金は1〜3等級と36等級以上で頭打ちです。</p>
-<p class="lead2">▶ 40〜64歳の人や東京都以外の会社に勤める人は、<a href="#calc">下の計算ツール</a>で計算できます。表に無い月給も計算できます。</p>
+<p class="lead2">▶ 東京都以外の会社に勤める人は、<a href="#calc">下の計算ツール</a>で計算できます。</p>
 </section>
 
 <div class="sum" id="calc">
@@ -202,7 +202,6 @@ body{overflow-x:clip}
   <div><small>本人と会社の<br>合計</small><b id="o-all">86,220<i>円</i></b><em id="o-year">年間 約103万円</em></div>
  </div>
  <ul>
-  <li id="o-grade">標準報酬月額は300,000円（22等級）です。上の早見表で「入力した額」と書いた行です</li>
   <li id="o-break">本人負担の内訳は、健康保険15,120円・厚生年金27,450円です</li>
   <li>会社負担は保険料の全額（円未満切り捨て）から本人負担を引き、子ども・子育て拠出金を足した額です</li>
  </ul>
@@ -388,7 +387,6 @@ body{overflow-x:clip}
   document.getElementById("vd").className="vd no";
   document.getElementById("o-vd").textContent="本人負担は毎月"+f(x.me)+"円です";
   document.getElementById("o-vds").textContent="標準報酬月額は"+f(g[1]*1000)+"円（"+g[0]+"等級）です。会社負担は毎月"+f(x.co)+"円です";
-  document.getElementById("o-grade").textContent=g[0]+"等級は、上の早見表で「入力した額」と書いた行です";
   document.getElementById("o-break").textContent="本人負担の内訳は、健康保険"+f(x.ken)+"円・厚生年金"+f(x.nen)+"円です";
   document.getElementById("t-cap").textContent="協会けんぽ "+PREFS[sel.value][0]+"・月額・単位は円";
   var h="";
