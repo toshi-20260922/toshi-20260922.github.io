@@ -116,6 +116,19 @@ def manen(me, s):
         return s
     return s.replace('</body>', MANEN + '\n</body>', 1)
 
+
+# 入力した額に近い行の印(2026-11-25 本人「黄色になります？何が？」「スクロールしていって操作して、また戻ってきて読み返して」)。
+# 説明の文を読ませない。計算の箱に何か入力したあとだけ行に色を付け、その行に「入力した額」と書く。全ページで1つの決まり。
+HIT = ('<style id="hitc">table tr.hit td{background:transparent}body.hitok table tr.hit td{background:#fff59d}'
+       'body.hitok table tr.hit td:first-child::after{content:"入力した額";display:block;font-size:11px;font-weight:700;color:#8a6d00;line-height:1.3}</style>'
+       '<script id="hitj">(function(){function ok(e){if(e.target&&e.target.closest&&e.target.closest("main")&&/^(INPUT|SELECT|BUTTON)$/.test(e.target.tagName)&&!e.target.closest("table")&&!e.target.classList.contains("fsb"))document.body.classList.add("hitok");}'
+       'document.addEventListener("input",ok,true);document.addEventListener("change",ok,true);})();</script>')
+def hitlb(me, s):
+    s = re.sub(r'<style id="hitc">.*?</style><script id="hitj">.*?</script>\n?', '', s, flags=re.S)
+    if 'tr.hit' not in s:
+        return s
+    return s.replace('</body>', HIT + '\n</body>', 1)
+
 def fsx(me, s):
     if FSX in s or '<main' not in s:
         return s
@@ -238,6 +251,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = fsx(me, s)
     s = manen(me, s)
     s = kotae(me, s)
+    s = hitlb(me, s)
     s = tdw(me, s)
     s = icons(s)
     s = track(s)

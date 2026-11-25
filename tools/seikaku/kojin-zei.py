@@ -209,7 +209,7 @@ async def body(pg):
         w = [x for x in RW if x * 10000 <= a]
         chk('黄色の行 %d' % a, [d(x) for x in hit], w[-1:])
     await pg.evaluate(READ, [0, 650000, 0, [5000000]])
-    has('黄色の行の文', '入力した利益を超えない中でいちばん近い行が黄色になります')
+    pass   # 黄色の文は2026-11-25に消した
     has('均等割と森林環境税', '均等割と森林環境税が合わせて5,000円')
     # 5 本文の数字(東京23区・青色65万円・40歳未満)
     R5 = lambda ao, old=0, a=5000000: ref(TK, a, ao, old)

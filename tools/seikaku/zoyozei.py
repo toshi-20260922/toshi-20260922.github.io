@@ -114,7 +114,7 @@ async def body(pg):
     ck('黄色の行', await pg.evaluate('()=>[...document.querySelectorAll("#tb tr.hit")].map(r=>r.getAttribute("data-s")).join()'), '500')
     # 文は「入力した額に近い行が黄色」。入力を超えない行ではなく、差がいちばん小さい行が1つだけ黄色になる
     HY = [110, 150, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1500, 2000, 3000, 5000]
-    ck('黄色の文', '下で入力した額に近い行が黄色になります。' in await pg.inner_text('.hy1'), True)
+    ck('黄色の文が無い', '黄色' in await pg.inner_text('.hy1'), False)
     for g in (0, 1290000, 1310000, 4490000, 4510000, 17400000, 17600000, 40100000, 999999999):
         await pg.fill('#amt', str(g))
         exp = min(HY, key=lambda m: abs(m * MAN - g))
