@@ -62,10 +62,8 @@ YA = json.load(open(os.path.join(ROOT, 'tools', 'ya_bun.json'), encoding='utf-8'
 def yabun(me, s):
     if 'id="calc"' not in s or 'class="lead2"' not in s:
         return s
-    if me in YA:
-        t = '<p class="lead2">▶ %s場合は、<a href="#calc">下の計算ツール</a>で自分の条件のまま計算できます。</p>' % YA[me]
-    else:
-        t = '<p class="lead2">▶ 自分の数字で計算したい場合は、<a href="#calc">下の計算ツール</a>で計算できます。</p>'
+    L = '<a href="#calc">下の計算ツール</a>'
+    t = '<p class="lead2">▶ %s</p>' % YA.get(me, '自分の数字で確かめたい人は、{L}で計算できます。').replace('{L}', L)
     return re.sub(r'<p class="lead2">.*?</p>', t, s, count=1, flags=re.S)
 
 # 公開日(2026/11/20 プロゴと同じく公開日と更新日を並べる)。tools/published.json に無い新しいページは今日の日付を入れる。
@@ -131,7 +129,7 @@ def manen(me, s):
 
 # 入力した額に近い行の印(2026-11-25 本人「黄色になります？何が？」「スクロールしていって操作して、また戻ってきて読み返して」)。
 # 説明の文を読ませない。計算の箱に何か入力したあとだけ行に色を付け、その行に「入力した額」と書く。全ページで1つの決まり。
-HIT = ('<style id="hitc">table tr.hit td{background:transparent}body.hitok table tr.hit td{background:#fff59d}'
+HIT = ('<style id="hitc">table tr.hit td{background:#fff59d}'
        'body.hitok table tr.hit td:first-child::after{content:"入力した額";display:block;font-size:11px;font-weight:700;color:#8a6d00;line-height:1.3}</style>'
        '<script id="hitj">(function(){function ok(e){if(e.target&&e.target.closest&&e.target.closest("main")&&/^(INPUT|SELECT|BUTTON)$/.test(e.target.tagName)&&!e.target.closest("table")&&!e.target.classList.contains("fsb"))document.body.classList.add("hitok");}'
        'document.addEventListener("input",ok,true);document.addEventListener("change",ok,true);})();</script>')
