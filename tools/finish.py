@@ -143,11 +143,12 @@ def manen(me, s):
 
 # 早見表の黄色の行(2026-11-25)。黄色は下の計算ツールに入力した値に当たる行に付く(各ページのJSが tr.hit を付ける)。
 # 黄色の意味は表の上の一文(tools/kiiro_bun.json)で書く。
-HIT = '<style id="hitc">table tr.hit td{background:#fff59d}</style><script id="hitj"></script>'
+# 2026-11-25 本人「黄色の線を見る人はひとりもいないはず」。読む人は計算ツールで金額を見て終わるので、早見表の行に色を付けない(プロゴの早見表も同じ)。
+HIT = '<style id="hitc">main table tr.hit td{background:transparent!important}</style><script id="hitj"></script>'
 KB = json.load(open(os.path.join(ROOT, 'tools', 'kiiro_bun.json'), encoding='utf-8'))
 def kiiro(me, s):
     s = re.sub(r'<p class="kiiro">.*?</p>\n?', '', s)
-    if me not in KB or 'class="hy1"' not in s:
+    if True:
         return s
     a = s.find('<section class="hy1">'); b = s.find('</section>', a)
     i = s.find('<div class="tw">', a)
