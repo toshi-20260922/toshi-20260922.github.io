@@ -41,7 +41,7 @@ def exists(path):
         return os.path.isfile(os.path.join(SITE, path.strip('/'), 'index.html'))
     # 画像とアイコンは site/ か、公開用の置き場 live/ にある
     return any(os.path.isfile(os.path.join(ROOT, d, path.lstrip('/'))) for d in ('site', 'live'))
-OUT = {'oyama-toshiro.com', 'docs.google.com', 'www.googletagmanager.com', 'www.clarity.ms', 'taxtable.jp'}
+OUT = {'oyama-toshiro.com', 'docs.google.com', 'www.googletagmanager.com', 'www.clarity.ms', 'taxtable.jp', 'fonts.googleapis.com', 'fonts.gstatic.com'}
 for u in re.findall(r'(?:href|src)="([^"]+)"', P):
     if u.startswith('#'):
         ck(('id="%s"' % u[1:]) in P, 'ページ内の行き先が無い ' + u)
@@ -52,7 +52,7 @@ for u in re.findall(r'(?:href|src)="([^"]+)"', P):
             ok = ('id="%s"' % u.split('#')[1]) in tgt
         ck(ok, '内部リンクの行き先が無い ' + u)
     else:
-        m = re.match(r'https://([^/]+)/', u)
+        m = re.match(r'https://([^/]+)(?:/|$)', u)
         ck(bool(m) and m.group(1) in OUT, '外のリンクの形・行き先が決めた先でない ' + u)
 # 一覧:全部のツールのページが載っているか・名前が pages.json と同じか
 lst = dict(re.findall(r'<a href="(/[a-z0-9-]+/)">([^<]+)</a>', body[body.index('<nav class="tools">'):]))
