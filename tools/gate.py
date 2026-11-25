@@ -35,6 +35,22 @@ for f in files:
     # 答えの列だけの表にしたページに「右に動かすと」の案内を残さない(2026-11-24)
     if me in json.load(open(os.path.join(ROOT, 'tools', 'kotae_retsu.json'), encoding='utf-8')) and re.search(r'右に動かす|横に動かす|横にスクロール', re.sub(r'<script.*?</script>', '', s, flags=re.S)):
         bad(f, '答えの列だけの表なのに横に動かす案内が残っている', '')
+    # 文字の種類は tools/font.json の1か所で決める(2026/11/25 本人「フォントの種類もめっちゃくちゃにばらついてるのでなおしてな」)。
+    # 使ってよいのは var(--tt-font)(本文)・var(--tt-fv)(題名の帯)・inherit と、firstview_keep の選択子(ファーストビューを今のまま残す所)だけ
+    _font = json.load(open(os.path.join(ROOT, 'tools', 'font.json'), encoding='utf-8'))
+    _css = '\n'.join(re.findall(r'<style\b[^>]*>(.*?)</style>', s, re.S))
+    _vals = []
+    for _r in re.finditer(r'([^{}]*)\{([^{}]*)\}', _css):
+        if any(_x.strip() in _font['firstview_keep'] for _x in _r.group(1).split(',')):
+            continue
+        _vals += re.findall(r'font-family\s*:\s*([^;}]+)', _r.group(2))
+    for _a in re.findall(r'\sstyle="([^"]*)"', s):
+        _vals += re.findall(r'font-family\s*:\s*([^;]+)', _a)
+    for _v in _vals:
+        if _v.strip() not in ('inherit', 'var(--tt-font)', 'var(--tt-fv)'):
+            bad(f, 'フォントを個別に決めている(tools/font.json にそろえる)', _v.strip()[:40])
+    if '<style id="ttfont">' not in s or 'family=Noto+Sans+JP' not in s:
+        bad(f, 'フォントの共通設定が無い', 'python3 tools/finish.py を流す')
     if '税理士事務所' in s:
         bad(f, '税理士事務所', '')
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)

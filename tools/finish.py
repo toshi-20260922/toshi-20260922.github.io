@@ -195,6 +195,39 @@ def track(s):
         return s
     return s[:h] + TRACK + '\n' + s[h:]
 
+# 文字の種類(フォント)をそろえる(2026/11/25 本人「フォントの種類もめっちゃくちゃにばらついてるのでなおしてな」)。
+# 決めるのは tools/font.json の1か所だけ。本文・表・ボタン・入力欄は body の字、ファーストビューは今の字のまま(firstview・firstview_keep)。
+# 全ページでトップページと同じ Noto Sans JP を読み込む。ページに新しく font-family を書かない(tools/gate.py が数える)。
+FONT = json.load(open(os.path.join(ROOT, 'tools', 'font.json'), encoding='utf-8'))
+FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
+             '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">'
+             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&amp;display=swap">')
+# 入力欄・ボタンの文字は何も書かないとブラウザの標準(Arial など)になるので、ここで本文の字に合わせる。ファーストビュー(firstview_pin)は今の字のまま
+_PIN = ','.join(p + x for p in FONT['firstview_pin'] for x in ('', ' button', ' input', ' select', ' textarea'))
+FONT_CSS = ('<style id="ttfont">:root{--tt-font:%s;--tt-fv:%s}'
+            'body,button,input,select,textarea{font-family:var(--tt-font)}%s{font-family:var(--tt-fv)}</style>') % (FONT['body'], FONT['firstview'], _PIN)
+def font_keep(sel):
+    return any(x.strip() in FONT['firstview_keep'] for x in sel.split(','))
+def fontu(s):
+    # 古い読み込みと古い設定を外す(何度流しても同じ結果になる)
+    s = re.sub(r'<link rel="preconnect" href="https://fonts\.(?:googleapis|gstatic)\.com"[^>]*>', '', s)
+    s = re.sub(r'<link rel="stylesheet" href="https://fonts\.googleapis\.com/[^"]*">', '', s)
+    s = re.sub(r'<style id="ttfont">.*?</style>\n?', '', s, flags=re.S)
+    def fix_rule(m):
+        if font_keep(m.group(1)):
+            return m.group(0)
+        return m.group(1) + '{' + re.sub(r'font-family\s*:\s*(?!inherit\b|var\(--tt-)[^;}]+', 'font-family:var(--tt-font)', m.group(2)) + '}'
+    def fix_css(m):
+        return re.sub(r'([^{}]*)\{([^{}]*)\}', fix_rule, m.group(0))
+    def fix_attr(m):
+        return re.sub(r'font-family\s*:\s*(?!inherit\b|var\(--tt-)[^;"]+', 'font-family:var(--tt-font)', m.group(0))
+    s = re.sub(r'<style\b[^>]*>.*?</style>', fix_css, s, flags=re.S)
+    s = re.sub(r'\sstyle="[^"]*"', fix_attr, s)
+    i = s.find('<style')
+    h = s.find('</head>')
+    at = i if 0 <= i < h else h
+    return s[:at] + FONT_LINK + FONT_CSS + '\n' + s[at:]
+
 changed = 0
 for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     me = os.path.basename(os.path.dirname(f))
@@ -208,6 +241,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = tdw(me, s)
     s = icons(s)
     s = track(s)
+    s = fontu(s)
     if '<nav class="tools">' in s:
         s = re.sub(r'<nav class="tools">.*?</nav>', lambda m: nav_for(me), s, count=1, flags=re.S)
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)
@@ -231,6 +265,11 @@ _tf = os.path.join(SITE, 'index.html')
 _ts = open(_tf, encoding='utf-8').read()
 if track(_ts) != _ts:
     open(_tf, 'w', encoding='utf-8').write(track(_ts))
+    changed += 1
+# トップページのフォントもそろえる(tools/font.json)
+_ts = open(_tf, encoding='utf-8').read()
+if fontu(_ts) != _ts:
+    open(_tf, 'w', encoding='utf-8').write(fontu(_ts))
     changed += 1
 
 json.dump(PUB, open(PUBF, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)

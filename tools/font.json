@@ -1,0 +1,20 @@
+{
+ "_説明": "文字の種類(フォント)はこのファイルの1か所で決める(2026/11/25 本人「フォントの種類もめっちゃくちゃにばらついてるのでなおしてな」)。tools/finish.py が全ページに当て、tools/gate.py がこれ以外の font-family を問題として数える。",
+ "body": "\"Noto Sans JP\",\"Hiragino Sans\",\"Hiragino Kaku Gothic ProN\",\"Noto Sans CJK JP\",\"Yu Gothic\",Meiryo,sans-serif",
+ "_firstview説明": "ファーストビュー(下層ページの上の帯と題名の帯・トップの最初の画面・年収の壁の最初の大きな早見表)は、本人が決めるまで今のフォントのまま残す(2026/11/25 9:36)。firstview は下層ページで今まで実際に表示されていた字(Noto Sans JP は読み込んでいなかったので入れない。入れると Windows・Android で字が変わる)。firstview_pin の中はその字にする。firstview_keep に書いた選択子の font-family は書き換えない。",
+ "firstview": "\"Hiragino Sans\",\"Hiragino Kaku Gothic ProN\",\"Noto Sans CJK JP\",\"Yu Gothic\",Meiryo,sans-serif",
+ "firstview_pin": [
+  ".hd",
+  ".top",
+  ".kp"
+ ],
+ "firstview_keep": [
+  ".nhd",
+  ".nfv",
+  ".nfv h1",
+  ".kp-t",
+  ".kp-k b",
+  ".kp-r .o",
+  ".kp-r .n b"
+ ]
+}
