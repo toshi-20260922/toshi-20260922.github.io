@@ -19,7 +19,7 @@ def nav_for(me):
 # 早見表を上に・入力欄を下に(2026/11/20 本人「早見表が上にあって、より詳しく知りたい人が下の入力欄に入力する。この流れであるべき」)
 # 計算の箱(id="calc")のあるページは、tools/hayami_first.json に書いた見出しの欄を計算の箱の前へ動かす。何度流しても同じ結果になる。
 HF = json.load(open(os.path.join(ROOT, 'tools', 'hayami_first.json'), encoding='utf-8'))
-HYCSS = '.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}'
+HYCSS = '.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0}'
 LEAD_NUM = '<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>\n'
 LEAD_COND = '<p class="lead2">自分の条件で計算したい人は、下に入力してください。</p>\n'
 def lead_for(s, k):
@@ -55,6 +55,18 @@ def hayami_first(me, s):
     if HYCSS not in s:
         s = s.replace('</style>', HYCSS + '</style>', 1)
     return s
+
+# 早見表のすぐ下の一行をプロゴと同じ「▶ 〜場合は、下の計算ツールで自分の条件のまま計算できます。」の形にする(2026/11/25)。
+# 言葉は tools/ya_bun.json。「下の計算ツール」は計算の箱(id="calc")へのリンク。
+YA = json.load(open(os.path.join(ROOT, 'tools', 'ya_bun.json'), encoding='utf-8'))
+def yabun(me, s):
+    if 'id="calc"' not in s or 'class="lead2"' not in s:
+        return s
+    if me in YA:
+        t = '<p class="lead2">▶ %s場合は、<a href="#calc">下の計算ツール</a>で自分の条件のまま計算できます。</p>' % YA[me]
+    else:
+        t = '<p class="lead2">▶ 自分の数字で計算したい場合は、<a href="#calc">下の計算ツール</a>で計算できます。</p>'
+    return re.sub(r'<p class="lead2">.*?</p>', t, s, count=1, flags=re.S)
 
 # 公開日(2026/11/20 プロゴと同じく公開日と更新日を並べる)。tools/published.json に無い新しいページは今日の日付を入れる。
 # 2026/11/13 にまとめて取り込んだページは公開日が記録に無いので null のまま出さない(作らない)。
@@ -247,6 +259,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = open(f, encoding='utf-8').read()
     o = s
     s = hayami_first(me, s)
+    s = yabun(me, s)
     s = pubdate(me, s)
     s = fsx(me, s)
     s = manen(me, s)
