@@ -8,8 +8,10 @@
 #   厚生年金18.3%の半分。標準報酬月額は8.8万円以上65万円以下。
 #   雇用保険 令和8年度 一般の本人5/1000・農林水産と清酒と建設は6/1000。50銭以下切り捨て・50銭超切り上げ。
 #   https://www.mhlw.go.jp/content/001692566.pdf
-# 通勤手当は所得税の対象に入れず、標準報酬と雇用保険の賃金には入れる。
+# 通勤手当は、電車・バスは月15万円まで所得税の対象に入れない。超えた分だけ月給に足す。
+# 標準報酬と雇用保険の賃金には通勤手当の全額を入れる。
 # このファイルの式はページの JS を写していない。画面の数字と、下の整数の式を比べる。
+# 配偶者なし＋扶養n人は以前の扶養n人、配偶者あり＋扶養n人は以前の扶養n+1人と同じ式（hg=配偶者+扶養）。
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
@@ -58,6 +60,9 @@ def tax(monthly_after, hg):
         n = 0
     return ((2 * n + 10 * dn) // (20 * dn)) * 10
 
+# 電車・バスの通勤手当の非課税限度（月15万円）。超えた分だけ所得税の対象。
+TSU_MAX = 150000
+
 def slip(pay, tsukin=0, rate=rates.TOKYO, old=0, hg=0, ju=0, ei=rates.KOYO):
     base = max(0, pay) + max(0, tsukin)
     s = std(base)
@@ -66,63 +71,82 @@ def slip(pay, tsukin=0, rate=rates.TOKYO, old=0, hg=0, ju=0, ei=rates.KOYO):
     nen = r50d(p * rates.NENKIN, 20000)
     koy = r50d(base * ei, 10000)
     sha = ken + nen + koy
-    zei = tax(max(0, pay) - sha, hg)
+    tsu_k = max(0, tsukin - TSU_MAX)
+    zei = tax(pay + tsu_k - sha, hg)
     net = pay + tsukin - sha - zei - ju
-    return dict(std=s, ken=ken, nen=nen, koy=koy, sha=sha, zei=zei, net=net)
+    return dict(std=s, ken=ken, nen=nen, koy=koy, sha=sha, zei=zei, net=net,
+                tsuH=tsukin - tsu_k, tsuK=tsu_k, sou=pay + tsukin, kojo=sha + zei + ju, pay=pay, ju=ju)
+
+def yen_cell(t):
+    return num(t) * 10000 if '万' in t else num(t)
 
 async def read(pg):
-    ids = ('o-net', 'o-ken', 'o-nen', 'o-ei', 'o-zei', 'o-ju', 'o-std', 'o-sha')
+    ids = ('o-net', 'o-sha', 'o-zei', 'o-std', 's-pay', 's-tsuh', 's-tsuk', 's-sou',
+           's-ken', 's-nen', 's-koy', 's-zei', 's-ju', 's-kojo', 's-net')
     t = {}
     for i in ids:
         t[i] = num(await pg.inner_text('#' + i))
     return t
 
 def same(got, exp):
-    return (got['o-net'] == exp['net'] and got['o-ken'] == exp['ken'] and got['o-nen'] == exp['nen']
-            and got['o-ei'] == exp['koy'] and got['o-zei'] == exp['zei'] and got['o-std'] == exp['std']
-            and got['o-sha'] == exp['sha'])
+    return (got['o-net'] == exp['net'] and got['s-net'] == exp['net']
+            and got['o-sha'] == exp['sha'] and got['o-zei'] == exp['zei'] and got['s-zei'] == exp['zei']
+            and got['o-std'] == exp['std'] and got['s-ken'] == exp['ken'] and got['s-nen'] == exp['nen']
+            and got['s-koy'] == exp['koy'] and got['s-ju'] == exp['ju']
+            and got['s-pay'] == exp['pay'] and got['s-tsuh'] == exp['tsuH'] and got['s-tsuk'] == exp['tsuK']
+            and got['s-sou'] == exp['sou'] and got['s-kojo'] == exp['kojo'])
 
 async def body(pg):
     n = bad = 0
+    # 以前の「扶養n人」は配偶者なし＋扶養n人。配偶者あり＋扶養n人は以前の n+1人。
     cases = [
-        dict(pay='300000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
-        dict(pay='250000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
-        dict(pay='200000', tsu='15000', ju='8000', pref='12', old='0', fuyo='1', ei='0', rate=rates.TOKYO, oldn=0, hg=1, ein=rates.KOYO),
-        dict(pay='300000', tsu='0', ju='0', pref='12', old='1', fuyo='0', ei='0', rate=rates.TOKYO, oldn=1, hg=0, ein=rates.KOYO),
-        dict(pay='300000', tsu='0', ju='0', pref='26', old='0', fuyo='2', ei='2', rate=rates.kenpo('大阪府'), oldn=0, hg=2, ein=rates.D['koyo']['rows'][1]['r8_worker'][0] * 10),
-        dict(pay='88000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
-        dict(pay='500000', tsu='20000', ju='15000', pref='0', old='1', fuyo='3', ei='1', rate=rates.kenpo('北海道'), oldn=1, hg=3, ein=rates.D['koyo']['rows'][2]['r8_worker'][0] * 10),
-        dict(pay='1000000', tsu='0', ju='0', pref='12', old='0', fuyo='7', ei='0', rate=rates.TOKYO, oldn=0, hg=7, ein=rates.KOYO),
+        dict(pay='300000', tsu='0', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
+        dict(pay='250000', tsu='0', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
+        dict(pay='200000', tsu='15000', ju='8000', pref='12', old='0', sp='0', fam='1', ei='0', rate=rates.TOKYO, oldn=0, hg=1, ein=rates.KOYO),
+        dict(pay='300000', tsu='0', ju='0', pref='12', old='1', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=1, hg=0, ein=rates.KOYO),
+        dict(pay='300000', tsu='0', ju='0', pref='26', old='0', sp='0', fam='2', ei='2', rate=rates.kenpo('大阪府'), oldn=0, hg=2, ein=rates.D['koyo']['rows'][1]['r8_worker'][0] * 10),
+        dict(pay='88000', tsu='0', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
+        dict(pay='500000', tsu='20000', ju='15000', pref='0', old='1', sp='0', fam='3', ei='1', rate=rates.kenpo('北海道'), oldn=1, hg=3, ein=rates.D['koyo']['rows'][2]['r8_worker'][0] * 10),
+        dict(pay='1000000', tsu='0', ju='0', pref='12', old='0', sp='0', fam='7', ei='0', rate=rates.TOKYO, oldn=0, hg=7, ein=rates.KOYO),
+        dict(pay='300000', tsu='0', ju='0', pref='12', old='0', sp='1', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=1, ein=rates.KOYO),
+        dict(pay='300000', tsu='0', ju='0', pref='12', old='0', sp='1', fam='1', ei='0', rate=rates.TOKYO, oldn=0, hg=2, ein=rates.KOYO),
+        dict(pay='300000', tsu='200000', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, zei=7070),
+        dict(pay='300000', tsu='150000', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, zei=5600),
+        dict(pay='300000', tsu='150001', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, zei=5600),
     ]
     for c in cases:
         await pg.fill('#pay', c['pay'])
         await pg.fill('#tsukin', c['tsu'])
         await pg.fill('#ju', c['ju'])
         await pg.select_option('#pref', c['pref'])
-        await pg.select_option('#fuyo', c['fuyo'])
+        await pg.select_option('#fam', c['fam'])
+        await pg.click('#s-sp button[data-v="%s"]' % c['sp'])
         await pg.click('#s-old button[data-v="%s"]' % c['old'])
         await pg.click('#s-ei button[data-v="%s"]' % c['ei'])
         got = await read(pg)
         exp = slip(int(c['pay']), int(c['tsu']), c['rate'], c['oldn'], c['hg'], int(c['ju']), c['ein'])
-        n += 7
-        if not same(got, exp) or got['o-ju'] != int(c['ju']):
+        n += 15
+        if c.get('zei') is not None and exp['zei'] != c['zei']:
             bad += 1
-            print('NG', c['pay'], got, exp)
-    pays = [200000, 250000, 300000, 350000, 400000, 500000]
+            print('NG 期待する所得税', c['pay'], c['tsu'], exp['zei'], c['zei'])
+        if not same(got, exp):
+            bad += 1
+            print('NG', c['pay'], c['tsu'], 'sp', c['sp'], 'fam', c['fam'], got, exp)
+    pays = list(range(150000, 1000001, 50000))
     for tid, old in (('tb0', 0), ('tb1', 1)):
         rows = await pg.evaluate("id=>[...document.querySelectorAll('#'+id+' tbody tr')].map(r=>[...r.cells].map(c=>c.innerText))", tid)
         n += 1
-        if len(rows) != 6:
+        if len(rows) != 18:
             bad += 1
             print('NG 行数', tid, len(rows))
             continue
         for row, pay in zip(rows, pays):
             exp = slip(pay, old=old)
-            got = [num(x) for x in row]
-            n += 5
-            if got != [pay, exp['std'], exp['sha'], exp['zei'], exp['net']]:
+            got = [yen_cell(x) for x in row]
+            n += 4
+            if got != [pay, exp['sha'], exp['zei'], exp['net']]:
                 bad += 1
-                print('NG 表', tid, pay, got, exp)
+                print('NG 表', tid, pay, got, exp['sha'], exp['zei'], exp['net'])
     return n, bad
 
 if __name__ == '__main__':
