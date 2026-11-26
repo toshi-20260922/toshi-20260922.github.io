@@ -166,14 +166,15 @@ table td small{font-size:14px}
 .ans .ans-s{font-size:15px;color:#3d4a4a;line-height:1.7;margin-top:6px}
 .nw{white-space:nowrap}
 /* 文の区切りで改行（Chrome・Edge）。対応していない端末はふつうの改行のまま */
-main p,.lead2,main li,.hint,.slip-c,.ans-s,.note,.diff,.phint,main h3{word-break:auto-phrase}
+main p,.lead2,main li,.hint,.slip-c,.ans-s,.note,.diff,.phint,main h1,main h2,main h3,main td,main th,main button,main a,main label{word-break:auto-phrase}
+.ph{white-space:nowrap}
 /* 前提・表の読み方 */
 .pl{margin:0 0 20px;padding-left:1.3em}
 .pl li{margin:0 0 6px}
 .pl li::marker{color:#00775a}
 /* 計算の箱 */
 #calc .h{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-#calc .h #o-lead{display:inline;background:none;color:#ffffff;padding:0;margin:0;border-radius:0;line-height:1.6;font-size:17px}
+#calc .h #o-lead{display:inline-block;max-width:100%;vertical-align:middle;background:none;color:#ffffff;padding:0;margin:0;border-radius:0;line-height:1.6;font-size:17px;white-space:normal}
 #calc .h #o-lead span{display:inline;background:none;color:#ffffff;padding:0;margin:0;border-radius:0;line-height:1.6}
 #calc .amt div{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:10px 4px}
 #calc .amt small{font-size:14px;line-height:1.5;min-height:1.5em;white-space:nowrap}
@@ -194,8 +195,10 @@ main p,.lead2,main li,.hint,.slip-c,.ans-s,.note,.diff,.phint,main h3{word-break
 .pbtn{display:block;width:100%;max-width:340px;margin:0 auto 6px;font-family:inherit;font-size:16px;font-weight:700;color:#0f3d31;background:#e3b465;border:0;border-radius:999px;padding:12px 16px;cursor:pointer}
 #calc .h .cond span{display:inline;background:none;color:inherit;padding:0;margin:0;border-radius:0;line-height:inherit}
 #calc .h .cond{flex-basis:100%;font-size:14px;font-weight:400;color:#dfeee8;line-height:1.7}
-.mrow{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 12px;color:#dfeee8;font-size:15px}
-.mrow label{font-weight:700}
+.mrow{display:block;text-align:center;margin:0 0 12px;color:#dfeee8;font-size:15px;line-height:1.7}
+.mrow label{display:block;font-weight:700;white-space:normal;line-height:1.7}
+@media (max-width:520px){.seg3{grid-template-columns:1fr}}
+@media (max-width:384px){#calc .amt{grid-template-columns:1fr 1fr}}
 .mrow select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:auto}
 .phint{font-size:14px;color:#c5d9d2;text-align:center;margin:0 0 4px}
 @media (min-width:720px){.slip{max-width:640px;margin:0 auto 12px}#calc .amt b{font-size:26px}.ans .ans-v b{font-size:40px}}
@@ -221,298 +224,298 @@ main p,.lead2,main li,.hint,.slip-c,.ans-s,.note,.diff,.phint,main h3{word-break
 <div class="top">
  <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="人と円"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><circle cx="25" cy="24" r="8" fill="#0f3d31"/><path d="M11 50c1-10 7-15 14-15s13 5 14 15z" fill="#0f3d31"/><circle cx="46" cy="40" r="10" fill="#e3b465"/><text x="46" y="45" font-size="13" font-weight="700" text-anchor="middle" fill="#0f3d31" font-family="sans-serif">円</text></svg></div>
  <p class="upd">公開日：2026年11月26日　更新日：2026年11月26日（国税庁・全国健康保険協会・日本年金機構・厚生労働省）</p>
- <h1>【給与明細】月給の差引支給額はいくら？社会保険料と所得税の計算【令和8年】</h1>
+ <h1><span class="ph">【給与明細】月給の</span><span class="ph">差引支給額は</span><span class="ph">いくら？</span><span class="ph">社会保険料と</span><span class="ph">所得税の</span><span class="ph">計算【令和8年】</span></h1>
 </div>
 <div class="ans" id="ans">
- <p class="ans-k">月給<span class="nw">30万円</span>なら</p>
- <p class="ans-v">差引支給額<b>249,590</b>円</p>
- <p class="ans-s">東京都・40歳未満・配偶者なし・扶養家族0人・通勤手当なし・住民税なしの場合です。社会保険料<span class="nw">44,070円</span>と所得税<span class="nw">6,340円</span>を引いた額です。</p>
+ <p class="ans-k"><span class="ph">月給30万円なら</span></p>
+ <p class="ans-v"><span class="ph">差引支給額</span><b><span class="ph">249,590</span></b><span class="ph">円</span></p>
+ <p class="ans-s"><span class="ph">東京都・</span><span class="ph">40歳未満・</span><span class="ph">配偶者なし・</span><span class="ph">扶養家族0人・</span><span class="ph">通勤手当なし・</span><span class="ph">住民税なしの</span><span class="ph">場合です。</span><span class="ph">社会保険料44,070円と</span><span class="ph">所得税6,340円を</span><span class="ph">引いた</span><span class="ph">額です。</span></p>
 </div>
 
-<p>月給の方の、今月の差引支給額（手取り）を計算できます。</p><p>会社に扶養控除等申告書を出している、主な勤め先の給与（甲欄）が対象です。</p>
+<p><span class="ph">月給で</span><span class="ph">働く</span><span class="ph">人の、</span><span class="ph">今月の</span><span class="ph">差引支給額</span><span class="ph">（手取り）を</span><span class="ph">計算できます。</span></p><p><span class="ph">会社に</span><span class="ph">扶養控除等申告書を</span><span class="ph">出している、</span><span class="ph">主な</span><span class="ph">勤め先の</span><span class="ph">給与</span><span class="ph">（甲欄）が</span><span class="ph">対象です。</span></p>
 
 <nav class="toc">
- <div class="t">目次</div>
+ <div class="t"><span class="ph">目次</span></div>
  <ol>
-  <li><a href="#zentei">計算の前提</a></li>
-  <li><a href="#list">月給ごとの差引支給額</a></li>
-  <li><a href="#keisan">自分の月給で計算する</a></li>
-  <li><a href="#shaho">社会保険料の出し方</a></li>
-  <li><a href="#zei">所得税の出し方</a></li>
-  <li><a href="#jumin">住民税は通知額を入力する</a></li>
-  <li><a href="#rel">次に確かめること</a></li>
-  <li><a href="#qa">給与明細でよく聞かれること</a></li>
+  <li><a href="#zentei"><span class="ph">計算の</span><span class="ph">前提</span></a></li>
+  <li><a href="#list"><span class="ph">月給ごとの</span><span class="ph">差引支給額</span></a></li>
+  <li><a href="#keisan"><span class="ph">自分の</span><span class="ph">月給で</span><span class="ph">計算する</span></a></li>
+  <li><a href="#shaho"><span class="ph">社会保険料の</span><span class="ph">出し方</span></a></li>
+  <li><a href="#zei"><span class="ph">所得税の</span><span class="ph">出し方</span></a></li>
+  <li><a href="#jumin"><span class="ph">住民税は</span><span class="ph">通知額を</span><span class="ph">入力する</span></a></li>
+  <li><a href="#rel"><span class="ph">次に</span><span class="ph">確かめる</span><span class="ph">こと</span></a></li>
+  <li><a href="#qa"><span class="ph">給与明細でよく</span><span class="ph">聞かれる</span><span class="ph">こと</span></a></li>
  </ol>
 </nav>
 
-<h2 id="zentei">計算の前提</h2>
-<ul class="pl"><li>協会けんぽの令和8年度の保険料率や、厚生年金などの社会保険料に対応しています。</li><li>健康保険と厚生年金は、月給を区切りの表にあてはめた標準報酬月額で計算します。</li><li>電車やバスなどの通勤手当は、月<span class="nw">15万円</span>まで税金がかからないものとして計算します。車や自転車の通勤は距離で限度額が変わります（下の「所得税の出し方」で説明します）。</li><li>所得税は、国税庁の令和8年分の電算機計算の特例の式で計算します。</li><li>住民税は前年の所得で決まるため、お手元の通知書の額を入力してください。</li><li>残業代や賞与、2か所目の勤め先の給与（乙欄）の計算には対応していません。</li></ul>
+<h2 id="zentei"><span class="ph">計算の</span><span class="ph">前提</span></h2>
+<ul class="pl"><li><span class="ph">協会けんぽの</span><span class="ph">令和8年度の</span><span class="ph">保険料率や、</span><span class="ph">厚生年金などの</span><span class="ph">社会保険料に</span><span class="ph">対応しています。</span></li><li><span class="ph">健康保険と</span><span class="ph">厚生年金は、</span><span class="ph">月給を</span><span class="ph">区切りの</span><span class="ph">表に</span><span class="ph">あてはめた</span><span class="ph">標準報酬月額で</span><span class="ph">計算します。</span></li><li><span class="ph">電車や</span><span class="ph">バスなどの</span><span class="ph">通勤手当は、</span><span class="ph">月15万円まで</span><span class="ph">税金がかからないものと</span><span class="ph">して</span><span class="ph">計算します。</span><span class="ph">車や</span><span class="ph">自転車の</span><span class="ph">通勤は</span><span class="ph">距離で</span><span class="ph">限度額が</span><span class="ph">変わります</span><span class="ph">（下の</span><span class="ph">「所得税の</span><span class="ph">出し方」で</span><span class="ph">説明します）。</span></li><li><span class="ph">所得税は、</span><span class="ph">国税庁の</span><span class="ph">令和8年分の</span><span class="ph">電算機計算の</span><span class="ph">特例の</span><span class="ph">式で</span><span class="ph">計算します。</span></li><li><span class="ph">住民税は</span><span class="ph">前年の</span><span class="ph">所得で</span><span class="ph">決まる</span><span class="ph">ため、</span><span class="ph">お手元の</span><span class="ph">通知書の</span><span class="ph">額を</span><span class="ph">入力してください。</span></li><li><span class="ph">残業代や</span><span class="ph">賞与、</span><span class="ph">2か</span><span class="ph">所目の</span><span class="ph">勤め先の</span><span class="ph">給与</span><span class="ph">（乙欄）の</span><span class="ph">計算には</span><span class="ph">対応していません。</span></li></ul>
 
 <section class="hy1">
-<h2 id="list">月給ごとの差引支給額</h2>
-<p>東京都、扶養0人。通勤手当や住民税なし、一般の事業所の条件で作った早見表です。月給<span class="nw">15万円</span>から<span class="nw">100万円</span>まで<span class="nw">5万円</span>ごとにまとめています。</p>
-<h3>40歳未満</h3>
-<p class="cap">介護保険料なし</p>
+<h2 id="list"><span class="ph">月給ごとの</span><span class="ph">差引支給額</span></h2>
+<p><span class="ph">東京都、</span><span class="ph">配偶者なし・扶養家族0人。</span><span class="ph">通勤手当や</span><span class="ph">住民税なし、</span><span class="ph">一般の</span><span class="ph">事業所の</span><span class="ph">条件で</span><span class="ph">作った</span><span class="ph">早見表です。</span><span class="ph">月給15万円から</span><span class="ph">100万円まで</span><span class="ph">5万円ごとに</span><span class="ph">まとめています。</span></p>
+<h3><span class="ph">40歳未満</span></h3>
+<p class="cap"><span class="ph">介護保険料なし</span></p>
 <div class="tw">
 <table id="tb0">
- <thead><tr><th>月給</th><th>社会保険料<br>（円）</th><th>所得税<br>（円）</th><th>差引支給額<br>（円）</th></tr></thead>
+ <thead><tr><th><span class="ph">月給</span></th><th><span class="ph">社会保険料</span><br><span class="ph">（円）</span></th><th><span class="ph">所得税</span><br><span class="ph">（円）</span></th><th><span class="ph">差引支給額</span><br><span class="ph">（円）</span></th></tr></thead>
  <tbody>
-<tr><td><span class="nw">15万円</span></td><td>22,035</td><td>1,300</td><td><b>126,665</b></td></tr>
-<tr><td><span class="nw">20万円</span></td><td>29,380</td><td>3,290</td><td><b>167,330</b></td></tr>
-<tr><td><span class="nw">25万円</span></td><td>38,144</td><td>4,760</td><td><b>207,096</b></td></tr>
-<tr class="hit"><td><span class="nw">30万円</span></td><td>44,070</td><td>6,340</td><td><b>249,590</b></td></tr>
-<tr><td><span class="nw">35万円</span></td><td>52,834</td><td>7,810</td><td><b>289,356</b></td></tr>
-<tr><td><span class="nw">40万円</span></td><td>60,179</td><td>10,780</td><td><b>329,041</b></td></tr>
-<tr><td><span class="nw">45万円</span></td><td>64,686</td><td>14,500</td><td><b>370,814</b></td></tr>
-<tr><td><span class="nw">50万円</span></td><td>73,450</td><td>17,870</td><td><b>408,680</b></td></tr>
-<tr><td><span class="nw">55万円</span></td><td>82,214</td><td>22,690</td><td><b>445,096</b></td></tr>
-<tr><td><span class="nw">60万円</span></td><td>86,721</td><td>30,120</td><td><b>483,159</b></td></tr>
-<tr><td><span class="nw">65万円</span></td><td>95,485</td><td>36,950</td><td><b>517,565</b></td></tr>
-<tr><td><span class="nw">70万円</span></td><td>98,759</td><td>45,530</td><td><b>555,711</b></td></tr>
-<tr><td><span class="nw">75万円</span></td><td>101,025</td><td>54,310</td><td><b>594,665</b></td></tr>
-<tr><td><span class="nw">80万円</span></td><td>103,291</td><td>63,080</td><td><b>633,629</b></td></tr>
-<tr><td><span class="nw">85万円</span></td><td>105,557</td><td>72,590</td><td><b>671,853</b></td></tr>
-<tr><td><span class="nw">90万円</span></td><td>108,327</td><td>82,290</td><td><b>709,383</b></td></tr>
-<tr><td><span class="nw">95万円</span></td><td>111,097</td><td>93,380</td><td><b>745,523</b></td></tr>
-<tr><td><span class="nw">100万円</span></td><td>113,867</td><td>104,470</td><td><b>781,663</b></td></tr>
+<tr><td><span class="ph">15万円</span></td><td><span class="ph">22,035</span></td><td><span class="ph">1,300</span></td><td><b><span class="ph">126,665</span></b></td></tr>
+<tr><td><span class="ph">20万円</span></td><td><span class="ph">29,380</span></td><td><span class="ph">3,290</span></td><td><b><span class="ph">167,330</span></b></td></tr>
+<tr><td><span class="ph">25万円</span></td><td><span class="ph">38,144</span></td><td><span class="ph">4,760</span></td><td><b><span class="ph">207,096</span></b></td></tr>
+<tr class="hit"><td><span class="ph">30万円</span></td><td><span class="ph">44,070</span></td><td><span class="ph">6,340</span></td><td><b><span class="ph">249,590</span></b></td></tr>
+<tr><td><span class="ph">35万円</span></td><td><span class="ph">52,834</span></td><td><span class="ph">7,810</span></td><td><b><span class="ph">289,356</span></b></td></tr>
+<tr><td><span class="ph">40万円</span></td><td><span class="ph">60,179</span></td><td><span class="ph">10,780</span></td><td><b><span class="ph">329,041</span></b></td></tr>
+<tr><td><span class="ph">45万円</span></td><td><span class="ph">64,686</span></td><td><span class="ph">14,500</span></td><td><b><span class="ph">370,814</span></b></td></tr>
+<tr><td><span class="ph">50万円</span></td><td><span class="ph">73,450</span></td><td><span class="ph">17,870</span></td><td><b><span class="ph">408,680</span></b></td></tr>
+<tr><td><span class="ph">55万円</span></td><td><span class="ph">82,214</span></td><td><span class="ph">22,690</span></td><td><b><span class="ph">445,096</span></b></td></tr>
+<tr><td><span class="ph">60万円</span></td><td><span class="ph">86,721</span></td><td><span class="ph">30,120</span></td><td><b><span class="ph">483,159</span></b></td></tr>
+<tr><td><span class="ph">65万円</span></td><td><span class="ph">95,485</span></td><td><span class="ph">36,950</span></td><td><b><span class="ph">517,565</span></b></td></tr>
+<tr><td><span class="ph">70万円</span></td><td><span class="ph">98,759</span></td><td><span class="ph">45,530</span></td><td><b><span class="ph">555,711</span></b></td></tr>
+<tr><td><span class="ph">75万円</span></td><td><span class="ph">101,025</span></td><td><span class="ph">54,310</span></td><td><b><span class="ph">594,665</span></b></td></tr>
+<tr><td><span class="ph">80万円</span></td><td><span class="ph">103,291</span></td><td><span class="ph">63,080</span></td><td><b><span class="ph">633,629</span></b></td></tr>
+<tr><td><span class="ph">85万円</span></td><td><span class="ph">105,557</span></td><td><span class="ph">72,590</span></td><td><b><span class="ph">671,853</span></b></td></tr>
+<tr><td><span class="ph">90万円</span></td><td><span class="ph">108,327</span></td><td><span class="ph">82,290</span></td><td><b><span class="ph">709,383</span></b></td></tr>
+<tr><td><span class="ph">95万円</span></td><td><span class="ph">111,097</span></td><td><span class="ph">93,380</span></td><td><b><span class="ph">745,523</span></b></td></tr>
+<tr><td><span class="ph">100万円</span></td><td><span class="ph">113,867</span></td><td><span class="ph">104,470</span></td><td><b><span class="ph">781,663</span></b></td></tr>
  </tbody>
 </table>
 </div>
-<h3>40〜64歳（介護保険料あり）</h3>
-<p class="cap">健康保険に介護保険料を含む</p>
+<h3><span class="ph">40〜64歳</span><span class="ph">（介護保険料あり）</span></h3>
+<p class="cap"><span class="ph">健康保険に</span><span class="ph">介護保険料を</span><span class="ph">含む</span></p>
 <div class="tw">
 <table id="tb1">
- <thead><tr><th>月給</th><th>社会保険料<br>（円）</th><th>所得税<br>（円）</th><th>差引支給額<br>（円）</th></tr></thead>
+ <thead><tr><th><span class="ph">月給</span></th><th><span class="ph">社会保険料</span><br><span class="ph">（円）</span></th><th><span class="ph">所得税</span><br><span class="ph">（円）</span></th><th><span class="ph">差引支給額</span><br><span class="ph">（円）</span></th></tr></thead>
  <tbody>
-<tr><td><span class="nw">15万円</span></td><td>23,250</td><td>1,240</td><td><b>125,510</b></td></tr>
-<tr><td><span class="nw">20万円</span></td><td>31,000</td><td>3,230</td><td><b>165,770</b></td></tr>
-<tr><td><span class="nw">25万円</span></td><td>40,250</td><td>4,690</td><td><b>205,060</b></td></tr>
-<tr class="hit"><td><span class="nw">30万円</span></td><td>46,500</td><td>6,250</td><td><b>247,250</b></td></tr>
-<tr><td><span class="nw">35万円</span></td><td>55,750</td><td>7,710</td><td><b>286,540</b></td></tr>
-<tr><td><span class="nw">40万円</span></td><td>63,500</td><td>10,510</td><td><b>325,990</b></td></tr>
-<tr><td><span class="nw">45万円</span></td><td>68,250</td><td>14,210</td><td><b>367,540</b></td></tr>
-<tr><td><span class="nw">50万円</span></td><td>77,500</td><td>17,540</td><td><b>404,960</b></td></tr>
-<tr><td><span class="nw">55万円</span></td><td>86,750</td><td>21,950</td><td><b>441,300</b></td></tr>
-<tr><td><span class="nw">60万円</span></td><td>91,500</td><td>29,340</td><td><b>479,160</b></td></tr>
-<tr><td><span class="nw">65万円</span></td><td>100,750</td><td>35,990</td><td><b>513,260</b></td></tr>
-<tr><td><span class="nw">70万円</span></td><td>104,510</td><td>44,480</td><td><b>551,010</b></td></tr>
-<tr><td><span class="nw">75万円</span></td><td>107,100</td><td>53,190</td><td><b>589,710</b></td></tr>
-<tr><td><span class="nw">80万円</span></td><td>109,690</td><td>61,900</td><td><b>628,410</b></td></tr>
-<tr><td><span class="nw">85万円</span></td><td>112,280</td><td>71,220</td><td><b>666,500</b></td></tr>
-<tr><td><span class="nw">90万円</span></td><td>115,455</td><td>80,780</td><td><b>703,765</b></td></tr>
-<tr><td><span class="nw">95万円</span></td><td>118,630</td><td>91,610</td><td><b>739,760</b></td></tr>
-<tr><td><span class="nw">100万円</span></td><td>121,805</td><td>102,600</td><td><b>775,595</b></td></tr>
+<tr><td><span class="ph">15万円</span></td><td><span class="ph">23,250</span></td><td><span class="ph">1,240</span></td><td><b><span class="ph">125,510</span></b></td></tr>
+<tr><td><span class="ph">20万円</span></td><td><span class="ph">31,000</span></td><td><span class="ph">3,230</span></td><td><b><span class="ph">165,770</span></b></td></tr>
+<tr><td><span class="ph">25万円</span></td><td><span class="ph">40,250</span></td><td><span class="ph">4,690</span></td><td><b><span class="ph">205,060</span></b></td></tr>
+<tr class="hit"><td><span class="ph">30万円</span></td><td><span class="ph">46,500</span></td><td><span class="ph">6,250</span></td><td><b><span class="ph">247,250</span></b></td></tr>
+<tr><td><span class="ph">35万円</span></td><td><span class="ph">55,750</span></td><td><span class="ph">7,710</span></td><td><b><span class="ph">286,540</span></b></td></tr>
+<tr><td><span class="ph">40万円</span></td><td><span class="ph">63,500</span></td><td><span class="ph">10,510</span></td><td><b><span class="ph">325,990</span></b></td></tr>
+<tr><td><span class="ph">45万円</span></td><td><span class="ph">68,250</span></td><td><span class="ph">14,210</span></td><td><b><span class="ph">367,540</span></b></td></tr>
+<tr><td><span class="ph">50万円</span></td><td><span class="ph">77,500</span></td><td><span class="ph">17,540</span></td><td><b><span class="ph">404,960</span></b></td></tr>
+<tr><td><span class="ph">55万円</span></td><td><span class="ph">86,750</span></td><td><span class="ph">21,950</span></td><td><b><span class="ph">441,300</span></b></td></tr>
+<tr><td><span class="ph">60万円</span></td><td><span class="ph">91,500</span></td><td><span class="ph">29,340</span></td><td><b><span class="ph">479,160</span></b></td></tr>
+<tr><td><span class="ph">65万円</span></td><td><span class="ph">100,750</span></td><td><span class="ph">35,990</span></td><td><b><span class="ph">513,260</span></b></td></tr>
+<tr><td><span class="ph">70万円</span></td><td><span class="ph">104,510</span></td><td><span class="ph">44,480</span></td><td><b><span class="ph">551,010</span></b></td></tr>
+<tr><td><span class="ph">75万円</span></td><td><span class="ph">107,100</span></td><td><span class="ph">53,190</span></td><td><b><span class="ph">589,710</span></b></td></tr>
+<tr><td><span class="ph">80万円</span></td><td><span class="ph">109,690</span></td><td><span class="ph">61,900</span></td><td><b><span class="ph">628,410</span></b></td></tr>
+<tr><td><span class="ph">85万円</span></td><td><span class="ph">112,280</span></td><td><span class="ph">71,220</span></td><td><b><span class="ph">666,500</span></b></td></tr>
+<tr><td><span class="ph">90万円</span></td><td><span class="ph">115,455</span></td><td><span class="ph">80,780</span></td><td><b><span class="ph">703,765</span></b></td></tr>
+<tr><td><span class="ph">95万円</span></td><td><span class="ph">118,630</span></td><td><span class="ph">91,610</span></td><td><b><span class="ph">739,760</span></b></td></tr>
+<tr><td><span class="ph">100万円</span></td><td><span class="ph">121,805</span></td><td><span class="ph">102,600</span></td><td><b><span class="ph">775,595</span></b></td></tr>
  </tbody>
 </table>
 </div>
-<p class="note" style="margin-top:8px">社会保険料は標準報酬月額に料率をかけ、50銭以下は切り捨て・50銭を超えると切り上げています。所得税は社会保険料を引いた月給に、国税庁の電算機計算の特例の式をかけた額です。</p>
-<h3 id="yomikata">表の読み方</h3>
-<ul class="pl"><li>月給が<span class="nw">30万円</span>から<span class="nw">35万円</span>へ<span class="nw">5万円</span>増えても、保険料や税金が上がるため手取りは<span class="nw">39,766円</span>しか増えません。</li><li>月給<span class="nw">25万円</span>は標準報酬月額<span class="nw">26万円</span>で計算するように、社会保険料は区切りごとに段階的に上がります。</li><li>厚生年金は月給<span class="nw">65万円</span>から本人の負担が<span class="nw">59,475円</span>の上限になります。健康保険は標準報酬月額<span class="nw">139万円</span>まで上がります。</li><li>所得税の税率は、月給<span class="nw">36万3千円</span>ごろで5%から10%。<span class="nw">52万8千円</span>ごろで10%から20%、<span class="nw">89万9千円</span>ごろで20%から23%に上がります。復興特別所得税を含めた実際の税率は少し高くなります。</li><li>40歳から64歳は介護保険料が加わり、月給<span class="nw">30万円</span>では手取りが<span class="nw">2,340円</span>少なくなります。</li></ul>
-<p class="lead2"><span class="nw">ご自分の金額で計算する場合は、</span><span class="nw">下の欄に入力してください。</span></p>
+<p class="note" style="margin-top:8px"><span class="ph">社会保険料は</span><span class="ph">標準報酬月額に</span><span class="ph">料率をかけ、</span><span class="ph">50銭以下は</span><span class="ph">切り捨て・50銭を</span><span class="ph">超えると</span><span class="ph">切り上げています。</span><span class="ph">所得税は</span><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">月給に、</span><span class="ph">国税庁の</span><span class="ph">電算機計算の</span><span class="ph">特例の</span><span class="ph">式で</span><span class="ph">出した</span><span class="ph">額です。</span></p>
+<h3 id="yomikata"><span class="ph">表の</span><span class="ph">読み方</span></h3>
+<ul class="pl"><li><span class="ph">月給が</span><span class="ph">30万円から</span><span class="ph">35万円へ</span><span class="ph">5万円増えても、</span><span class="ph">保険料や</span><span class="ph">税金が</span><span class="ph">上がる</span><span class="ph">ため手取りは</span><span class="ph">39,766円しか</span><span class="ph">増えません。</span></li><li><span class="ph">月給25万円は</span><span class="ph">標準報酬月額26万円で</span><span class="ph">計算するように、</span><span class="ph">社会保険料は</span><span class="ph">区切りごとに</span><span class="ph">段階的に</span><span class="ph">上がります。</span></li><li><span class="ph">厚生年金は</span><span class="ph">月給63万5千円から</span><span class="ph">本人の</span><span class="ph">負担が</span><span class="ph">59,475円の</span><span class="ph">上限に</span><span class="ph">なります。</span><span class="ph">健康保険は</span><span class="ph">標準報酬月額139万円まで</span><span class="ph">上がります。</span></li><li><span class="ph">所得税の</span><span class="ph">税率は、</span><span class="ph">月給36万3千円ごろで</span><span class="ph">5%から</span><span class="ph">10%。</span><span class="ph">52万8千円ごろで</span><span class="ph">10%から</span><span class="ph">20%、</span><span class="ph">89万9千円ごろで</span><span class="ph">20%から</span><span class="ph">23%に</span><span class="ph">上がります。</span><span class="ph">復興特別所得税を</span><span class="ph">含めた</span><span class="ph">実際の</span><span class="ph">税率は</span><span class="ph">少し</span><span class="ph">高くなります。</span></li><li><span class="ph">40歳から</span><span class="ph">64歳は</span><span class="ph">介護保険料が</span><span class="ph">加わり、</span><span class="ph">月給30万円では</span><span class="ph">手取りが</span><span class="ph">2,340円少なくなります。</span></li></ul>
+<p class="lead2"><span class="ph">ご自分の</span><span class="ph">金額で</span><span class="ph">計算する</span><span class="ph">場合は、</span><span class="ph">下の</span><span class="ph">欄に</span><span class="ph">入力してください。</span></p>
 </section>
 
-<h2 id="keisan">自分の月給で計算する</h2>
+<h2 id="keisan"><span class="ph">自分の</span><span class="ph">月給で</span><span class="ph">計算する</span></h2>
 <div class="sum" id="calc">
- <div class="h"><span>結論</span><span id="o-lead">月給の差引支給額</span><div class="cond" id="o-cond">―</div></div>
+ <div class="h"><span class="ph">結論</span><span id="o-lead"><span class="ph">月給の</span><span class="ph">差引支給額</span></span><div class="cond" id="o-cond"><span class="ph">―</span></div></div>
  <div class="amt">
-  <div><small>差引支給額</small><b id="o-net">―</b><em id="o-std">標準報酬月額</em></div>
-  <div><small>社会保険料</small><b id="o-sha">―</b><em>健康保険・<wbr>厚生年金・<wbr>雇用保険</em></div>
-  <div><small>所得税</small><b id="o-zei">―</b><em>今月の天引き</em></div>
+  <div><small><span class="ph">差引支給額</span></small><b id="o-net"><span class="ph">―</span></b><em id="o-std"><span class="ph">標準報酬月額</span></em></div>
+  <div><small><span class="ph">社会保険料</span></small><b id="o-sha"><span class="ph">―</span></b><em><span class="ph">健康保険・</span><wbr><span class="ph">厚生年金・</span><wbr><span class="ph">雇用保険</span></em></div>
+  <div><small><span class="ph">所得税</span></small><b id="o-zei"><span class="ph">―</span></b><em><span class="ph">今月の</span><span class="ph">天引き</span></em></div>
  </div>
- <p class="diff">会社の明細と所得税が10〜<span class="nw">30円</span>違うことがあります（国税庁の計算式で計算しています）。</p>
+ <p class="diff"><span class="ph">会社の</span><span class="ph">明細と</span><span class="ph">所得税が</span><span class="ph">10〜30円違うことがあります</span><span class="ph">（国税庁の</span><span class="ph">計算式で</span><span class="ph">計算しています）。</span></p>
  <div class="in">
   <div class="full">
-   <label for="pay">月給</label>
-   <div class="row"><input type="number" id="pay" inputmode="numeric" min="0" max="2000000" step="1000" value="300000"><span>円</span></div>
-   <p class="hint">基本給と課税される手当を足した額を入力します。通勤手当は別の欄に入力し、残業代は含めません。</p>
+   <label for="pay"><span class="ph">月給</span></label>
+   <div class="row"><input type="number" id="pay" inputmode="numeric" min="0" max="2000000" step="1000" value="300000"><span class="ph">円</span></div>
+   <p class="hint"><span class="ph">基本給と</span><span class="ph">課税される</span><span class="ph">手当を</span><span class="ph">足した</span><span class="ph">額を</span><span class="ph">入力します。</span><span class="ph">通勤手当は</span><span class="ph">別の</span><span class="ph">欄に</span><span class="ph">入力し、</span><span class="ph">残業代は</span><span class="ph">含めません。</span></p>
   </div>
   <div class="full">
-   <label for="tsukin">通勤手当</label>
-   <div class="row"><input type="number" id="tsukin" inputmode="numeric" min="0" max="500000" step="1000" value="0"><span>円</span></div>
-   <p class="hint">電車やバスなどの通勤手当の額を入力します。月<span class="nw">15万円</span>までは税金がかかりませんが、全額が社会保険料の計算に含まれます。<span class="nw">15万円</span>は電車・バスの上限です。車で通う人は距離によって上限が下がります。</p>
+   <label for="tsukin"><span class="ph">通勤手当</span></label>
+   <div class="row"><input type="number" id="tsukin" inputmode="numeric" min="0" max="500000" step="1000" value="0"><span class="ph">円</span></div>
+   <p class="hint"><span class="ph">電車や</span><span class="ph">バスなどの</span><span class="ph">通勤手当の</span><span class="ph">額を</span><span class="ph">入力します。</span><span class="ph">月15万円までは</span><span class="ph">税金がかかりませんが、</span><span class="ph">全額が</span><span class="ph">社会保険料の</span><span class="ph">計算に</span><span class="ph">含まれます。</span><span class="ph">15万円は</span><span class="ph">電車・バスの</span><span class="ph">上限です。</span><span class="ph">車で</span><span class="ph">通う</span><span class="ph">人は</span><span class="ph">距離によって</span><span class="ph">上限が</span><span class="ph">下がります。</span></p>
   </div>
   <div class="full">
-   <label for="pref">勤め先の都道府県</label>
+   <label for="pref"><span class="ph">勤め先の</span><span class="ph">都道府県</span></label><span class="ph">
    <select id="pref"><option value="0">北海道</option><option value="1">青森県</option><option value="2">岩手県</option><option value="3">宮城県</option><option value="4">秋田県</option><option value="5">山形県</option><option value="6">福島県</option><option value="7">茨城県</option><option value="8">栃木県</option><option value="9">群馬県</option><option value="10">埼玉県</option><option value="11">千葉県</option><option value="12" selected>東京都</option><option value="13">神奈川県</option><option value="14">新潟県</option><option value="15">富山県</option><option value="16">石川県</option><option value="17">福井県</option><option value="18">山梨県</option><option value="19">長野県</option><option value="20">岐阜県</option><option value="21">静岡県</option><option value="22">愛知県</option><option value="23">三重県</option><option value="24">滋賀県</option><option value="25">京都府</option><option value="26">大阪府</option><option value="27">兵庫県</option><option value="28">奈良県</option><option value="29">和歌山県</option><option value="30">鳥取県</option><option value="31">島根県</option><option value="32">岡山県</option><option value="33">広島県</option><option value="34">山口県</option><option value="35">徳島県</option><option value="36">香川県</option><option value="37">愛媛県</option><option value="38">高知県</option><option value="39">福岡県</option><option value="40">佐賀県</option><option value="41">長崎県</option><option value="42">熊本県</option><option value="43">大分県</option><option value="44">宮崎県</option><option value="45">鹿児島県</option><option value="46">沖縄県</option></select>
-   <p class="hint">お住まいの住所ではなく、お勤め先が加入している協会けんぽの支部がある都道府県を選びます。</p>
+   </span><p class="hint"><span class="ph">お住まいの</span><span class="ph">住所ではなく、</span><span class="ph">お勤め先が</span><span class="ph">加入している</span><span class="ph">協会けんぽの</span><span class="ph">支部が</span><span class="ph">ある</span><span class="ph">都道府県を</span><span class="ph">選びます。</span></p>
   </div>
   <div class="full">
-   <label>年齢</label>
-   <div class="seg" id="s-old"><button type="button" class="on" data-v="0">40歳未満</button><button type="button" data-v="1">40〜64歳</button></div>
-   <p class="hint">40歳から64歳の方は介護保険料がかかるため、当てはまる年齢を選びます。</p>
+   <label><span class="ph">年齢</span></label>
+   <div class="seg" id="s-old"><button type="button" class="on" data-v="0"><span class="ph">40歳未満</span></button><button type="button" data-v="1"><span class="ph">40〜64歳</span></button></div>
+   <p class="hint"><span class="ph">40歳から</span><span class="ph">64歳の</span><span class="ph">方は</span><span class="ph">介護保険料がかかる</span><span class="ph">ため、</span><span class="ph">当ては</span><span class="ph">まる</span><span class="ph">年齢を</span><span class="ph">選びます。</span></p>
   </div>
   <div class="full">
-   <label>配偶者</label>
-   <div class="seg" id="s-sp"><button type="button" class="on" data-v="0">いない</button><button type="button" data-v="1">いる</button></div>
-   <p class="hint">会社に出した扶養控除等申告書に、源泉控除対象配偶者として書いた配偶者がいれば選びます。年収の目安は<a href="/nenshu-kabe/">年収の壁</a>で確かめられます。</p>
+   <label><span class="ph">配偶者</span></label>
+   <div class="seg" id="s-sp"><button type="button" class="on" data-v="0"><span class="ph">いない</span></button><button type="button" data-v="1"><span class="ph">いる</span></button></div>
+   <p class="hint"><span class="ph">会社に</span><span class="ph">出した</span><span class="ph">扶養控除等申告書に、</span><span class="ph">源泉控除対象配偶者と</span><span class="ph">して</span><span class="ph">書いた</span><span class="ph">配偶者が</span><span class="ph">いれば</span><span class="ph">選びます。</span><span class="ph">年収の</span><span class="ph">目安は</span><a href="/nenshu-kabe/"><span class="ph">年収の</span><span class="ph">壁で</span></a><span class="ph">確かめられます。</span></p>
   </div>
   <div class="full">
-   <label for="fam">16歳以上の扶養家族の数</label>
+   <label for="fam"><span class="ph">16歳以上の</span><span class="ph">扶養家族の</span><span class="ph">数</span></label><span class="ph">
    <select id="fam"><option value="0" selected>0人</option><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option><option value="4">4人</option><option value="5">5人</option><option value="6">6人</option><option value="7">7人</option></select>
-   <p class="hint">申告書に書いた配偶者を除く16歳以上の家族の人数を入力します。16歳未満のお子様は人数に含めません。</p>
+   </span><p class="hint"><span class="ph">申告書に</span><span class="ph">書いた</span><span class="ph">配偶者を</span><span class="ph">除く</span><span class="ph">16歳以上の</span><span class="ph">家族の</span><span class="ph">人数を</span><span class="ph">入力します。</span><span class="ph">16歳未満の</span><span class="ph">お子様は</span><span class="ph">人数に</span><span class="ph">含めません。</span></p>
   </div>
   <div class="full">
-   <label for="ju">住民税</label>
-   <div class="row"><input type="number" id="ju" inputmode="numeric" min="0" max="500000" step="100" value="0"><span>円</span></div>
-   <p class="hint">前年の所得をもとに引かれるため、市区町村から届いた通知書にある今月の額をそのまま入力します。</p>
+   <label for="ju"><span class="ph">住民税</span></label>
+   <div class="row"><input type="number" id="ju" inputmode="numeric" min="0" max="500000" step="100" value="0"><span class="ph">円</span></div>
+   <p class="hint"><span class="ph">前年の</span><span class="ph">所得をもとに</span><span class="ph">引かれる</span><span class="ph">ため、</span><span class="ph">市区町村から</span><span class="ph">届いた</span><span class="ph">通知書に</span><span class="ph">ある</span><span class="ph">今月の</span><span class="ph">額を</span><span class="ph">そのまま</span><span class="ph">入力します。</span></p>
   </div>
   <div class="full">
-   <label>雇用保険の業種</label>
-   <div class="seg seg3" id="s-ei"><button type="button" class="on" data-v="0">一般</button><button type="button" data-v="1"><span class="nw">農林水産・</span><span class="nw">清酒</span></button><button type="button" data-v="2">建設</button></div>
-   <p class="hint">一般の事業は<span class="nw">1000分の5</span>、農林水産・清酒製造と建設は<span class="nw">1000分の6</span>です。勤め先の業種を選びます。</p>
+   <label><span class="ph">雇用保険の</span><span class="ph">業種</span></label>
+   <div class="seg seg3" id="s-ei"><button type="button" class="on" data-v="0"><span class="ph">一般</span></button><button type="button" data-v="1"><span class="ph">農林水産・清酒</span></button><button type="button" data-v="2"><span class="ph">建設</span></button></div>
+   <p class="hint"><span class="ph">一般の</span><span class="ph">事業は</span><span class="ph">1000分の</span><span class="ph">5、</span><span class="ph">農林水産・清酒製造と</span><span class="ph">建設は</span><span class="ph">1000分の</span><span class="ph">6です。</span><span class="ph">勤め先の</span><span class="ph">業種を</span><span class="ph">選びます。</span></p>
   </div>
  </div>
  <div class="slip" id="slip">
-  <p class="slip-t">給与明細（<span id="s-mon">―</span>月分）</p>
-  <p class="slip-c scr">支給・控除・差引支給額の順に並べています。計算した給与明細は、そのまま印刷したり<span class="nw">PDFとして</span>保存したりできます。</p>
+  <p class="slip-t"><span class="ph">給与明細</span><span class="ph">（</span><span id="s-mon"><span class="ph">―</span></span><span class="ph">月分）</span></p>
+  <p class="slip-c scr"><span class="ph">支給・</span><span class="ph">控除・</span><span class="ph">差引支給額の</span><span class="ph">順に</span><span class="ph">並べています。</span><span class="ph">計算した</span><span class="ph">給与明細は、</span><span class="ph">そのまま</span><span class="ph">印刷したりPDFと</span><span class="ph">して</span><span class="ph">保存したりできます。</span></p>
   <table>
    <tbody>
-    <tr class="sec"><th colspan="2">支給</th></tr>
-    <tr><td>月給</td><td id="s-pay">―</td></tr>
-    <tr><td>通勤手当（非課税）</td><td id="s-tsuh">―</td></tr>
-    <tr><td>通勤手当（課税）</td><td id="s-tsuk">―</td></tr>
-    <tr class="tot"><td>総支給額</td><td id="s-sou">―</td></tr>
-    <tr class="sec"><th colspan="2">控除</th></tr>
-    <tr><td id="s-kenl">健康保険料</td><td id="s-ken">―</td></tr>
-    <tr><td>厚生年金</td><td id="s-nen">―</td></tr>
-    <tr><td>雇用保険</td><td id="s-koy">―</td></tr>
-    <tr><td>所得税</td><td id="s-zei">―</td></tr>
-    <tr><td>住民税</td><td id="s-ju">―</td></tr>
-    <tr class="tot"><td>控除合計</td><td id="s-kojo">―</td></tr>
-    <tr class="net"><td>差引支給額</td><td id="s-net">―</td></tr>
+    <tr class="sec"><th colspan="2"><span class="ph">支給</span></th></tr>
+    <tr><td><span class="ph">月給</span></td><td id="s-pay"><span class="ph">―</span></td></tr>
+    <tr><td><span class="ph">通勤手当</span><span class="ph">（非課税）</span></td><td id="s-tsuh"><span class="ph">―</span></td></tr>
+    <tr><td><span class="ph">通勤手当</span><span class="ph">（課税）</span></td><td id="s-tsuk"><span class="ph">―</span></td></tr>
+    <tr class="tot"><td><span class="ph">総支給額</span></td><td id="s-sou"><span class="ph">―</span></td></tr>
+    <tr class="sec"><th colspan="2"><span class="ph">控除</span></th></tr>
+    <tr><td id="s-kenl"><span class="ph">健康保険料</span></td><td id="s-ken"><span class="ph">―</span></td></tr>
+    <tr><td><span class="ph">厚生年金</span></td><td id="s-nen"><span class="ph">―</span></td></tr>
+    <tr><td><span class="ph">雇用保険</span></td><td id="s-koy"><span class="ph">―</span></td></tr>
+    <tr><td><span class="ph">所得税</span></td><td id="s-zei"><span class="ph">―</span></td></tr>
+    <tr><td><span class="ph">住民税</span></td><td id="s-ju"><span class="ph">―</span></td></tr>
+    <tr class="tot"><td><span class="ph">控除合計</span></td><td id="s-kojo"><span class="ph">―</span></td></tr>
+    <tr class="net"><td><span class="ph">差引支給額</span></td><td id="s-net"><span class="ph">―</span></td></tr>
    </tbody>
   </table>
-  <p class="slip-c" id="s-cond" style="margin:10px 0 0">―</p>
+  <p class="slip-c" id="s-cond" style="margin:10px 0 0"><span class="ph">―</span></p>
  </div>
- <div class="mrow"><label for="mon">明細の月</label><select id="mon"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select><span>分として印刷します</span></div>
- <button type="button" class="pbtn" id="pbtn">印刷する・PDFで保存する</button>
- <p class="phint">PDFで残すときは、印刷の画面で「PDFに保存」を選びます。</p>
+ <div class="mrow"><label for="mon"><span class="ph">選んだ</span><span class="ph">月<select id="mon"><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select>の</span><span class="ph">明細と</span><span class="ph">して</span><span class="ph">印刷します</span></label></div>
+ <button type="button" class="pbtn" id="pbtn"><span class="ph">印刷する・PDFで</span><span class="ph">保存する</span></button>
+ <p class="phint"><span class="ph">PDFで</span><span class="ph">残すときは、</span><span class="ph">印刷の</span><span class="ph">画面で</span><span class="ph">「PDFに保存」を</span><span class="ph">選びます。</span></p>
 </div>
 
 <div class="share">
- <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/kyuyo-meisai/">LINEで送る</a>
- <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/kyuyo-meisai/">Xでポストする</a>
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/kyuyo-meisai/"><span class="ph">LINEで</span><span class="ph">送る</span></a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/kyuyo-meisai/"><span class="ph">Xで</span><span class="ph">ポストする</span></a>
 </div>
 
-<h2 id="shaho">社会保険料の出し方</h2>
-<p>健康保険と厚生年金は、月給と通勤手当を足した額を標準報酬月額に当てはめます。子ども・子育て支援金0.23%は健康保険料率に含めてから、本人と会社で半分ずつにします。</p>
-<p>40〜64歳は介護保険料1.62%も健康保険料に含みます。厚生年金は18.3%の半分で、標準報酬月額は<span class="nw">8万8千円</span>以上<span class="nw">65万円</span>以下に揃えます。健康保険の標準報酬月額は<span class="nw">139万円</span>まであります。</p>
-<p>雇用保険は標準報酬月額ではなく、月給と通勤手当を足した実額にかけます。一般の事業の本人負担は<span class="nw">1000分の5</span>です。農林水産・清酒製造と建設は<span class="nw">1000分の6</span>です。</p>
-<p>会社負担は給与明細の差引支給額には出ません。会社が払う分は、<a href="/hoteifukurihi/">法定福利費の計算</a>で確認できます。端数は50銭以下を切り捨て、50銭を超えると切り上げます。</p>
+<h2 id="shaho"><span class="ph">社会保険料の</span><span class="ph">出し方</span></h2>
+<p><span class="ph">健康保険と</span><span class="ph">厚生年金は、</span><span class="ph">月給と</span><span class="ph">通勤手当を</span><span class="ph">足した</span><span class="ph">額を</span><span class="ph">標準報酬月額に</span><span class="ph">当てはめます。</span><span class="ph">子ども・子育て</span><span class="ph">支援金0.23%は</span><span class="ph">健康保険料率に</span><span class="ph">含めてから、</span><span class="ph">本人と</span><span class="ph">会社で</span><span class="ph">半分ずつにします。</span></p>
+<p><span class="ph">40〜64歳は</span><span class="ph">介護保険料1.62%も</span><span class="ph">健康保険料に</span><span class="ph">含みます。</span><span class="ph">厚生年金は</span><span class="ph">18.3%の</span><span class="ph">半分で、</span><span class="ph">標準報酬月額は</span><span class="ph">8万8千円以上</span><span class="ph">65万円までの</span><span class="ph">範囲で</span><span class="ph">決まります。</span><span class="ph">健康保険の</span><span class="ph">標準報酬月額は</span><span class="ph">139万円まであります。</span></p>
+<p><span class="ph">雇用保険は</span><span class="ph">標準報酬月額ではなく、</span><span class="ph">月給と</span><span class="ph">通勤手当を</span><span class="ph">足した</span><span class="ph">実額にかけます。</span><span class="ph">一般の</span><span class="ph">事業の</span><span class="ph">本人負担は</span><span class="ph">1000分の</span><span class="ph">5です。</span><span class="ph">農林水産・清酒製造と</span><span class="ph">建設は</span><span class="ph">1000分の</span><span class="ph">6です。</span></p>
+<p><span class="ph">会社負担は</span><span class="ph">給与明細の</span><span class="ph">差引支給額には</span><span class="ph">出ません。</span><span class="ph">会社が</span><span class="ph">払う分は、</span><a href="/hoteifukurihi/"><span class="ph">法定</span><span class="ph">福利費の</span><span class="ph">計算で</span></a><span class="ph">確認できます。</span><span class="ph">端数は</span><span class="ph">50銭以下を</span><span class="ph">切り捨て、</span><span class="ph">50銭を</span><span class="ph">超えると</span><span class="ph">切り</span><span class="ph">上げます。</span></p>
 
-<h2 id="zei">所得税の出し方</h2>
-<p>令和8年分の所得税は、12月の年末調整で新しい基礎控除に精算します。それまでの給与から天引きする税額は、改正前の月額表です。</p>
-<p>このページの所得税は、その月額表の電算機計算です。社会保険料を引いた月給から給与所得控除と基礎控除と家族の分を引き、税率をかけます。配偶者や家族1人の分は月<span class="nw">31,667円</span>です。税額は<span class="nw">10円</span>単位です。</p>
-<p>電車やバスなどの通勤手当は月<span class="nw">15万円</span>まで税金がかからず、<span class="nw">15万円</span>を超えた分だけが所得税の対象になります。例えば月給<span class="nw">30万円</span>で通勤手当が<span class="nw">20万円</span>なら、超えた<span class="nw">5万円</span>に税金がかかります。この場合の社会保険料は<span class="nw">73,450円</span>。所得税は<span class="nw">7,070円</span>で、差引支給額は<span class="nw">419,480円</span>です。車や自転車で通う人は、片道の距離で限度額が変わります（<a href="/tsukin-teate/">通勤手当の非課税限度額</a>）。</p>
+<h2 id="zei"><span class="ph">所得税の</span><span class="ph">出し方</span></h2>
+<p><span class="ph">令和8年分の</span><span class="ph">所得税は、</span><span class="ph">12月の</span><span class="ph">年末調整で</span><span class="ph">新しい</span><span class="ph">基礎控除で</span><span class="ph">精算します。</span><span class="ph">それまでの</span><span class="ph">給与から</span><span class="ph">天引きする</span><span class="ph">税額は、</span><span class="ph">改正前の</span><span class="ph">月額表で</span><span class="ph">決まります。</span></p>
+<p><span class="ph">この</span><span class="ph">ページの</span><span class="ph">所得税は、</span><span class="ph">その</span><span class="ph">月額表の</span><span class="ph">電算機計算です。</span><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">月給から</span><span class="ph">給与所得控除と</span><span class="ph">基礎控除と</span><span class="ph">家族の</span><span class="ph">分を</span><span class="ph">引き、</span><span class="ph">税率をかけます。</span><span class="ph">配偶者や</span><span class="ph">家族1人の</span><span class="ph">分は</span><span class="ph">月31,667円です。</span><span class="ph">税額は</span><span class="ph">10円単位です。</span></p>
+<p><span class="ph">電車や</span><span class="ph">バスなどの</span><span class="ph">通勤手当は</span><span class="ph">月15万円まで</span><span class="ph">税金がかからず、</span><span class="ph">15万円を</span><span class="ph">超えた</span><span class="ph">分だけが</span><span class="ph">所得税の</span><span class="ph">対象に</span><span class="ph">なります。</span><span class="ph">例えば</span><span class="ph">月給30万円で</span><span class="ph">通勤手当が</span><span class="ph">20万円なら、</span><span class="ph">超えた</span><span class="ph">5万円に</span><span class="ph">税金がかかります。</span><span class="ph">この</span><span class="ph">場合の</span><span class="ph">社会保険料は</span><span class="ph">73,450円。</span><span class="ph">所得税は</span><span class="ph">7,070円で、</span><span class="ph">差引支給額は</span><span class="ph">419,480円です。</span><span class="ph">車や</span><span class="ph">自転車で</span><span class="ph">通う</span><span class="ph">人は、</span><span class="ph">片道の</span><span class="ph">距離で</span><span class="ph">限度額が</span><span class="ph">変わります</span><span class="ph">（</span><a href="/tsukin-teate/"><span class="ph">通勤手当の</span><span class="ph">非課税限度額</span></a><span class="ph">）。</span></p>
 
-<h2 id="jumin">住民税は通知額を入力する</h2>
-<p>住民税は前年の所得で市区町村が決めた額を、6月から翌年5月まで天引きします。今月の月給だけでは計算できないので、通知書の額を入力します。</p>
-<p>入力が<span class="nw">0円</span>のときは、住民税を引かずに計算します。早見表も住民税なしの額です。</p>
+<h2 id="jumin"><span class="ph">住民税は</span><span class="ph">通知額を</span><span class="ph">入力する</span></h2>
+<p><span class="ph">住民税は</span><span class="ph">前年の</span><span class="ph">所得で</span><span class="ph">市区町村が</span><span class="ph">決めた</span><span class="ph">額を、</span><span class="ph">6月から</span><span class="ph">翌年5月まで</span><span class="ph">天引きします。</span><span class="ph">今月の</span><span class="ph">月給だけでは</span><span class="ph">計算できないので、</span><span class="ph">通知書の</span><span class="ph">額を</span><span class="ph">入力します。</span></p>
+<p><span class="ph">入力が</span><span class="ph">0円のときは、</span><span class="ph">住民税を</span><span class="ph">引かずに</span><span class="ph">計算します。</span><span class="ph">早見表も</span><span class="ph">住民税なしの</span><span class="ph">額です。</span></p>
 
-<h2 id="rel">次に確かめること</h2><ul class="rl"><li>年収から税金と社会保険料を引いた1年の手取りを見られます。<a href="/tedori/" data-cta="rel_kyuyo-meisai_tedori">年収の手取りの早見表</a></li><li>希望する手取りの月額から、必要な額面の月給や年収を計算します。<a href="/tedori-gyakusan/" data-cta="rel_kyuyo-meisai_tedori-gyakusan">手取り年収の逆算</a></li><li>標準報酬月額ごとの社会保険料を見られます。<a href="/shakaihoken/" data-cta="rel_kyuyo-meisai_shakaihoken">社会保険料の早見表</a></li><li>雇用保険料は業種ごとの率で計算し、賞与にもかかります。<a href="/koyohoken/" data-cta="rel_kyuyo-meisai_koyohoken">雇用保険料の早見表</a></li><li>年収から年間の所得税を計算でき、税率の早見表も確認できます。<a href="/shotokuzei/" data-cta="rel_kyuyo-meisai_shotokuzei">所得税の計算</a></li><li>このページに含めていない賞与の所得税は、算出率の表で計算します。<a href="/shoyo-shotokuzei/" data-cta="rel_kyuyo-meisai_shoyo-shotokuzei">賞与の所得税の計算</a></li><li>年収と家族構成から住民税を計算し、毎月給与から引かれる額も分かります。<a href="/juminzei-keisan/" data-cta="rel_kyuyo-meisai_juminzei-keisan">住民税の計算</a></li><li>12月の年末調整で、毎月天引きした税額との差を精算します。<a href="/nenmatsu-chosei/" data-cta="rel_kyuyo-meisai_nenmatsu-chosei">年末調整の還付</a></li><li>通勤手当は所得税の限度額まで非課税です。<a href="/tsukin-teate/" data-cta="rel_kyuyo-meisai_tsukin-teate">通勤手当の非課税限度額</a></li><li>扶養に入る年収の壁は、月給を12倍した額を目安に見ます。<a href="/nenshu-kabe/" data-cta="rel_kyuyo-meisai_nenshu-kabe">年収の壁</a></li></ul>
+<h2 id="rel"><span class="ph">次に</span><span class="ph">確かめる</span><span class="ph">こと</span></h2><ul class="rl"><li><span class="ph">年収から</span><span class="ph">税金と</span><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">1年の</span><span class="ph">手取りを</span><span class="ph">見られます。</span><a href="/tedori/" data-cta="rel_kyuyo-meisai_tedori"><span class="ph">年収の</span><span class="ph">手取りの</span><span class="ph">早見表</span></a></li><li><span class="ph">希望する</span><span class="ph">手取りの</span><span class="ph">月額から、</span><span class="ph">必要な</span><span class="ph">額面の</span><span class="ph">月給や</span><span class="ph">年収を</span><span class="ph">計算します。</span><a href="/tedori-gyakusan/" data-cta="rel_kyuyo-meisai_tedori-gyakusan"><span class="ph">手取り年収の</span><span class="ph">逆算</span></a></li><li><span class="ph">標準報酬月額ごとの</span><span class="ph">社会保険料を</span><span class="ph">見られます。</span><a href="/shakaihoken/" data-cta="rel_kyuyo-meisai_shakaihoken"><span class="ph">社会保険料の</span><span class="ph">早見表</span></a></li><li><span class="ph">雇用保険料は</span><span class="ph">業種ごとの</span><span class="ph">率で</span><span class="ph">計算し、</span><span class="ph">賞与にもかかります。</span><a href="/koyohoken/" data-cta="rel_kyuyo-meisai_koyohoken"><span class="ph">雇用保険料の</span><span class="ph">早見表</span></a></li><li><span class="ph">年収から</span><span class="ph">年間の</span><span class="ph">所得税を</span><span class="ph">計算でき、</span><span class="ph">税率の</span><span class="ph">早見表も</span><span class="ph">確認できます。</span><a href="/shotokuzei/" data-cta="rel_kyuyo-meisai_shotokuzei"><span class="ph">所得税の</span><span class="ph">計算</span></a></li><li><span class="ph">この</span><span class="ph">ページに</span><span class="ph">含めていない</span><span class="ph">賞与の</span><span class="ph">所得税は、</span><span class="ph">算出率の</span><span class="ph">表で</span><span class="ph">計算します。</span><a href="/shoyo-shotokuzei/" data-cta="rel_kyuyo-meisai_shoyo-shotokuzei"><span class="ph">賞与の</span><span class="ph">所得税の</span><span class="ph">計算</span></a></li><li><span class="ph">年収と</span><span class="ph">家族構成から</span><span class="ph">住民税を</span><span class="ph">計算し、</span><span class="ph">毎月</span><span class="ph">給与から</span><span class="ph">引かれる</span><span class="ph">額も</span><span class="ph">分かります。</span><a href="/juminzei-keisan/" data-cta="rel_kyuyo-meisai_juminzei-keisan"><span class="ph">住民税の</span><span class="ph">計算</span></a></li><li><span class="ph">12月の</span><span class="ph">年末調整で、</span><span class="ph">毎月</span><span class="ph">天引きした</span><span class="ph">税額との</span><span class="ph">差を</span><span class="ph">精算します。</span><a href="/nenmatsu-chosei/" data-cta="rel_kyuyo-meisai_nenmatsu-chosei"><span class="ph">年末調整の</span><span class="ph">還付</span></a></li><li><span class="ph">通勤手当は</span><span class="ph">所得税の</span><span class="ph">限度額まで</span><span class="ph">非課税です。</span><a href="/tsukin-teate/" data-cta="rel_kyuyo-meisai_tsukin-teate"><span class="ph">通勤手当の</span><span class="ph">非課税限度額</span></a></li><li><span class="ph">扶養に</span><span class="ph">入る</span><span class="ph">年収の</span><span class="ph">壁は、</span><span class="ph">月給を</span><span class="ph">12倍した</span><span class="ph">額を</span><span class="ph">目安に</span><span class="ph">見ます。</span><a href="/nenshu-kabe/" data-cta="rel_kyuyo-meisai_nenshu-kabe"><span class="ph">年収の</span><span class="ph">壁</span></a></li></ul>
 
-<h2 id="qa">給与明細でよく聞かれること</h2>
-<h3>月給<span class="nw">30万円</span>の差引支給額はいくらですか？</h3>
-<p>東京都・40歳未満・扶養0人・通勤手当なし・住民税なしなら、<span class="nw">249,590円</span>です。社会保険料<span class="nw">44,070円</span>と所得税<span class="nw">6,340円</span>を引いた額です。</p>
-<h3>通勤手当は社会保険に入りますか？</h3>
-<p>健康保険や厚生年金、雇用保険を計算するときは通勤手当の全額を給料に足します。いっぽうで所得税を計算するときは、電車やバスなどの通勤手当は月<span class="nw">15万円</span>まで対象外です。</p>
-<h3>通勤手当が月<span class="nw">15万円</span>を超えたら所得税はどうなりますか？</h3>
-<p>月<span class="nw">15万円</span>を超えた金額だけが、給料と同じように所得税の対象になります。例えば月給<span class="nw">30万円</span>で通勤手当<span class="nw">20万円</span>なら、超えた<span class="nw">5万円</span>が所得税の対象です。このとき社会保険料は<span class="nw">73,450円</span>、所得税は<span class="nw">7,070円</span>。差引支給額は<span class="nw">419,480円</span>です。</p>
-<h3>40歳になると差引支給額はいくら減りますか？</h3>
-<p>40〜64歳は介護保険料が加わります。東京都で月給<span class="nw">30万円</span>・扶養0人なら、介護保険料の本人負担は<span class="nw">2,430円</span>です。所得税が少し減るため、差引支給額は<span class="nw">2,340円</span>少なくなります。</p>
-<h3>住民税を<span class="nw">0円</span>のままにしてよいですか？</h3>
-<p>通知が無い月や入社した年の6月より前は、<span class="nw">天引き</span>が<span class="nw">0円</span>のことがあります。通知額がある月は、その額を入力してください。</p>
+<h2 id="qa"><span class="ph">給与明細でよく</span><span class="ph">聞かれる</span><span class="ph">こと</span></h2>
+<h3><span class="ph">月給30万円の</span><span class="ph">差引支給額は</span><span class="ph">いくらですか？</span></h3>
+<p><span class="ph">東京都・</span><span class="ph">40歳未満・</span><span class="ph">配偶者なし・</span><span class="ph">扶養家族0人・</span><span class="ph">通勤手当なし・</span><span class="ph">住民税なしなら、</span><span class="ph">249,590円です。</span><span class="ph">社会保険料44,070円と</span><span class="ph">所得税6,340円を</span><span class="ph">引いた</span><span class="ph">額です。</span></p>
+<h3><span class="ph">通勤手当は</span><span class="ph">社会保険に</span><span class="ph">入りますか？</span></h3>
+<p><span class="ph">健康保険や</span><span class="ph">厚生年金、</span><span class="ph">雇用保険を</span><span class="ph">計算するときは</span><span class="ph">通勤手当の</span><span class="ph">全額を</span><span class="ph">給料に</span><span class="ph">足します。</span><span class="ph">いっぽうで</span><span class="ph">所得税を</span><span class="ph">計算するときは、</span><span class="ph">電車や</span><span class="ph">バスなどの</span><span class="ph">通勤手当は</span><span class="ph">月15万円まで</span><span class="ph">対象外です。</span></p>
+<h3><span class="ph">通勤手当が</span><span class="ph">月15万円を</span><span class="ph">超えたら</span><span class="ph">所得税は</span><span class="ph">どうなりますか？</span></h3>
+<p><span class="ph">月15万円を</span><span class="ph">超えた</span><span class="ph">金額だけが、</span><span class="ph">給料と</span><span class="ph">同じように</span><span class="ph">所得税の</span><span class="ph">対象に</span><span class="ph">なります。</span><span class="ph">例えば</span><span class="ph">月給30万円で</span><span class="ph">通勤手当20万円なら、</span><span class="ph">超えた</span><span class="ph">5万円が</span><span class="ph">所得税の</span><span class="ph">対象です。</span><span class="ph">このとき社会保険料は</span><span class="ph">73,450円、</span><span class="ph">所得税は</span><span class="ph">7,070円。</span><span class="ph">差引支給額は</span><span class="ph">419,480円です。</span></p>
+<h3><span class="ph">40歳に</span><span class="ph">なると</span><span class="ph">差引支給額は</span><span class="ph">いくら減りますか？</span></h3>
+<p><span class="ph">40〜64歳は</span><span class="ph">介護保険料が</span><span class="ph">加わります。</span><span class="ph">東京都で</span><span class="ph">月給30万円・</span><span class="ph">配偶者なし・</span><span class="ph">扶養家族0人なら、</span><span class="ph">介護保険料の</span><span class="ph">本人負担は</span><span class="ph">2,430円です。</span><span class="ph">所得税が</span><span class="ph">少し</span><span class="ph">減る</span><span class="ph">ため、</span><span class="ph">差引支給額は</span><span class="ph">2,340円少なくなります。</span></p>
+<h3><span class="ph">住民税を</span><span class="ph">0円の</span><span class="ph">ままに</span><span class="ph">してよいですか？</span></h3>
+<p><span class="ph">通知が</span><span class="ph">無い</span><span class="ph">月や</span><span class="ph">入社した</span><span class="ph">年の</span><span class="ph">6月より</span><span class="ph">前は、</span><span class="ph">天引きが</span><span class="ph">0円の</span><span class="ph">ことがあります。</span><span class="ph">通知額が</span><span class="ph">ある</span><span class="ph">月は、</span><span class="ph">その</span><span class="ph">額を</span><span class="ph">入力してください。</span></p>
 
-<div class="src">出典・参考（2026年11月確認）
+<div class="src"><span class="ph">出典・参考</span><span class="ph">（2026年11月確認）</span>
  <ul>
-  <li><a href="https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/denshi_01.pdf">国税庁「令和8年分 月額表の甲欄を適用する給与等に対する税額の電算機計算の特例について」</a></li>
-  <li><a href="https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08">全国健康保険協会「令和8年度の協会けんぽの保険料率は3月分（4月納付分）から改定されます」</a></li>
-  <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogaku.html">日本年金機構「厚生年金保険料額表」</a>（18.3%）</li>
-  <li><a href="https://www.mhlw.go.jp/content/001692566.pdf">厚生労働省「令和8年度 雇用保険料率のご案内」</a></li>
-  <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf">全国健康保険協会 東京支部「令和8年3月分からの健康保険・厚生年金保険の保険料額表」</a></li>
-  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2582.htm">国税庁 タックスアンサー No.2582「電車・バス通勤者の通勤手当」</a>（月15万円まで非課税）</li>
-  <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20150515-01.html">日本年金機構「厚生年金保険の保険料」</a>（報酬に通勤手当を含む）</li>
-  <li><a href="https://jsite.mhlw.go.jp/osaka-roudoukyoku/hourei_seido_tetsuzuki/roudou_hoken/hourei_seido/kosin/keizoku/kakunin.html">大阪労働局「支払い賃金の確認」</a>（雇用保険の賃金に通勤手当を含む）</li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/denshi_01.pdf"><span class="ph">国税庁</span><span class="ph">「令和8年分 月額表の</span><span class="ph">甲欄を</span><span class="ph">適用する</span><span class="ph">給与等に</span><span class="ph">対する</span><span class="ph">税額の</span><span class="ph">電算機計算の</span><span class="ph">特例に</span><span class="ph">ついて」</span></a></li>
+  <li><a href="https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08"><span class="ph">全国健康保険協会</span><span class="ph">「令和8年度の</span><span class="ph">協会けんぽの</span><span class="ph">保険料率は</span><span class="ph">3月分</span><span class="ph">（4月納付分）から</span><span class="ph">改定されます」</span></a></li>
+  <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/index.html"><span class="ph">日本年金機構</span><span class="ph">「厚生年金保険料額表」</span></a><span class="ph">（18.3%）</span></li>
+  <li><a href="https://www.mhlw.go.jp/content/001692566.pdf"><span class="ph">厚生労働省</span><span class="ph">「令和8年度 雇用保険料率の</span><span class="ph">ご案内」</span></a></li>
+  <li><a href="https://www.kyoukaikenpo.or.jp/assets/R8_13tokyo.pdf"><span class="ph">全国健康保険協会 東京支部</span><span class="ph">「令和8年3月</span><span class="ph">分からの</span><span class="ph">健康保険・厚生年金保険の</span><span class="ph">保険料額表」</span></a></li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2582.htm"><span class="ph">国税庁 </span><span class="ph">タックスアンサー </span><span class="ph">No.2582</span><span class="ph">「電車・バス通勤者の</span><span class="ph">通勤手当」</span></a><span class="ph">（月15万円まで</span><span class="ph">非課税）</span></li>
+  <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20150515-01.html"><span class="ph">日本年金機構</span><span class="ph">「厚生年金保険の</span><span class="ph">保険料」</span></a><span class="ph">（報酬に</span><span class="ph">通勤手当を</span><span class="ph">含む）</span></li>
+  <li><a href="https://jsite.mhlw.go.jp/osaka-roudoukyoku/hourei_seido_tetsuzuki/roudou_hoken/hourei_seido/kosin/keizoku/kakunin.html"><span class="ph">大阪労働局</span><span class="ph">「支払い</span><span class="ph">賃金の</span><span class="ph">確認」</span></a><span class="ph">（雇用保険の</span><span class="ph">賃金に</span><span class="ph">通勤手当を</span><span class="ph">含む）</span></li>
  </ul>
 </div>
 
-<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p>このページの数字は2026年11月に私が確かめました。もとにしているのは、国税庁・全国健康保険協会（協会けんぽ）・日本年金機構・厚生労働省の数字です。</p><p><a href="/#auth">詳しいプロフィール</a></p></div>
-<div class="close"><p class="close-h"><span class="nw">給与明細の数字も、</span><span class="nw">帳簿と申告も</span></p><p>毎月の給料から引く税金と社会保険料は、年末調整と決算の数字につながります。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="kyuyo_close_marunage">経理丸投げの無料相談</a></div>
-<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
- <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
- <a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>
- <a href="/niwari-tokurei/">消費税の計算</a>
- <a href="/kakutei-shinkoku/">確定申告の期限の早見表</a>
- <a href="/yatou-hiyou/">人を雇う費用の計算</a>
- <a href="/houjinzei-keisan/">法人税の計算</a>
- <a href="/soneki-bunkiten/">損益分岐点の計算</a>
- <a href="/hoteifukurihi/">法定福利費の計算</a>
- <a href="/zoyozei/">贈与税の計算</a>
- <a href="/shotokuzei/">所得税の計算</a>
- <a href="/taishokukin/">退職金の税金の計算</a>
- <a href="/yakuin-taishokukin/">役員退職金の計算</a>
- <a href="/iryohi-kojo/">医療費控除の計算</a>
- <a href="/nenmatsu-chosei/">年末調整の還付金の計算</a>
- <a href="/furusato/">ふるさと納税の限度額の計算</a>
- <a href="/shoyo-shotokuzei/">賞与の所得税の計算</a>
- <a href="/gensen-hoshu/">源泉徴収の早見表</a>
- <a href="/genbutsu-kyuyo/">非課税の限度額の早見表</a>
- <a href="/houjinzei/">法人税の早見表</a>
- <a href="/yakuin-tedori/">役員報酬の手取りの早見表</a>
- <a href="/houjinnari/">法人成りの計算</a>
- <a href="/kojin-zei/">個人事業主の手取りの早見表</a>
- <a href="/shakaihoken/">社会保険料の早見表</a>
- <a href="/koyohoken/">雇用保険料の早見表</a>
- <a href="/tedori/">年収の手取りの早見表</a>
- <a href="/tedori-gyakusan/">手取り年収の逆算</a>
- <a href="/juminzei/">住民税の早見表</a>
- <a href="/juminzei-keisan/">住民税の計算</a>
- <a href="/nenshu-kabe/">年収の壁の早見表</a>
- <a href="/fukugyo/">副業の税金の計算</a>
- <a href="/gakusei-kabe/">学生バイトの年収の壁</a>
- <a href="/part-fuyou/">パートの扶養の計算</a>
- <a href="/kokuho/">国民健康保険と任意継続の比較</a>
- <a href="/kokuho-keisan/">国民健康保険料の計算</a>
- <a href="/taishoku-jumin/">退職後の住民税の計算</a>
- <a href="/hensai/">借入の返済の計算</a>
- <a href="/saitei-chingin/">最低賃金の一覧</a>
- <a href="/saitei-chingin-tokyo/">東京の最低賃金</a>
- <a href="/saitei-chingin-kanagawa/">神奈川県の最低賃金</a>
- <a href="/saitei-chingin-aichi/">愛知県の最低賃金</a>
- <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
- <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
- <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
- <a href="/shotoku-kingaku/">所得金額の計算</a>
- <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
- <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
- <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
- <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
- <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
- <a href="/taiyonensu/">法定耐用年数の一覧</a>
- <a href="/saitei-chingin-okinawa/">沖縄県の最低賃金</a>
- <a href="/saitei-chingin-kumamoto/">熊本県の最低賃金</a>
- <a href="/saitei-chingin-ibaraki/">茨城県の最低賃金</a>
- <a href="/saitei-chingin-hiroshima/">広島県の最低賃金</a>
- <a href="/saitei-chingin-kagoshima/">鹿児島県の最低賃金</a>
- <a href="/kani-kazei/">簡易課税の事業区分</a>
- <a href="/saitei-chingin-mie/">三重県の最低賃金</a>
- <a href="/saitei-chingin-shizuoka/">静岡県の最低賃金</a>
- <a href="/saitei-chingin-miyagi/">宮城県の最低賃金</a>
- <a href="/saitei-chingin-niigata/">新潟県の最低賃金</a>
- <a href="/saitei-chingin-nagano/">長野県の最低賃金</a>
- <a href="/kakutei-shinkoku-keisan/">確定申告シミュレーション</a>
- <a href="/saitei-chingin-gifu/">岐阜県の最低賃金</a>
- <a href="/saitei-chingin-okayama/">岡山県の最低賃金</a>
- <a href="/saitei-chingin-tochigi/">栃木県の最低賃金</a>
- <a href="/saitei-chingin-gunma/">群馬県の最低賃金</a>
- <a href="/saitei-chingin-shiga/">滋賀県の最低賃金</a>
- <a href="/saitei-chingin-yamaguchi/">山口県の最低賃金</a>
- <a href="/saitei-chingin-fukushima/">福島県の最低賃金</a>
- <a href="/saitei-chingin-iwate/">岩手県の最低賃金</a>
- <a href="/saitei-chingin-nara/">奈良県の最低賃金</a>
- <a href="/saitei-chingin-nagasaki/">長崎県の最低賃金</a>
- <a href="/saitei-chingin-miyazaki/">宮崎県の最低賃金</a>
- <a href="/">トップへ</a>
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p><span class="ph">この</span><span class="ph">ページの</span><span class="ph">数字は</span><span class="ph">2026年11月に</span><span class="ph">私が</span><span class="ph">確かめました。もとにしているのは、</span><span class="ph">国税庁・全国健康保険協会</span><span class="ph">（協会けんぽ）・</span><span class="ph">日本年金機構・</span><span class="ph">厚生労働省の</span><span class="ph">数字です。</span></p><p><a href="/#auth"><span class="ph">詳しい</span><span class="ph">プロフィール</span></a></p></div>
+<div class="close"><p class="close-h"><span class="ph">給与明細の</span><span class="ph">数字も、</span><span class="ph">帳簿と</span><span class="ph">申告も</span></p><p><span class="ph">毎月の</span><span class="ph">給料から</span><span class="ph">引く</span><span class="ph">税金と</span><span class="ph">社会保険料は、</span><span class="ph">年末調整と</span><span class="ph">決算の</span><span class="ph">数字に</span><span class="ph">つながります。</span><span class="ph">記帳から</span><span class="ph">決算・申告まで、</span><span class="ph">まる</span><span class="ph">ごとお受けしています。</span><span class="ph">全国どこからでも</span><span class="ph">対応します。</span><span class="ph">初回の</span><span class="ph">ご相談は</span><span class="ph">無料、</span><span class="ph">オンラインでも</span><span class="ph">お受けしています。</span></p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="kyuyo_close_marunage"><span class="ph">経理丸投げの</span><span class="ph">無料相談</span></a></div>
+<nav class="tools"><div class="t"><span class="ph">早見表・計算ツール一覧</span></div>
+ <a href="/yakuin-shataku/"><span class="ph">役員社宅の</span><span class="ph">家賃の</span><span class="ph">計算</span></a>
+ <a href="/chukosha-taiyonensu/"><span class="ph">中古車の</span><span class="ph">耐用年数の</span><span class="ph">計算</span></a>
+ <a href="/niwari-tokurei/"><span class="ph">消費税の</span><span class="ph">計算</span></a>
+ <a href="/kakutei-shinkoku/"><span class="ph">確定申告の</span><span class="ph">期限の</span><span class="ph">早見表</span></a>
+ <a href="/yatou-hiyou/"><span class="ph">人を</span><span class="ph">雇う</span><span class="ph">費用の</span><span class="ph">計算</span></a>
+ <a href="/houjinzei-keisan/"><span class="ph">法人税の</span><span class="ph">計算</span></a>
+ <a href="/soneki-bunkiten/"><span class="ph">損益分岐点の</span><span class="ph">計算</span></a>
+ <a href="/hoteifukurihi/"><span class="ph">法定</span><span class="ph">福利費の</span><span class="ph">計算</span></a>
+ <a href="/zoyozei/"><span class="ph">贈与税の</span><span class="ph">計算</span></a>
+ <a href="/shotokuzei/"><span class="ph">所得税の</span><span class="ph">計算</span></a>
+ <a href="/taishokukin/"><span class="ph">退職金の</span><span class="ph">税金の</span><span class="ph">計算</span></a>
+ <a href="/yakuin-taishokukin/"><span class="ph">役員退職金の</span><span class="ph">計算</span></a>
+ <a href="/iryohi-kojo/"><span class="ph">医療費控除の</span><span class="ph">計算</span></a>
+ <a href="/nenmatsu-chosei/"><span class="ph">年末調整の</span><span class="ph">還付金の</span><span class="ph">計算</span></a>
+ <a href="/furusato/"><span class="ph">ふるさと</span><span class="ph">納税の</span><span class="ph">限度額の</span><span class="ph">計算</span></a>
+ <a href="/shoyo-shotokuzei/"><span class="ph">賞与の</span><span class="ph">所得税の</span><span class="ph">計算</span></a>
+ <a href="/gensen-hoshu/"><span class="ph">源泉徴収の</span><span class="ph">早見表</span></a>
+ <a href="/genbutsu-kyuyo/"><span class="ph">非課税の</span><span class="ph">限度額の</span><span class="ph">早見表</span></a>
+ <a href="/houjinzei/"><span class="ph">法人税の</span><span class="ph">早見表</span></a>
+ <a href="/yakuin-tedori/"><span class="ph">役員報酬の</span><span class="ph">手取りの</span><span class="ph">早見表</span></a>
+ <a href="/houjinnari/"><span class="ph">法人</span><span class="ph">成りの</span><span class="ph">計算</span></a>
+ <a href="/kojin-zei/"><span class="ph">個人事業主の</span><span class="ph">手取りの</span><span class="ph">早見表</span></a>
+ <a href="/shakaihoken/"><span class="ph">社会保険料の</span><span class="ph">早見表</span></a>
+ <a href="/koyohoken/"><span class="ph">雇用保険料の</span><span class="ph">早見表</span></a>
+ <a href="/tedori/"><span class="ph">年収の</span><span class="ph">手取りの</span><span class="ph">早見表</span></a>
+ <a href="/tedori-gyakusan/"><span class="ph">手取り年収の</span><span class="ph">逆算</span></a>
+ <a href="/juminzei/"><span class="ph">住民税の</span><span class="ph">早見表</span></a>
+ <a href="/juminzei-keisan/"><span class="ph">住民税の</span><span class="ph">計算</span></a>
+ <a href="/nenshu-kabe/"><span class="ph">年収の</span><span class="ph">壁の</span><span class="ph">早見表</span></a>
+ <a href="/fukugyo/"><span class="ph">副業の</span><span class="ph">税金の</span><span class="ph">計算</span></a>
+ <a href="/gakusei-kabe/"><span class="ph">学生バイトの</span><span class="ph">年収の</span><span class="ph">壁</span></a>
+ <a href="/part-fuyou/"><span class="ph">パートの</span><span class="ph">扶養の</span><span class="ph">計算</span></a>
+ <a href="/kokuho/"><span class="ph">国民健康保険と</span><span class="ph">任意継続の</span><span class="ph">比較</span></a>
+ <a href="/kokuho-keisan/"><span class="ph">国民健康保険料の</span><span class="ph">計算</span></a>
+ <a href="/taishoku-jumin/"><span class="ph">退職後の</span><span class="ph">住民税の</span><span class="ph">計算</span></a>
+ <a href="/hensai/"><span class="ph">借入の</span><span class="ph">返済の</span><span class="ph">計算</span></a>
+ <a href="/saitei-chingin/"><span class="ph">最低賃金の</span><span class="ph">一覧</span></a>
+ <a href="/saitei-chingin-tokyo/"><span class="ph">東京の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-kanagawa/"><span class="ph">神奈川県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-aichi/"><span class="ph">愛知県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-hokkaido/"><span class="ph">北海道の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-osaka/"><span class="ph">大阪の</span><span class="ph">最低賃金</span></a>
+ <a href="/tsukin-teate/"><span class="ph">通勤手当の</span><span class="ph">非課税限度額</span></a>
+ <a href="/shotoku-kingaku/"><span class="ph">所得金額の</span><span class="ph">計算</span></a>
+ <a href="/saitei-chingin-saitama/"><span class="ph">埼玉県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-fukuoka/"><span class="ph">福岡県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-chiba/"><span class="ph">千葉県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-hyogo/"><span class="ph">兵庫県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-kyoto/"><span class="ph">京都府の</span><span class="ph">最低賃金</span></a>
+ <a href="/taiyonensu/"><span class="ph">法定耐用年数の</span><span class="ph">一覧</span></a>
+ <a href="/saitei-chingin-okinawa/"><span class="ph">沖縄県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-kumamoto/"><span class="ph">熊本県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-ibaraki/"><span class="ph">茨城県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-hiroshima/"><span class="ph">広島県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-kagoshima/"><span class="ph">鹿児島県の</span><span class="ph">最低賃金</span></a>
+ <a href="/kani-kazei/"><span class="ph">簡易課税の</span><span class="ph">事業区分</span></a>
+ <a href="/saitei-chingin-mie/"><span class="ph">三重県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-shizuoka/"><span class="ph">静岡県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-miyagi/"><span class="ph">宮城県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-niigata/"><span class="ph">新潟県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-nagano/"><span class="ph">長野県の</span><span class="ph">最低賃金</span></a>
+ <a href="/kakutei-shinkoku-keisan/"><span class="ph">確定申告シミュレーション</span></a>
+ <a href="/saitei-chingin-gifu/"><span class="ph">岐阜県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-okayama/"><span class="ph">岡山県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-tochigi/"><span class="ph">栃木県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-gunma/"><span class="ph">群馬県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-shiga/"><span class="ph">滋賀県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-yamaguchi/"><span class="ph">山口県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-fukushima/"><span class="ph">福島県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-iwate/"><span class="ph">岩手県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-nara/"><span class="ph">奈良県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-nagasaki/"><span class="ph">長崎県の</span><span class="ph">最低賃金</span></a>
+ <a href="/saitei-chingin-miyazaki/"><span class="ph">宮崎県の</span><span class="ph">最低賃金</span></a>
+ <a href="/"><span class="ph">トップへ</span></a>
 </nav>
 </main>
 <footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
@@ -520,6 +523,54 @@ main p,.lead2,main li,.hint,.slip-c,.ans-s,.note,.diff,.phint,main h3{word-break
  <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="kyuyo_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
 </div>
 
+<script id="tt-ph">
+(function(){
+var M={"UW3":{"。":2927,"の":1892,"、":2284,"を":2561,"に":1845,"が":1948,"は":1984,"と":1587,"し":271,"る":1470,"も":1601,"な":1344,"で":1587,"た":1186,"い":987,"く":1291,"て":1232,"う":1103,"へ":1295,"ら":785,"や":1175,"？":1825,"?":1907,"っ":-328,"こ":34,"ぐ":1295,"ー":-115,"ん":562,"，":1899,"ば":1101,"］":1183,"り":562,"か":1027,"]":1526,"！":1800,"お":-586,"ぞ":1144,"ま":10,"ッ":-550,"．":1156,"つ":651,"空":725,"ス":-380,"ど":802,"…":1480,"イ":-309,"ン":-195,"・":500,"だ":610,"方":471,"「":-625,"）":1443,"部":320,"プ":-346,"ご":-383,"あ":571,"フ":-463,"♪":1333,"」":831,"ラ":-86,"☆":1296,"ず":901,"電":-404,"京":-315,"大":-272,"ろ":670,"ア":-308,"手":-74,"日":337,"ぬ":884,"０":-345,"す":643,"々":969,"以":-306,"笑":1487,"間":425,"１":-440,"観":-178,"度":591,"『":-337,"新":-237,"[":-315,"的":295,"カ":-103,"ロ":-227,"き":224,"分":475,"れ":234,"む":812,"じ":416,"品":43,"ぁ":695,"ジ":-61,"せ":290,"今":372,"ゃ":607,"都":-78,"後":595,"中":373,"ぶ":734,"え":465,"】":474,"シ":-202,"ド":-178,"変":324,"〜":332,"番":217,"然":621,"不":-192,"★":1042,"子":-142,"よ":187,"ち":259,"［":-239,"タ":-21,"説":81,"発":-151,"最":-149,"時":91,"素":-150,"年":180,"段":248,"意":-97,"び":18,"代":-109,"学":-75,"　":208,"味":281,"料":-83,"ニ":-63,"光":-40,"行":-130,"用":-107,"ｏ":-96,"体":357,"ト":-7,"夜":538,"作":-86,"皆":419,"人":76,"斤":436,"月":111,"選":-77,"２":-60,"”":364,"聞":-63,"：":131,"前":152,"外":74,"昔":700,"超":449,"レ":-25,"週":92,"５":-34,"自":-23,"水":60,"３":-31,"色":219,"』":227,"出":-24,"能":-13,"ビ":-19,"み":10,"テ":-13,"開":-14,"モ":-19,"バ":-11,"機":-8,"ね":89,"程":52,"題":19},"UW4":{"。":-2922,"の":-1829,"に":-1800,"が":-1558,"は":-1613,"、":-2880,"る":-2279,"で":-1294,"と":-1398,"て":-1523,"を":-1805,"っ":-2001,"か":-1270,"り":-1900,"う":-1060,"ま":-821,"し":-919,"た":-813,"い":-677,"お":416,"な":-905,"ら":-2069,"だ":-1191,"ち":-984,"す":-719,"れ":-1661,"ん":-1845,"き":-881,"そ":223,"ー":-1266,"や":-634,"」":-2633,"あ":80,"け":-1608,"も":-1204,"ぞ":-1148,"く":-1282,"ご":115,"さ":-874,"見":362,"？":-2258,"め":-1017,"み":-637,"よ":-628,"人":194,"「":1150,"私":801,"ッ":-648,"ぐ":-767,"ン":-592,"[":1562,"一":274,"思":305,"わ":-782,"?":-1832,"合":-827,"じ":-1103,"！":-2093,"，":-1996,"言":113,"何":401,"せ":-826,"『":381,"場":131,"行":159,"え":-921,"今":499,"』":-2280,"時":151,"食":116,"広":186,"京":116,"・":-730,"ろ":-1233,"日":91,"．":-1415,"空":437,"へ":-656,"ば":-1177,"つ":-610,"…":-1457,"べ":-1266,"]":-968,"１":526,"効":165,"大":150,"サ":81,"ル":-258,"リ":-278,"エ":110,"び":-776,"特":505,"使":548,"当":94,"ね":-1134,"（":1297,"煙":1201,"綺":1248,"ゆ":-455,"方":-170,"ず":-945,"気":102,"ど":-493,"ぶ":-833,"携":129,"自":280,"２":320,"［":923,"ぁ":-815,"ゃ":-1080,"最":278,"］":-415,"来":55,"帯":-257,"ょ":-821,"フ":-181,"間":-296,"笑":-1461,"ス":-53,"）":-1557,"有":269,"新":130,"こ":-225,"タ":-78,"良":26,"ぎ":-912,"用":-291,"ぜ":-824,"む":-488,"☆":-806,"制":351,"続":-263,"カ":102,"♪":-1027,"能":-219,"ざ":-431,"メ":37,"表":152,"３":243,"多":356,"手":66,"〜":-835,"イ":-59,"ュ":-196,"公":161,"操":53,"ほ":-135,"無":211,"書":273,"的":-273,"０":-120,"デ":120,"次":54,"げ":-452,"取":-302,"不":302,"ロ":-78,"(":401,"友":77,"僕":301,"づ":-538,"【":369,"　":-696,"小":245,"切":-192,"回":-380,"換":-240,"二":437,"込":-347,"バ":93,"ぬ":-171,"楽":174,"本":-25,"ｏ":-170,"水":124,"ぼ":-350,"街":232,"少":103,"”":-928,"品":-114,"機":-40,"ク":-35,"ト":-61,"動":-15,"入":55,"代":-128,"レ":-40,"コ":41,"海":165,"★":-456,"夏":213,"Ｓ":-50,"東":408,"年":-104,"ニ":-67,"券":-249,"美":119,"通":-78,"話":105,"前":-43,"祭":328,"参":226,"返":-112,"聞":85,"真":-116,"ビ":-60,"ふ":-117,"四":193,"住":70,"全":49,"実":46,"＾":-199,"ぱ":-126,"ぃ":-128,"彼":43,"グ":-22,"高":32,"姿":23,"誰":136,"ド":-33,"立":-84,"情":-16,"店":24,"臭":348,"式":-76,"態":-24,"安":54,"ひ":50,"例":76,"作":-21,"肌":5,"心":8,"旅":11,"移":-17,"足":19,"道":5,"物":-13,"甘":11,"三":5,"度":-5,"週":-2},"UW5":{"。":-674,"、":-346,"な":-317,"は":-338,"に":-273,"う":172,"っ":529,"そ":-622,"と":-277,"で":-291,"き":368,"を":-234,"る":172,"ま":-20,"す":-277,"え":248,"い":160,"の":-249,"べ":878,"ラ":186,"じ":320,"こ":50,"動":712,"れ":204,"も":-129,"た":4,"・":-282,"し":-123,"く":140,"め":184,"さ":-135,"」":-340,"供":204,"ル":-252,"あ":-213,"か":69,"帯":89,"力":138,"つ":443,"能":6,"ト":-131,"ン":-77,"へ":-322,"上":-301,"器":-87,"日":204,"思":-109,"が":-177,"ぼ":484,"ぶ":48,"ざ":179,"り":94,"ん":407,"だ":-93,"よ":-152,"け":-58,"］":-114,"わ":266,"ず":293,"ち":227,"回":299,"年":381,"[":-131,"！":-144,"．":-205,"ス":-67,"当":218,"都":26,"て":84,"利":347,"イ":76,"広":-173,"ろ":-74,"的":-90,"び":271,"ュ":-88,"丈":295,"葉":122,"大":-67,"ら":70,"電":-48,"景":148,"所":11,"１":-88,"言":-119,"開":103,"ど":-42,"寺":-105,"本":122,"革":-245,"体":-384,"ぎ":139,"券":-65,"…":-60,"作":102,"有":-42,"む":173,"ね":-53,"版":-43,"先":-252,"要":29,"一":-30,"グ":-23,"合":23,"々":52,"改":-54,"バ":-33,"？":-30,"使":-83,"２":-51,"軽":28,"行":-34,"期":33,"面":21,"ロ":10,"明":21,"法":-16,"ャ":3,"テ":-3},"UW2":{"。":-529,"の":-310,"を":-850,"、":-537,"し":117,"に":-356,"か":24,"も":-359,"が":-288,"と":-399,"っ":90,"で":-342,"れ":33,"そ":-238,"よ":-29,"お":-471,"ぞ":-455,"て":-290,"以":1113,"す":189,"ま":164,"人":186,"さ":308,"」":102,"つ":-182,"だ":162,"あ":-130,"め":66,"う":-203,"見":-170,"手":459,"く":-253,"少":316,"は":-346,"全":550,"一":525,"解":349,"な":-223,"き":-23,"け":99,"い":-42,"特":271,"法":547,"ど":-153,"良":148,"結":1019,"食":125,"ゆ":379,"ラ":-135,"毎":772,"随":940,"ひ":-1043,"ほ":259,"イ":-69,"境":-203,"り":-80,"る":-136,"同":395,"言":-95,"ん":82,"ぱ":110,"た":-84,"場":96,"取":-187,"作":-110,"子":-5,"わ":82,"や":-180,"多":241,"大":130,"能":139,"ぜ":424,"？":-206,"知":-114,"話":3,"目":-169,"題":123,"デ":-143,"「":-94,"サ":-137,"ぐ":-136,"］":-170,"ば":-94,"ご":-83,"ね":197,"関":739,"ー":94,"グ":-101,"新":-41,"Ｐ":-392,"０":95,"１":83,"]":-133,"落":-328,"＾":278,"本":215,"?":-123,"２":-105,"，":-126,"先":226,"［":-21,"ジ":-67,"み":-31,"味":113,"和":169,"生":118,"乗":-147,"せ":16,"素":-204,"家":48,"立":-218,"シ":-85,"世":-73,"水":124,"[":-2,"『":-102,"前":49,"ぶ":2,"ケ":-95,"電":95,"我":-207,"残":150,"券":-100,"今":12,"百":-106,"車":72,"増":-88,"振":-80,"案":109,"用":-31,"プ":-26,"直":161,"三":80,"ろ":-30,"バ":72,"冷":-23,"着":-15,"早":94,"空":-11,"実":50,"５":-45,"げ":42,"並":27,"追":-48,"高":10,"変":-5,"フ":-2},"UW1":{"い":-85,"に":-142,"で":-123,"な":-111,"つ":209,"。":-25,"は":-65,"り":-105,"と":36,"が":-106,"こ":42,"そ":48,"ど":124,"う":21,"し":-28,"見":88,"る":-1,"だ":-98,"大":155,"て":68,"の":6,"上":-86,"お":16,"ん":94,"十":-92,"た":-31,"か":-72,"水":46,"知":39,"へ":-23,"ッ":196,"始":130,"プ":-268,"っ":87,"作":27,"く":44,"［":-171,"タ":26,"小":264,"ろ":134,"新":119,"も":10,"．":-185,"「":-111,"『":-146,"積":-242,"イ":-100,"や":-90,"行":-39,"京":-118,"メ":167,"ス":-54,"ち":80,"バ":110,"０":43,"間":106,"撮":-96,"え":-53,"れ":36,"何":93,"壊":-117,"自":114,"ざ":280,"ば":-43,"、":-18,"人":-30,"少":-46,"ら":11,"豊":68,"時":-42,"基":-99,"ー":5,"認":-98,"取":47,"使":-37,"ケ":-28,"」":-30,"機":18,"書":-13,"生":-21,"オ":37,"色":13,"す":6,"]":-18,"話":-6,"面":-14},"UW6":{"。":-92,"の":62,"が":120,"な":120,"さ":360,"を":41,"し":188,"で":50,"は":97,"う":54,"、":-16,"て":-15,"や":267,"に":103,"り":221,"せ":-166,"み":265,"あ":-69,"る":97,"い":115,"ど":175,"」":-95,"つ":238,"ー":-64,"ぱ":446,"と":23,"っ":193,"お":-114,"も":39,"グ":138,"性":12,"ビ":250,"コ":64,"か":132,"ま":176,"め":252,"場":-184,"付":43,"け":-31,"く":87,"供":-338,"人":-34,"画":233,"ク":-139,"ン":-63,"的":123,"ュ":118,"ぐ":21,"わ":139,"ん":138,"タ":93,"０":306,"・":-83,"れ":66,"遊":-228,"ば":123,"空":301,"通":-52,"ろ":102,"日":98,"そ":63,"寺":186,"ス":15,"学":-157,"見":-41,"電":137,"最":-121,"気":165,"地":163,"じ":165,"レ":61,"出":161,"ア":-32,"言":-138,"ず":-135,"ょ":-75,"シ":-43,"む":73,"こ":12,"す":4,"カ":42,"ル":41,"パ":-70,"広":-47,"込":58,"返":81,"公":-17,"ピ":124,"ら":10,"，":19,"よ":8,"：":131,"ゃ":-21,"水":68,"だ":-6,"Ｓ":-5,"合":13,"来":-5,"ち":2},"BW2":{"とこ":-712,"ない":-1317,"とい":124,"せく":2468,"とお":-1191,"です":-1081,"てい":-618,"へよ":1276,"ので":-547,"であ":-1441,"いよ":-1011,"たと":361,"のみ":-1006,"うご":674,"たい":-932,"など":-902,"てお":-1002,"にも":-637,"でも":-695,"るよ":-358,"たま":-658,"くな":-747,"いた":-619,"てく":-532,"、と":-465,"でき":-833,"はじ":-954,"には":-393,"とめ":-230,"徴エ":986,"本イ":1172,"でし":-731,"うど":-807,"もつ":-209,"帯電":-292,"やす":-668,"のが":-426,"いま":-361,"い合":-356,"なく":-294,"いと":-335,"くだ":-596,"なか":-196,"こそ":-491,"らゆ":-545,"いい":-388,"び上":1040,"うや":-351,"う映":519,"とも":-304,"たち":-343,"いも":369,"てき":-729,"らな":-116,"のも":-453,"てみ":-738,"のは":-396,"るで":-56,"の前":-649,"てあ":-945,"がし":177,"くし":-257,"い日":238,"どこ":-492,"もあ":-179,"うこ":-32,"もし":-274,"のい":111,"ると":-178,"ても":-267,"のか":-205,"すご":-657,"のだ":-210,"ども":-366,"かな":-244,"く来":17,"もう":-266,"とか":-409,"なぁ":-332,"いつ":-112,"かし":-202,"とき":-285,"いな":-242,"て行":-1103,"でな":-514,"ただ":-399,"はい":-245,"たよ":-193,"な場":150,"るな":-278,"そこ":-715,"たも":140,"なあ":-878,"はず":-388,"いし":-363,"しい":-183,"がっ":-241,"てた":-150,"した":-145,"へと":-138,"はあ":-236,"てこ":-72,"では":-200,"にし":-106,"ばな":-91,"りし":72,"るし":-199,"らい":-134,"たな":-152,"とは":-148,"係な":503,"たし":-199,"て欲":-457,"。と":90,"るか":-98,"てや":-153,"つぶ":-56,"夏休":-51,"りな":203,"の方":54,"いで":-88,"りも":-73,"うい":-94,"日本":-151,"ぶつ":-71,"なお":-215,"のご":-494,"たさ":-47,"い状":46,"人い":704,"日和":-112,"・・":-82,"なし":-92,"識こ":44,"のよ":-19,"いわ":-49,"とう":-13,"」で":282,"つい":-47,"れた":-28,"とと":-50,"、な":-60,"．５":-245,"にぎ":-78,"．９":-208,"て来":-192,"でい":-18,"。笑":-155,"がの":32,"．ま":28,"んど":-2},"BW1":{"しい":547,"から":721,"ない":579,"んに":-500,"いう":262,"よう":-377,"もは":-1403,"はや":94,"れた":433,"こそ":1261,"まま":1051,"こと":-614,"して":-81,"つな":-732,"」と":95,"その":-392,"のみ":1390,"たい":337,"白い":697,"るの":-448,"ても":250,"少し":730,"まも":-1322,"のは":361,"やく":435,"かも":-671,"とか":674,"たら":548,"たと":-552,"った":71,"なぞ":-998,"この":-461,"全部":388,"うぞ":83,"では":-155,"まと":-834,"には":135,"んだ":339,"でも":242,"んな":154,"うな":174,"ちが":-364,"とが":-596,"晶の":1360,"たの":-464,"がと":-435,"以上":317,"なら":638,"最近":1078,"ると":5,"んで":-224,"だん":115,"より":819,"もう":666,"もの":-266,"。・":1203,"いと":-155,"くれ":673,"思い":-808,"うに":-45,"おで":-1153,"よく":375,"かし":522,"にも":298,"知ら":-164,"青い":240,"めて":80,"れて":-174,"手順":449,"ぞな":-79,"同じ":340,"だけ":488,"いの":-157,"すの":-260,"まだ":262,"きた":229,"すい":44,"いい":-136,"使い":-566,"まり":244,"けど":436,"敵な":298,"ただ":416,"なぐ":401,"した":131,"なく":235,"とう":60,"が、":407,"りと":398,"いな":-82,"なぜ":1021,"くて":333,"人が":107,"とに":-163,"言い":-426,"れが":-307,"買い":-598,"問い":-314,"の間":718,"とき":826,"舞う":446,"いで":-477,"すが":-137,"など":488,"のが":266,"んて":222,"やら":462,"た．":408,"ので":98,"えば":232,"ては":-175,"利な":188,"的な":141,"は、":203,"ぱり":323,"もし":638,"とで":199,"しず":-349,"取り":-196,"こう":-154,"うや":-118,"現在":497,"とも":-54,"大変":106,"ほぼ":386,"いた":107,"待ち":-313,"との":97,"の後":497,"ここ":402,"うか":176,"空き":-161,"安に":-537,"、と":79,"てい":-110,"一番":64,"使う":175,"とは":-98,"あー":942,"普段":309,"いも":-343,"るに":-86,"きな":65,"うと":-102,"Ｈ．":-249,"橋に":51,"、今":327,"べき":568,"まあ":213,"とい":-36,"で、":72,"い」":167,"か、":-116,"上に":30,"い、":-24,"つぶ":-136,"てる":88,"ちら":-147,"らな":-208,"＾＾":103,"しか":22,"たり":71,"ため":382,"ぶん":332,"のも":50,"！！":37,"める":-23,"何か":47,"なか":72,"持て":-230,"是非":365,"ころ":190,"世の":-521,"作り":-41,"法的":79,"と、":22,"さり":105,"わけ":395,"気が":36,"てた":70,"いし":44,"０円":49,"ねー":248,"りは":-124,"すら":60,"ゃあ":174,"えて":-23,"せん":37,"んか":24,"ぜひ":58,"落と":-51,"じる":-27,"かが":-30,"持つ":46,"神社":71,"はも":-8,"三回":38,"だし":52,"まる":-16,"悪い":14,"りに":3},"TW1":{"よいよ":1544,"もはや":795,"ありが":-1018,"をもつ":777,"またま":1598,"こんに":-344,"で見る":-1324,"という":108,"んどん":730,"おって":1407,"できる":168,"が良い":319,"ました":-543,"ふだん":938,"甘えが":-642,"だんど":-807,"十分に":-359,"ていく":418,"すきと":-1297,"ような":446,"・・・":596,"かなり":1001,"。夕方":541,"やはり":916,"ことも":-211,"しかし":451,"ながら":577,"かなか":402,"たちの":64,"もなく":117,"困った":555,"ょっと":-146,"でかけ":-197,"とんど":608,"やすい":84,"なんと":-462,"持って":-346,"ょうど":485,"入れる":242,"つなぐ":5,"っかり":415,"と思う":155,"ていて":219,"ければ":-49,"に人が":230,"かった":-25,"以上に":82,"『いい":-231,"そして":195,"として":96,"なって":-68,"たまた":-143,"くらい":79,"ういう":275,"すごく":215,"のおも":-181,"おけば":120,"その時":612,"、それ":409,"始まる":32,"ろいろ":127,"っぱり":2,"した．":157,"ない、":-233,"くては":-93,"ちろん":170,"だって":140,"ままに":78,"メール":8,"ように":-49,"らしき":116,"にして":-23,"くさん":55,"ひとつ":77,"ろそろ":62,"あまり":27,"まるで":24,"色から":11,"感じる":-11,"。そう":5,"用する":3},"TW2":{"いとこ":-1284,"してお":-716,"ちがう":-836,"ではな":-796,"分にあ":-1150,"そのま":-612,"まもな":-9,"うにな":-488,"どんど":-359,"気に入":-1867,"かもし":-118,"んでい":-798,"からし":360,"まるで":-346,"とがあ":-599,"からな":-431,"そもそ":-986,"ではあ":-863,"ともあ":-408,"その後":-610,"をもつ":-128,"れるこ":252,"でもあ":-714,"とにな":-246,"目の前":-321,"ようや":-147,"でもな":-444,"あるこ":288,"しかな":346,"とがで":-255,"てもい":-496,"らと言":-764,"ものす":-729,"ってこ":-148,"るにつ":-371,"いてあ":-123,"いい感":-338,"女の子":-760,"全くな":232,"してい":-26,"うとし":-39,"という":-21,"ような":-16,"までに":-21,"なるほ":-79,"したこ":-16,"にはな":14},"BW3":{"こと":458,"ちは":-231,"いい":375,"もの":1421,"いう":246,"その":816,"して":200,"はじ":1178,"でき":474,"おで":249,"ある":-150,"なる":251,"とき":1059,"これ":1033,"なっ":-192,"まと":958,"まま":-89,"この":991,"うま":1424,"そう":-890,"受け":369,"とい":-386,"分か":603,"上が":318,"ちょ":864,"当日":1141,"おり":-485,"子供":149,"そこ":246,"ゆる":-85,"機器":-976,"さん":-835,"ころ":-230,"もら":1252,"かっ":-406,"なん":99,"ぞう":542,"たま":487,"こそ":-411,"とて":1133,"かな":193,"携帯":21,"つな":695,"つぶ":237,"より":-513,"ぞな":-144,"・・":-715,"ため":592,"とっ":501,"なら":-190,"もう":1008,"でも":555,"知る":21,"メー":175,"しい":-368,"さい":-298,"と思":-257,"すぐ":706,"さあ":497,"よく":478,"かか":650,"まも":371,"です":-221,"から":-298,"よう":-124,"まし":-213,"いろ":157,"かけ":750,"こぼ":252,"つい":269,"すか":-215,"電話":-67,"いて":-133,"まだ":321,"とり":661,"みた":-370,"それ":150,"まぁ":611,"かも":-203,"した":347,"いか":338,"すご":747,"なか":80,"始ま":48,"どこ":386,"難し":147,"とつ":-225,"日が":213,"わか":333,"はま":422,"あと":559,"がん":586,"だけ":-176,"もん":187,"ただ":235,"出来":-367,"すき":194,"アプ":49,"うち":121,"けれ":-163,"だろ":-315,"最近":238,"入れ":110,"もと":410,"だい":248,"物語":89,"きる":-225,"問題":172,"なに":252,"みん":203,"ます":-99,"もっ":276,"大会":-130,"変え":386,"友人":90,"始め":-143,"で、":198,"しゃ":157,"まで":-186,"きま":-106,"頃で":-322,"入場":127,"べき":-92,"書い":196,"面白":78,"だし":136,"はる":337,"ずっ":184,"ませ":-89,"とこ":86,"かわ":88,"手に":51,"ごと":-247,"つけ":111,"以上":-58,"いた":-43,"ない":44,"歩く":74,"何で":73,"いま":71,"そく":-365,"考え":54,"うれ":109,"よし":95,"こだ":47,"しく":-76,"どい":-31,"なく":31,"いつ":15,"など":-52,"ええ":164,"持っ":63,"のっ":39,"使っ":24,"あふ":178,"ルー":27,"にぎ":192,"ちろ":-55,"みろ":185,"もつ":61,"通り":-40,"あて":48,"ここ":21,"ほど":-3,"祭り":28,"そし":34,"渡る":-9,"まさ":2,"もい":-2,"あっ":2},"TW4":{"ありが":1289,"なぞな":1249,"ような":-883,"もはや":1262,"ところ":1583,"ちがう":1001,"ように":-642,"いよい":590,"ある。":-134,"どのよ":2005,"可能性":1318,"とおり":898,"ようや":651,"ことが":-636,"プログ":742,"いっぱ":955,"くらい":861,"かなり":937,"できた":907,"ことに":-678,"ありま":-431,"ことで":163,"して人":-716,"しかし":970,"おりに":-190,"わけで":-291,"ことも":-579,"そのま":346,"うどん":792,"サービ":55,"いけな":-318,"そうで":-375,"した。":-399,"ようで":-381,"してお":277,"おりま":759,"かった":-236,"いろい":679,"こと。":204,"いって":-270,"ないと":196,"したお":-228,"なんと":531,"ことを":122,"だった":-479,"どんど":312,"ことは":-205,"はじま":30,"これは":281,"なんて":-411,"なかな":209,"制度に":183,"あるい":-1252,"いくさ":-192,"ひとつ":445,"ない。":59,"いえば":260,"やって":86,"みんな":13,"メール":26,"すきと":126,"なんか":131,"しゃべ":718,"京都に":156,"なくな":65,"いかな":65,"まって":-125,"はまっ":109,"いまし":-114,"しない":80,"よりは":-73,"とこが":262,"きれい":31,"さらに":88,"だって":80,"おいし":27,"かわい":45,"みたい":-27,"手に入":16,"なんで":-6,"できる":-2},"TW3":{"のよう":-655,"という":390,"ている":-712,"のまま":-57,"の本は":-861,"へよう":15,"とした":-519,"になっ":-251,"てしま":-665,"らない":-473,"ること":-169,"もしれ":-4,"のよい":292,"る方は":-599,"ところ":-217,"くして":-457,"として":113,"ばいい":-593,"すこと":283,"てほし":-663,"であっ":-561,"ていう":437,"、そし":-1771,"ういう":-260,"ていく":-117,"である":-325,"と言っ":-593,"はまっ":-541,"と同時":-711,"があっ":360,"、また":-382,"はない":-123,"てない":-178,"くなっ":-65,"にしか":-180,"、ある":-184,"帯電話":-2,"ておき":-278,"ばなら":-32,"はいえ":-118,"もある":-71,"たこと":-34,"にでも":-167,"といい":-216,"になら":62,"となっ":19,"たそう":-64,"もしか":-234,"もまた":-44,"るそう":-27,"かどう":-22,"りした":8,"にして":-6,"もいい":-14,"の先に":-22}};
+var base=-0.5*Object.keys(M).reduce(function(s,k){return s+Object.keys(M[k]).reduce(function(a,w){return a+M[k][w]},0)},0);
+function bx(s){
+ if(!s)return [];
+ var c=[s[0]],i,sc,U=M;
+ var u1=U.UW1||{},u2=U.UW2||{},u3=U.UW3||{},u4=U.UW4||{},u5=U.UW5||{},u6=U.UW6||{};
+ var b1=U.BW1||{},b2=U.BW2||{},b3=U.BW3||{},t1=U.TW1||{},t2=U.TW2||{},t3=U.TW3||{},t4=U.TW4||{};
+ for(i=1;i<s.length;i++){sc=base;
+  if(i>2)sc+=u1[s[i-3]]||0; if(i>1)sc+=u2[s[i-2]]||0; sc+=u3[s[i-1]]||0; sc+=u4[s[i]]||0;
+  if(i+1<s.length)sc+=u5[s[i+1]]||0; if(i+2<s.length)sc+=u6[s[i+2]]||0;
+  if(i>1)sc+=b1[s.slice(i-2,i)]||0; sc+=b2[s.slice(i-1,i+1)]||0; if(i+1<s.length)sc+=b3[s.slice(i,i+2)]||0;
+  if(i>2)sc+=t1[s.slice(i-3,i)]||0; if(i>1)sc+=t2[s.slice(i-2,i+1)]||0;
+  if(i+1<s.length)sc+=t3[s.slice(i-1,i+2)]||0; if(i+2<s.length)sc+=t4[s.slice(i,i+3)]||0;
+  if(sc>0)c.push(s[i]); else c[c.length-1]+=s[i];}
+ return c;
+}
+var ONE="のをにはがとでもへやかねよぞわ", LONG=["から","まで","より","って","では","には","とは","かは"];
+function stick(p,n){
+ if(!p||!n)return false;
+ if(ONE.indexOf(n[0])>=0)return true;
+ for(var i=0;i<LONG.length;i++)if(n.indexOf(LONG[i])===0)return true;
+ if(n.indexOf("ます")===0||n.indexOf("す")===0)return true;
+ if((p[p.length-1]>="0"&&p[p.length-1]<="9"||p[p.length-1]===","||p[p.length-1]==="，")&&"円％%人歳月日分万千倍".indexOf(n[0])>=0)return true;
+ if(/^[。、．，,.・）)」』】〉》]+$/.test(n))return true;
+ if(p.indexOf("「")>=0&&n.indexOf("」")>=0&&latinKanji(p,n))return true;
+ return false;
+}
+function latinKanji(p,n){
+ if(!p||!n)return false;
+ var c=n.charCodeAt(0); if(!(c>=0x4e00&&c<=0x9fff))return false;
+ var cut=p.length;
+ if(ONE.indexOf(p[p.length-1])>=0)cut=p.length-1;
+ else{var hit=false; for(var i=0;i<LONG.length;i++){if(p.slice(-LONG[i].length)===LONG[i]){hit=true;cut=p.length-LONG[i].length;break;}} if(!hit)return false;}
+ var j=cut-1; while(j>=0&&"「『（([\"'".indexOf(p[j])>=0)j--;
+ var saw=false; while(j>=0&&((p[j]>="A"&&p[j]<="Z")||(p[j]>="a"&&p[j]<="z"))){saw=true;j--;}
+ return saw;
+}
+function glue(a){var o=[]; for(var i=0;i<a.length;i++){if(o.length&&stick(o[o.length-1],a[i]))o[o.length-1]+=a[i]; else o.push(a[i]);} return o;}
+function dots(a){var o=[],i,p; for(i=0;i<a.length;i++){p=a[i]; if(o.length&&(o[o.length-1].slice(-1)==="・"||p[0]==="・")&&(o[o.length-1]+p).split("・").length-1<=1)o[o.length-1]+=p; else o.push(p);} return o;}
+function explode(a){var o=[],i,p,b,j; for(i=0;i<a.length;i++){p=a[i]; if((p.split("・").length-1)<2){o.push(p); continue;} b=""; for(j=0;j<p.length;j++){b+=p[j]; if(p[j]==="・"){o.push(b); b="";}} if(b)o.push(b);} return o;}
+function spaces(a){var o=[],i,p,b,j,ch; for(i=0;i<a.length;i++){p=a[i]; if(p.length<=14||(p.indexOf(" ")<0&&p.indexOf("\u3000")<0)){o.push(p); continue;} b=""; for(j=0;j<p.length;j++){ch=p[j]; if((ch===" "||ch==="\u3000")&&b.length>=2){o.push(b+ch); b="";} else b+=ch;} if(b)o.push(b);} return o;}
+function parts(s){return glue(spaces(explode(dots(glue(bx(s))))));}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+window.PH=function(s){return parts(String(s)).map(function(p){return p.trim()? '<span class="ph">'+esc(p)+"</span>" : esc(p);}).join("");};
+})();
+</script>
 <script>
 (function(){
  var PF=[["北海道", 1028], ["青森県", 985], ["岩手県", 951], ["宮城県", 1010], ["秋田県", 1001], ["山形県", 975], ["福島県", 950], ["茨城県", 952], ["栃木県", 982], ["群馬県", 968], ["埼玉県", 967], ["千葉県", 973], ["東京都", 985], ["神奈川県", 992], ["新潟県", 921], ["富山県", 959], ["石川県", 970], ["福井県", 971], ["山梨県", 955], ["長野県", 963], ["岐阜県", 980], ["静岡県", 961], ["愛知県", 993], ["三重県", 977], ["滋賀県", 988], ["京都府", 989], ["大阪府", 1013], ["兵庫県", 1012], ["奈良県", 991], ["和歌山県", 1006], ["鳥取県", 986], ["島根県", 994], ["岡山県", 1005], ["広島県", 978], ["山口県", 1015], ["徳島県", 1024], ["香川県", 1002], ["愛媛県", 998], ["高知県", 1005], ["福岡県", 1011], ["佐賀県", 1055], ["長崎県", 1006], ["熊本県", 1008], ["大分県", 1008], ["宮崎県", 977], ["鹿児島県", 1013], ["沖縄県", 944]], EI=[[50],[60],[60]];
@@ -549,22 +600,22 @@ main p,.lead2,main li,.hint,.slip-c,.ans-s,.note,.diff,.phint,main h3{word-break
  function num(i){var v=parseInt($(i).value,10);return v>0?v:0}
  window.__kyuyo=go;
  var old=0,sp=0,ei=0;
- function y(n){return f(n)+"円"}
+ function y(n){return PH(f(n)+"円")}
  function render(){
   var pay=Math.min(num("pay"),2000000),tsu=Math.min(num("tsukin"),500000),ju=Math.min(num("ju"),500000);
   var fam=+$("fam").value,hg=sp+fam;
   var pi=+$("pref").value,rate=PF[pi][1],g=go(pay,tsu,rate,old,hg,ju,EI[ei][0]);
-  $("o-net").innerHTML=f(g.net)+"<i>円</i>";
-  $("o-sha").innerHTML=f(g.sha)+"<i>円</i>";
-  $("o-zei").innerHTML=f(g.zei)+"<i>円</i>";
-  $("o-lead").innerHTML='<span class="nw">月給'+f(pay)+'円の</span><span class="nw">差引支給額は'+f(g.net)+'円です</span>';
-  $("o-std").innerHTML='<span class="nw">標準報酬月額</span> <span class="nw">'+f(g.std)+'円</span>';
-  $("s-pay").textContent=y(pay);$("s-tsuh").textContent=y(g.tsuH);$("s-tsuk").textContent=y(g.tsuK);$("s-sou").textContent=y(g.sou);
-  $("s-kenl").textContent=old?"健康保険料（介護含む）":"健康保険料";
-  $("s-ken").textContent=y(g.ken);$("s-nen").textContent=y(g.nen);$("s-koy").textContent=y(g.koy);$("s-zei").textContent=y(g.zei);$("s-ju").textContent=y(ju);
-  $("o-cond").innerHTML=[PF[pi][0],(old?"40〜64歳":"40歳未満"),"配偶者"+(sp?"あり":"なし"),"扶養家族"+fam+"人","通勤手当"+(tsu?y(tsu):"なし"),"住民税"+(ju?y(ju):"なし")+"の場合"].map(function(s,i,a){return '<span class="nw">'+s+(i<a.length-1?"・":"")+'</span>'}).join("");
-  $("s-kojo").textContent=y(g.kojo);$("s-net").textContent=y(g.net);
-  $("s-cond").textContent="条件："+PF[pi][0]+"・"+(old?"40〜64歳":"40歳未満")+"・配偶者"+(sp?"あり":"なし")+"・扶養家族"+fam+"人・雇用保険"+["一般","農林水産・清酒","建設"][ei]+"・標準報酬月額"+y(g.std);
+  $("o-net").innerHTML='<span class="ph">'+f(g.net)+"<i>円</i></span>";
+  $("o-sha").innerHTML='<span class="ph">'+f(g.sha)+"<i>円</i></span>";
+  $("o-zei").innerHTML='<span class="ph">'+f(g.zei)+"<i>円</i></span>";
+  $("o-lead").innerHTML=PH("月給"+f(pay)+"円の差引支給額は"+f(g.net)+"円です");
+  $("o-std").innerHTML=PH("標準報酬月額 "+f(g.std)+"円");
+  $("s-pay").innerHTML=y(pay);$("s-tsuh").innerHTML=y(g.tsuH);$("s-tsuk").innerHTML=y(g.tsuK);$("s-sou").innerHTML=y(g.sou);
+  $("s-kenl").innerHTML=PH(old?"健康保険料（介護含む）":"健康保険料");
+  $("s-ken").innerHTML=y(g.ken);$("s-nen").innerHTML=y(g.nen);$("s-koy").innerHTML=y(g.koy);$("s-zei").innerHTML=y(g.zei);$("s-ju").innerHTML=y(g.ju);
+  $("o-cond").innerHTML=PH([PF[pi][0],(old?"40〜64歳":"40歳未満"),"配偶者"+(sp?"あり":"なし"),"扶養家族"+fam+"人","通勤手当"+(tsu?f(tsu)+"円":"なし"),"住民税"+(ju?f(ju)+"円":"なし")+"の場合"].join("・"));
+  $("s-kojo").innerHTML=y(g.kojo);$("s-net").innerHTML=y(g.net);
+  $("s-cond").innerHTML=PH("条件："+PF[pi][0]+"・"+(old?"40〜64歳":"40歳未満")+"・配偶者"+(sp?"あり":"なし")+"・扶養家族"+fam+"人・雇用保険"+["一般","農林水産・清酒","建設"][ei]+"・標準報酬月額"+f(g.std)+"円");
  }
  ["pay","tsukin","ju"].forEach(function(i){$(i).addEventListener("input",render)});
  $("pref").addEventListener("change",render);

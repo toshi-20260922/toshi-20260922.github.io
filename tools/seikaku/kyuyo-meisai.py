@@ -6,6 +6,7 @@
 #   全国健康保険協会 令和8年度都道府県料率（子ども・子育て支援金0.23%は料率に含めて折半。40〜64歳は介護1.62%も折半）
 #   https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08
 #   厚生年金18.3%の半分。標準報酬月額は8.8万円以上65万円以下。
+#   上限の65万円は、報酬月額63万5千円以上で適用する（63万4,999円は62万円）。
 #   雇用保険 令和8年度 一般の本人5/1000・農林水産と清酒と建設は6/1000。50銭以下切り捨て・50銭超切り上げ。
 #   https://www.mhlw.go.jp/content/001692566.pdf
 # 通勤手当は、電車・バスは月15万円まで所得税の対象に入れない。超えた分だけ月給に足す。
@@ -113,6 +114,10 @@ async def body(pg):
         dict(pay='300000', tsu='200000', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, zei=7070),
         dict(pay='300000', tsu='150000', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, zei=5600),
         dict(pay='300000', tsu='150001', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, zei=5600),
+        # 報酬月額63万5千円未満は標準報酬62万円。63万5千円以上で厚生年金の上限（標準報酬65万円・59,475円）。
+        dict(pay='634999', tsu='0', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, nen=56730, std=620000),
+        dict(pay='635000', tsu='0', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, nen=59475, std=650000),
+        dict(pay='700000', tsu='0', ju='0', pref='12', old='0', sp='0', fam='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO, nen=59475, std=710000),
     ]
     for c in cases:
         await pg.fill('#pay', c['pay'])
@@ -129,6 +134,12 @@ async def body(pg):
         if c.get('zei') is not None and exp['zei'] != c['zei']:
             bad += 1
             print('NG 期待する所得税', c['pay'], c['tsu'], exp['zei'], c['zei'])
+        if c.get('nen') is not None and exp['nen'] != c['nen']:
+            bad += 1
+            print('NG 厚生年金の境', c['pay'], exp['nen'], c['nen'])
+        if c.get('std') is not None and exp['std'] != c['std']:
+            bad += 1
+            print('NG 標準報酬の境', c['pay'], exp['std'], c['std'])
         if not same(got, exp):
             bad += 1
             print('NG', c['pay'], c['tsu'], 'sp', c['sp'], 'fam', c['fam'], got, exp)

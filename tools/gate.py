@@ -258,6 +258,18 @@ async def main():
         await b.close()
 asyncio.run(main())
 
+# 行の折れ方（tools/gyou.py）。給与明細の件数だけ問題に数える。ほかのページは件数の報告だけ。
+import gyou
+_gc, _gd = gyou.run()
+for _rel, _ni in _gc.items():
+    if not _ni:
+        continue
+    if _rel.split(os.sep)[0] == 'kyuyo-meisai':
+        for _x in _gd[_rel]:
+            bad(os.path.join(SITE, _rel), '改行', _x)
+    else:
+        print('報告\t%s\t改行 %d件' % (_rel, _ni))
+
 seen = set()
 for x in probs:
     if x in seen: continue

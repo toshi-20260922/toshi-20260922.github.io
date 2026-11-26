@@ -256,6 +256,10 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
         if desc:
             og.append('<meta property="og:description" content="%s">' % desc.group(1))
         s = s.replace(canon.group(0), canon.group(0) + '\n' + '\n'.join(og), 1)
+    # 給与明細だけ、画面の文を文節で包む。ほかのページは変えない。何度流しても同じ結果になる。
+    if me == 'kyuyo-meisai':
+        import phrase
+        s = phrase.apply_page(s)
     if s != o:
         open(f, 'w', encoding='utf-8').write(s)
         changed += 1
