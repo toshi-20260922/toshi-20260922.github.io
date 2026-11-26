@@ -191,7 +191,7 @@ async def main():
             f = os.path.join(SITE, h.strip('/').split('#')[0], 'index.html') if h.strip('/') else TOP
             chk('リンク先がある %s (%s)' % (h, c), os.path.exists(f), True)
         hs = set(l[0] for l in inner)
-        chk('pages.json のページの数', len(PAGES), 68)  # 2026-11-23 /juminzei-keisan/ と最低賃金の県を足して68
+        chk('pages.json のページの数', len(PAGES), 69)  # 2026-11-26 /kyuyo-meisai/ を一覧にだけ足した（トップには置かない）
         # 都道府県の最低賃金はトップに直接置かず、「最低賃金の一覧」から開く。
         list_html = open(os.path.join(SITE, 'saitei-chingin', 'index.html'), encoding='utf-8').read()
         list_hrefs = set(re.findall(r'href="(/[^"#?]*/)"', list_html))
@@ -202,7 +202,8 @@ async def main():
         via_list = {p for p in existing_prefs if p in list_hrefs} if '/saitei-chingin/' in hs else set()
         for q in PAGES:
             path = q['path']
-            chk('トップからリンクされている ' + path, path in hs or (path.startswith('/saitei-chingin-') and path in via_list), True)
+            # 2026-11-26 の指示:新しいツールは一覧にだけ足し、トップのパネルもリンクも足さない。
+            chk('トップからリンクされている ' + path, path in hs or path == '/kyuyo-meisai/' or (path.startswith('/saitei-chingin-') and path in via_list), True)
         ids = set(re.findall(r'\bid="([^"]+)"', raw))
         for h, c, nm, _ in links:
             if h.startswith('#'):

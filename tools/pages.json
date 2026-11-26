@@ -338,5 +338,10 @@
   "path": "/saitei-chingin-yamaguchi/",
   "label": "山口県の最低賃金",
   "kw": "最低賃金 山口県 やまぐち 下関 時給"
+ },
+ {
+  "path": "/kyuyo-meisai/",
+  "label": "給与明細の差引支給額",
+  "kw": "給与明細 手取り 差引支給額 月給 社会保険料 所得税"
  }
 ]
