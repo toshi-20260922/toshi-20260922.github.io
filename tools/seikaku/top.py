@@ -191,7 +191,7 @@ async def main():
             f = os.path.join(SITE, h.strip('/').split('#')[0], 'index.html') if h.strip('/') else TOP
             chk('リンク先がある %s (%s)' % (h, c), os.path.exists(f), True)
         hs = set(l[0] for l in inner)
-        chk('pages.json のページの数', len(PAGES), 69)  # 2026-11-26 /kyuyo-meisai/ を一覧にだけ足した（トップには置かない）
+        chk('pages.json のページの数', len(PAGES), 74)  # 2026-11-26 給与明細と最低賃金5県（福島・岩手・奈良・長崎・宮崎）。県は一覧から。給与明細はトップに置かない
         # 都道府県の最低賃金はトップに直接置かず、「最低賃金の一覧」から開く。
         list_html = open(os.path.join(SITE, 'saitei-chingin', 'index.html'), encoding='utf-8').read()
         list_hrefs = set(re.findall(r'href="(/[^"#?]*/)"', list_html))

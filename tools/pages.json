@@ -343,5 +343,30 @@
   "path": "/kyuyo-meisai/",
   "label": "給与明細の差引支給額",
   "kw": "給与明細 手取り 差引支給額 月給 社会保険料 所得税"
+ },
+ {
+  "path": "/saitei-chingin-fukushima/",
+  "label": "福島県の最低賃金",
+  "kw": "最低賃金 福島県 ふくしま いわき 郡山 時給"
+ },
+ {
+  "path": "/saitei-chingin-iwate/",
+  "label": "岩手県の最低賃金",
+  "kw": "最低賃金 岩手県 いわて 盛岡 時給"
+ },
+ {
+  "path": "/saitei-chingin-nara/",
+  "label": "奈良県の最低賃金",
+  "kw": "最低賃金 奈良県 なら 時給"
+ },
+ {
+  "path": "/saitei-chingin-nagasaki/",
+  "label": "長崎県の最低賃金",
+  "kw": "最低賃金 長崎県 ながさき 佐世保 時給"
+ },
+ {
+  "path": "/saitei-chingin-miyazaki/",
+  "label": "宮崎県の最低賃金",
+  "kw": "最低賃金 宮崎県 みやざき 時給"
  }
 ]
