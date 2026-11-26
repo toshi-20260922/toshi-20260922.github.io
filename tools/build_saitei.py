@@ -1,6 +1,7 @@
 # 最低賃金のページ(全国と都道府県)を作る。2026/11/17 夜。
 # 使い方:リポジトリの直下で python3 tools/build_saitei.py
 # 金額:厚生労働省「令和8年度地域別最低賃金額答申状況」(001745621.pdf)
+# 47都道府県の地域別の額は tools/rates.json の saitei を読む。特定最低賃金（下の ind）はここに残す。
 import math, os, re, json, datetime
 # 作る日(日本時間)。発効日がこの日より後のページは「になります」と書く
 _t = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
@@ -9,59 +10,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, 'site')
 OSAKA = open(os.path.join(SITE, 'saitei-chingin-osaka', 'index.html'), encoding='utf-8').read()
 
-# 都道府県・令和8年度・令和7年度・発効日(答申の予定日)
-RAW = """北海道 1131 1075 10/1
-青森県 1090 1029 10/29
-岩手県 1090 1031 12/1
-宮城県 1098 1038 10/1
-秋田県 1090 1031 10/14
-山形県 1092 1032 10/30
-福島県 1094 1033 10/16
-茨城県 1136 1074 10/18
-栃木県 1125 1068 10/1
-群馬県 1120 1063 10/3
-埼玉県 1196 1141 10/1
-千葉県 1195 1140 10/1
-東京都 1280 1226 10/1
-神奈川県 1279 1225 10/1
-新潟県 1108 1050 10/1
-富山県 1119 1062 10/1
-石川県 1113 1054 10/3
-福井県 1112 1053 10/4
-山梨県 1113 1052 11/1
-長野県 1117 1061 10/2
-岐阜県 1121 1065 10/1
-静岡県 1154 1097 10/15
-愛知県 1195 1140 10/1
-三重県 1143 1087 10/1
-滋賀県 1136 1080 10/3
-京都府 1180 1122 11/16
-大阪府 1231 1177 10/1
-兵庫県 1172 1116 10/1
-奈良県 1107 1051 10/4
-和歌山県 1101 1045 10/3
-鳥取県 1090 1030 10/3
-島根県 1092 1033 10/10
-岡山県 1104 1047 10/2
-広島県 1141 1085 10/11
-山口県 1101 1043 10/8
-徳島県 1103 1046 11/1
-香川県 1092 1036 10/1
-愛媛県 1093 1033 11/1
-高知県 1086 1023 10/29
-福岡県 1114 1057 10/4
-佐賀県 1095 1030 11/15
-長崎県 1087 1031 11/2
-熊本県 1092 1034 12/1
-大分県 1096 1035 11/1
-宮崎県 1085 1023 10/24
-鹿児島県 1090 1026 10/25
-沖縄県 1086 1023 12/2"""
+# 都道府県・令和8年度・令和7年度・発効日。値は tools/rates.json の saitei。
+_saitei = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rates.json'), encoding='utf-8'))['saitei']['rows']
 P = []
-for ln in RAW.split('\n'):
-    n, a, b, d = ln.split()
-    mo, da = d.split('/')
-    P.append(dict(name=n, new=int(a), old=int(b), mo=int(mo), da=int(da)))
+for r in _saitei:
+    P.append(dict(name=r['name'], new=int(r['reiwa8']), old=int(r['reiwa7']), mo=int(r['month']), da=int(r['day'])))
 D = {p['name']: p for p in P}
 assert len(P) == 47
 # 答申の増え方の分布(厚労省の発表)と合うか

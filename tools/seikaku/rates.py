@@ -1,5 +1,5 @@
 # 点検が読む制度の数字。原本は tools/rates.json。
-# 段階1: 公開ページと生成スクリプトはまだこのファイルを読まない。値は移す前と同じ。
+# 段階2: 最低賃金の地域別（build_saitei.py）と国保22自治体（regions.py）の生成もこのファイルを読む。公開ページはまだ読まない。値は移す前と同じ。
 import json, os
 from fractions import Fraction as F
 
