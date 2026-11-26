@@ -368,5 +368,10 @@
   "path": "/saitei-chingin-miyazaki/",
   "label": "宮崎県の最低賃金",
   "kw": "最低賃金 宮崎県 みやざき 時給"
+ },
+ {
+  "path": "/bonus-tedori/",
+  "label": "ボーナス手取り計算",
+  "kw": "ボーナス 賞与 手取り 計算 社会保険料 所得税"
  }
 ]

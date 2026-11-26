@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>【ボーナス手取り計算】賞与の手取りはいくら？額面ごとの早見表【2026年】</title>
+<link rel="canonical" href="https://taxtable.jp/bonus-tedori/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://taxtable.jp/bonus-tedori/">
+<meta property="og:title" content="【ボーナス手取り計算】賞与の手取りはいくら？額面ごとの早見表【2026年】">
+<meta property="og:site_name" content="タックステーブル">
+<meta property="og:description" content="ボーナスの額面から社会保険料と所得税を引いた手取りを計算します。賞与10万円から300万円までの早見表と、前月の給与・扶養・都道府県を入れる計算があります。令和8年分の国税庁の表と協会けんぽの料率で出します。">
+<meta name="description" content="ボーナスの額面から社会保険料と所得税を引いた手取りを計算します。賞与10万円から300万円までの早見表と、前月の給与・扶養・都道府県を入れる計算があります。令和8年分の国税庁の表と協会けんぽの料率で出します。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&amp;display=swap"><style id="ttfont">:root{--tt-font:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;--tt-fv:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif}body,button,input,select,textarea{font-family:var(--tt-font)}.hd,.hd button,.hd input,.hd select,.hd textarea,.top,.top button,.top input,.top select,.top textarea,.kp,.kp button,.kp input,.kp select,.kp textarea{font-family:var(--tt-fv)}</style>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:var(--tt-font);font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.seg3{grid-template-columns:1fr 1fr 1fr}
+.seg3 button{font-size:13px;line-height:1.4}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#1d6b4a;flex:none;min-width:0}
+.hd .logo i{display:none}
+.hd .logo img{width:35px;height:38px;flex:none;display:block;object-fit:contain}
+.lgt{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.lgt b{font-size:17px;font-weight:900;letter-spacing:.01em;color:#1d6b4a;white-space:nowrap}
+.lgt small{font-size:11px;font-weight:500;letter-spacing:.02em;color:#1f2a2a;margin-top:1px;white-space:nowrap}
+@media (max-width:480px){.hd .logo{gap:6px}.hd .logo img{width:31px;height:34px}.lgt b{font-size:15px}.lgt small{font-size:10px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><script id="tt-track">(function(){var s=false;try{var q=location.search;if(/[?&](?:notrack|naibu)=1(?:&|$)/.test(q))localStorage.setItem("tt_naibu","1");if(/[?&](?:notrack|naibu)=0(?:&|$)/.test(q))localStorage.removeItem("tt_naibu");s=localStorage.getItem("tt_naibu")==="1";}catch(e){}try{if(navigator.webdriver)s=true;}catch(e){}if(s)return;var g=document.createElement("script");g.async=1;g.src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1";document.head.appendChild(g);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag("js",new Date());gtag("config","G-CW5VSP86R1");(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");})();</script>
+</head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><img src="/img/top/logo.png" alt="" width="35" height="38" loading="eager"><span class="lgt"><b>TaxTable</b><small>タックステーブル</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="bonus-tedori_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="人と円"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><circle cx="25" cy="24" r="8" fill="#0f3d31"/><path d="M11 50c1-10 7-15 14-15s13 5 14 15z" fill="#0f3d31"/><circle cx="46" cy="40" r="10" fill="#e3b465"/><text x="46" y="45" font-size="13" font-weight="700" text-anchor="middle" fill="#0f3d31" font-family="sans-serif">円</text></svg></div>
+ <p class="upd">公開日：2026年11月27日　更新日：<span class="nw">2026年11月27日</span>（<span class="nw">国税庁</span>・<span class="nw">全国健康保険協会</span>・<span class="nw">日本年金機構</span>・<span class="nw">厚生労働省</span>）</p>
+ <h1><span class="ph">【ボーナス手取り計算】賞与の</span><span class="ph">手取りは</span><span class="ph">いくら？</span><span class="ph">額面ごとの</span><span class="ph">早見表【2026年】</span></h1>
+</div>
+
+<style id="bonus-css">
+/* 文の区切りで改行（給与明細の差引支給額と同じ。Chrome・Edge）。対応していない端末はふつうの改行のまま */
+main p,.lead2,main li,.hint,.note,main h1,main h2,main h3,main td,main th,main button,main a,main label,main caption{word-break:auto-phrase}
+.ph{white-space:nowrap}
+.nw{white-space:nowrap}
+/* 14px未満の字をなくす（給与明細の差引支給額と同じ） */
+.src{font-size:14px}.share a{font-size:14px}.fsb{font-size:14px!important}.auth-h,.auth-r{font-size:14px}table th{font-size:14px}table td small{font-size:14px}
+.bt-ctl{display:grid;gap:10px;margin:0 0 12px}
+.bt-ctl p{margin:0 0 4px;font-size:14px;font-weight:700}
+.bseg{display:flex;flex-wrap:wrap;gap:6px}
+.bseg button{font-family:inherit;font-size:15px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:8px 12px;cursor:pointer}
+.bseg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.bcalc{background:#ffffff;border:2px solid #cfe3d8;border-radius:10px;padding:20px 16px;margin:8px 0 20px}
+.bcalc h2{margin-top:0}
+.bin{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 18px}
+.bin .bf{grid-column:1/3}
+.bin label,.bin .lb{display:block;font-size:15px;font-weight:700;margin:0 0 4px;color:#1f2a2a}
+.bin .brow{display:flex;align-items:center;gap:8px}
+.bin .brow .u{color:#1f2a2a}
+#rt{word-break:keep-all;overflow-wrap:anywhere}
+.bin input{font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%;max-width:260px}
+.bin select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.bin small{display:block;font-size:14px;color:#5b6666;margin-top:4px}
+.bres{background:#ffffff;border:1px solid #cfe3d8;border-radius:10px;padding:18px 16px 16px;color:#1f2a2a}
+.bres .bq{display:inline-block;margin:0 0 10px;padding:4px 12px;border-radius:6px;background:#eef6f2;color:#0f3d31;font-size:16px;font-weight:700;line-height:1.6}
+.bres .ba{margin:0;line-height:1.2}
+.bres .ba b{font-size:44px;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.bres .ba i{font-style:normal;font-size:20px;font-weight:700;color:#00775a;margin-left:2px}
+.bres .bp{margin:4px 0 16px;padding:0 0 16px;border-bottom:1px solid #d6e5df;font-size:16px;font-weight:700;color:#0f3d31}
+.bres .bh{margin:0 0 4px;font-size:16px;font-weight:700;color:#0f3d31;line-height:1.6}
+#calc .bt{width:100%;max-width:560px;border-collapse:collapse;margin:0}
+#calc .bt th,#calc .bt td{background:none;border:0;border-bottom:1px solid #e3ece8;padding:9px 0;height:auto;font-size:16px;line-height:1.5;color:#1f2a2a;white-space:nowrap}
+#calc .bt th{text-align:left;font-weight:700}
+#calc .bt td{text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
+#calc .bt tr.sub th,#calc .bt tr.sub td{font-size:15px;font-weight:500;color:#4a5656;padding:5px 0;border-bottom:1px dashed #e3ece8}
+#calc .bt tr.sub th{padding-left:1em;white-space:normal}
+#calc .bt tr.tt th,#calc .bt tr.tt td{background:#eef6f2;color:#00775a;font-size:18px;font-weight:700;border-bottom:0;padding:10px 8px}
+#calc .bt tr.tt th{border-radius:6px 0 0 6px}
+#calc .bt tr.tt td{border-radius:0 6px 6px 0}
+.bres ul{margin:12px 0 0;padding:0 0 0 1.2em;font-size:14px;color:#4a5656;line-height:1.7}
+.bres li{margin:0 0 4px;word-break:auto-phrase}
+.bres li::marker{color:#00775a}
+@media(max-width:359px){.bres{padding:14px 10px 12px}.bres .ba b{font-size:36px}#calc .bt th,#calc .bt td{font-size:15px}}
+</style>
+<section class="hy1">
+<h2 id="list"><span class="ph">ボーナスの</span><span class="ph">額ごとの</span><span class="ph">手取り</span></h2>
+<p><span class="ph">賞与10万円から</span><span class="ph">300万円まで、</span><span class="ph">引かれる</span><span class="ph">社会保険料と</span><span class="ph">所得税と</span><span class="ph">手取りを</span><span class="ph">並べました。</span><span class="ph">所得税の</span><span class="ph">率は</span><span class="ph">前月の</span><span class="ph">給与で</span><span class="ph">変わるので、</span><span class="ph">前月の</span><span class="ph">給与と</span><span class="ph">年齢を</span><span class="ph">選んでください。</span></p>
+<div class="bt-ctl"><div><p><span class="ph">前月の</span><span class="ph">給与</span><span class="ph">（額面）</span></p><div class="bseg" id="h-mae"><button type="button" data-v="200000"><span class="ph">20万円</span></button><button type="button" class="on" data-v="300000"><span class="ph">30万円</span></button><button type="button" data-v="400000"><span class="ph">40万円</span></button><button type="button" data-v="500000"><span class="ph">50万円</span></button><button type="button" data-v="600000"><span class="ph">60万円</span></button></div></div><div><p><span class="ph">年齢</span></p><div class="bseg" id="h-age"><button type="button" class="on" data-v="0"><span class="ph">40歳未満</span></button><button type="button" data-v="1"><span class="ph">40〜64歳</span></button><button type="button" data-v="2"><span class="ph">65歳以上</span></button></div></div></div>
+<p class="cap" id="tb-cap"><span class="ph">前月の</span><span class="ph">給与30万円・</span><span class="ph">40歳未満・</span><span class="ph">扶養親族0人・</span><span class="ph">東京都</span></p>
+<div class="tw">
+<table id="tb">
+ <thead><tr><th><span class="ph">賞与の</span><span class="ph">額</span></th><th><span class="ph">社会保険料</span><br><span class="ph">（円）</span></th><th><span class="ph">所得税</span><br><span class="ph">（円）</span></th><th><span class="ph">手取り</span><br><span class="ph">（円）</span></th></tr></thead>
+ <tbody><tr><td class="l"><span class="ph">10万円</span></td><td><span class="ph">14,690</span></td><td><span class="ph">3,484</span></td><td><b><span class="ph">81,826</span></b></td></tr><tr><td class="l"><span class="ph">20万円</span></td><td><span class="ph">29,380</span></td><td><span class="ph">6,968</span></td><td><b><span class="ph">163,652</span></b></td></tr><tr><td class="l"><span class="ph">30万円</span></td><td><span class="ph">44,070</span></td><td><span class="ph">10,452</span></td><td><b><span class="ph">245,478</span></b></td></tr><tr><td class="l"><span class="ph">40万円</span></td><td><span class="ph">58,760</span></td><td><span class="ph">13,936</span></td><td><b><span class="ph">327,304</span></b></td></tr><tr><td class="l"><span class="ph">50万円</span></td><td><span class="ph">73,450</span></td><td><span class="ph">17,420</span></td><td><b><span class="ph">409,130</span></b></td></tr><tr><td class="l"><span class="ph">60万円</span></td><td><span class="ph">88,140</span></td><td><span class="ph">20,904</span></td><td><b><span class="ph">490,956</span></b></td></tr><tr><td class="l"><span class="ph">70万円</span></td><td><span class="ph">102,830</span></td><td><span class="ph">24,388</span></td><td><b><span class="ph">572,782</span></b></td></tr><tr><td class="l"><span class="ph">80万円</span></td><td><span class="ph">117,520</span></td><td><span class="ph">27,872</span></td><td><b><span class="ph">654,608</span></b></td></tr><tr><td class="l"><span class="ph">90万円</span></td><td><span class="ph">132,210</span></td><td><span class="ph">31,356</span></td><td><b><span class="ph">736,434</span></b></td></tr><tr><td class="l"><span class="ph">100万円</span></td><td><span class="ph">146,900</span></td><td><span class="ph">34,840</span></td><td><b><span class="ph">818,260</span></b></td></tr><tr><td class="l"><span class="ph">120万円</span></td><td><span class="ph">176,280</span></td><td><span class="ph">41,808</span></td><td><b><span class="ph">981,912</span></b></td></tr><tr><td class="l"><span class="ph">150万円</span></td><td><span class="ph">220,350</span></td><td><span class="ph">52,260</span></td><td><b><span class="ph">1,227,390</span></b></td></tr><tr><td class="l"><span class="ph">200万円</span></td><td><span class="ph">248,050</span></td><td><span class="ph">71,549</span></td><td><b><span class="ph">1,680,401</span></b></td></tr><tr><td class="l"><span class="ph">300万円</span></td><td><span class="ph">303,450</span></td><td><span class="ph">※350,220</span></td><td><b><span class="ph">2,346,330</span></b></td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px"><span class="ph">東京都の</span><span class="ph">協会けんぽ・一般の</span><span class="ph">事業で</span><span class="ph">計算しています。</span><span class="ph">所得税に</span><span class="ph">※が</span><span class="ph">付いた</span><span class="ph">行は、</span><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">賞与が</span><span class="ph">前月の</span><span class="ph">給与の</span><span class="ph">10倍を</span><span class="ph">超えるので</span><span class="ph">月額表で</span><span class="ph">計算した</span><span class="ph">額です。</span></p>
+<p class="lead2"><span class="ph">ご自分の</span><span class="ph">金額で</span><span class="ph">計算する</span><span class="ph">場合は、</span><span class="ph">下の</span><span class="ph">欄に</span><span class="ph">入力してください。</span></p>
+</section>
+
+<section class="bcalc" id="calc">
+<h2 id="keisan"><span class="ph">自分の</span><span class="ph">ボーナスの</span><span class="ph">手取りを</span><span class="ph">計算する</span></h2>
+<div class="bin">
+ <div class="bf"><label for="bon"><span class="ph">賞与の</span><span class="ph">額</span><span class="ph">（額面）</span></label><div class="brow"><input type="number" id="bon" inputmode="numeric" min="0" step="1000" value="500000"><span class="u"><span class="ph">円</span></span></div></div>
+ <div class="bf"><label for="mae"><span class="ph">前月の</span><span class="ph">給与</span><span class="ph">（額面・通勤手当を</span><span class="ph">除く）</span></label><div class="brow"><input type="number" id="mae" inputmode="numeric" min="0" step="1000" value="300000"><span class="u"><span class="ph">円</span></span></div><small><span class="ph">前月に</span><span class="ph">給与が</span><span class="ph">無いときは</span><span class="ph">0を</span><span class="ph">入力します</span></small></div>
+ <div><label for="fu"><span class="ph">扶養親族等の</span><span class="ph">数</span></label><span class="ph"><select id="fu"><option value="0" selected>0人</option><option value="1">1人</option><option value="2">2人</option><option value="3">3人</option><option value="4">4人</option><option value="5">5人</option><option value="6">6人</option><option value="7">7人</option></select></span></div>
+ <div><label for="pref"><span class="ph">勤め先の</span><span class="ph">都道府県</span></label><span class="ph"><select id="pref"><option value="0">北海道</option><option value="1">青森県</option><option value="2">岩手県</option><option value="3">宮城県</option><option value="4">秋田県</option><option value="5">山形県</option><option value="6">福島県</option><option value="7">茨城県</option><option value="8">栃木県</option><option value="9">群馬県</option><option value="10">埼玉県</option><option value="11">千葉県</option><option value="12" selected>東京都</option><option value="13">神奈川県</option><option value="14">新潟県</option><option value="15">富山県</option><option value="16">石川県</option><option value="17">福井県</option><option value="18">山梨県</option><option value="19">長野県</option><option value="20">岐阜県</option><option value="21">静岡県</option><option value="22">愛知県</option><option value="23">三重県</option><option value="24">滋賀県</option><option value="25">京都府</option><option value="26">大阪府</option><option value="27">兵庫県</option><option value="28">奈良県</option><option value="29">和歌山県</option><option value="30">鳥取県</option><option value="31">島根県</option><option value="32">岡山県</option><option value="33">広島県</option><option value="34">山口県</option><option value="35">徳島県</option><option value="36">香川県</option><option value="37">愛媛県</option><option value="38">高知県</option><option value="39">福岡県</option><option value="40">佐賀県</option><option value="41">長崎県</option><option value="42">熊本県</option><option value="43">大分県</option><option value="44">宮崎県</option><option value="45">鹿児島県</option><option value="46">沖縄県</option></select></span></div>
+ <div class="bf"><span class="lb"><span class="ph">年齢</span></span><div class="bseg" id="s-old"><button type="button" class="on" data-v="0"><span class="ph">40歳未満</span></button><button type="button" data-v="1"><span class="ph">40〜64歳</span></button><button type="button" data-v="2"><span class="ph">65歳以上</span></button></div><small><span class="ph">70歳以上の</span><span class="ph">人は</span><span class="ph">厚生年金保険料が</span><span class="ph">引かれないので、</span><span class="ph">手取りは</span><span class="ph">この</span><span class="ph">計算より</span><span class="ph">多くなります</span></small></div>
+ <div class="bf"><span class="lb"><span class="ph">雇用保険の</span><span class="ph">業種</span></span><div class="bseg" id="s-ei"><button type="button" class="on" data-v="50"><span class="ph">一般</span></button><button type="button" data-v="60"><span class="ph">農林水産・清酒製造</span></button><button type="button" data-v="60"><span class="ph">建設</span></button></div></div>
+ <div class="bf"><label for="skin"><span class="ph">前月の</span><span class="ph">給与から</span><span class="ph">引いた</span><span class="ph">社会保険料</span></label><div class="brow"><input type="number" id="skin" inputmode="numeric" min="0" step="1" value="" placeholder="空欄なら自動"><span class="u"><span class="ph">円</span></span></div><small><span class="ph">給与明細の</span><span class="ph">額を</span><span class="ph">入れると</span><span class="ph">所得税の</span><span class="ph">率がより</span><span class="ph">正確に</span><span class="ph">なります</span></small></div>
+ <div class="bf"><span class="lb"><span class="ph">賞与の</span><span class="ph">計算の</span><span class="ph">期間</span></span><div class="bseg" id="s-kik"><button type="button" class="on" data-v="6"><span class="ph">6か</span><span class="ph">月以下</span></button><button type="button" data-v="12"><span class="ph">6か</span><span class="ph">月を</span><span class="ph">超える</span></button></div><small><span class="ph">前月の</span><span class="ph">給与が</span><span class="ph">無いときなどに</span><span class="ph">使います</span></small></div>
+</div>
+<div class="bres" aria-live="polite">
+ <p class="bq" id="o-q"><span class="ph">賞与 500,000円 の</span><span class="ph">手取り</span></p>
+ <p class="ba"><b id="o-te"><span class="ph">409,130</span></b><i><span class="ph">円</span></i></p>
+ <p class="bp" id="o-p"><span class="ph">賞与の</span><span class="ph">81.8%が</span><span class="ph">手元に</span><span class="ph">残ります</span></p>
+ <p class="bh"><span class="ph">賞与から</span><span class="ph">引かれる</span><span class="ph">額と</span><span class="ph">手取り</span></p>
+ <table class="bt">
+  <tbody>
+   <tr><th><span class="ph">賞与の</span><span class="ph">額</span></th><td id="o-b"><span class="ph">500,000円</span></td></tr>
+   <tr><th><span class="ph">社会保険料</span></th><td id="o-sb"><span class="ph">−73,450円</span></td></tr>
+   <tr class="sub"><th id="o-kenl"><span class="ph">健康保険</span></th><td id="o-ken"><span class="ph">25,200円</span></td></tr>
+   <tr class="sub"><th><span class="ph">厚生年金</span></th><td id="o-nen"><span class="ph">45,750円</span></td></tr>
+   <tr class="sub"><th><span class="ph">雇用保険</span></th><td id="o-koy"><span class="ph">2,500円</span></td></tr>
+   <tr><th><span class="ph">所得税</span></th><td id="o-z"><span class="ph">−17,420円</span></td></tr>
+   <tr class="tt"><th><span class="ph">手取り</span></th><td id="o-te2"><span class="ph">409,130円</span></td></tr>
+  </tbody>
+ </table>
+ <ul>
+  <li><span class="ph">所得税：</span><span id="o-zd"><span class="ph">前月の</span><span class="ph">給与30万円から</span><span class="ph">社会保険料44,070円を</span><span class="ph">引くと</span><span class="ph">255,930円なので、</span><span class="ph">率は</span><span class="ph">4.084%です</span></span></li>
+  <li><span class="ph">住民税は</span><span class="ph">ボーナスから</span><span class="ph">引かれません。</span><span class="ph">財形や</span><span class="ph">社内の</span><span class="ph">積立が</span><span class="ph">ある</span><span class="ph">人は、</span><span class="ph">明細の</span><span class="ph">振込額が</span><span class="ph">これより</span><span class="ph">少なくなります。</span></li>
+ </ul>
+</div>
+</section>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/bonus-tedori/"><span class="ph">LINEで</span><span class="ph">送る</span></a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/bonus-tedori/"><span class="ph">Xで</span><span class="ph">ポストする</span></a>
+</div>
+
+<p><span class="ph">ボーナスの</span><span class="ph">手取りは、</span><span class="ph">賞与の</span><span class="ph">額から</span><span class="ph">社会保険料と</span><span class="ph">所得税を</span><span class="ph">引いた</span><span class="ph">額です。</span><span class="ph">住民税は</span><span class="ph">引かれません。</span><span class="ph">所得税の</span><span class="ph">率は</span><span class="ph">賞与の</span><span class="ph">額ではなく、</span><span class="ph">前月の</span><span class="ph">給与と</span><span class="ph">扶養親族等の</span><span class="ph">数で</span><span class="ph">決まります。</span></p>
+<p><span class="ph">前月の</span><span class="ph">給与30万円・</span><span class="ph">40歳未満・</span><span class="ph">扶養親族0人・</span><span class="ph">東京都なら、</span><span class="ph">ボーナス50万円の</span><span class="ph">手取りは</span><span class="ph">409,130円です。</span><span class="ph">社会保険料73,450円と</span><span class="ph">所得税17,420円が</span><span class="ph">引かれます。</span></p>
+
+<nav class="toc">
+ <div class="t"><span class="ph">目次</span></div>
+ <ol>
+  <li><a href="#list"><span class="ph">ボーナスの</span><span class="ph">額ごとの</span><span class="ph">手取り</span></a></li>
+  <li><a href="#keisan"><span class="ph">自分の</span><span class="ph">ボーナスの</span><span class="ph">手取りを</span><span class="ph">計算する</span></a></li>
+  <li><a href="#ritsu"><span class="ph">前月の</span><span class="ph">給与ごとの</span><span class="ph">所得税の</span><span class="ph">率</span></a></li>
+  <li><a href="#shaho"><span class="ph">ボーナスから</span><span class="ph">引かれる</span><span class="ph">社会保険料</span></a></li>
+  <li><a href="#zei"><span class="ph">ボーナスから</span><span class="ph">引かれる</span><span class="ph">所得税</span></a></li>
+  <li><a href="#tokubetsu"><span class="ph">前月の</span><span class="ph">給与が</span><span class="ph">無いときと</span><span class="ph">10倍を</span><span class="ph">超えるとき</span></a></li>
+  <li><a href="#rel"><span class="ph">次に</span><span class="ph">確かめる</span><span class="ph">こと</span></a></li>
+  <li><a href="#qa"><span class="ph">ボーナスの</span><span class="ph">手取りでよく</span><span class="ph">聞かれる</span><span class="ph">こと</span></a></li>
+ </ol>
+</nav>
+
+<h2 id="ritsu"><span class="ph">前月の</span><span class="ph">給与ごとの</span><span class="ph">所得税の</span><span class="ph">率</span></h2>
+<p><span class="ph">ボーナス50万円で</span><span class="ph">前月の</span><span class="ph">給与だけを</span><span class="ph">変えると、</span><span class="ph">所得税の</span><span class="ph">率と</span><span class="ph">手取りは</span><span class="ph">次のとおりです。</span><span class="ph">40歳未満・東京都で</span><span class="ph">計算しています。</span></p>
+<div class="tw">
+<table id="rt">
+ <thead><tr><th><span class="ph">前月の</span><span class="ph">給与</span></th><th><span class="ph">所得税の</span><span class="ph">率</span><br><span class="ph">（扶養0人）</span></th><th><span class="ph">扶養0人の</span><br><span class="ph">手取り</span><span class="ph">（円）</span></th><th><span class="ph">扶養1人の</span><br><span class="ph">手取り</span><span class="ph">（円）</span></th></tr></thead>
+ <tbody><tr><td class="l"><span class="ph">15万円</span></td><td><span class="ph">4.084%</span></td><td><span class="ph">409,130</span></td><td><span class="ph">417,840</span></td></tr><tr><td class="l"><span class="ph">20万円</span></td><td><span class="ph">4.084%</span></td><td><span class="ph">409,130</span></td><td><span class="ph">417,840</span></td></tr><tr><td class="l"><span class="ph">25万円</span></td><td><span class="ph">4.084%</span></td><td><span class="ph">409,130</span></td><td><span class="ph">417,840</span></td></tr><tr><td class="l"><span class="ph">30万円</span></td><td><span class="ph">4.084%</span></td><td><span class="ph">409,130</span></td><td><span class="ph">409,130</span></td></tr><tr><td class="l"><span class="ph">35万円</span></td><td><span class="ph">6.126%</span></td><td><span class="ph">400,420</span></td><td><span class="ph">400,420</span></td></tr><tr><td class="l"><span class="ph">40万円</span></td><td><span class="ph">8.168%</span></td><td><span class="ph">391,710</span></td><td><span class="ph">400,420</span></td></tr><tr><td class="l"><span class="ph">45万円</span></td><td><span class="ph">12.252%</span></td><td><span class="ph">374,290</span></td><td><span class="ph">383,000</span></td></tr><tr><td class="l"><span class="ph">50万円</span></td><td><span class="ph">14.294%</span></td><td><span class="ph">365,579</span></td><td><span class="ph">374,290</span></td></tr><tr><td class="l"><span class="ph">60万円</span></td><td><span class="ph">16.336%</span></td><td><span class="ph">356,869</span></td><td><span class="ph">356,869</span></td></tr><tr><td class="l"><span class="ph">70万円</span></td><td><span class="ph">18.378%</span></td><td><span class="ph">348,159</span></td><td><span class="ph">348,159</span></td></tr><tr><td class="l"><span class="ph">80万円</span></td><td><span class="ph">22.462%</span></td><td><span class="ph">330,739</span></td><td><span class="ph">339,449</span></td></tr><tr><td class="l"><span class="ph">100万円</span></td><td><span class="ph">30.630%</span></td><td><span class="ph">295,898</span></td><td><span class="ph">295,898</span></td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px"><span class="ph">率は</span><span class="ph">国税庁の</span><span class="ph">「賞与に</span><span class="ph">対する</span><span class="ph">源泉徴収税額の</span><span class="ph">算出率の</span><span class="ph">表」</span><span class="ph">（令和8年分）の</span><span class="ph">甲欄です。</span><span class="ph">前月の</span><span class="ph">給与から</span><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">額で</span><span class="ph">行を</span><span class="ph">選びます。</span></p>
+
+<h2 id="shaho"><span class="ph">ボーナスから</span><span class="ph">引かれる</span><span class="ph">社会保険料</span></h2>
+<p><span class="ph">健康保険と</span><span class="ph">厚生年金は、</span><span class="ph">賞与の</span><span class="ph">1,000円未満を</span><span class="ph">切り捨てた</span><span class="ph">標準賞与額に</span><span class="ph">料率をかけます。</span><span class="ph">本人の</span><span class="ph">負担は</span><span class="ph">その</span><span class="ph">半分です。</span><span class="ph">子ども・子育て</span><span class="ph">支援金0.23%も</span><span class="ph">健康保険料と</span><span class="ph">一緒に</span><span class="ph">引かれます。</span></p>
+<p><span class="ph">40〜64歳は</span><span class="ph">介護保険料1.62%も</span><span class="ph">加わります。</span><span class="ph">東京都で</span><span class="ph">賞与50万円なら、</span><span class="ph">40歳未満より</span><span class="ph">4,050円多く</span><span class="ph">引かれます。</span><span class="ph">65歳以上の</span><span class="ph">介護保険料は</span><span class="ph">賞与からは</span><span class="ph">引かれず、</span><span class="ph">年金などから</span><span class="ph">納めます。</span></p>
+<p><span class="ph">70歳以上の</span><span class="ph">人は</span><span class="ph">厚生年金に</span><span class="ph">入らないので、</span><span class="ph">厚生年金保険料は</span><span class="ph">引かれません。</span><span class="ph">この</span><span class="ph">ページは</span><span class="ph">70歳未満と</span><span class="ph">して</span><span class="ph">計算しています。</span></p>
+<p><span class="ph">標準賞与額には</span><span class="ph">上限が</span><span class="ph">あります。</span><span class="ph">健康保険は</span><span class="ph">4月から</span><span class="ph">翌年3月までの</span><span class="ph">累計で</span><span class="ph">573万円です。</span><span class="ph">厚生年金は</span><span class="ph">1か</span><span class="ph">月150万円で、</span><span class="ph">同じ</span><span class="ph">月に</span><span class="ph">2回出たときは</span><span class="ph">2回の</span><span class="ph">合計で</span><span class="ph">見ます。</span><span class="ph">この</span><span class="ph">ページは</span><span class="ph">1回分の</span><span class="ph">賞与で</span><span class="ph">計算しています。</span></p>
+<p><span class="ph">雇用保険料は</span><span class="ph">賞与の</span><span class="ph">額そのものにかけます。</span><span class="ph">一般の</span><span class="ph">事業の</span><span class="ph">本人負担は</span><span class="ph">1,000分の</span><span class="ph">5で、</span><span class="ph">農林水産・清酒製造と</span><span class="ph">建設は</span><span class="ph">1,000分の</span><span class="ph">6です。</span><span class="ph">毎月の</span><span class="ph">保険料は</span><a href="/shakaihoken/"><span class="ph">社会保険料の</span><span class="ph">早見表と</span></a><a href="/koyohoken/"><span class="ph">雇用保険料の</span><span class="ph">早見表で</span></a><span class="ph">見られます。</span></p>
+
+<h2 id="zei"><span class="ph">ボーナスから</span><span class="ph">引かれる</span><span class="ph">所得税</span></h2>
+<p><span class="ph">所得税は、</span><span class="ph">前月の</span><span class="ph">給与から</span><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">額と</span><span class="ph">扶養親族等の</span><span class="ph">数で</span><span class="ph">率を</span><span class="ph">決めます。</span><span class="ph">その</span><span class="ph">率を、</span><span class="ph">賞与から</span><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">額にかけます。</span><span class="ph">1円未満は</span><span class="ph">切り捨てです。</span></p>
+<p><span class="ph">同じ</span><span class="ph">賞与60万円でも、</span><span class="ph">前月の</span><span class="ph">給与30万円なら</span><span class="ph">所得税は</span><span class="ph">20,904円で</span><span class="ph">手取りは</span><span class="ph">490,956円です。</span><span class="ph">前月の</span><span class="ph">給与が</span><span class="ph">45万円だと</span><span class="ph">所得税は</span><span class="ph">62,713円に</span><span class="ph">増えて、</span><span class="ph">手取りは</span><span class="ph">449,147円に</span><span class="ph">なります。</span></p>
+<p><span class="ph">扶養控除等申告書を</span><span class="ph">出していない</span><span class="ph">人は</span><span class="ph">算出率の</span><span class="ph">表の</span><span class="ph">乙欄の</span><span class="ph">率を</span><span class="ph">使い、</span><span class="ph">所得税は</span><span class="ph">甲欄と</span><span class="ph">同じか</span><span class="ph">それより</span><span class="ph">多くなります。</span><span class="ph">この</span><span class="ph">ページは</span><span class="ph">甲欄で</span><span class="ph">計算していて、</span><span class="ph">乙欄の</span><span class="ph">計算は</span><span class="ph">していません。</span></p>
+<p><span class="ph">ここで</span><span class="ph">引かれる</span><span class="ph">所得税は</span><span class="ph">仮の</span><span class="ph">額です。</span><span class="ph">1年分の</span><span class="ph">税額は</span><span class="ph">12月の</span><a href="/nenmatsu-chosei/"><span class="ph">年末調整で</span></a><span class="ph">精算されます。</span><span class="ph">率の</span><span class="ph">表を</span><span class="ph">細かく</span><span class="ph">見たい</span><span class="ph">人は</span><a href="/shoyo-shotokuzei/"><span class="ph">賞与の</span><span class="ph">所得税の</span><span class="ph">計算を</span></a><span class="ph">ご覧ください。</span></p>
+
+<h2 id="tokubetsu"><span class="ph">前月の</span><span class="ph">給与が</span><span class="ph">無いときと</span><span class="ph">10倍を</span><span class="ph">超えるとき</span></h2>
+<p><span class="ph">次の</span><span class="ph">2つのときは</span><span class="ph">率の</span><span class="ph">表を</span><span class="ph">使わず、</span><span class="ph">毎月の</span><span class="ph">給与と</span><span class="ph">同じ</span><span class="ph">月額表で</span><span class="ph">計算します。</span><span class="ph">国税庁の</span><span class="ph">タックスアンサー </span><span class="ph">No.2523 の</span><span class="ph">決まりです。</span></p>
+<ul>
+ <li><span class="ph">前月に</span><span class="ph">給与が</span><span class="ph">無いとき</span><span class="ph">（前月の</span><span class="ph">給与が</span><span class="ph">社会保険料以下のときも</span><span class="ph">同じ）</span><span class="ph">：社会保険料を</span><span class="ph">引いた</span><span class="ph">賞与を</span><span class="ph">6で</span><span class="ph">割り、</span><span class="ph">その</span><span class="ph">額の</span><span class="ph">月額表の</span><span class="ph">税額を</span><span class="ph">6倍します</span></li>
+ <li><span class="ph">社会保険料を</span><span class="ph">引いた</span><span class="ph">賞与が</span><span class="ph">前月の</span><span class="ph">給与</span><span class="ph">（社会保険料を</span><span class="ph">引いた</span><span class="ph">額）の</span><span class="ph">10倍を</span><span class="ph">超えるとき：賞与を</span><span class="ph">6で</span><span class="ph">割った</span><span class="ph">額に</span><span class="ph">前月の</span><span class="ph">給与を</span><span class="ph">足して</span><span class="ph">月額表で</span><span class="ph">税額を</span><span class="ph">調べ、</span><span class="ph">前月の</span><span class="ph">給与だけの</span><span class="ph">税額を</span><span class="ph">引いてから</span><span class="ph">6倍します</span></li>
+</ul>
+<p><span class="ph">前月の</span><span class="ph">給与が</span><span class="ph">社会保険料以下のときの</span><span class="ph">扱いは、</span><span class="ph">国税庁の</span><a href="https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/15-16.pdf"><span class="ph">「賞与に</span><span class="ph">対する</span><span class="ph">源泉徴収税額の</span><span class="ph">算出率の</span><span class="ph">表</span><span class="ph">（令和8年分）」の</span></a><span class="ph">備考4によります。</span><span class="ph">備考4は</span><span class="ph">「前月中の</span><span class="ph">給与等の</span><span class="ph">金額が</span><span class="ph">ない</span><span class="ph">場合や</span><span class="ph">前月中の</span><span class="ph">給与等の</span><span class="ph">金額が</span><span class="ph">前月中の</span><span class="ph">社会保険料等の</span><span class="ph">金額以下である</span><span class="ph">場合」を</span><span class="ph">同じ</span><span class="ph">扱いとし、</span><span class="ph">月額表で</span><span class="ph">計算すると</span><span class="ph">しています。</span></p>
+<p><span class="ph">賞与の</span><span class="ph">計算の</span><span class="ph">期間が</span><span class="ph">6か月を</span><span class="ph">超えるときは、</span><span class="ph">6のかわりに</span><span class="ph">12を</span><span class="ph">使います。</span><span class="ph">前月の</span><span class="ph">給与が</span><span class="ph">無い</span><span class="ph">場合に</span><span class="ph">賞与50万円なら、</span><span class="ph">所得税は</span><span class="ph">0円で</span><span class="ph">手取りは</span><span class="ph">426,550円です。</span></p>
+
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel"><span class="ph">次に</span><span class="ph">確かめる</span><span class="ph">こと</span></h2><ul class="rl"><li><span class="ph">前月の</span><span class="ph">給与ごとの</span><span class="ph">率の</span><span class="ph">表を、</span><span class="ph">扶養の</span><span class="ph">人数ごとに</span><span class="ph">全部</span><span class="ph">見られます。</span><a href="/shoyo-shotokuzei/" data-cta="bonus-tedori_rel_shoyo-shotokuzei"><span class="ph">賞与の</span><span class="ph">所得税の</span><span class="ph">計算</span></a></li><li><span class="ph">毎月の</span><span class="ph">給与から</span><span class="ph">引かれる</span><span class="ph">社会保険料と</span><span class="ph">所得税を</span><span class="ph">計算します。</span><a href="/kyuyo-meisai/" data-cta="bonus-tedori_rel_kyuyo-meisai"><span class="ph">給与明細の</span><span class="ph">差引支給額</span></a></li><li><span class="ph">ボーナスを</span><span class="ph">含めた</span><span class="ph">1年の</span><span class="ph">手取りを</span><span class="ph">年収ごとに</span><span class="ph">見られます。</span><a href="/tedori/" data-cta="bonus-tedori_rel_tedori"><span class="ph">年収の</span><span class="ph">手取りの</span><span class="ph">早見表</span></a></li><li><span class="ph">手取りから</span><span class="ph">必要な</span><span class="ph">年収を</span><span class="ph">逆に</span><span class="ph">計算します。</span><a href="/tedori-gyakusan/" data-cta="bonus-tedori_rel_tedori-gyakusan"><span class="ph">手取り年収の</span><span class="ph">逆算</span></a></li><li><span class="ph">ボーナスで</span><span class="ph">引かれた</span><span class="ph">所得税は、</span><span class="ph">12月の</span><span class="ph">年末調整で</span><span class="ph">精算します。</span><a href="/nenmatsu-chosei/" data-cta="bonus-tedori_rel_nenmatsu-chosei"><span class="ph">年末調整の</span><span class="ph">還付</span></a></li><li><span class="ph">ボーナスを</span><span class="ph">含めた</span><span class="ph">年収で、</span><span class="ph">翌年の</span><span class="ph">住民税が</span><span class="ph">決まります。</span><a href="/juminzei/" data-cta="bonus-tedori_rel_juminzei"><span class="ph">住民税の</span><span class="ph">早見表</span></a></li><li><span class="ph">扶養の</span><span class="ph">壁は</span><span class="ph">ボーナスを</span><span class="ph">含めた</span><span class="ph">年収で</span><span class="ph">判定します。</span><a href="/nenshu-kabe/" data-cta="bonus-tedori_rel_nenshu-kabe"><span class="ph">年収の</span><span class="ph">壁</span></a></li></ul>
+
+<h2 id="qa"><span class="ph">ボーナスの</span><span class="ph">手取りでよく</span><span class="ph">聞かれる</span><span class="ph">こと</span></h2>
+<h3><span class="ph">ボーナス50万円の</span><span class="ph">手取りは</span><span class="ph">いくらですか？</span></h3>
+<p><span class="ph">前月の</span><span class="ph">給与30万円・</span><span class="ph">40歳未満・</span><span class="ph">扶養親族0人・</span><span class="ph">東京都なら</span><span class="ph">409,130円です。</span><span class="ph">社会保険料73,450円と</span><span class="ph">所得税17,420円を</span><span class="ph">引いた</span><span class="ph">額です。</span></p>
+<h3><span class="ph">ボーナスから</span><span class="ph">住民税は</span><span class="ph">引かれますか？</span></h3>
+<p><span class="ph">引かれません。</span><span class="ph">住民税は</span><span class="ph">前の</span><span class="ph">年の</span><span class="ph">所得で</span><span class="ph">決まり、</span><span class="ph">毎月の</span><span class="ph">給与から</span><span class="ph">引かれます。</span><span class="ph">ボーナスは</span><span class="ph">翌年の</span><span class="ph">住民税の</span><span class="ph">計算に</span><span class="ph">入ります。</span></p>
+<h3><span class="ph">ボーナスの</span><span class="ph">手取りは</span><span class="ph">額面の</span><span class="ph">何割ですか？</span></h3>
+<p><span class="ph">40歳未満・</span><span class="ph">扶養親族0人・</span><span class="ph">東京都で</span><span class="ph">前月の</span><span class="ph">給与30万円なら</span><span class="ph">約8割</span><span class="ph">（82%）です。</span><span class="ph">前月の</span><span class="ph">給与が</span><span class="ph">高いほど</span><span class="ph">所得税の</span><span class="ph">率が</span><span class="ph">上がるので、</span><span class="ph">手取りの</span><span class="ph">割合は</span><span class="ph">下がります。</span></p>
+<h3><span class="ph">40歳に</span><span class="ph">なると</span><span class="ph">手取りは</span><span class="ph">いくら減りますか？</span></h3>
+<p><span class="ph">介護保険料が</span><span class="ph">加わります。</span><span class="ph">東京都で</span><span class="ph">賞与50万円・前月の</span><span class="ph">給与30万円なら、</span><span class="ph">3,884円減って</span><span class="ph">405,246円に</span><span class="ph">なります。</span></p>
+<h3><span class="ph">ボーナスで</span><span class="ph">引かれすぎた</span><span class="ph">所得税は</span><span class="ph">戻りますか？</span></h3>
+<p><span class="ph">ボーナスの</span><span class="ph">所得税は</span><span class="ph">仮の</span><span class="ph">額なので、</span><span class="ph">12月の</span><span class="ph">年末調整で</span><span class="ph">1年分の</span><span class="ph">税額と</span><span class="ph">精算されます。</span><span class="ph">引かれすぎた</span><span class="ph">分は</span><span class="ph">戻ります。</span></p>
+
+<div class="src"><span class="ph">出典・参考</span><span class="ph">（2026年11月確認）</span>
+ <ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/gensen/2523.htm"><span class="ph">国税庁 </span><span class="ph">タックスアンサー </span><span class="ph">No.2523 </span><span class="ph">賞与に</span><span class="ph">対する</span><span class="ph">源泉徴収</span></a></li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/15-16.pdf"><span class="ph">国税庁</span><span class="ph">「賞与に</span><span class="ph">対する</span><span class="ph">源泉徴収税額の</span><span class="ph">算出率の</span><span class="ph">表</span><span class="ph">（令和8年分）」</span></a></li>
+  <li><a href="https://www.nta.go.jp/publication/pamph/gensen/zeigakuhyo2026/data/01-07.pdf"><span class="ph">国税庁</span><span class="ph">「給与所得の</span><span class="ph">源泉徴収税額表</span><span class="ph">（令和8年分）</span><span class="ph">月額表」</span></a></li>
+  <li><a href="https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20141203.html"><span class="ph">日本年金機構</span><span class="ph">「従業員に</span><span class="ph">賞与を</span><span class="ph">支給したときの</span><span class="ph">手続き」</span></a><span class="ph">（標準賞与額と</span><span class="ph">上限）</span></li>
+  <li><a href="https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08"><span class="ph">全国健康保険協会</span><span class="ph">「令和8年度の</span><span class="ph">協会けんぽの</span><span class="ph">保険料率は</span><span class="ph">3月分</span><span class="ph">（4月納付分）から</span><span class="ph">改定されます」</span></a></li>
+  <li><a href="https://www.mhlw.go.jp/content/001692566.pdf"><span class="ph">厚生労働省</span><span class="ph">「令和8年度 雇用保険料率の</span><span class="ph">ご案内」</span></a></li>
+ </ul>
+</div>
+
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p><span class="ph">この</span><span class="ph">ページの</span><span class="ph">数字は</span><span class="ph">2026年11月に</span><span class="ph">私が</span><span class="ph">確かめました。もとにしているのは、</span><span class="ph">国税庁・全国健康保険協会</span><span class="ph">（協会けんぽ）・</span><span class="ph">日本年金機構・</span><span class="ph">厚生労働省の</span><span class="ph">数字です。</span></p><p><a href="/#auth"><span class="ph">詳しい</span><span class="ph">プロフィール</span></a></p></div>
+<div class="close"><p class="close-h"><span class="ph">賞与の</span><span class="ph">計算も、</span><span class="ph">帳簿と</span><span class="ph">申告も</span></p><p><span class="ph">賞与から</span><span class="ph">引く</span><span class="ph">社会保険料と</span><span class="ph">所得税は、</span><span class="ph">毎月の</span><span class="ph">給与計算と</span><span class="ph">年末調整に</span><span class="ph">つながります。</span><span class="ph">記帳から</span><span class="ph">決算・申告まで、</span><span class="ph">まる</span><span class="ph">ごとお受けしています。</span><span class="ph">全国どこからでも</span><span class="ph">対応します。</span><span class="ph">初回の</span><span class="ph">ご相談は</span><span class="ph">無料、</span><span class="ph">オンラインでも</span><span class="ph">お受けしています。</span></p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="bonus-tedori_close_marunage"><span class="ph">経理丸投げの</span><span class="ph">無料相談</span></a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>
+ <a href="/niwari-tokurei/">消費税の計算</a>
+ <a href="/kakutei-shinkoku/">確定申告の期限の早見表</a>
+ <a href="/yatou-hiyou/">人を雇う費用の計算</a>
+ <a href="/houjinzei-keisan/">法人税の計算</a>
+ <a href="/soneki-bunkiten/">損益分岐点の計算</a>
+ <a href="/hoteifukurihi/">法定福利費の計算</a>
+ <a href="/zoyozei/">贈与税の計算</a>
+ <a href="/shotokuzei/">所得税の計算</a>
+ <a href="/taishokukin/">退職金の税金の計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の計算</a>
+ <a href="/iryohi-kojo/">医療費控除の計算</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の計算</a>
+ <a href="/furusato/">ふるさと納税の限度額の計算</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税の計算</a>
+ <a href="/gensen-hoshu/">源泉徴収の早見表</a>
+ <a href="/genbutsu-kyuyo/">非課税の限度額の早見表</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取りの早見表</a>
+ <a href="/houjinnari/">法人成りの計算</a>
+ <a href="/kojin-zei/">個人事業主の手取りの早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料の早見表</a>
+ <a href="/tedori/">年収の手取りの早見表</a>
+ <a href="/tedori-gyakusan/">手取り年収の逆算</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/juminzei-keisan/">住民税の計算</a>
+ <a href="/nenshu-kabe/">年収の壁の早見表</a>
+ <a href="/fukugyo/">副業の税金の計算</a>
+ <a href="/gakusei-kabe/">学生バイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの扶養の計算</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算</a>
+ <a href="/taishoku-jumin/">退職後の住民税の計算</a>
+ <a href="/hensai/">借入の返済の計算</a>
+ <a href="/saitei-chingin/">最低賃金の一覧</a>
+ <a href="/saitei-chingin-tokyo/">東京の最低賃金</a>
+ <a href="/saitei-chingin-kanagawa/">神奈川県の最低賃金</a>
+ <a href="/saitei-chingin-aichi/">愛知県の最低賃金</a>
+ <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
+ <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
+ <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
+ <a href="/taiyonensu/">法定耐用年数の一覧</a>
+ <a href="/saitei-chingin-okinawa/">沖縄県の最低賃金</a>
+ <a href="/saitei-chingin-kumamoto/">熊本県の最低賃金</a>
+ <a href="/saitei-chingin-ibaraki/">茨城県の最低賃金</a>
+ <a href="/saitei-chingin-hiroshima/">広島県の最低賃金</a>
+ <a href="/saitei-chingin-kagoshima/">鹿児島県の最低賃金</a>
+ <a href="/kani-kazei/">簡易課税の事業区分</a>
+ <a href="/saitei-chingin-mie/">三重県の最低賃金</a>
+ <a href="/saitei-chingin-shizuoka/">静岡県の最低賃金</a>
+ <a href="/saitei-chingin-miyagi/">宮城県の最低賃金</a>
+ <a href="/saitei-chingin-niigata/">新潟県の最低賃金</a>
+ <a href="/saitei-chingin-nagano/">長野県の最低賃金</a>
+ <a href="/kakutei-shinkoku-keisan/">確定申告シミュレーション</a>
+ <a href="/saitei-chingin-gifu/">岐阜県の最低賃金</a>
+ <a href="/saitei-chingin-okayama/">岡山県の最低賃金</a>
+ <a href="/saitei-chingin-tochigi/">栃木県の最低賃金</a>
+ <a href="/saitei-chingin-gunma/">群馬県の最低賃金</a>
+ <a href="/saitei-chingin-shiga/">滋賀県の最低賃金</a>
+ <a href="/saitei-chingin-yamaguchi/">山口県の最低賃金</a>
+ <a href="/kyuyo-meisai/">給与明細の差引支給額</a>
+ <a href="/saitei-chingin-fukushima/">福島県の最低賃金</a>
+ <a href="/saitei-chingin-iwate/">岩手県の最低賃金</a>
+ <a href="/saitei-chingin-nara/">奈良県の最低賃金</a>
+ <a href="/saitei-chingin-nagasaki/">長崎県の最低賃金</a>
+ <a href="/saitei-chingin-miyazaki/">宮崎県の最低賃金</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="bonus-tedori_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script id="tt-ph">
+(function(){
+var M={"UW3":{"。":2927,"の":1892,"、":2284,"を":2561,"に":1845,"が":1948,"は":1984,"と":1587,"し":271,"る":1470,"も":1601,"な":1344,"で":1587,"た":1186,"い":987,"く":1291,"て":1232,"う":1103,"へ":1295,"ら":785,"や":1175,"？":1825,"?":1907,"っ":-328,"こ":34,"ぐ":1295,"ー":-115,"ん":562,"，":1899,"ば":1101,"］":1183,"り":562,"か":1027,"]":1526,"！":1800,"お":-586,"ぞ":1144,"ま":10,"ッ":-550,"．":1156,"つ":651,"空":725,"ス":-380,"ど":802,"…":1480,"イ":-309,"ン":-195,"・":500,"だ":610,"方":471,"「":-625,"）":1443,"部":320,"プ":-346,"ご":-383,"あ":571,"フ":-463,"♪":1333,"」":831,"ラ":-86,"☆":1296,"ず":901,"電":-404,"京":-315,"大":-272,"ろ":670,"ア":-308,"手":-74,"日":337,"ぬ":884,"０":-345,"す":643,"々":969,"以":-306,"笑":1487,"間":425,"１":-440,"観":-178,"度":591,"『":-337,"新":-237,"[":-315,"的":295,"カ":-103,"ロ":-227,"き":224,"分":475,"れ":234,"む":812,"じ":416,"品":43,"ぁ":695,"ジ":-61,"せ":290,"今":372,"ゃ":607,"都":-78,"後":595,"中":373,"ぶ":734,"え":465,"】":474,"シ":-202,"ド":-178,"変":324,"〜":332,"番":217,"然":621,"不":-192,"★":1042,"子":-142,"よ":187,"ち":259,"［":-239,"タ":-21,"説":81,"発":-151,"最":-149,"時":91,"素":-150,"年":180,"段":248,"意":-97,"び":18,"代":-109,"学":-75,"　":208,"味":281,"料":-83,"ニ":-63,"光":-40,"行":-130,"用":-107,"ｏ":-96,"体":357,"ト":-7,"夜":538,"作":-86,"皆":419,"人":76,"斤":436,"月":111,"選":-77,"２":-60,"”":364,"聞":-63,"：":131,"前":152,"外":74,"昔":700,"超":449,"レ":-25,"週":92,"５":-34,"自":-23,"水":60,"３":-31,"色":219,"』":227,"出":-24,"能":-13,"ビ":-19,"み":10,"テ":-13,"開":-14,"モ":-19,"バ":-11,"機":-8,"ね":89,"程":52,"題":19},"UW4":{"。":-2922,"の":-1829,"に":-1800,"が":-1558,"は":-1613,"、":-2880,"る":-2279,"で":-1294,"と":-1398,"て":-1523,"を":-1805,"っ":-2001,"か":-1270,"り":-1900,"う":-1060,"ま":-821,"し":-919,"た":-813,"い":-677,"お":416,"な":-905,"ら":-2069,"だ":-1191,"ち":-984,"す":-719,"れ":-1661,"ん":-1845,"き":-881,"そ":223,"ー":-1266,"や":-634,"」":-2633,"あ":80,"け":-1608,"も":-1204,"ぞ":-1148,"く":-1282,"ご":115,"さ":-874,"見":362,"？":-2258,"め":-1017,"み":-637,"よ":-628,"人":194,"「":1150,"私":801,"ッ":-648,"ぐ":-767,"ン":-592,"[":1562,"一":274,"思":305,"わ":-782,"?":-1832,"合":-827,"じ":-1103,"！":-2093,"，":-1996,"言":113,"何":401,"せ":-826,"『":381,"場":131,"行":159,"え":-921,"今":499,"』":-2280,"時":151,"食":116,"広":186,"京":116,"・":-730,"ろ":-1233,"日":91,"．":-1415,"空":437,"へ":-656,"ば":-1177,"つ":-610,"…":-1457,"べ":-1266,"]":-968,"１":526,"効":165,"大":150,"サ":81,"ル":-258,"リ":-278,"エ":110,"び":-776,"特":505,"使":548,"当":94,"ね":-1134,"（":1297,"煙":1201,"綺":1248,"ゆ":-455,"方":-170,"ず":-945,"気":102,"ど":-493,"ぶ":-833,"携":129,"自":280,"２":320,"［":923,"ぁ":-815,"ゃ":-1080,"最":278,"］":-415,"来":55,"帯":-257,"ょ":-821,"フ":-181,"間":-296,"笑":-1461,"ス":-53,"）":-1557,"有":269,"新":130,"こ":-225,"タ":-78,"良":26,"ぎ":-912,"用":-291,"ぜ":-824,"む":-488,"☆":-806,"制":351,"続":-263,"カ":102,"♪":-1027,"能":-219,"ざ":-431,"メ":37,"表":152,"３":243,"多":356,"手":66,"〜":-835,"イ":-59,"ュ":-196,"公":161,"操":53,"ほ":-135,"無":211,"書":273,"的":-273,"０":-120,"デ":120,"次":54,"げ":-452,"取":-302,"不":302,"ロ":-78,"(":401,"友":77,"僕":301,"づ":-538,"【":369,"　":-696,"小":245,"切":-192,"回":-380,"換":-240,"二":437,"込":-347,"バ":93,"ぬ":-171,"楽":174,"本":-25,"ｏ":-170,"水":124,"ぼ":-350,"街":232,"少":103,"”":-928,"品":-114,"機":-40,"ク":-35,"ト":-61,"動":-15,"入":55,"代":-128,"レ":-40,"コ":41,"海":165,"★":-456,"夏":213,"Ｓ":-50,"東":408,"年":-104,"ニ":-67,"券":-249,"美":119,"通":-78,"話":105,"前":-43,"祭":328,"参":226,"返":-112,"聞":85,"真":-116,"ビ":-60,"ふ":-117,"四":193,"住":70,"全":49,"実":46,"＾":-199,"ぱ":-126,"ぃ":-128,"彼":43,"グ":-22,"高":32,"姿":23,"誰":136,"ド":-33,"立":-84,"情":-16,"店":24,"臭":348,"式":-76,"態":-24,"安":54,"ひ":50,"例":76,"作":-21,"肌":5,"心":8,"旅":11,"移":-17,"足":19,"道":5,"物":-13,"甘":11,"三":5,"度":-5,"週":-2},"UW5":{"。":-674,"、":-346,"な":-317,"は":-338,"に":-273,"う":172,"っ":529,"そ":-622,"と":-277,"で":-291,"き":368,"を":-234,"る":172,"ま":-20,"す":-277,"え":248,"い":160,"の":-249,"べ":878,"ラ":186,"じ":320,"こ":50,"動":712,"れ":204,"も":-129,"た":4,"・":-282,"し":-123,"く":140,"め":184,"さ":-135,"」":-340,"供":204,"ル":-252,"あ":-213,"か":69,"帯":89,"力":138,"つ":443,"能":6,"ト":-131,"ン":-77,"へ":-322,"上":-301,"器":-87,"日":204,"思":-109,"が":-177,"ぼ":484,"ぶ":48,"ざ":179,"り":94,"ん":407,"だ":-93,"よ":-152,"け":-58,"］":-114,"わ":266,"ず":293,"ち":227,"回":299,"年":381,"[":-131,"！":-144,"．":-205,"ス":-67,"当":218,"都":26,"て":84,"利":347,"イ":76,"広":-173,"ろ":-74,"的":-90,"び":271,"ュ":-88,"丈":295,"葉":122,"大":-67,"ら":70,"電":-48,"景":148,"所":11,"１":-88,"言":-119,"開":103,"ど":-42,"寺":-105,"本":122,"革":-245,"体":-384,"ぎ":139,"券":-65,"…":-60,"作":102,"有":-42,"む":173,"ね":-53,"版":-43,"先":-252,"要":29,"一":-30,"グ":-23,"合":23,"々":52,"改":-54,"バ":-33,"？":-30,"使":-83,"２":-51,"軽":28,"行":-34,"期":33,"面":21,"ロ":10,"明":21,"法":-16,"ャ":3,"テ":-3},"UW2":{"。":-529,"の":-310,"を":-850,"、":-537,"し":117,"に":-356,"か":24,"も":-359,"が":-288,"と":-399,"っ":90,"で":-342,"れ":33,"そ":-238,"よ":-29,"お":-471,"ぞ":-455,"て":-290,"以":1113,"す":189,"ま":164,"人":186,"さ":308,"」":102,"つ":-182,"だ":162,"あ":-130,"め":66,"う":-203,"見":-170,"手":459,"く":-253,"少":316,"は":-346,"全":550,"一":525,"解":349,"な":-223,"き":-23,"け":99,"い":-42,"特":271,"法":547,"ど":-153,"良":148,"結":1019,"食":125,"ゆ":379,"ラ":-135,"毎":772,"随":940,"ひ":-1043,"ほ":259,"イ":-69,"境":-203,"り":-80,"る":-136,"同":395,"言":-95,"ん":82,"ぱ":110,"た":-84,"場":96,"取":-187,"作":-110,"子":-5,"わ":82,"や":-180,"多":241,"大":130,"能":139,"ぜ":424,"？":-206,"知":-114,"話":3,"目":-169,"題":123,"デ":-143,"「":-94,"サ":-137,"ぐ":-136,"］":-170,"ば":-94,"ご":-83,"ね":197,"関":739,"ー":94,"グ":-101,"新":-41,"Ｐ":-392,"０":95,"１":83,"]":-133,"落":-328,"＾":278,"本":215,"?":-123,"２":-105,"，":-126,"先":226,"［":-21,"ジ":-67,"み":-31,"味":113,"和":169,"生":118,"乗":-147,"せ":16,"素":-204,"家":48,"立":-218,"シ":-85,"世":-73,"水":124,"[":-2,"『":-102,"前":49,"ぶ":2,"ケ":-95,"電":95,"我":-207,"残":150,"券":-100,"今":12,"百":-106,"車":72,"増":-88,"振":-80,"案":109,"用":-31,"プ":-26,"直":161,"三":80,"ろ":-30,"バ":72,"冷":-23,"着":-15,"早":94,"空":-11,"実":50,"５":-45,"げ":42,"並":27,"追":-48,"高":10,"変":-5,"フ":-2},"UW1":{"い":-85,"に":-142,"で":-123,"な":-111,"つ":209,"。":-25,"は":-65,"り":-105,"と":36,"が":-106,"こ":42,"そ":48,"ど":124,"う":21,"し":-28,"見":88,"る":-1,"だ":-98,"大":155,"て":68,"の":6,"上":-86,"お":16,"ん":94,"十":-92,"た":-31,"か":-72,"水":46,"知":39,"へ":-23,"ッ":196,"始":130,"プ":-268,"っ":87,"作":27,"く":44,"［":-171,"タ":26,"小":264,"ろ":134,"新":119,"も":10,"．":-185,"「":-111,"『":-146,"積":-242,"イ":-100,"や":-90,"行":-39,"京":-118,"メ":167,"ス":-54,"ち":80,"バ":110,"０":43,"間":106,"撮":-96,"え":-53,"れ":36,"何":93,"壊":-117,"自":114,"ざ":280,"ば":-43,"、":-18,"人":-30,"少":-46,"ら":11,"豊":68,"時":-42,"基":-99,"ー":5,"認":-98,"取":47,"使":-37,"ケ":-28,"」":-30,"機":18,"書":-13,"生":-21,"オ":37,"色":13,"す":6,"]":-18,"話":-6,"面":-14},"UW6":{"。":-92,"の":62,"が":120,"な":120,"さ":360,"を":41,"し":188,"で":50,"は":97,"う":54,"、":-16,"て":-15,"や":267,"に":103,"り":221,"せ":-166,"み":265,"あ":-69,"る":97,"い":115,"ど":175,"」":-95,"つ":238,"ー":-64,"ぱ":446,"と":23,"っ":193,"お":-114,"も":39,"グ":138,"性":12,"ビ":250,"コ":64,"か":132,"ま":176,"め":252,"場":-184,"付":43,"け":-31,"く":87,"供":-338,"人":-34,"画":233,"ク":-139,"ン":-63,"的":123,"ュ":118,"ぐ":21,"わ":139,"ん":138,"タ":93,"０":306,"・":-83,"れ":66,"遊":-228,"ば":123,"空":301,"通":-52,"ろ":102,"日":98,"そ":63,"寺":186,"ス":15,"学":-157,"見":-41,"電":137,"最":-121,"気":165,"地":163,"じ":165,"レ":61,"出":161,"ア":-32,"言":-138,"ず":-135,"ょ":-75,"シ":-43,"む":73,"こ":12,"す":4,"カ":42,"ル":41,"パ":-70,"広":-47,"込":58,"返":81,"公":-17,"ピ":124,"ら":10,"，":19,"よ":8,"：":131,"ゃ":-21,"水":68,"だ":-6,"Ｓ":-5,"合":13,"来":-5,"ち":2},"BW2":{"とこ":-712,"ない":-1317,"とい":124,"せく":2468,"とお":-1191,"です":-1081,"てい":-618,"へよ":1276,"ので":-547,"であ":-1441,"いよ":-1011,"たと":361,"のみ":-1006,"うご":674,"たい":-932,"など":-902,"てお":-1002,"にも":-637,"でも":-695,"るよ":-358,"たま":-658,"くな":-747,"いた":-619,"てく":-532,"、と":-465,"でき":-833,"はじ":-954,"には":-393,"とめ":-230,"徴エ":986,"本イ":1172,"でし":-731,"うど":-807,"もつ":-209,"帯電":-292,"やす":-668,"のが":-426,"いま":-361,"い合":-356,"なく":-294,"いと":-335,"くだ":-596,"なか":-196,"こそ":-491,"らゆ":-545,"いい":-388,"び上":1040,"うや":-351,"う映":519,"とも":-304,"たち":-343,"いも":369,"てき":-729,"らな":-116,"のも":-453,"てみ":-738,"のは":-396,"るで":-56,"の前":-649,"てあ":-945,"がし":177,"くし":-257,"い日":238,"どこ":-492,"もあ":-179,"うこ":-32,"もし":-274,"のい":111,"ると":-178,"ても":-267,"のか":-205,"すご":-657,"のだ":-210,"ども":-366,"かな":-244,"く来":17,"もう":-266,"とか":-409,"なぁ":-332,"いつ":-112,"かし":-202,"とき":-285,"いな":-242,"て行":-1103,"でな":-514,"ただ":-399,"はい":-245,"たよ":-193,"な場":150,"るな":-278,"そこ":-715,"たも":140,"なあ":-878,"はず":-388,"いし":-363,"しい":-183,"がっ":-241,"てた":-150,"した":-145,"へと":-138,"はあ":-236,"てこ":-72,"では":-200,"にし":-106,"ばな":-91,"りし":72,"るし":-199,"らい":-134,"たな":-152,"とは":-148,"係な":503,"たし":-199,"て欲":-457,"。と":90,"るか":-98,"てや":-153,"つぶ":-56,"夏休":-51,"りな":203,"の方":54,"いで":-88,"りも":-73,"うい":-94,"日本":-151,"ぶつ":-71,"なお":-215,"のご":-494,"たさ":-47,"い状":46,"人い":704,"日和":-112,"・・":-82,"なし":-92,"識こ":44,"のよ":-19,"いわ":-49,"とう":-13,"」で":282,"つい":-47,"れた":-28,"とと":-50,"、な":-60,"．５":-245,"にぎ":-78,"．９":-208,"て来":-192,"でい":-18,"。笑":-155,"がの":32,"．ま":28,"んど":-2},"BW1":{"しい":547,"から":721,"ない":579,"んに":-500,"いう":262,"よう":-377,"もは":-1403,"はや":94,"れた":433,"こそ":1261,"まま":1051,"こと":-614,"して":-81,"つな":-732,"」と":95,"その":-392,"のみ":1390,"たい":337,"白い":697,"るの":-448,"ても":250,"少し":730,"まも":-1322,"のは":361,"やく":435,"かも":-671,"とか":674,"たら":548,"たと":-552,"った":71,"なぞ":-998,"この":-461,"全部":388,"うぞ":83,"では":-155,"まと":-834,"には":135,"んだ":339,"でも":242,"んな":154,"うな":174,"ちが":-364,"とが":-596,"晶の":1360,"たの":-464,"がと":-435,"以上":317,"なら":638,"最近":1078,"ると":5,"んで":-224,"だん":115,"より":819,"もう":666,"もの":-266,"。・":1203,"いと":-155,"くれ":673,"思い":-808,"うに":-45,"おで":-1153,"よく":375,"かし":522,"にも":298,"知ら":-164,"青い":240,"めて":80,"れて":-174,"手順":449,"ぞな":-79,"同じ":340,"だけ":488,"いの":-157,"すの":-260,"まだ":262,"きた":229,"すい":44,"いい":-136,"使い":-566,"まり":244,"けど":436,"敵な":298,"ただ":416,"なぐ":401,"した":131,"なく":235,"とう":60,"が、":407,"りと":398,"いな":-82,"なぜ":1021,"くて":333,"人が":107,"とに":-163,"言い":-426,"れが":-307,"買い":-598,"問い":-314,"の間":718,"とき":826,"舞う":446,"いで":-477,"すが":-137,"など":488,"のが":266,"んて":222,"やら":462,"た．":408,"ので":98,"えば":232,"ては":-175,"利な":188,"的な":141,"は、":203,"ぱり":323,"もし":638,"とで":199,"しず":-349,"取り":-196,"こう":-154,"うや":-118,"現在":497,"とも":-54,"大変":106,"ほぼ":386,"いた":107,"待ち":-313,"との":97,"の後":497,"ここ":402,"うか":176,"空き":-161,"安に":-537,"、と":79,"てい":-110,"一番":64,"使う":175,"とは":-98,"あー":942,"普段":309,"いも":-343,"るに":-86,"きな":65,"うと":-102,"Ｈ．":-249,"橋に":51,"、今":327,"べき":568,"まあ":213,"とい":-36,"で、":72,"い」":167,"か、":-116,"上に":30,"い、":-24,"つぶ":-136,"てる":88,"ちら":-147,"らな":-208,"＾＾":103,"しか":22,"たり":71,"ため":382,"ぶん":332,"のも":50,"！！":37,"める":-23,"何か":47,"なか":72,"持て":-230,"是非":365,"ころ":190,"世の":-521,"作り":-41,"法的":79,"と、":22,"さり":105,"わけ":395,"気が":36,"てた":70,"いし":44,"０円":49,"ねー":248,"りは":-124,"すら":60,"ゃあ":174,"えて":-23,"せん":37,"んか":24,"ぜひ":58,"落と":-51,"じる":-27,"かが":-30,"持つ":46,"神社":71,"はも":-8,"三回":38,"だし":52,"まる":-16,"悪い":14,"りに":3},"TW1":{"よいよ":1544,"もはや":795,"ありが":-1018,"をもつ":777,"またま":1598,"こんに":-344,"で見る":-1324,"という":108,"んどん":730,"おって":1407,"できる":168,"が良い":319,"ました":-543,"ふだん":938,"甘えが":-642,"だんど":-807,"十分に":-359,"ていく":418,"すきと":-1297,"ような":446,"・・・":596,"かなり":1001,"。夕方":541,"やはり":916,"ことも":-211,"しかし":451,"ながら":577,"かなか":402,"たちの":64,"もなく":117,"困った":555,"ょっと":-146,"でかけ":-197,"とんど":608,"やすい":84,"なんと":-462,"持って":-346,"ょうど":485,"入れる":242,"つなぐ":5,"っかり":415,"と思う":155,"ていて":219,"ければ":-49,"に人が":230,"かった":-25,"以上に":82,"『いい":-231,"そして":195,"として":96,"なって":-68,"たまた":-143,"くらい":79,"ういう":275,"すごく":215,"のおも":-181,"おけば":120,"その時":612,"、それ":409,"始まる":32,"ろいろ":127,"っぱり":2,"した．":157,"ない、":-233,"くては":-93,"ちろん":170,"だって":140,"ままに":78,"メール":8,"ように":-49,"らしき":116,"にして":-23,"くさん":55,"ひとつ":77,"ろそろ":62,"あまり":27,"まるで":24,"色から":11,"感じる":-11,"。そう":5,"用する":3},"TW2":{"いとこ":-1284,"してお":-716,"ちがう":-836,"ではな":-796,"分にあ":-1150,"そのま":-612,"まもな":-9,"うにな":-488,"どんど":-359,"気に入":-1867,"かもし":-118,"んでい":-798,"からし":360,"まるで":-346,"とがあ":-599,"からな":-431,"そもそ":-986,"ではあ":-863,"ともあ":-408,"その後":-610,"をもつ":-128,"れるこ":252,"でもあ":-714,"とにな":-246,"目の前":-321,"ようや":-147,"でもな":-444,"あるこ":288,"しかな":346,"とがで":-255,"てもい":-496,"らと言":-764,"ものす":-729,"ってこ":-148,"るにつ":-371,"いてあ":-123,"いい感":-338,"女の子":-760,"全くな":232,"してい":-26,"うとし":-39,"という":-21,"ような":-16,"までに":-21,"なるほ":-79,"したこ":-16,"にはな":14},"BW3":{"こと":458,"ちは":-231,"いい":375,"もの":1421,"いう":246,"その":816,"して":200,"はじ":1178,"でき":474,"おで":249,"ある":-150,"なる":251,"とき":1059,"これ":1033,"なっ":-192,"まと":958,"まま":-89,"この":991,"うま":1424,"そう":-890,"受け":369,"とい":-386,"分か":603,"上が":318,"ちょ":864,"当日":1141,"おり":-485,"子供":149,"そこ":246,"ゆる":-85,"機器":-976,"さん":-835,"ころ":-230,"もら":1252,"かっ":-406,"なん":99,"ぞう":542,"たま":487,"こそ":-411,"とて":1133,"かな":193,"携帯":21,"つな":695,"つぶ":237,"より":-513,"ぞな":-144,"・・":-715,"ため":592,"とっ":501,"なら":-190,"もう":1008,"でも":555,"知る":21,"メー":175,"しい":-368,"さい":-298,"と思":-257,"すぐ":706,"さあ":497,"よく":478,"かか":650,"まも":371,"です":-221,"から":-298,"よう":-124,"まし":-213,"いろ":157,"かけ":750,"こぼ":252,"つい":269,"すか":-215,"電話":-67,"いて":-133,"まだ":321,"とり":661,"みた":-370,"それ":150,"まぁ":611,"かも":-203,"した":347,"いか":338,"すご":747,"なか":80,"始ま":48,"どこ":386,"難し":147,"とつ":-225,"日が":213,"わか":333,"はま":422,"あと":559,"がん":586,"だけ":-176,"もん":187,"ただ":235,"出来":-367,"すき":194,"アプ":49,"うち":121,"けれ":-163,"だろ":-315,"最近":238,"入れ":110,"もと":410,"だい":248,"物語":89,"きる":-225,"問題":172,"なに":252,"みん":203,"ます":-99,"もっ":276,"大会":-130,"変え":386,"友人":90,"始め":-143,"で、":198,"しゃ":157,"まで":-186,"きま":-106,"頃で":-322,"入場":127,"べき":-92,"書い":196,"面白":78,"だし":136,"はる":337,"ずっ":184,"ませ":-89,"とこ":86,"かわ":88,"手に":51,"ごと":-247,"つけ":111,"以上":-58,"いた":-43,"ない":44,"歩く":74,"何で":73,"いま":71,"そく":-365,"考え":54,"うれ":109,"よし":95,"こだ":47,"しく":-76,"どい":-31,"なく":31,"いつ":15,"など":-52,"ええ":164,"持っ":63,"のっ":39,"使っ":24,"あふ":178,"ルー":27,"にぎ":192,"ちろ":-55,"みろ":185,"もつ":61,"通り":-40,"あて":48,"ここ":21,"ほど":-3,"祭り":28,"そし":34,"渡る":-9,"まさ":2,"もい":-2,"あっ":2},"TW4":{"ありが":1289,"なぞな":1249,"ような":-883,"もはや":1262,"ところ":1583,"ちがう":1001,"ように":-642,"いよい":590,"ある。":-134,"どのよ":2005,"可能性":1318,"とおり":898,"ようや":651,"ことが":-636,"プログ":742,"いっぱ":955,"くらい":861,"かなり":937,"できた":907,"ことに":-678,"ありま":-431,"ことで":163,"して人":-716,"しかし":970,"おりに":-190,"わけで":-291,"ことも":-579,"そのま":346,"うどん":792,"サービ":55,"いけな":-318,"そうで":-375,"した。":-399,"ようで":-381,"してお":277,"おりま":759,"かった":-236,"いろい":679,"こと。":204,"いって":-270,"ないと":196,"したお":-228,"なんと":531,"ことを":122,"だった":-479,"どんど":312,"ことは":-205,"はじま":30,"これは":281,"なんて":-411,"なかな":209,"制度に":183,"あるい":-1252,"いくさ":-192,"ひとつ":445,"ない。":59,"いえば":260,"やって":86,"みんな":13,"メール":26,"すきと":126,"なんか":131,"しゃべ":718,"京都に":156,"なくな":65,"いかな":65,"まって":-125,"はまっ":109,"いまし":-114,"しない":80,"よりは":-73,"とこが":262,"きれい":31,"さらに":88,"だって":80,"おいし":27,"かわい":45,"みたい":-27,"手に入":16,"なんで":-6,"できる":-2},"TW3":{"のよう":-655,"という":390,"ている":-712,"のまま":-57,"の本は":-861,"へよう":15,"とした":-519,"になっ":-251,"てしま":-665,"らない":-473,"ること":-169,"もしれ":-4,"のよい":292,"る方は":-599,"ところ":-217,"くして":-457,"として":113,"ばいい":-593,"すこと":283,"てほし":-663,"であっ":-561,"ていう":437,"、そし":-1771,"ういう":-260,"ていく":-117,"である":-325,"と言っ":-593,"はまっ":-541,"と同時":-711,"があっ":360,"、また":-382,"はない":-123,"てない":-178,"くなっ":-65,"にしか":-180,"、ある":-184,"帯電話":-2,"ておき":-278,"ばなら":-32,"はいえ":-118,"もある":-71,"たこと":-34,"にでも":-167,"といい":-216,"になら":62,"となっ":19,"たそう":-64,"もしか":-234,"もまた":-44,"るそう":-27,"かどう":-22,"りした":8,"にして":-6,"もいい":-14,"の先に":-22}};
+var base=-0.5*Object.keys(M).reduce(function(s,k){return s+Object.keys(M[k]).reduce(function(a,w){return a+M[k][w]},0)},0);
+function bx(s){
+ if(!s)return [];
+ var c=[s[0]],i,sc,U=M;
+ var u1=U.UW1||{},u2=U.UW2||{},u3=U.UW3||{},u4=U.UW4||{},u5=U.UW5||{},u6=U.UW6||{};
+ var b1=U.BW1||{},b2=U.BW2||{},b3=U.BW3||{},t1=U.TW1||{},t2=U.TW2||{},t3=U.TW3||{},t4=U.TW4||{};
+ for(i=1;i<s.length;i++){sc=base;
+  if(i>2)sc+=u1[s[i-3]]||0; if(i>1)sc+=u2[s[i-2]]||0; sc+=u3[s[i-1]]||0; sc+=u4[s[i]]||0;
+  if(i+1<s.length)sc+=u5[s[i+1]]||0; if(i+2<s.length)sc+=u6[s[i+2]]||0;
+  if(i>1)sc+=b1[s.slice(i-2,i)]||0; sc+=b2[s.slice(i-1,i+1)]||0; if(i+1<s.length)sc+=b3[s.slice(i,i+2)]||0;
+  if(i>2)sc+=t1[s.slice(i-3,i)]||0; if(i>1)sc+=t2[s.slice(i-2,i+1)]||0;
+  if(i+1<s.length)sc+=t3[s.slice(i-1,i+2)]||0; if(i+2<s.length)sc+=t4[s.slice(i,i+3)]||0;
+  if(sc>0)c.push(s[i]); else c[c.length-1]+=s[i];}
+ return c;
+}
+var ONE="のをにはがとでもへやかねよぞわ", LONG=["から","まで","より","って","では","には","とは","かは"];
+function stick(p,n){
+ if(!p||!n)return false;
+ if(ONE.indexOf(n[0])>=0)return true;
+ for(var i=0;i<LONG.length;i++)if(n.indexOf(LONG[i])===0)return true;
+ if(n.indexOf("ます")===0||n.indexOf("す")===0)return true;
+ if((p[p.length-1]>="0"&&p[p.length-1]<="9"||p[p.length-1]===","||p[p.length-1]==="，")&&"円％%人歳月日分万千倍".indexOf(n[0])>=0)return true;
+ if(/^[。、．，,.・）)」』】〉》]+$/.test(n))return true;
+ if(p.indexOf("「")>=0&&n.indexOf("」")>=0&&latinKanji(p,n))return true;
+ return false;
+}
+function latinKanji(p,n){
+ if(!p||!n)return false;
+ var c=n.charCodeAt(0); if(!(c>=0x4e00&&c<=0x9fff))return false;
+ var cut=p.length;
+ if(ONE.indexOf(p[p.length-1])>=0)cut=p.length-1;
+ else{var hit=false; for(var i=0;i<LONG.length;i++){if(p.slice(-LONG[i].length)===LONG[i]){hit=true;cut=p.length-LONG[i].length;break;}} if(!hit)return false;}
+ var j=cut-1; while(j>=0&&"「『（([\"'".indexOf(p[j])>=0)j--;
+ var saw=false; while(j>=0&&((p[j]>="A"&&p[j]<="Z")||(p[j]>="a"&&p[j]<="z"))){saw=true;j--;}
+ return saw;
+}
+function glue(a){var o=[]; for(var i=0;i<a.length;i++){if(o.length&&stick(o[o.length-1],a[i]))o[o.length-1]+=a[i]; else o.push(a[i]);} return o;}
+function dots(a){var o=[],i,p; for(i=0;i<a.length;i++){p=a[i]; if(o.length&&(o[o.length-1].slice(-1)==="・"||p[0]==="・")&&(o[o.length-1]+p).split("・").length-1<=1)o[o.length-1]+=p; else o.push(p);} return o;}
+function explode(a){var o=[],i,p,b,j; for(i=0;i<a.length;i++){p=a[i]; if((p.split("・").length-1)<2){o.push(p); continue;} b=""; for(j=0;j<p.length;j++){b+=p[j]; if(p[j]==="・"){o.push(b); b="";}} if(b)o.push(b);} return o;}
+function spaces(a){var o=[],i,p,b,j,ch; for(i=0;i<a.length;i++){p=a[i]; if(p.length<=14||(p.indexOf(" ")<0&&p.indexOf("\u3000")<0)){o.push(p); continue;} b=""; for(j=0;j<p.length;j++){ch=p[j]; if((ch===" "||ch==="\u3000")&&b.length>=2){o.push(b+ch); b="";} else b+=ch;} if(b)o.push(b);} return o;}
+function parts(s){return glue(spaces(explode(dots(glue(bx(s))))));}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+window.PH=function(s){return parts(String(s)).map(function(p){return p.trim()? '<span class="ph">'+esc(p)+"</span>" : esc(p);}).join("");};
+})();
+</script>
+<script>
+(function(){
+ var PF=[["北海道", 1028], ["青森県", 985], ["岩手県", 951], ["宮城県", 1010], ["秋田県", 1001], ["山形県", 975], ["福島県", 950], ["茨城県", 952], ["栃木県", 982], ["群馬県", 968], ["埼玉県", 967], ["千葉県", 973], ["東京都", 985], ["神奈川県", 992], ["新潟県", 921], ["富山県", 959], ["石川県", 970], ["福井県", 971], ["山梨県", 955], ["長野県", 963], ["岐阜県", 980], ["静岡県", 961], ["愛知県", 993], ["三重県", 977], ["滋賀県", 988], ["京都府", 989], ["大阪府", 1013], ["兵庫県", 1012], ["奈良県", 991], ["和歌山県", 1006], ["鳥取県", 986], ["島根県", 994], ["岡山県", 1005], ["広島県", 978], ["山口県", 1015], ["徳島県", 1024], ["香川県", 1002], ["愛媛県", 998], ["高知県", 1005], ["福岡県", 1011], ["佐賀県", 1055], ["長崎県", 1006], ["熊本県", 1008], ["大分県", 1008], ["宮崎県", 977], ["鹿児島県", 1013], ["沖縄県", 944]],GR=[[58, 63], [68, 73], [78, 83], [88, 93], [98, 101], [104, 107], [110, 114], [118, 122], [126, 130], [134, 138], [142, 146], [150, 155], [160, 165], [170, 175], [180, 185], [190, 195], [200, 210], [220, 230], [240, 250], [260, 270], [280, 290], [300, 310], [320, 330], [340, 350], [360, 370], [380, 395], [410, 425], [440, 455], [470, 485], [500, 515], [530, 545], [560, 575], [590, 605], [620, 635], [650, 665], [680, 695], [710, 730], [750, 770], [790, 810], [830, 855], [880, 905], [930, 955], [980, 1005], [1030, 1055], [1090, 1115], [1150, 1175], [1210, 1235], [1270, 1295], [1330, 1355], [1390, 1000000000]],ROWS=[[105000,107000,170,0,0,0,0,0,0,0],[107000,109000,280,0,0,0,0,0,0,0],[109000,111000,380,0,0,0,0,0,0,0],[111000,113000,480,0,0,0,0,0,0,0],[113000,115000,580,0,0,0,0,0,0,0],[115000,117000,680,0,0,0,0,0,0,0],[117000,119000,790,0,0,0,0,0,0,0],[119000,121000,890,0,0,0,0,0,0,0],[121000,123000,990,0,0,0,0,0,0,0],[123000,125000,1090,0,0,0,0,0,0,0],[125000,127000,1190,0,0,0,0,0,0,0],[127000,129000,1300,0,0,0,0,0,0,0],[129000,131000,1400,0,0,0,0,0,0,0],[131000,133000,1500,0,0,0,0,0,0,0],[133000,135000,1600,0,0,0,0,0,0,0],[135000,137000,1710,0,0,0,0,0,0,0],[137000,139000,1810,190,0,0,0,0,0,0],[139000,141000,1910,300,0,0,0,0,0,0],[141000,143000,2010,400,0,0,0,0,0,0],[143000,145000,2110,500,0,0,0,0,0,0],[145000,147000,2220,600,0,0,0,0,0,0],[147000,149000,2320,700,0,0,0,0,0,0],[149000,151000,2420,810,0,0,0,0,0,0],[151000,153000,2520,910,0,0,0,0,0,0],[153000,155000,2620,1010,0,0,0,0,0,0],[155000,157000,2730,1110,0,0,0,0,0,0],[157000,159000,2830,1210,0,0,0,0,0,0],[159000,161000,2910,1300,0,0,0,0,0,0],[161000,163000,2980,1370,0,0,0,0,0,0],[163000,165000,3050,1440,0,0,0,0,0,0],[165000,167000,3120,1510,0,0,0,0,0,0],[167000,169000,3200,1580,0,0,0,0,0,0],[169000,171000,3270,1650,0,0,0,0,0,0],[171000,173000,3340,1730,100,0,0,0,0,0],[173000,175000,3410,1800,170,0,0,0,0,0],[175000,177000,3480,1870,250,0,0,0,0,0],[177000,179000,3550,1940,320,0,0,0,0,0],[179000,181000,3620,2010,390,0,0,0,0,0],[181000,183000,3700,2080,460,0,0,0,0,0],[183000,185000,3770,2150,530,0,0,0,0,0],[185000,187000,3840,2230,600,0,0,0,0,0],[187000,189000,3910,2300,670,0,0,0,0,0],[189000,191000,3980,2370,750,0,0,0,0,0],[191000,193000,4050,2440,820,0,0,0,0,0],[193000,195000,4120,2510,890,0,0,0,0,0],[195000,197000,4200,2580,960,0,0,0,0,0],[197000,199000,4270,2650,1030,0,0,0,0,0],[199000,201000,4340,2730,1100,0,0,0,0,0],[201000,203000,4410,2800,1170,0,0,0,0,0],[203000,205000,4480,2870,1250,0,0,0,0,0],[205000,207000,4550,2940,1320,0,0,0,0,0],[207000,209000,4630,3010,1390,0,0,0,0,0],[209000,211000,4700,3080,1460,0,0,0,0,0],[211000,213000,4770,3150,1530,0,0,0,0,0],[213000,215000,4840,3230,1600,0,0,0,0,0],[215000,217000,4910,3300,1670,0,0,0,0,0],[217000,219000,4980,3370,1750,130,0,0,0,0],[219000,221000,5050,3440,1820,200,0,0,0,0],[221000,224000,5150,3520,1910,300,0,0,0,0],[224000,227000,5250,3630,2020,400,0,0,0,0],[227000,230000,5360,3740,2120,510,0,0,0,0],[230000,233000,5460,3850,2240,610,0,0,0,0],[233000,236000,5570,3950,2340,720,0,0,0,0],[236000,239000,5680,4060,2450,830,0,0,0,0],[239000,242000,5790,4170,2550,940,0,0,0,0],[242000,245000,5890,4280,2660,1040,0,0,0,0],[245000,248000,6000,4380,2770,1150,0,0,0,0],[248000,251000,6110,4490,2880,1260,0,0,0,0],[251000,254000,6220,4590,2980,1370,0,0,0,0],[254000,257000,6320,4710,3090,1470,0,0,0,0],[257000,260000,6430,4810,3200,1580,0,0,0,0],[260000,263000,6530,4920,3310,1680,0,0,0,0],[263000,266000,6650,5020,3410,1800,170,0,0,0],[266000,269000,6750,5140,3520,1900,290,0,0,0],[269000,272000,6860,5240,3620,2010,390,0,0,0],[272000,275000,6960,5350,3740,2110,500,0,0,0],[275000,278000,7080,5450,3840,2230,600,0,0,0],[278000,281000,7180,5560,3950,2330,710,0,0,0],[281000,284000,7290,5670,4050,2440,820,0,0,0],[284000,287000,7390,5780,4170,2540,930,0,0,0],[287000,290000,7500,5880,4270,2650,1030,0,0,0],[290000,293000,7610,5990,4380,2760,1140,0,0,0],[293000,296000,7720,6100,4480,2870,1250,0,0,0],[296000,299000,7820,6210,4590,2970,1360,0,0,0],[299000,302000,7930,6320,4700,3080,1470,0,0,0],[302000,305000,8060,6440,4820,3210,1590,0,0,0],[305000,308000,8180,6570,4940,3330,1720,0,0,0],[308000,311000,8300,6690,5060,3450,1840,210,0,0],[311000,314000,8550,6810,5190,3570,1960,340,0,0],[314000,317000,8790,6930,5310,3700,2080,460,0,0],[317000,320000,9040,7060,5430,3820,2210,580,0,0],[320000,323000,9280,7180,5550,3940,2330,700,0,0],[323000,326000,9530,7300,5680,4060,2450,830,0,0],[326000,329000,9770,7420,5800,4190,2570,950,0,0],[329000,332000,10020,7550,5920,4310,2700,1070,0,0],[332000,335000,10260,7670,6040,4430,2820,1190,0,0],[335000,338000,10510,7790,6170,4550,2940,1320,0,0],[338000,341000,10750,7910,6290,4680,3060,1440,0,0],[341000,344000,11000,8040,6410,4800,3190,1560,0,0],[344000,347000,11240,8160,6530,4920,3310,1680,0,0],[347000,350000,11490,8280,6660,5040,3430,1810,190,0],[350000,353000,11730,8500,6780,5170,3550,1930,320,0],[353000,356000,11980,8750,6900,5290,3680,2050,440,0],[356000,359000,12220,9000,7020,5410,3800,2170,560,0],[359000,362000,12470,9240,7150,5530,3920,2300,680,0],[362000,365000,12710,9490,7270,5660,4040,2420,810,0],[365000,368000,12960,9730,7390,5780,4170,2540,930,0],[368000,371000,13200,9980,7510,5900,4290,2660,1050,0],[371000,374000,13450,10220,7640,6020,4410,2790,1170,0],[374000,377000,13690,10470,7760,6150,4530,2910,1300,0],[377000,380000,13940,10710,7880,6270,4660,3030,1420,0],[380000,383000,14180,10960,8000,6390,4780,3150,1540,0],[383000,386000,14430,11200,8130,6510,4900,3280,1660,0],[386000,389000,14670,11450,8250,6640,5020,3400,1790,170],[389000,392000,14920,11690,8450,6760,5150,3520,1910,300],[392000,395000,15160,11940,8700,6880,5270,3640,2030,420],[395000,398000,15410,12180,8940,7000,5390,3770,2150,540],[398000,401000,15650,12430,9190,7130,5510,3890,2280,660],[401000,404000,15900,12670,9430,7250,5640,4010,2400,790],[404000,407000,16140,12920,9680,7370,5760,4140,2520,910],[407000,410000,16390,13160,9920,7490,5880,4260,2640,1030],[410000,413000,16630,13410,10170,7620,6000,4380,2770,1150],[413000,416000,16880,13650,10410,7740,6130,4500,2890,1280],[416000,419000,17120,13900,10660,7860,6250,4630,3010,1400],[419000,422000,17370,14140,10900,7980,6370,4750,3130,1520],[422000,425000,17610,14390,11150,8110,6490,4870,3260,1640],[425000,428000,17860,14630,11390,8230,6620,4990,3380,1770],[428000,431000,18100,14880,11640,8400,6740,5120,3500,1890],[431000,434000,18350,15120,11880,8650,6860,5240,3620,2010],[434000,437000,18590,15370,12130,8890,6980,5360,3750,2130],[437000,440000,18840,15610,12370,9140,7110,5480,3870,2260],[440000,443000,19080,15860,12620,9380,7230,5610,3990,2380],[443000,446000,19330,16100,12860,9630,7350,5730,4110,2500],[446000,449000,19570,16350,13110,9870,7470,5850,4240,2620],[449000,452000,19860,16590,13350,10120,7600,5970,4360,2750],[452000,455000,20350,16840,13600,10360,7720,6100,4480,2870],[455000,458000,20840,17080,13840,10610,7840,6220,4600,2990],[458000,461000,21330,17330,14090,10850,7960,6340,4730,3110],[461000,464000,21820,17570,14330,11100,8090,6460,4850,3240],[464000,467000,22310,17820,14580,11340,8210,6590,4970,3360],[467000,470000,22800,18060,14820,11590,8360,6710,5090,3480],[470000,473000,23290,18310,15070,11830,8610,6830,5220,3600],[473000,476000,23780,18550,15320,12080,8850,6950,5340,3730],[476000,479000,24270,18800,15560,12320,9100,7080,5460,3850],[479000,482000,24760,19040,15810,12570,9340,7200,5580,3970],[482000,485000,25250,19290,16050,12810,9590,7320,5710,4090],[485000,488000,25740,19530,16300,13060,9830,7440,5830,4220],[488000,491000,26230,19780,16540,13300,10080,7570,5950,4340],[491000,494000,26720,20260,16790,13550,10320,7690,6070,4460],[494000,497000,27210,20750,17030,13790,10570,7810,6200,4580],[497000,500000,27700,21240,17280,14040,10810,7930,6320,4710],[500000,503000,28190,21730,17520,14280,11060,8060,6440,4830],[503000,506000,28680,22220,17770,14530,11300,8180,6570,4950],[506000,509000,29170,22710,18010,14770,11550,8310,6690,5070],[509000,512000,29660,23200,18260,15020,11790,8560,6810,5200],[512000,515000,30150,23690,18500,15260,12040,8800,6930,5320],[515000,518000,30640,24180,18750,15510,12280,9050,7060,5440],[518000,521000,31130,24670,18990,15750,12530,9290,7180,5560],[521000,524000,31620,25160,19240,16000,12770,9540,7300,5690],[524000,527000,32110,25650,19480,16240,13020,9780,7420,5810],[527000,530000,32600,26140,19730,16490,13260,10030,7550,5930],[530000,533000,33090,26630,20160,16730,13510,10270,7670,6050],[533000,536000,33580,27120,20650,16980,13750,10520,7790,6180],[536000,539000,34070,27610,21140,17220,14000,10760,7910,6300],[539000,542000,34560,28100,21630,17470,14240,11010,8040,6420],[542000,545000,35050,28590,22130,17710,14490,11250,8160,6540],[545000,548000,35540,29080,22620,17960,14730,11500,8280,6670],[548000,551000,36030,29570,23110,18200,14980,11740,8500,6790],[551000,554000,36570,30110,23650,18480,15240,12020,8780,6920],[554000,557000,37120,30660,24200,18760,15520,12290,9060,7060],[557000,560000,37670,31210,24750,19030,15790,12570,9330,7200],[560000,563000,38230,31760,25300,19310,16070,12840,9610,7330],[563000,566000,38780,32310,25850,19580,16350,13120,9880,7470],[566000,569000,39330,32870,26400,19930,16620,13400,10160,7610],[569000,572000,39880,33420,26950,20480,16900,13670,10430,7750],[572000,575000,40430,33970,27510,21030,17170,13950,10710,7880],[575000,578000,40980,34520,28060,21580,17450,14220,10990,8030],[578000,581000,41530,35070,28610,22140,17720,14500,11260,8160],[581000,584000,42090,35620,29160,22690,18000,14770,11540,8300],[584000,587000,42640,36170,29710,23240,18280,15050,11810,8580],[587000,590000,43190,36730,30260,23790,18550,15330,12090,8850],[590000,593000,43740,37280,30810,24340,18830,15600,12360,9130],[593000,596000,44290,37830,31370,24890,19100,15880,12640,9400],[596000,599000,44840,38380,31920,25440,19380,16150,12920,9680],[599000,602000,45390,38930,32470,25990,19650,16430,13190,9950],[602000,605000,45950,39480,33020,26550,20080,16700,13470,10230],[605000,608000,46500,40030,33570,27100,20630,16980,13740,10510],[608000,611000,47050,40580,34120,27650,21190,17250,14020,10780],[611000,614000,47600,41140,34670,28200,21740,17530,14290,11060],[614000,617000,48150,41690,35220,28750,22290,17810,14570,11330],[617000,620000,48700,42240,35780,29300,22840,18080,14850,11610],[620000,623000,49250,42790,36330,29850,23390,18360,15120,11880],[623000,626000,49800,43340,36880,30410,23940,18630,15400,12160],[626000,629000,50360,43890,37430,30960,24490,18910,15670,12440],[629000,632000,50910,44440,37980,31510,25050,19180,15950,12710],[632000,635000,51460,45000,38530,32060,25600,19460,16220,12990],[635000,638000,52010,45550,39080,32610,26150,19740,16500,13260],[638000,641000,52560,46100,39640,33160,26700,20240,16780,13540],[641000,644000,53110,46650,40190,33710,27250,20790,17050,13810],[644000,647000,53660,47200,40740,34260,27800,21340,17330,14090],[647000,650000,54220,47750,41290,34820,28350,21890,17600,14370],[650000,653000,54770,48300,41840,35370,28900,22440,17880,14640],[653000,656000,55320,48850,42390,35920,29460,22990,18150,14920],[656000,659000,55870,49410,42940,36470,30010,23540,18430,15190],[659000,662000,56420,49960,43490,37020,30560,24100,18700,15470],[662000,665000,56970,50510,44050,37570,31110,24650,18980,15740],[665000,668000,57520,51060,44600,38120,31660,25200,19260,16020],[668000,671000,58070,51610,45150,38680,32210,25750,19530,16300],[671000,674000,58630,52160,45700,39230,32760,26300,19830,16570],[674000,677000,59180,52710,46250,39780,33320,26850,20380,16850],[677000,680000,59730,53270,46800,40330,33870,27400,20930,17120],[680000,683000,60280,53820,47350,40880,34420,27950,21480,17400],[683000,686000,60830,54370,47910,41430,34970,28510,22030,17670],[686000,689000,61380,54920,48460,41980,35520,29060,22580,17950],[689000,692000,61930,55470,49010,42530,36070,29610,23140,18220],[692000,695000,62490,56020,49560,43090,36620,30160,23690,18500],[695000,698000,63040,56570,50110,43640,37170,30710,24240,18780],[698000,701000,63590,57120,50660,44190,37730,31260,24790,19050],[701000,704000,64140,57680,51210,44740,38280,31810,25340,19330],[704000,707000,64690,58230,51760,45290,38830,32370,25890,19600],[707000,710000,65250,58780,52320,45850,39380,32920,26450,19980],[710000,713000,65860,59390,52930,46470,39990,33530,27070,20590],[713000,716000,66480,60000,53540,47080,40610,34140,27680,21210],[716000,719000,67090,60620,54150,47690,41220,34750,28290,21820],[719000,722000,67700,61230,54770,48300,41830,35370,28900,22430],[722000,725000,68320,61840,55380,48920,42440,35980,29520,23040],[725000,728000,68930,62450,55990,49530,43060,36590,30130,23660],[728000,731000,69540,63070,56600,50140,43670,37210,30740,24270],[731000,734000,70150,63680,57220,50750,44280,37820,31350,24880],[734000,737000,70770,64290,57830,51370,44890,38430,31970,25490],[737000,740000,71380,64900,58440,51980,45510,39040,32580,26110]],PTS={"740000":[71680,65210,58750,52290,45810,39350,32890,26410],"790000":[81890,75420,68960,62500,56020,49560,43100,36620],"960000":[121820,115340,108880,102420,95940,89480,83020,76540],"1710000":[374520,368040,361580,355120,348640,342180,335720,329240],"2130000":[549440,542970,536500,530040,523570,517110,510640,504170],"2170000":[571220,564750,558280,551820,545350,538880,532420,525950],"2210000":[593000,586520,580060,573600,567120,560660,554200,547730],"2250000":[614770,608300,601840,595380,588900,582440,575980,569500],"3500000":[1125270,1118800,1112340,1105880,1099400,1092940,1086480,1080000]},SEG=[[740000, 20420], [790000, 23483], [960000, 33693], [1710000, 40840], [2130000, 40840], [2170000, 40840], [2210000, 40840], [2250000, 40840], [3500000, 45945]],RATE=[0, 2042, 4084, 6126, 8168, 10210, 12252, 14294, 16336, 18378, 20420, 22462, 24504, 26546, 28588, 30630, 32672, 35735, 38798, 41861, 45945],UP=[[82, 94, 260, 309, 342, 372, 402, 433, 520, 605, 684, 715, 752, 795, 854, 922, 1318, 1521, 2621, 3495], [107, 250, 289, 346, 373, 401, 430, 463, 520, 621, 705, 739, 778, 821, 882, 952, 1342, 1526, 2645, 3527], [143, 276, 321, 377, 400, 426, 457, 492, 525, 636, 728, 764, 804, 848, 910, 983, 1367, 1526, 2669, 3559], [181, 300, 354, 405, 424, 452, 484, 517, 550, 651, 751, 788, 830, 876, 938, 1013, 1391, 1538, 2693, 3590], [218, 300, 387, 431, 452, 477, 509, 540, 577, 666, 774, 813, 856, 903, 966, 1044, 1416, 1555, 2716, 3622], [251, 304, 412, 457, 479, 503, 531, 564, 604, 681, 798, 838, 881, 930, 994, 1074, 1440, 1555, 2740, 3654], [284, 343, 438, 483, 505, 527, 553, 589, 630, 697, 821, 862, 907, 957, 1022, 1104, 1464, 1555, 2764, 3685], [317, 383, 463, 508, 529, 552, 578, 614, 657, 708, 845, 887, 933, 985, 1051, 1135, 1489, 1583, 2788, 3717]];
+ function $(i){return document.getElementById(i)}
+ function T(i,s){var e=$(i);if(window.PH)e.innerHTML=PH(s);else e.textContent=s}
+ function f(n){return Math.round(n).toLocaleString("ja-JP")}
+ function r50d(n,d){var q=Math.floor(n/d),r=n-q*d;return r*2>d?q+1:q}
+ function std(m){for(var i=0;i<GR.length;i++){if(m<GR[i][1]*1000)return GR[i][0]*1000}return 1390000}
+ function getsu(x,hg){if(x<105000)return 0;
+  if(x<740000){var lo=0,hi=ROWS.length-1;while(lo<hi){var md=(lo+hi+1)>>1;if(ROWS[md][0]<=x)lo=md;else hi=md-1}return ROWS[lo][2+hg]}
+  var k=740000,r=0;for(var i=0;i<SEG.length;i++){if(x>=SEG[i][0]){k=SEG[i][0];r=SEG[i][1]}}
+  return PTS[k][hg]+Math.floor((x-k)*r/100000)}
+ function shahoM(m,rate,old,ei){if(m<=0)return 0;var s=std(m),p=Math.min(Math.max(s,88000),650000);
+  return r50d(s*(rate+23+(old===1?162:0)),20000)+r50d(p*1830,20000)+r50d(m*ei,10000)}
+ function bonus(b,m,hg,rate,old,ei,kik,sk){var sh=Math.floor(b/1000)*1000;
+  var ken=r50d(Math.min(sh,5730000)*(rate+23+(old===1?162:0)),20000),nen=r50d(Math.min(sh,1500000)*1830,20000),koy=r50d(b*ei,10000),sb=ken+nen+koy;
+  var k=sk>=0?Math.min(sk,m):shahoM(m,rate,old,ei),a=m-k,B=b-sb,mode=0,i=-1,zei;
+  if(m<=0||a<=0){mode=1;zei=getsu(Math.floor(B/kik),hg)*kik}
+  else if(B>a*10){mode=2;var a0=Math.max(a,0);zei=(getsu(a0+Math.floor(B/kik),hg)-getsu(a0,hg))*kik}
+  else{var cc=UP[Math.min(hg,7)];i=20;for(var j=0;j<cc.length;j++){if(a<cc[j]*1000){i=j;break}}zei=Math.floor(B*RATE[i]/100000)}
+  zei=Math.max(0,zei);return {sh:sh,ken:ken,nen:nen,koy:koy,sb:sb,k:k,a:a,i:i,mode:mode,zei:zei,te:b-sb-zei}}
+ window.__bonus=bonus;window.__getsu=getsu;
+ function pct(i){var v=RATE[i];return Math.floor(v/1000)+"."+("00"+(v%1000)).slice(-3)+"%"}
+ function man(v){return f(v/10000)+"万円"}
+ function yen(v){return v%10000===0&&v>0?man(v):f(v)+"円"}
+ var BR=[100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000, 1000000, 1200000, 1500000, 2000000, 3000000],hm=300000,ho=0;
+ function hayami(){var t=$("tb").tBodies[0],h="";
+  for(var i=0;i<BR.length;i++){var g=bonus(BR[i],hm,0,985,ho,50,6,-1);
+   h+='<tr><td class="l">'+man(BR[i])+'</td><td>'+f(g.sb)+'</td><td>'+(g.mode?"※":"")+f(g.zei)+'</td><td><b>'+f(g.te)+'</b></td></tr>'}
+  t.innerHTML=h;T("tb-cap","前月の給与"+man(hm)+"・"+["40歳未満","40〜64歳","65歳以上"][ho]+"・扶養親族0人・東京都")}
+ function bseg(id,set,after){$(id).addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;set(+b.getAttribute("data-v"));var bs=$(id).querySelectorAll("button");for(var i=0;i<bs.length;i++)bs[i].className=bs[i]===b?"on":"";after()})}
+ bseg("h-mae",function(v){hm=v},hayami);bseg("h-age",function(v){ho=v},hayami);
+ var old=0,ei=50,kik=6;
+ function num(i,hi){var v=parseInt($(i).value,10);return v>0?Math.min(v,hi):0}
+ function render(){var b=num("bon",50000000),m=num("mae",10000000),hg=+$("fu").value,rate=PF[+$("pref").value][1];
+  var skv=$("skin").value.trim(),sk=skv===""?-1:num("skin",10000000);
+  var g=bonus(b,m,hg,rate,old,ei,kik,sk);
+  T("o-q","賞与 "+f(b)+"円 の手取り");
+  $("o-te").textContent=f(g.te);
+  T("o-p",b>0?"賞与の"+(Math.floor(g.te*1000/b)/10).toFixed(1)+"%が手元に残ります":"賞与の額を入力してください");
+  $("o-b").textContent=f(b)+"円";
+  $("o-sb").textContent=(g.sb>0?"−":"")+f(g.sb)+"円";
+  T("o-kenl",old===1?"健康保険・介護保険":"健康保険");$("o-ken").textContent=f(g.ken)+"円";$("o-nen").textContent=f(g.nen)+"円";$("o-koy").textContent=f(g.koy)+"円";
+  $("o-z").textContent=(g.zei>0?"−":"")+f(g.zei)+"円";
+  var zd;
+  if(g.mode===1)zd=(m>0?"前月の給与が社会保険料以下なので":"前月の給与が無いので")+"、月額表で計算しました（社会保険料を引いた賞与の"+kik+"分の1の税額を"+kik+"倍）";
+  else if(g.mode===2)zd="社会保険料を引いた賞与が前月の給与の10倍を超えるので、月額表で計算しました";
+  else zd="前月の給与"+yen(m)+"から社会保険料"+f(g.k)+"円を引くと"+f(g.a)+"円なので、率は"+pct(g.i)+"です";
+  T("o-zd",zd);
+  $("o-te2").textContent=f(g.te)+"円"}
+ ["bon","mae","skin"].forEach(function(i){$(i).addEventListener("input",render)});
+ ["fu","pref"].forEach(function(i){$(i).addEventListener("change",render)});
+ bseg("s-old",function(v){old=v},render);bseg("s-ei",function(v){ei=v},render);bseg("s-kik",function(v){kik=v},render);
+ render();
+})();
+(function(){var t=document.getElementById("rt");if(!t)return;var sp=t.querySelectorAll("span.ph"),i,f;for(i=0;i<sp.length;i++){f=document.createDocumentFragment();while(sp[i].firstChild)f.appendChild(sp[i].firstChild);if(sp[i].nextSibling)f.appendChild(document.createElement("wbr"));sp[i].replaceWith(f);}})();
+
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script><style id="tdwc">main .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}main .tw th,main .tw td{min-width:4em}main .tw .tdn{white-space:nowrap}</style><script id="tdw">(function(){function f(){var c=document.querySelectorAll("main .tw th,main .tw td");for(var i=0;i<c.length;i++){var t=(c[i].textContent||"").replace(/\s/g,"");if(t.length&&t.length<=8)c[i].classList.add("tdn");else c[i].classList.remove("tdn");}}f();var m=document.querySelector("main");if(m&&window.MutationObserver){var b=0;new MutationObserver(function(){if(b)return;b=1;setTimeout(function(){b=0;f();},0);}).observe(m,{childList:true,subtree:true,characterData:true});}})();</script>
+<style id="fsxc">.fsb{display:inline-block;margin:8px 0 6px;padding:6px 12px;border:1px solid #0f3d31;border-radius:6px;background:#ffffff;color:#0f3d31;font-weight:700;font-size:13px;cursor:pointer}.fso{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#ffffff;overflow:auto;padding:0 12px 24px}.fso .fsh{position:sticky;top:0;left:0;background:#ffffff;padding:10px 0;display:flex;justify-content:flex-end}.fso table{min-width:0;margin:0}.fsz{overflow:hidden}</style><script id="fsx">(function(){var ws=document.querySelectorAll("main .tw");for(var i=0;i<ws.length;i++){(function(w){if(w.querySelectorAll("tr").length<6)return;var b=document.createElement("button");b.type="button";b.className="fsb";b.textContent="表全体を見る";b.addEventListener("click",function(){var o=document.createElement("div");o.className="fso";var h=document.createElement("div");h.className="fsh";var c=document.createElement("button");c.type="button";c.className="fsb";c.textContent="閉じる";h.appendChild(c);o.appendChild(h);var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");[].forEach.call(t.querySelectorAll("[id]"),function(e){e.removeAttribute("id")});var bx=document.createElement("div");bx.className="fsz";bx.appendChild(t);o.appendChild(bx);document.body.appendChild(o);document.body.style.overflow="hidden";t.style.width="max-content";var W=o.clientWidth-24,tw=t.offsetWidth,k=Math.min(1,W/tw);t.style.transformOrigin="0 0";t.style.transform="scale("+k+")";bx.style.height=Math.ceil(t.offsetHeight*k)+"px";bx.style.width=Math.floor(tw*k)+"px";c.addEventListener("click",function(){document.body.removeChild(o);document.body.style.overflow="";});});w.parentNode.insertBefore(b,w);})(ws[i]);}})();</script>
+</body></html>
