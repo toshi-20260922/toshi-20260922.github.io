@@ -40,30 +40,16 @@
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run
+import rates
 M = 10000
 
 # ---- 原本の数字 ----
 def shotoku8(x):
     """令和8・9年分の給与所得(No.1410)。"""
-    if x < 741000: return 0
-    if x < 2191000: return x - 740000
-    if x < 2193000: return 1451000
-    if x < 2196000: return 1453000
-    if x < 2200000: return 1456000
-    if x < 6600000:
-        a = x // 4000 * 4000
-        return a * 7 // 10 - 80000 if x < 3600000 else a * 8 // 10 - 440000
-    if x < 8500000: return x * 9 // 10 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 def shotoku7(x):
     """令和7年分の給与所得(No.1410・別表第五は4,000円きざみ)。"""
-    if x < 651000: return 0
-    if x < 1900000: return x - 650000
-    if x < 6600000:
-        a = x // 4000 * 4000
-        return a * 7 // 10 - 80000 if x < 3600000 else a * 8 // 10 - 440000
-    if x < 8500000: return x * 9 // 10 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r7(x)
 def kojo_shiki(x, r8):
     """給与所得控除の額(式どおり。早見表の式の列と年収ごとの表)。"""
     if x <= (2200000 if r8 else 1900000): return 740000 if r8 else 650000
@@ -72,10 +58,7 @@ def kojo_shiki(x, r8):
     if x <= 8500000: return x // 10 + 1100000
     return 1950000
 def kiso8(s):
-    if s <= 4890000: return 1040000
-    if s <= 6550000: return 670000
-    if s <= 23500000: return 620000
-    return 480000 if s <= 24000000 else 320000 if s <= 24500000 else 160000 if s <= 25000000 else 0
+    return rates.kiso_shotoku(s)
 KISO7 = [(132, 95), (336, 88), (489, 68), (655, 63), (2350, 58)]
 KISO8 = [(132, 104), (336, 104), (489, 104), (655, 67), (2350, 62)]
 FUYO7, FUYO8 = 580000, 620000                       # 同一生計配偶者・扶養親族の所得要件
@@ -107,7 +90,7 @@ def kabe(lim):
 def tool(x, who):
     s = shotoku8(x)
     kz = max(0, s - kiso8(s)) // 1000 * 1000
-    zei = kz * 5 // 100 * 1021 // 1000 // 100 * 100     # いちばん低い率5%・復興特別所得税2.1%・100円未満切り捨て(0円かどうかだけを見る)
+    zei = kz * 5 // 100 * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100     # いちばん低い率5%・復興特別所得税2.1%・100円未満切り捨て(0円かどうかだけを見る)
     lim = SHAHO[who]
     si = x < lim
     ti = s <= FUYO8
@@ -167,7 +150,7 @@ async def body(pg):
             for k in ids:
                 chk('箱 %d who%d %s' % (x, who, k), got[k], exp[k])
             chk('箱 %d who%d 色' % (x, who), await pg.get_attribute('#vd', 'class'), 'vd' if exp['j4'] == '外れる' else 'vd no')   # 外れるときだけ注意の色
-    chk('税額が出る境目', (tool(1781999, 0)['j1'], tool(1782000, 0)['j1'], 1000 * 5 // 100 * 1021 // 1000, 2000 * 5 // 100 * 1021 // 1000), ('かからない', 'かかる', 51, 102))
+    chk('税額が出る境目', (tool(1781999, 0)['j1'], tool(1782000, 0)['j1'], 1000 * 5 // 100 * rates.FUKKO_NUM // rates.FUKKO_DEN, 2000 * 5 // 100 * rates.FUKKO_NUM // rates.FUKKO_DEN), ('かからない', 'かかる', 51, 102))
     chk('箱の注 所得税', await pg.eval_on_selector_all('.jdg em', 'es=>es.slice(0,2).map(e=>e.textContent)'),
         [mstr(zei8) + 'まで0円', mstr(jm8) + 'まで0円（目安）'])
     chk('働く人の選択肢', await pg.eval_on_selector_all('#s-who button', 'bs=>bs.map(b=>b.textContent)'), ['配偶者', '19〜22歳の子', '60歳以上'])

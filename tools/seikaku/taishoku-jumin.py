@@ -45,31 +45,16 @@ import os, sys, random
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
+import rates as zeiritsu
 
 def kyuyo_r7(a):          # 令和7年分(令和8年度の住民税)の給与所得。最低保障65万円
-    if a < 651000: return 0
-    if a < 1900000: return a - 650000
-    if a < 6600000:
-        A = a // 4000 * 4000
-        return A * 7 // 10 - 80000 if a < 3600000 else A * 8 // 10 - 440000
-    if a < 8500000: return a * 9 // 10 - 1100000
-    return a - 1950000
+    return zeiritsu.kyuyo_r7(a)
 
 def kyuyo_r8(a):          # 令和8年分(令和9年度の住民税)の給与所得。最低保障74万円と特例の表
-    if a < 741000: return 0
-    if a < 2191000: return a - 740000
-    if a < 2193000: return 1451000
-    if a < 2196000: return 1453000
-    if a < 2200000: return 1456000
-    return kyuyo_r7(a)
+    return zeiritsu.kyuyo_r8(a)
 
 # 健康保険の等級:(報酬月額の下限 千円, 標準報酬月額 千円)
-GRADE = [(0, 58), (63, 68), (73, 78), (83, 88), (93, 98), (101, 104), (107, 110), (114, 118), (122, 126), (130, 134),
-         (138, 142), (146, 150), (155, 160), (165, 170), (175, 180), (185, 190), (195, 200), (210, 220), (230, 240),
-         (250, 260), (270, 280), (290, 300), (310, 320), (330, 340), (350, 360), (370, 380), (395, 410), (425, 440),
-         (455, 470), (485, 500), (515, 530), (545, 560), (575, 590), (605, 620), (635, 650), (665, 680), (695, 710),
-         (730, 750), (770, 790), (810, 830), (855, 880), (905, 930), (955, 980), (1005, 1030), (1055, 1090),
-         (1115, 1150), (1175, 1210), (1235, 1270), (1295, 1330), (1355, 1390)]
+GRADE = zeiritsu.tokyu_lower_std_sen()
 def hyojun(m):
     s = 58
     for lo, v in GRADE:
@@ -83,18 +68,18 @@ def rates(year, k):
     """(健康保険+支援金の率, 雇用保険の本人の率) その年のk月分。"""
     if year == 2025:
         return (F(998, 10000) if k <= 2 else F(991, 10000)), (F(6, 1000) if k <= 3 else F(55, 10000))
-    h = F(991, 10000) if k <= 2 else F(985, 10000) if k == 3 else F(985 + 23, 10000)
-    return h, (F(55, 10000) if k <= 3 else F(5, 1000))
+    h = F(991, 10000) if k <= 2 else F(zeiritsu.TOKYO, 10000) if k == 3 else F(zeiritsu.TOKYO + zeiritsu.SIEN, 10000)
+    return h, (F(55, 10000) if k <= 3 else F(zeiritsu.KOYO_PER_1000, 1000))
 
 def shaho(m, year, n):
-    s = hyojun(m); p = min(max(s, 88000), 650000); t = 0
+    s = hyojun(m); p = min(max(s, zeiritsu.NENKIN_MIN), zeiritsu.NENKIN_MAX); t = 0
     for k in range(1, n + 1):
         h, ko = rates(year, k)
-        t += r50(F(s) * h / 2) + r50(F(p) * F(183, 1000) / 2) + r50(F(m) * ko)
+        t += r50(F(s) * h / 2) + r50(F(p) * F(zeiritsu.NENKIN_PER_1000, 1000) / 2) + r50(F(m) * ko)
     return t
 
 def kiso(g):
-    return 430000 if g <= 24000000 else 290000 if g <= 24500000 else 150000 if g <= 25000000 else 0
+    return zeiritsu.kiso_jumin(g)
 
 def jumin(g, sh):
     if g <= 450000: return 0                         # 単身の非課税(均等割・所得割とも)

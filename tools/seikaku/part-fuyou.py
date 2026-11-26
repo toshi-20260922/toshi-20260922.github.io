@@ -47,10 +47,11 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction as F
 from _lib import run
+import rates
 
 # ---- 原本の手順から書いた計算 ----
-KENPO_B = [63, 73, 83, 93, 101, 107, 114, 122, 130, 138, 146, 155, 165, 175, 185, 195, 210, 230, 250, 270, 290, 310]   # 千円・未満
-KENPO_S = [58, 68, 78, 88, 98, 104, 110, 118, 126, 134, 142, 150, 160, 170, 180, 190, 200, 220, 240, 260, 280, 300, 320]
+KENPO_B = rates.upper_sen()[:22]
+KENPO_S = rates.std_sen()[:23]
 def hyojun(m):
     for b, s in zip(KENPO_B, KENPO_S):
         if m < b * 1000:
@@ -61,9 +62,9 @@ def r50(x):                                   # 50銭以下切り捨て・50銭�
     return fl + (1 if x - fl > F(1, 2) else 0)
 def shaho(m):
     s = hyojun(m)
-    kenpo = r50(F(s) * (F(985, 10000) + F(23, 10000)) / 2)
-    nenkin = r50(F(max(s, 88000)) * F(183, 1000) / 2)
-    koyo = r50(F(m) * F(5, 1000))
+    kenpo = r50(F(s) * (F(rates.TOKYO, 10000) + F(rates.SIEN, 10000)) / 2)
+    nenkin = r50(F(max(s, rates.NENKIN_MIN)) * F(rates.NENKIN_PER_1000, 1000) / 2)
+    koyo = r50(F(m) * F(rates.KOYO_PER_1000, 1000))
     return kenpo, nenkin, koyo
 def kyuyo_shotoku(y):                         # 令和8年分(月収30万円未満=年360万円未満まで)
     if y < 741000: return 0
@@ -74,11 +75,11 @@ def kyuyo_shotoku(y):                         # 令和8年分(月収30万円未�
     return y // 4000 * 1000 * 28 // 10 - 80000
 def zei(y, sha_nen):
     sh = kyuyo_shotoku(y)
-    kz = max(0, sh - sha_nen - 1040000) // 1000 * 1000       # 基礎控除104万円(合計所得489万円以下)
-    it = kz * 5 // 100 * 1021 // 1000 // 100 * 100           # 195万円以下は5%・復興特別所得税・100円未満切り捨て
+    kz = max(0, sh - sha_nen - rates.KISO_SHOTOKU[0][1]) // 1000 * 1000       # 基礎控除104万円(合計所得489万円以下)
+    it = kz * 5 // 100 * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100           # 195万円以下は5%・復興特別所得税・100円未満切り捨て
     if sh <= 450000:                                         # 住民税の非課税(1級地・扶養なし)
         return it, 0
-    kj = max(0, sh - sha_nen - 430000) // 1000 * 1000
+    kj = max(0, sh - sha_nen - rates.KISO_JUMIN[0][1]) // 1000 * 1000
     ch = min(50000, kj)                                      # 調整控除(基礎控除の差5万円と課税所得の少ないほう)
     shi = max(0, kj * 6 // 100 - ch * 3 // 100) // 100 * 100
     ken = max(0, kj * 4 // 100 - ch * 2 // 100) // 100 * 100

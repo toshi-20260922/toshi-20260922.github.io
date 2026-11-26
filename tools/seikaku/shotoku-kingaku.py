@@ -32,21 +32,12 @@
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run
+import rates
 MAN = 10000
 
 def kyuyo(x):
     """別表第五の手順。660万円未満は表・660万円以上は式(1円未満切り捨て)。"""
-    if x < 741000: return 0
-    if x < 2191000: return x - 740000
-    if x < 2193000: return 1451000
-    if x < 2196000: return 1453000
-    if x < 2200000: return 1456000
-    if x < 6600000:
-        a = x // 4000 * 4000                       # 表の行の「以上」の額
-        if a < 3600000: return a - (a * 30 // 100 + 80000)         # 行の額−(行の額×30%+8万円)
-        return a - (a * 20 // 100 + 440000)
-    if x < 8500000: return x * 90 // 100 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 
 def kojo_shiki(x):
     """No.1410 の控除額の表(式)。"""

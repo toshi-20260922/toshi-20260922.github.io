@@ -57,6 +57,7 @@ import os, sys, random
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run
+import rates
 
 # ---- 総務省の目安の表(000408217.pdf)。列:独身又は共働き/夫婦/共働き+子1人(高校生)/共働き+子1人(大学生)/夫婦+子1人(高校生)/共働き+子2人(大学生と高校生)/夫婦+子2人(大学生と高校生)
 MIC_COLS = [(0, 0, 0), (1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 0), (0, 1, 1), (1, 1, 1)]   # (収入なしの配偶者, 16〜18歳, 19〜22歳)
@@ -87,24 +88,10 @@ MIC = {
 
 # ---- 給与所得(令和8年分の所得税・令和9年度の住民税)。最低保障74万円の特例つき
 def kyuyo(a):
-    if a < 741000: return 0
-    if a < 2191000: return a - 740000
-    if a < 2193000: return 1451000
-    if a < 2196000: return 1453000
-    if a < 2200000: return 1456000
-    if a < 6600000:
-        A = a // 4000 * 4000                      # 所得税法別表第五(4,000円きざみ)
-        return A * 7 // 10 - 80000 if a < 3600000 else A * 8 // 10 - 440000
-    if a < 8500000: return a * 9 // 10 - 1100000
-    return a - 1950000
+    return rates.kyuyo_r8(a)
 
 # ---- 社会保険料(協会けんぽ東京都・40歳未満・賞与なし)
-GRADE = [(0, 58), (63, 68), (73, 78), (83, 88), (93, 98), (101, 104), (107, 110), (114, 118), (122, 126), (130, 134),
-         (138, 142), (146, 150), (155, 160), (165, 170), (175, 180), (185, 190), (195, 200), (210, 220), (230, 240),
-         (250, 260), (270, 280), (290, 300), (310, 320), (330, 340), (350, 360), (370, 380), (395, 410), (425, 440),
-         (455, 470), (485, 500), (515, 530), (545, 560), (575, 590), (605, 620), (635, 650), (665, 680), (695, 710),
-         (730, 750), (770, 790), (810, 830), (855, 880), (905, 930), (955, 980), (1005, 1030), (1055, 1090),
-         (1115, 1150), (1175, 1210), (1235, 1270), (1295, 1330), (1355, 1390)]     # (報酬月額の下限, 標準報酬月額) 千円
+GRADE = rates.tokyu_lower_std_sen()
 def hyojun(m):
     s = 58
     for lo, v in GRADE:
@@ -116,9 +103,9 @@ def r50(v):                                       # 被保険者負担分:50銭�
 def shaho(a):
     m = a // 12
     s = hyojun(m)
-    kenpo = r50(F(s) * (F(985, 10000) + F(23, 10000)) / 2)      # 健康保険9.85%+子ども・子育て支援金0.23%の半分
-    nenkin = r50(F(min(max(s, 88000), 650000)) * F(183, 1000) / 2)
-    koyo = r50(F(m) * F(5, 1000))
+    kenpo = r50(F(s) * (F(rates.TOKYO, 10000) + F(rates.SIEN, 10000)) / 2)      # 健康保険9.85%+子ども・子育て支援金0.23%の半分
+    nenkin = r50(F(min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)) * F(rates.NENKIN_PER_1000, 1000) / 2)
+    koyo = r50(F(m) * F(rates.KOYO_PER_1000, 1000))
     return (kenpo + nenkin + koyo) * 12
 
 # ---- 特例控除の割合を決める所得税率(地方税法37条の2第2項の表)。0円未満は0%(割合90%)、0円ちょうどは5%
@@ -130,9 +117,7 @@ def ritsu(x):
     return 45
 
 def kiso_i(g):                                    # 所得税の基礎控除(令和8年分・9年分)
-    for top, v in [(4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000), (24500000, 320000), (25000000, 160000)]:
-        if g <= top: return v
-    return 0
+    return rates.kiso_shotoku(g)
 
 def ref(a, sp, n1, n2, sh=None, old=False):
     """上限額・所得割・式で使う所得税率。sh を渡さなければ協会けんぽ東京都の社会保険料。"""
@@ -143,7 +128,7 @@ def ref(a, sp, n1, n2, sh=None, old=False):
     nin = sp + n1 + n2
     if g <= 350000 * (nin + 1) + 100000 + (320000 if nin else 0):      # 所得割の非課税
         return {'lim': 0, 'sho': 0, 'rate': 0, 'x': None}
-    kiso = 430000 if g <= 24000000 else 290000 if g <= 24500000 else 150000 if g <= 25000000 else 0
+    kiso = rates.kiso_jumin(g)
     hai = sa = 0
     if sp:
         hai, sa = (330000, 50000) if g <= 9000000 else (220000, 40000) if g <= 9500000 else (110000, 20000) if g <= 10000000 else (0, 0)
@@ -157,7 +142,7 @@ def ref(a, sp, n1, n2, sh=None, old=False):
     if sho <= 0:
         return {'lim': 0, 'sho': 0, 'rate': ritsu(tr - jsr), 'x': tr - jsr}
     r = ritsu(tr - jsr)
-    lim = sho * F(20, 100) / (F(90, 100) - F(r) * F(1021, 1000) / 100) + 2000
+    lim = sho * F(20, 100) / (F(90, 100) - F(r) * F(rates.FUKKO_NUM, rates.FUKKO_DEN) / 100) + 2000
     return {'lim': lim.numerator // lim.denominator, 'sho': sho.numerator // sho.denominator, 'rate': r, 'x': tr - jsr}
 
 JS = '''([a,sp,n1,n2])=>{var q=function(i){return document.getElementById(i)},e=function(el,t){el.dispatchEvent(new Event(t,{bubbles:true}))};

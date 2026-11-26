@@ -46,11 +46,12 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
 from _lib import run
+import rates
 
 MAN = 10000
-KYUYO_MIN = 74 * MAN            # 給与所得控除の最低保障額(令和8年分・9年分。住民税は令和9年度・10年度)
-KISO_IT = 104 * MAN             # 所得税の基礎控除(合計所得489万円以下)
-KISO_JU = 43 * MAN              # 住民税の基礎控除
+KYUYO_MIN = rates.D['kyuyo_r8']['min']  # 給与所得控除の最低保障額(令和8年分)
+KISO_IT = rates.KISO_SHOTOKU[0][1]  # 所得税の基礎控除(合計所得489万円以下)
+KISO_JU = rates.KISO_JUMIN[0][1]    # 住民税の基礎控除(2,400万円以下)
 FUYO_LIMIT = 62 * MAN           # 扶養親族の合計所得
 KINRO_LIMIT = 89 * MAN          # 勤労学生の合計所得
 KINRO_IT, KINRO_JU = 27 * MAN, 26 * MAN
@@ -93,7 +94,7 @@ def my_it(x):
     k = KINRO_IT if s <= KINRO_LIMIT else 0
     kazei = max(0, s - KISO_IT - k) // 1000 * 1000
     assert kazei <= 1950000
-    return kazei * 5 // 100 * 1021 // 1000 // 100 * 100     # 5%は1,000円単位に掛けるので割り切れる
+    return kazei * 5 // 100 * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100     # 5%は1,000円単位に掛けるので割り切れる
 
 def my_ju(x):
     s = shotoku(x)
@@ -237,7 +238,7 @@ async def body(pg):
     BAND = [(5, '課税所得195万円以下'), (10, '195万円超〜330万円'), (20, '330万円超〜695万円'), (23, '695万円超〜900万円')]
     want = []
     for r, lab in BAND:
-        it = 63 * MAN * r * 1021 // 100000
+        it = 63 * MAN * r * rates.FUKKO_NUM // (100 * rates.FUKKO_DEN)
         ju = 45 * MAN * 10 // 100
         want.append(['%d%%%s' % (r, lab), c(it) + '円', c(ju) + '円', '約%d万円' % ((Fraction(it + ju, MAN) + Fraction(1, 2)).__floor__())])
     chk('親の税金の表', rows, want)

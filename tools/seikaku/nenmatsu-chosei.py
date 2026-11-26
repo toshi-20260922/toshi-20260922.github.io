@@ -28,29 +28,25 @@ import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, SITE
+import rates
 
 # 協会けんぽの等級表(報酬月額の下の境目, 標準報酬月額)
-GRADE = [(0, 58), (63, 68), (73, 78), (83, 88), (93, 98), (101, 104), (107, 110), (114, 118), (122, 126), (130, 134),
-         (138, 142), (146, 150), (155, 160), (165, 170), (175, 180), (185, 190), (195, 200), (210, 220), (230, 240),
-         (250, 260), (270, 280), (290, 300), (310, 320), (330, 340), (350, 360), (370, 380), (395, 410), (425, 440),
-         (455, 470), (485, 500), (515, 530), (545, 560), (575, 590), (605, 620), (635, 650), (665, 680), (695, 710),
-         (730, 750), (770, 790), (810, 830), (855, 880), (905, 930), (955, 980), (1005, 1030), (1055, 1090),
-         (1115, 1150), (1175, 1210), (1235, 1270), (1295, 1330), (1355, 1390)]
+GRADE = rates.tokyu_lower_std_sen()
 def hyojun(m):
     h = 58
     for lo, std in GRADE:
         if m >= lo * 1000: h = std
     return h * 1000
 def kenpo_rate(kaigo):                       # 健康保険9.85%+支援金0.23%(+介護1.62%)
-    return F(985 + 23 + (162 if kaigo else 0), 10000)
+    return F(rates.TOKYO + rates.SIEN + (rates.KAIGO if kaigo else 0), 10000)
 def r50(x):                                  # 50銭以下切り捨て・50銭超切り上げ
     f = x.numerator // x.denominator
     return f + 1 if x - f > F(1, 2) else f
 def half_up(x):
     return (2 * x.numerator + x.denominator) // (2 * x.denominator)
 def shaho_month(m, kaigo):
-    h = hyojun(m); k = min(max(h, 88000), 650000)
-    return [h * kenpo_rate(kaigo) / 2, k * F(183, 1000) / 2, m * F(5, 1000)]
+    h = hyojun(m); k = min(max(h, rates.NENKIN_MIN), rates.NENKIN_MAX)
+    return [h * kenpo_rate(kaigo) / 2, k * F(rates.NENKIN_PER_1000, 1000) / 2, m * F(rates.KOYO_PER_1000, 1000)]
 # 電算機計算の特例(令和8年分)
 def gensen_month(a, n):
     if a <= 158333: ky = F(54167)
@@ -78,24 +74,12 @@ RITSU = [0, 2042, 4084, 6126, 8168, 10210, 12252, 14294, 16336, 18378, 20420, 22
          32672, 35735, 38798, 41861, 45945]
 # 年末調整等のための給与所得控除後の給与等の金額の表(令和8年分)
 def kyuyo_shotoku(s):
-    if s < 741000: return 0
-    if s < 2191000: return s - 740000
-    if s < 2193000: return 1451000
-    if s < 2196000: return 1453000
-    if s < 2200000: return 1456000
-    if s < 3600000: return s // 4000 * 4000 * 7 // 10 - 80000
-    if s < 6600000: return s // 4000 * 4000 * 8 // 10 - 440000
-    if s < 8500000: return s * 9 // 10 - 1100000
-    return s - 1950000
+    return rates.kyuyo_r8(s)
 def kiso(x):
-    for top, v in ((4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000),
-                   (24500000, 320000), (25000000, 160000)):
-        if x <= top: return v
-    return 0
+    return rates.kiso_shotoku(x)
 def haigusha(x):
     return 380000 if x <= 9000000 else 260000 if x <= 9500000 else 130000 if x <= 10000000 else 0
-SOKUSAN = [(1950000, 5, 0), (3300000, 10, 97500), (6950000, 20, 427500), (9000000, 23, 636000),
-           (18000000, 33, 1536000), (40000000, 40, 2796000), (None, 45, 4796000)]
+SOKUSAN = rates.sokusan_ue()
 def ref(S, B, hg, kg, ideco=0, seiho=0, loan=0):
     if B >= S or S <= 0: return {'ng': 1}
     m = F(S - B, 12); sh = kyuyo_shotoku(S)
@@ -112,7 +96,7 @@ def ref(S, B, hg, kg, ideco=0, seiho=0, loan=0):
         room = 5730000
         for _ in range(2):
             s = b // 1000 * 1000; kb = min(s, room); room -= kb
-            x = r50(kb * kenpo_rate(kg) / 2) + r50(min(s, 1500000) * F(183, 1000) / 2) + r50(b * F(5, 1000))
+            x = r50(kb * kenpo_rate(kg) / 2) + r50(min(s, 1500000) * F(rates.NENKIN_PER_1000, 1000) / 2) + r50(b * F(rates.KOYO_PER_1000, 1000))
             if b - x > a * 10: return {'ng': 2}
             t += (b - x) * RITSU[idx] // 100000
             sa += x
@@ -122,7 +106,7 @@ def ref(S, B, hg, kg, ideco=0, seiho=0, loan=0):
     for top, r, d in SOKUSAN:
         if top is None or base <= top:
             san = base * r // 100 - d; break
-    z = max(san - loan, 0) * 1021 // 1000 // 100 * 100
+    z = max(san - loan, 0) * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100
     return {'ng': 0, 't': t, 'z': z, 'k': t - z, 'ki': ki, 'sh': sh, 'sa': sa}
 
 def digits(t):

@@ -6,6 +6,7 @@
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num, SITE
+import rates
 
 src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tedori.py'), encoding='utf-8').read()
 src = src[:src.index('def r_half_up')].replace('from _lib import run', '')
@@ -59,15 +60,15 @@ async def body(pg):
     rows = re.findall(r'<tr><td>([\d,]+)</td><td>([\d,]+)</td><td>([\d,]+)</td><td>([\d,]+)</td><td>([\d.]+)%</td></tr>', h)
     chk('月の早見表の行数', len(rows), 12)
     for tr in rows:
-        t = num(tr[0]); m = want_m(t, 985, 0); e = te(m, 985, 0)
+        t = num(tr[0]); m = want_m(t, rates.TOKYO, 0); e = te(m, rates.TOKYO, 0)
         chk(('月の表', t), tuple(tr[1:]), (f(m), f(m * 12), f(m - e['t'] // 12), pct1(e['t'], m * 12)))
     rows = re.findall(r'<tr><td>([\d,]+)万円</td><td>([\d,]+)</td><td>([\d,]+)</td><td>([\d,]+)</td></tr>', h)
     chk('年の早見表の行数', len(rows), 10)
     for tr in rows:
-        t = num(tr[0]) * 10000; m = want_y(t, 985, 0); e = te(m, 985, 0)
+        t = num(tr[0]) * 10000; m = want_y(t, rates.TOKYO, 0); e = te(m, rates.TOKYO, 0)
         chk(('年の表', t), tuple(tr[1:]), (f(m * 12), f(m), f(m * 12 - e['t'])))
     # 3 既定の文字(JS が動く前)と画面
-    m30 = want_m(300000, 985, 0); e = te(m30, 985, 0)
+    m30 = want_m(300000, rates.TOKYO, 0); e = te(m30, rates.TOKYO, 0)
     for s in ['<b id="o-vd">必要な月給は%s円です</b>' % f(m30), '<b id="o-m">%s<i>円</i></b>' % f(m30),
               '<b id="o-y">%s<i>円</i></b>' % f(m30 * 12), '<b id="o-d">%s<i>円</i></b>' % f(m30 - e['t'] // 12),
               '手取り率%s%%' % pct1(e['t'], m30 * 12),
@@ -89,13 +90,13 @@ async def body(pg):
     chk('箱 1年の手取り400万', (num(await pg.inner_text('#o-m')), num(await pg.inner_text('#o-y'))), (m, m * 12))
     # 5 本文・よくある質問
     for t in (200000, 250000, 300000):
-        m = want_m(t, 985, 0)
+        m = want_m(t, rates.TOKYO, 0)
         chk(('質問の月給', t), ('月給%s円' % f(m)) in h, True)
     for t in (3000000, 5000000):
-        m = want_y(t, 985, 0)
+        m = want_y(t, rates.TOKYO, 0)
         chk(('質問の年収', t), ('年収%s円' % f(m * 12)) in h, True)
     for t in (200000, 400000):
-        m = want_m(t, 985, 0); e = te(m, 985, 0)
+        m = want_m(t, rates.TOKYO, 0); e = te(m, rates.TOKYO, 0)
         chk(('およそ8割', t), 75 <= e['t'] * 100 // (m * 12) <= 84, True)
     return n, bad
 

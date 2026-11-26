@@ -22,10 +22,10 @@
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
+import rates
 
 # 別紙の速算表(課税退職所得金額の上限・率%・控除額)
-SOKUSAN = [(1950000, 5, 0), (3300000, 10, 97500), (6950000, 20, 427500), (9000000, 23, 636000),
-           (18000000, 33, 1536000), (40000000, 40, 2796000), (None, 45, 4796000)]
+SOKUSAN = rates.sokusan_ue()
 
 def kojo(n):
     if n <= 20:
@@ -52,7 +52,7 @@ def ref(g, n, yakuin):
         if top is None or a <= top:
             base = a * rate // 100 - c       # a は1,000円単位なので割り切れる
             break
-    it = max(0, base) * 1021 // 1000         # ×102.1% のあと1円未満切り捨て
+    it = max(0, base) * rates.FUKKO_NUM // rates.FUKKO_DEN         # ×102.1% のあと1円未満切り捨て
     shi = a * 6 // 100 // 100 * 100
     ken = a * 4 // 100 // 100 * 100
     return {'k': kojo(n), 'inc': a, 'it': it, 'ju': shi + ken, 'tax': it + shi + ken, 'net': g - it - shi - ken}

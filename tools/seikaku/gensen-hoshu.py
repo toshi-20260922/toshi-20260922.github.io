@@ -49,9 +49,10 @@ import os, sys, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
 from _lib import run
+import rates
 
-R1 = Fraction(1021, 10000)   # 10% × 102.1%
-R2 = Fraction(2042, 10000)   # 20% × 102.1%
+R1 = Fraction(10, 100) * Fraction(rates.FUKKO_NUM, rates.FUKKO_DEN)   # 10% × 102.1%
+R2 = Fraction(20, 100) * Fraction(rates.FUKKO_NUM, rates.FUKKO_DEN)   # 20% × 102.1%
 KOJO = {1: 10000, 2: 120000, 4: 500000, 5: 50000}   # 司法書士等・外交員等・広告宣伝の賞金・プロボクサー
 
 def ref(k, a, d=30):
@@ -59,7 +60,7 @@ def ref(k, a, d=30):
     if k == 0:
         if a <= 1000000:
             return (a * R1).__floor__()
-        return ((a - 1000000) * R2 + 102100).__floor__()
+        return ((a - 1000000) * R2 + 1000000 * R1).__floor__()
     ded = 5000 * d if k == 3 else KOJO[k]
     return (max(0, a - ded) * R1).__floor__()
 
@@ -74,8 +75,8 @@ async def body(pg):
         if got != want:
             bad += 1; print('NG', label, repr(got), repr(want))
 
-    chk('10.21%=10%×102.1%', Fraction(10, 100) * Fraction(1021, 1000), R1)
-    chk('20.42%=20%×102.1%', Fraction(20, 100) * Fraction(1021, 1000), R2)
+    chk('10.21%=10%×102.1%', Fraction(10, 100) * Fraction(rates.FUKKO_NUM, rates.FUKKO_DEN), R1)
+    chk('20.42%=20%×102.1%', Fraction(20, 100) * Fraction(rates.FUKKO_NUM, rates.FUKKO_DEN), R2)
     chk('102,100円=100万円×10.21%', 1000000 * R1, 102100)
 
     # 原本に載っている計算例で、自分の計算そのものを確かめる

@@ -3,6 +3,7 @@
 import os, sys, asyncio
 from fractions import Fraction as F
 from playwright.async_api import async_playwright
+import rates
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 def url(s): return 'file://' + os.path.join(ROOT, 'site', s, 'index.html')
 def num(t):
@@ -10,15 +11,15 @@ def num(t):
     return -v if ('−' in t or t.strip().startswith('-')) else v
 
 # 協会けんぽ 令和8年度(1/100%):東京9.85 大阪10.13 新潟9.21 佐賀10.55
-RATE = {12: 985, 26: 1013, 14: 921, 40: 1055}
-SHIEN, KAIGO, NENKIN, KYO = 23, 162, 1830, 36
-BOUND = [63,73,83,93,101,107,114,122,130,138,146,155,165,175,185,195,210,230,250,270,290,310,330,350,370,395,425,455,485,515,545,575,605,635,665,695,730,770,810,855,905,955,1005,1055,1115,1175,1235,1295,1355]
-STD = [58,68,78,88,98,104,110,118,126,134,142,150,160,170,180,190,200,220,240,260,280,300,320,340,360,380,410,440,470,500,530,560,590,620,650,680,710,750,790,830,880,930,980,1030,1090,1150,1210,1270,1330,1390]
+RATE = rates.kenpo_picked()
+SHIEN, KAIGO, NENKIN, KYO = rates.SIEN, rates.KAIGO, rates.NENKIN, rates.KYOSHUTSU
+BOUND = rates.upper_sen()
+STD = rates.std_sen()
 def std(m):
     for b, s in zip(BOUND, STD):
         if m < b * 1000: return s * 1000
     return 1390000
-def pen(s): return min(max(s, 88000), 650000)
+def pen(s): return min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)
 def hb(x):  # 本人負担:50銭以下切り捨て・超は切り上げ(x は分数)
     q = x.numerator // x.denominator; r = x - q
     return q + 1 if r > F(1, 2) else q
@@ -30,27 +31,16 @@ def sh(s, r, old):
     return ken, nen, kyo, co
 
 def kyuyo(x):
-    if x < 741000: return 0
-    if x < 2191000: return x - 740000
-    if x < 2193000: return 1451000
-    if x < 2196000: return 1453000
-    if x < 2200000: return 1456000
-    if x < 6600000:
-        a = x // 4000 * 4000
-        return int(a * F(7, 10) - 80000) if x < 3600000 else int(a * F(8, 10) - 440000)
-    if x < 8500000: return int(x * F(9, 10)) - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 def kiso(g):
-    for lim, v in [(4890000,1040000),(6550000,670000),(23500000,620000),(24000000,480000),(24500000,320000),(25000000,160000)]:
-        if g <= lim: return v
-    return 0
+    return rates.kiso_shotoku(g)
 def itax(t):
     for lim, r, d in [(1950000,5,0),(3300000,10,97500),(6950000,20,427500),(9000000,23,636000),(18000000,33,1536000),(40000000,40,2796000),(10**15,45,4796000)]:
         if t <= lim: b = t * r // 100 - d; break
-    return int(b * F(1021, 1000)) // 100 * 100
+    return int(b * F(rates.FUKKO_NUM, rates.FUKKO_DEN)) // 100 * 100
 def jumin(g, s):
     if g <= 450000: return 0
-    jk = 430000 if g <= 24000000 else 290000 if g <= 24500000 else 150000 if g <= 25000000 else 0
+    jk = rates.kiso_jumin(g)
     t = max(0, g - s - jk) // 1000 * 1000
     adj = 0 if g > 25000000 else min(50000, t) if t <= 2000000 else 50000
     shi = max(0, t * 6 // 100 - adj * 3 // 100) // 100 * 100
@@ -92,7 +82,7 @@ async def main():
         await pg.select_option('#pref', '12')
         for m in [292999, 293000, 309999, 310000, 634999, 635000, 1355000, 0]:
             await pg.fill('#pay', str(m)); await pg.dispatch_event('#pay', 'input')
-            k, nn, ky, c = sh(std(m), 985, 0)
+            k, nn, ky, c = sh(std(m), rates.TOKYO, 0)
             ck('shakaihoken 月給%d 本人' % m, num(await pg.inner_text('#o-me')), k + nn)
             ck('shakaihoken 月給%d 会社' % m, num(await pg.inner_text('#o-co')), c)
         # koyohoken
@@ -132,7 +122,7 @@ async def main():
                     ck('yakuin-tedori %d %d %d 年手取り' % (pi, old, mon), num(await pg.inner_text('#o-y')), t)
                     ck('yakuin-tedori %d %d %d 会社' % (pi, old, mon), num(await pg.inner_text('#o-c')), a + c * 12)
         # 既定の文の例:東京・40歳未満 30万円→月あたり240,963円
-        a = 3600000; k, nn, _, _ = sh(300000, 985, 0); shy = (k + nn) * 12; g = kyuyo(a)
+        a = 3600000; k, nn, _, _ = sh(300000, rates.TOKYO, 0); shy = (k + nn) * 12; g = kyuyo(a)
         t = a - shy - itax(max(0, g - shy - kiso(g)) // 1000 * 1000) - jumin(g, shy)
         ck('yakuin-tedori FAQ 30万', round(F(t, 12)), 240963)
         # yatou-hiyou:会社の負担(月)

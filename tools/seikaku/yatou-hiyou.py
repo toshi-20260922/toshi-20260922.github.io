@@ -38,26 +38,14 @@ import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
+import rates
 
 # 原本の等級表(標準報酬月額, 報酬月額の「未満」)。50等級は上限なし。
-GRADE = [(58000,63000),(68000,73000),(78000,83000),(88000,93000),(98000,101000),(104000,107000),(110000,114000),
- (118000,122000),(126000,130000),(134000,138000),(142000,146000),(150000,155000),(160000,165000),(170000,175000),
- (180000,185000),(190000,195000),(200000,210000),(220000,230000),(240000,250000),(260000,270000),(280000,290000),
- (300000,310000),(320000,330000),(340000,350000),(360000,370000),(380000,395000),(410000,425000),(440000,455000),
- (470000,485000),(500000,515000),(530000,545000),(560000,575000),(590000,605000),(620000,635000),(650000,665000),
- (680000,695000),(710000,730000),(750000,770000),(790000,810000),(830000,855000),(880000,905000),(930000,955000),
- (980000,1005000),(1030000,1055000),(1090000,1115000),(1150000,1175000),(1210000,1235000),(1270000,1295000),
- (1330000,1355000),(1390000,None)]
+GRADE = rates.tokyu_yen()
 # 原本の令和8年度の健康保険料率(万分率)。北海道から沖縄県の順。
-KENPO = [('北海道',1028),('青森県',985),('岩手県',951),('宮城県',1010),('秋田県',1001),('山形県',975),('福島県',950),
- ('茨城県',952),('栃木県',982),('群馬県',968),('埼玉県',967),('千葉県',973),('東京都',985),('神奈川県',992),
- ('新潟県',921),('富山県',959),('石川県',970),('福井県',971),('山梨県',955),('長野県',963),('岐阜県',980),
- ('静岡県',961),('愛知県',993),('三重県',977),('滋賀県',988),('京都府',989),('大阪府',1013),('兵庫県',1012),
- ('奈良県',991),('和歌山県',1006),('鳥取県',986),('島根県',994),('岡山県',1005),('広島県',978),('山口県',1015),
- ('徳島県',1024),('香川県',1002),('愛媛県',998),('高知県',1005),('福岡県',1011),('佐賀県',1055),('長崎県',1006),
- ('熊本県',1008),('大分県',1008),('宮崎県',977),('鹿児島県',1013),('沖縄県',944)]
-KAIGO, SIEN, NENKIN, KYOSHUTSU = F(162,10000), F(23,10000), F(183,1000), F(36,10000)
-KOYO_J, ROSAI = F(85,10000), F(3,1000)
+KENPO = rates.kenpo_pref()
+KAIGO, SIEN, NENKIN, KYOSHUTSU = F(rates.KAIGO, 10000), F(rates.SIEN, 10000), F(rates.NENKIN_PER_1000, 1000), F(rates.KYOSHUTSU, 10000)
+KOYO_J, ROSAI = F(rates.KOYO_JIGYO_PER_10000, 10000), F(rates.ROSAI, 1000)
 
 def rnd(x):                       # 1円未満四捨五入(正の数)
     return int((x * 2 + 1) // 2)
@@ -71,7 +59,7 @@ def kaisha(base, rate):           # 全額(円未満切り捨て)−本人負担
     z = base * rate
     return z.numerator // z.denominator - half(z / 2)
 def tsuki(m, old, ken):           # ken は万分率
-    s = hyojun(m); p = min(max(s, 88000), 650000)
+    s = hyojun(m); p = min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)
     r = {'ken': kaisha(s, F(ken,10000) + SIEN + (KAIGO if old else 0)), 'nen': kaisha(p, NENKIN),
          'kyo': int(p * KYOSHUTSU // 1), 'koy': rnd(m * KOYO_J), 'rou': rnd(m * ROSAI)}
     r['t'] = sum(r.values()); return r
@@ -151,18 +139,18 @@ async def body(pg):
             chk('早見表 %d万 %s' % (v, tag), [num(c) for c in row], [v, x, M + x, (M + x) * 12])
     # 5) 手で書いた数字(結論の帯・冒頭の文・料率の表・よく聞かれること)。東京都・40歳未満・月給30万円
     html = await pg.content()
-    e = tsuki(300000, 0, 985); mt = e['t']
+    e = tsuki(300000, 0, rates.TOKYO); mt = e['t']
     chk('結論の帯', '東京都で月給30万円の人（40歳未満）を1人雇うと、会社が払う保険料は月%s円で1年の総額は%s円です' % (format(mt, ','), format((300000 + mt) * 12, ',')) in html, True)
     chk('冒頭の文', '東京都で40歳未満の人の月給が30万円なら、会社が払う保険料は月%s円で月給のおよそ%s%%です' % (format(mt, ','), '%.1f' % (rnd(F(mt, 300000) * 1000) / 10)) in html, True)
     def pc(fr):                    # 率を%の文字にする(末尾の0を落とす)
         s = '%.3f' % float(fr * 100)   # 表示だけ。値は分数で持つ
         return s.rstrip('0').rstrip('.') + '%'
     tbl = await pg.eval_on_selector_all(':is(#rate ~ .tw):not(#rate ~ .tw ~ .tw) tbody tr', 'rs=>rs.map(r=>[r.cells[1].textContent,r.cells[2].textContent])')
-    exp = [[pc(F(985,10000)/2)]*2, [pc(KAIGO/2)]*2, [pc(SIEN/2)]*2, [pc(NENKIN/2)]*2, [pc(KYOSHUTSU), 'なし'],
-           [pc(KOYO_J), pc(F(5,1000))], [pc(ROSAI), 'なし']]
+    exp = [[pc(F(rates.TOKYO,10000)/2)]*2, [pc(KAIGO/2)]*2, [pc(SIEN/2)]*2, [pc(NENKIN/2)]*2, [pc(KYOSHUTSU), 'なし'],
+           [pc(KOYO_J), pc(F(rates.KOYO_PER_1000, 1000))], [pc(ROSAI), 'なし']]
     chk('料率の表の行数', len(tbl), 7)
     for g, x in zip(tbl, exp): chk('料率の表', g, x)
-    shaho = F(985,10000)/2 + SIEN/2 + NENKIN/2 + KYOSHUTSU
+    shaho = F(rates.TOKYO,10000)/2 + SIEN/2 + NENKIN/2 + KYOSHUTSU
     chk('およそ14.6%', '%d.%d' % divmod(rnd(shaho * 1000), 10), '14.6')
     chk('およそ15.7%', '%d.%d' % divmod(rnd((shaho + KOYO_J + ROSAI) * 1000), 10), '15.7')
     chk('介護0.81%の文', '介護保険の' + pc(KAIGO/2) + 'が加わります' in html, True)

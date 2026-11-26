@@ -49,27 +49,16 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fractions import Fraction as F
 from _lib import run
 import regions
+import rates
 
 # ---- 原本から書いた定数 ----
-SOKUSAN = [(1950000, 5, 0), (3300000, 10, 97500), (6950000, 20, 427500), (9000000, 23, 636000),
-           (18000000, 33, 1536000), (40000000, 40, 2796000), (None, 45, 4796000)]
-NENKIN_KOKUMIN = 17920 * 12
-PREF = [('北海道', 1028), ('青森県', 985), ('岩手県', 951), ('宮城県', 1010), ('秋田県', 1001), ('山形県', 975),
-        ('福島県', 950), ('茨城県', 952), ('栃木県', 982), ('群馬県', 968), ('埼玉県', 967), ('千葉県', 973),
-        ('東京都', 985), ('神奈川県', 992), ('新潟県', 921), ('富山県', 959), ('石川県', 970), ('福井県', 971),
-        ('山梨県', 955), ('長野県', 963), ('岐阜県', 980), ('静岡県', 961), ('愛知県', 993), ('三重県', 977),
-        ('滋賀県', 988), ('京都府', 989), ('大阪府', 1013), ('兵庫県', 1012), ('奈良県', 991), ('和歌山県', 1006),
-        ('鳥取県', 986), ('島根県', 994), ('岡山県', 1005), ('広島県', 978), ('山口県', 1015), ('徳島県', 1024),
-        ('香川県', 1002), ('愛媛県', 998), ('高知県', 1005), ('福岡県', 1011), ('佐賀県', 1055), ('長崎県', 1006),
-        ('熊本県', 1008), ('大分県', 1008), ('宮崎県', 977), ('鹿児島県', 1013), ('沖縄県', 944)]
-KAIGO, SIEN = 162, 23
+SOKUSAN = rates.sokusan_ue()
+NENKIN_KOKUMIN = rates.NENKIN_KOKUMIN * 12
+PREF = rates.kenpo_pref()
+KAIGO, SIEN = rates.KAIGO, rates.SIEN
 # 標準報酬月額(千円)と、その等級の上の境目(千円・未満)
-STD = [58, 68, 78, 88, 98, 104, 110, 118, 126, 134, 142, 150, 160, 170, 180, 190, 200, 220, 240, 260, 280, 300,
-       320, 340, 360, 380, 410, 440, 470, 500, 530, 560, 590, 620, 650, 680, 710, 750, 790, 830, 880, 930, 980,
-       1030, 1090, 1150, 1210, 1270, 1330, 1390]
-TOP = [63, 73, 83, 93, 101, 107, 114, 122, 130, 138, 146, 155, 165, 175, 185, 195, 210, 230, 250, 270, 290, 310,
-       330, 350, 370, 395, 425, 455, 485, 515, 545, 575, 605, 635, 665, 695, 730, 770, 810, 855, 905, 955, 1005,
-       1055, 1115, 1175, 1235, 1295, 1355]
+STD = rates.std_sen()
+TOP = rates.upper_sen()
 # 国保:この日に公式ページで確かめた3つ [所得割(%×100), 均等割, 平等割, 上限]
 KOKUHO_OK = {
     0: [[751, 47600, 0, 670000], [280, 17600, 0, 260000], [243, 17800, 0, 170000], [27, 1873, 0, 30000]],
@@ -87,35 +76,21 @@ def half(x):
 def rnd(x):
     return (x + F(1, 2)).__floor__()
 def yakuin(m, old, rate):
-    s = std(m); p = min(max(s, 88000), 650000)
-    ken = half(F(s * (rate + SIEN + (KAIGO if old else 0)), 20000)); nen = half(F(p * 1830, 20000))
-    zen = s * (rate + SIEN + (KAIGO if old else 0)) // 10000 + p * 1830 // 10000   # 全額は円未満切り捨て
-    return ken + nen, zen - ken - nen + p * 36 // 10000                           # 会社負担=全額−本人負担+拠出金(円未満切り捨て)
+    s = std(m); p = min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)
+    ken = half(F(s * (rate + SIEN + (KAIGO if old else 0)), 20000)); nen = half(F(p * rates.NENKIN, 20000))
+    zen = s * (rate + SIEN + (KAIGO if old else 0)) // 10000 + p * rates.NENKIN // 10000   # 全額は円未満切り捨て
+    return ken + nen, zen - ken - nen + p * rates.KYOSHUTSU // 10000                           # 会社負担=全額−本人負担+拠出金(円未満切り捨て)
 def kyuyo(x):
-    if x < 741000: return 0
-    if x < 2191000: return x - 740000
-    if x < 2193000: return 1451000
-    if x < 2196000: return 1453000
-    if x < 2200000: return 1456000
-    if x < 6600000:
-        a = x // 4000 * 4000
-        return a * 7 // 10 - 80000 if x < 3600000 else a * 8 // 10 - 440000
-    if x < 8500000: return x * 9 // 10 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 def kiso(g):
-    for top, v in ((4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000),
-                   (24500000, 320000), (25000000, 160000)):
-        if g <= top: return v
-    return 0
+    return rates.kiso_shotoku(g)
 def kiso_ju(g):
-    for top, v in ((24000000, 430000), (24500000, 290000), (25000000, 150000)):
-        if g <= top: return v
-    return 0
+    return rates.kiso_jumin(g)
 def shotokuzei(t):
     t = max(0, t) // 1000 * 1000
     for top, r, d in SOKUSAN:
         if top is None or t <= top:
-            return (t * r // 100 - d) * 1021 // 1000 // 100 * 100
+            return (t * r // 100 - d) * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100
 def jumin(g, sh):
     if g <= 450000: return 0
     t = max(0, g - sh - kiso_ju(g)) // 1000 * 1000
@@ -124,8 +99,8 @@ def jumin(g, sh):
     b = max(0, t * 4 // 100 - adj * 2 // 100) // 100 * 100
     return a + b + 5000
 def kokuho(R, g, old):
-    base = max(0, g - 430000)
-    red = 7 if g <= 430000 else (5 if g <= 430000 + 310000 else (2 if g <= 430000 + 570000 else 0))
+    base = max(0, g - rates.KEIGEN_BASE)
+    red = rates.keigen(g, 1)
     tot = 0
     for i, c in enumerate(R['p']):
         if i == 2 and not old: continue
@@ -251,13 +226,13 @@ async def body(pg):
         for old in (0, 1):
             m = t * 1000
             for mm in (m - 1, m, m + 1):
-                a = (mm + yakuin(mm, old, 985)[1]) * 12 + 70000
+                a = (mm + yakuin(mm, old, rates.TOKYO)[1]) * 12 + 70000
                 for aa in (a - 1, a, a + 1):
                     await one(0, 12, old, aa)
     for r in (740999, 741000, 2190999, 2191000, 2192999, 2193000, 2195999, 2196000, 2199999, 2200000, 3599999, 3600000, 6599999, 6600000, 8499999, 8500000):
         m = r // 12
         for mm in (m, m + 1):
-            a = (mm + yakuin(mm, 0, 985)[1]) * 12 + 70000
+            a = (mm + yakuin(mm, 0, rates.TOKYO)[1]) * 12 + 70000
             await one(0, 12, 0, a); await one(0, 12, 0, a + 11)
     # 4 料率を自分で入れる欄(大阪府の料率を手で入れて、一覧の大阪と同じになるか)
     cu = [['%d.%02d' % (c[0] // 100, c[0] % 100), str(c[1]), str(c[2])] for c in RR[15]['p']]
@@ -304,9 +279,9 @@ async def body(pg):
             chk('表%s %d 左の列' % (nm, p), row[0]['t'], '{:,}万円'.format(p) + lab)
             vals = []
             for mm in MS:
-                dv, P, nk = cell(a, mm * 10000, old, RR[0], 985)
+                dv, P, nk = cell(a, mm * 10000, old, RR[0], rates.TOKYO)
                 vals.append((man(dv if mode == 'f' else dv - nk), P))
-            h = houjin(a, old, 985); av = man(h['net'] - kk)
+            h = houjin(a, old, rates.TOKYO); av = man(h['net'] - kk)
             ok = [v for v, P in vals if P >= 0] + [av]; best = max(ok) if max(ok) > 0 else None; marked = False
             for ci, (v, P) in enumerate(vals):
                 cl = 'x7g' if P < 0 else ('x7p' if v > 0 else '')
@@ -322,7 +297,7 @@ async def body(pg):
         chk('残るお金%d の見出し' % old, T['h'], ['事業の利益（年）'] + ['報酬月%d万' % m for m in MS])
         for row, p in zip(T['r'], PRS):
             for ci, mm in enumerate(MS):
-                _, P, nk = cell(p * 10000, mm * 10000, old, RR[0], 985); v = man(nk)
+                _, P, nk = cell(p * 10000, mm * 10000, old, RR[0], rates.TOKYO); v = man(nk)
                 chk('残るお金%d %d 報酬月%d万' % (old, p, mm), row[1 + ci]['t'], ('−{:,}'.format(-v)) if v < 0 else '{:,}'.format(v))
                 chk('残るお金%d %d 報酬月%d万 の色' % (old, p, mm), row[1 + ci]['c'], 'x7g' if P < 0 else '')
     # 切り替え:比べ方と年齢を選ぶと、その表だけが見える。年齢はつまみとそろう
@@ -335,7 +310,7 @@ async def body(pg):
 
     # 6-2 つまみ:手取りで比べるとき、法人のほうが社長の手取りが多くなる利益の幅(会社が赤字でない範囲)
     def win(m, old):
-        ok = [a for a in range(3000000, 30000001, 100000) if (lambda c: c[1] >= 0 and c[0] - c[2] > 0)(cell(a, m, old, RR[0], 985))]
+        ok = [a for a in range(3000000, 30000001, 100000) if (lambda c: c[1] >= 0 and c[0] - c[2] > 0)(cell(a, m, old, RR[0], rates.TOKYO))]
         if ok: chk('幅がつながっている %d %d' % (m, old), ok, list(range(ok[0], ok[-1] + 1, 100000)))
         return (ok[0], ok[-1]) if ok else None
     await pg.click('#bkc button[data-v="t"]')
@@ -356,9 +331,9 @@ async def body(pg):
     def th(m, old):
         last = 0
         for a in range(3000000, 30000001, 100000):
-            if cell(a, m, old, RR[0], 985)[0] <= 0: last = a
+            if cell(a, m, old, RR[0], rates.TOKYO)[0] <= 0: last = a
         return (last + 100000) // 10000
-    al = [(cross(o, RR[0], 985) + 100000) // 10000 for o in (0, 1)]
+    al = [(cross(o, RR[0], rates.TOKYO) + 100000) // 10000 for o in (0, 1)]
     t3 = [th(300000, o) for o in (0, 1)]; t5 = [th(500000, o) for o in (0, 1)]
     flat = ''.join((await pg.inner_text('main')).split())
     for label, want in [
@@ -388,8 +363,8 @@ async def body(pg):
     for old in (0, 1):
         for p in PRS:
             for mm in MS:
-                g['jigyo'] = j0; v0 = man(cell(p * 10000, mm * 10000, old, RR[0], 985)[0])
-                g['jigyo'] = jigyo_tokyo; v1 = man(cell(p * 10000, mm * 10000, old, RR[0], 985)[0])
+                g['jigyo'] = j0; v0 = man(cell(p * 10000, mm * 10000, old, RR[0], rates.TOKYO)[0])
+                g['jigyo'] = jigyo_tokyo; v1 = man(cell(p * 10000, mm * 10000, old, RR[0], rates.TOKYO)[0])
                 if v0 != v1: diff[(old, p, mm)] = v0 - v1
     g['jigyo'] = j0
     chk('超過税率で変わるマス', diff, {(0, 3000, 20): 7, (1, 3000, 20): 11})
@@ -397,7 +372,7 @@ async def body(pg):
     chk('更新日', '更新日：2026年11月21日' in flat, True)
     # 書き換える前の元の文と既定の選び方
     # 書き換える前の元の文(HTML に直に書いた既定の結果)が、既定の条件(東京23区・東京都・40歳未満・利益800万円)の自分の計算と同じか
-    k0 = kojin(8000000, 0, RR[0]); h0 = houjin(8000000, 0, 985); d0 = h0['net'] - k0; c0 = (cross(0, RR[0], 985) + 100000) // 10000
+    k0 = kojin(8000000, 0, RR[0]); h0 = houjin(8000000, 0, rates.TOKYO); d0 = h0['net'] - k0; c0 = (cross(0, RR[0], rates.TOKYO) + 100000) // 10000
     sgn = '+' if d0 >= 0 else '−'
     for label, want in [
         ('勝ち', '<b id="o-win">%s</b>' % ('法人のほうが多く残ります' if d0 >= 0 else '個人事業のままのほうが多く残ります')),

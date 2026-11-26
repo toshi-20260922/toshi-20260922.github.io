@@ -44,13 +44,13 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fractions import Fraction
 from _lib import run, SITE
 import regions
+import rates
 
-NEN = 17920 * 12
-SOKUSAN = [(1949000, 5, 0), (3299000, 10, 97500), (6949000, 20, 427500), (8999000, 23, 636000),
-           (17999000, 33, 1536000), (39999000, 40, 2796000), (None, 45, 4796000)]
-KISO = [(4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000), (24500000, 320000), (25000000, 160000)]
-JKISO = [(24000000, 430000), (24500000, 290000), (25000000, 150000)]
-CAPS = [670000, 260000, 170000, 30000]
+NEN = rates.NENKIN_KOKUMIN * 12
+SOKUSAN = rates.sokusan_ue_m1000()
+KISO = rates.KISO_SHOTOKU
+JKISO = rates.KISO_JUMIN
+CAPS = rates.kokuho_caps()
 
 def step(tbl, g):
     for top, v in tbl:
@@ -64,7 +64,7 @@ def shotokuzei(g, sh):
         if top is None or t <= top:
             b = t * r // 100 - d
             break
-    return max(0, b) * 1021 // 1000 // 100 * 100
+    return max(0, b) * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100
 
 def juminzei(g, sh):
     if g <= 450000:
@@ -85,8 +85,8 @@ def jigyozei(a):
 
 def kokuho(R, g, old):
     """単身。R は regions.py の1件。"""
-    base = max(0, g - 430000)
-    kei = 7 if g <= 430000 else 5 if g <= 430000 + 310000 else 2 if g <= 430000 + 570000 else 0
+    base = max(0, g - rates.KEIGEN_BASE)
+    kei = rates.keigen(g, 1)
     tot = 0
     for i, (ritsu, kinto, byodo, cap) in enumerate(R['p']):
         if i == 2 and not old:

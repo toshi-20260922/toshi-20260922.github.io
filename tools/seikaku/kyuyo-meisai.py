@@ -13,8 +13,9 @@
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
+import rates
 
-GR = [(58,63),(68,73),(78,83),(88,93),(98,101),(104,107),(110,114),(118,122),(126,130),(134,138),(142,146),(150,155),(160,165),(170,175),(180,185),(190,195),(200,210),(220,230),(240,250),(260,270),(280,290),(300,310),(320,330),(340,350),(360,370),(380,395),(410,425),(440,455),(470,485),(500,515),(530,545),(560,575),(590,605),(620,635),(650,665),(680,695),(710,730),(750,770),(790,810),(830,855),(880,905),(930,955),(980,1005),(1030,1055),(1090,1115),(1150,1175),(1210,1235),(1270,1295),(1330,1355),(1390,10**9)]
+GR = rates.tokyu_meisai()
 U = 120000
 TAX = [(162500,5105,0),(275000,10210,8296),(579166,20420,36374),(750000,23483,54113),(1500000,33693,130688),(3333333,40840,237893),(0,45945,408061)]
 
@@ -57,12 +58,12 @@ def tax(monthly_after, hg):
         n = 0
     return ((2 * n + 10 * dn) // (20 * dn)) * 10
 
-def slip(pay, tsukin=0, rate=985, old=0, hg=0, ju=0, ei=50):
+def slip(pay, tsukin=0, rate=rates.TOKYO, old=0, hg=0, ju=0, ei=rates.KOYO):
     base = max(0, pay) + max(0, tsukin)
     s = std(base)
-    p = min(max(s, 88000), 650000)
-    ken = r50d(s * (rate + 23 + (162 if old else 0)), 20000)
-    nen = r50d(p * 1830, 20000)
+    p = min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)
+    ken = r50d(s * (rate + rates.SIEN + (rates.KAIGO if old else 0)), 20000)
+    nen = r50d(p * rates.NENKIN, 20000)
     koy = r50d(base * ei, 10000)
     sha = ken + nen + koy
     zei = tax(max(0, pay) - sha, hg)
@@ -84,14 +85,14 @@ def same(got, exp):
 async def body(pg):
     n = bad = 0
     cases = [
-        dict(pay='300000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=985, oldn=0, hg=0, ein=50),
-        dict(pay='250000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=985, oldn=0, hg=0, ein=50),
-        dict(pay='200000', tsu='15000', ju='8000', pref='12', old='0', fuyo='1', ei='0', rate=985, oldn=0, hg=1, ein=50),
-        dict(pay='300000', tsu='0', ju='0', pref='12', old='1', fuyo='0', ei='0', rate=985, oldn=1, hg=0, ein=50),
-        dict(pay='300000', tsu='0', ju='0', pref='26', old='0', fuyo='2', ei='2', rate=1013, oldn=0, hg=2, ein=60),
-        dict(pay='88000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=985, oldn=0, hg=0, ein=50),
-        dict(pay='500000', tsu='20000', ju='15000', pref='0', old='1', fuyo='3', ei='1', rate=1028, oldn=1, hg=3, ein=60),
-        dict(pay='1000000', tsu='0', ju='0', pref='12', old='0', fuyo='7', ei='0', rate=985, oldn=0, hg=7, ein=50),
+        dict(pay='300000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
+        dict(pay='250000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
+        dict(pay='200000', tsu='15000', ju='8000', pref='12', old='0', fuyo='1', ei='0', rate=rates.TOKYO, oldn=0, hg=1, ein=rates.KOYO),
+        dict(pay='300000', tsu='0', ju='0', pref='12', old='1', fuyo='0', ei='0', rate=rates.TOKYO, oldn=1, hg=0, ein=rates.KOYO),
+        dict(pay='300000', tsu='0', ju='0', pref='26', old='0', fuyo='2', ei='2', rate=rates.kenpo('大阪府'), oldn=0, hg=2, ein=rates.D['koyo']['rows'][1]['r8_worker'][0] * 10),
+        dict(pay='88000', tsu='0', ju='0', pref='12', old='0', fuyo='0', ei='0', rate=rates.TOKYO, oldn=0, hg=0, ein=rates.KOYO),
+        dict(pay='500000', tsu='20000', ju='15000', pref='0', old='1', fuyo='3', ei='1', rate=rates.kenpo('北海道'), oldn=1, hg=3, ein=rates.D['koyo']['rows'][2]['r8_worker'][0] * 10),
+        dict(pay='1000000', tsu='0', ju='0', pref='12', old='0', fuyo='7', ei='0', rate=rates.TOKYO, oldn=0, hg=7, ein=rates.KOYO),
     ]
     for c in cases:
         await pg.fill('#pay', c['pay'])

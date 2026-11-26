@@ -34,32 +34,16 @@ import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, SITE
+import rates
 
 def kyuyo9(a):   # 令和8年分の給与所得(令和9年度の住民税)
-    if a < 741000: return 0
-    if a < 2191000: return a - 740000
-    if a < 2193000: return 1451000
-    if a < 2196000: return 1453000
-    if a < 2200000: return 1456000
-    if a < 6600000:
-        A = a // 4000 * 4000
-        return A * 7 // 10 - 80000 if a < 3600000 else A * 8 // 10 - 440000
-    if a < 8500000: return a * 9 // 10 - 1100000
-    return a - 1950000
+    return rates.kyuyo_r8(a)
 
 def kyuyo8(a):   # 令和7年分の給与所得(令和8年度の住民税)。最低保障65万円
-    if a < 651000: return 0
-    if a < 1900000: return a - 650000
-    if a < 6600000:
-        A = a // 4000 * 4000
-        return A * 7 // 10 - 80000 if a < 3600000 else A * 8 // 10 - 440000
-    if a < 8500000: return a * 9 // 10 - 1100000
-    return a - 1950000
+    return rates.kyuyo_r7(a)
 
-LO = [63, 73, 83, 93, 101, 107, 114, 122, 130, 138, 146, 155, 165, 175, 185, 195, 210, 230, 250, 270, 290, 310, 330, 350, 370, 395,
-      425, 455, 485, 515, 545, 575, 605, 635, 665, 695, 730, 770, 810, 855, 905, 955, 1005, 1055, 1115, 1175, 1235, 1295, 1355]
-STD = [58, 68, 78, 88, 98, 104, 110, 118, 126, 134, 142, 150, 160, 170, 180, 190, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380,
-       410, 440, 470, 500, 530, 560, 590, 620, 650, 680, 710, 750, 790, 830, 880, 930, 980, 1030, 1090, 1150, 1210, 1270, 1330, 1390]
+LO = rates.upper_sen()
+STD = rates.std_sen()
 def hyojun(m):
     i = sum(1 for lo in LO if m >= lo * 1000)
     return STD[i] * 1000
@@ -67,17 +51,17 @@ def r50(v):
     v = F(v); q = v.numerator // v.denominator
     return q + 1 if v - q > F(1, 2) else q
 def shaho(a, old):
-    m = a // 12; s = hyojun(m); p = min(max(s, 88000), 650000); t = 0
+    m = a // 12; s = hyojun(m); p = min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX); t = 0
     for k in range(1, 13):
-        ken = F(991, 10000) if k <= 2 else F(985, 10000) if k == 3 else F(985 + 23, 10000)
-        if old: ken += F(159, 10000) if k <= 2 else F(162, 10000)
-        t += r50(s * ken / 2) + r50(p * F(183, 1000) / 2) + r50(m * (F(55, 10000) if k <= 3 else F(5, 1000)))
+        ken = F(991, 10000) if k <= 2 else F(rates.TOKYO, 10000) if k == 3 else F(rates.TOKYO + rates.SIEN, 10000)
+        if old: ken += F(159, 10000) if k <= 2 else F(rates.KAIGO, 10000)
+        t += r50(s * ken / 2) + r50(p * F(rates.NENKIN_PER_1000, 1000) / 2) + r50(m * (F(55, 10000) if k <= 3 else F(rates.KOYO_PER_1000, 1000)))
     return t
 
 def jumin(a, sh):
     g = kyuyo9(a)
     if g <= 450000: return (0, 0, 0, 0)                 # 均等割・所得割とも非課税(単身・1級地)
-    kiso = 430000 if g <= 24000000 else 290000 if g <= 24500000 else 150000 if g <= 25000000 else 0
+    kiso = rates.kiso_jumin(g)
     t = max(0, g - sh - kiso) // 1000 * 1000
     if g > 25000000: c = 0
     elif t <= 2000000: c = min(50000, t)              # 人的控除額の差(単身は基礎控除の差5万円)

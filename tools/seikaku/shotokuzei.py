@@ -31,41 +31,21 @@ import os, re, sys, html as _html
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
+import rates
 
 # 速算表(課税される所得は1,000円単位。下限・率・控除額)
-SOKUSAN = [(1000, 5, 0), (1950000, 10, 97500), (3300000, 20, 427500), (6950000, 23, 636000),
-           (9000000, 33, 1536000), (18000000, 40, 2796000), (40000000, 45, 4796000)]
+SOKUSAN = rates.sokusan_shita()
 
 def kyuyo(x):
     """令和8年分の給与所得(給与所得控除後の給与等の金額の表)。"""
-    if x <= 740999: return 0
-    if x <= 2190999: return x - 740000
-    if x <= 2192999: return 1451000
-    if x <= 2195999: return 1453000
-    if x <= 2199999: return 1456000
-    if x <= 3599999: return (x // 4 // 1000 * 1000) * 28 // 10 - 80000
-    if x <= 6599999: return (x // 4 // 1000 * 1000) * 32 // 10 - 440000
-    if x <= 8499999: return x * 9 // 10 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 
 def kiso(gokei):
     """令和8年分の基礎控除(合計所得金額ごと)。"""
-    if gokei <= 4890000: return 1040000      # 62万円+加算42万円
-    if gokei <= 6550000: return 670000       # 62万円+加算5万円
-    if gokei <= 23500000: return 620000
-    if gokei <= 24000000: return 480000
-    if gokei <= 24500000: return 320000
-    if gokei <= 25000000: return 160000
-    return 0
+    return rates.kiso_shotoku(gokei)
 
 # 標準報酬月額の等級(健康保険 1〜50級。報酬月額の上の区切り・千円)
-TOKYU = [(58, 63), (68, 73), (78, 83), (88, 93), (98, 101), (104, 107), (110, 114), (118, 122), (126, 130),
-         (134, 138), (142, 146), (150, 155), (160, 165), (170, 175), (180, 185), (190, 195), (200, 210),
-         (220, 230), (240, 250), (260, 270), (280, 290), (300, 310), (320, 330), (340, 350), (360, 370),
-         (380, 395), (410, 425), (440, 455), (470, 485), (500, 515), (530, 545), (560, 575), (590, 605),
-         (620, 635), (650, 665), (680, 695), (710, 730), (750, 770), (790, 810), (830, 855), (880, 905),
-         (930, 955), (980, 1005), (1030, 1055), (1090, 1115), (1150, 1175), (1210, 1235), (1270, 1295),
-         (1330, 1355)]
+TOKYU = rates.tokyu_sen_finite()
 
 def hyojun(m):
     for s, top in TOKYU:
@@ -81,9 +61,9 @@ def shaho(a, kaigo):
     """賞与なし。月の給料は年収÷12(1円未満切り捨て)。いまの料率で12か月分。"""
     m = a // 12
     s = hyojun(m)
-    nen = min(max(s, 88000), 650000)
-    kenpo = F(985 + 23 + (162 if kaigo else 0), 10000) / 2     # 健康保険+支援金(+介護)の半分
-    return (gojussen(s * kenpo) + gojussen(nen * F(183, 1000) / 2) + gojussen(m * F(5, 1000))) * 12
+    nen = min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)
+    kenpo = F(rates.TOKYO + rates.SIEN + (rates.KAIGO if kaigo else 0), 10000) / 2     # 健康保険+支援金(+介護)の半分
+    return (gojussen(s * kenpo) + gojussen(nen * F(rates.NENKIN_PER_1000, 1000) / 2) + gojussen(m * F(rates.KOYO_PER_1000, 1000))) * 12
 
 def ritsu(t):
     r = None
@@ -98,7 +78,7 @@ def zei_kazei(t):
     base = F(t * p, 100) - d
     assert base.denominator == 1
     base = int(base)
-    goukei = base * 1021 // 1000 // 100 * 100      # 2.1%を足して100円未満切り捨て
+    goukei = base * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100      # 2.1%を足して100円未満切り捨て
     return p, base, goukei
 
 def ref(a, kaigo=0):

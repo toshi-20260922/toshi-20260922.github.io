@@ -39,18 +39,10 @@ import os, sys, re
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run
+import rates
 
 # 保険料額表の等級(標準報酬月額, 報酬月額の下の境目)。協会けんぽの表のとおり手で写したもの。
-GRADE = [(58000, 0), (68000, 63000), (78000, 73000), (88000, 83000), (98000, 93000), (104000, 101000),
-         (110000, 107000), (118000, 114000), (126000, 122000), (134000, 130000), (142000, 138000),
-         (150000, 146000), (160000, 155000), (170000, 165000), (180000, 175000), (190000, 185000),
-         (200000, 195000), (220000, 210000), (240000, 230000), (260000, 250000), (280000, 270000),
-         (300000, 290000), (320000, 310000), (340000, 330000), (360000, 350000), (380000, 370000),
-         (410000, 395000), (440000, 425000), (470000, 455000), (500000, 485000), (530000, 515000),
-         (560000, 545000), (590000, 575000), (620000, 605000), (650000, 635000), (680000, 665000),
-         (710000, 695000), (750000, 730000), (790000, 770000), (830000, 810000), (880000, 855000),
-         (930000, 905000), (980000, 955000), (1030000, 1005000), (1090000, 1055000), (1150000, 1115000),
-         (1210000, 1175000), (1270000, 1235000), (1330000, 1295000), (1390000, 1355000)]
+GRADE = rates.tokyu_std_lower_yen()
 
 def hyojun(m):
     h = GRADE[0][0]
@@ -62,37 +54,17 @@ def hyojun(m):
 def shaho_nen(s):
     m = F(s, 12)
     h = hyojun(m)
-    k = min(max(h, 88000), 650000)
-    nen = 12 * (F(h * (985 + 23), 20000) + F(k * 183, 2000)) + F(s * 5, 1000)
+    k = min(max(h, rates.NENKIN_MIN), rates.NENKIN_MAX)
+    nen = 12 * (F(h * (rates.TOKYO + rates.SIEN), 20000) + F(k * rates.NENKIN_PER_1000, 2000)) + F(s * rates.KOYO_PER_1000, 1000)
     return int(nen + F(1, 2))                     # 1円未満四捨五入
 
 def kyuyo_shotoku(s):
-    if s < 741000:
-        return 0
-    if s < 2191000:
-        return s - 740000
-    if s < 2193000:
-        return 1451000
-    if s < 2196000:
-        return 1453000
-    if s < 2200000:
-        return 1456000
-    if s < 6600000:
-        a = s // 4000 * 4000                      # 別表第五:4,000円刻みで切り捨て
-        return a * 7 // 10 - 80000 if s < 3600000 else a * 8 // 10 - 440000
-    if s < 8500000:
-        return s * 9 // 10 - 1100000
-    return s - 1950000
+    return rates.kyuyo_r8(s)
 
 def kiso(x):
-    for top, v in ((4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000),
-                   (24500000, 320000), (25000000, 160000)):
-        if x <= top:
-            return v
-    return 0
+    return rates.kiso_shotoku(x)
 
-SOKUSAN = [(1949000, 5, 0), (3299000, 10, 97500), (6949000, 20, 427500), (8999000, 23, 636000),
-           (17999000, 33, 1536000), (39999000, 40, 2796000), (None, 45, 4796000)]
+SOKUSAN = rates.sokusan_ue_m1000()
 
 def zei(k):
     k = max(k, 0) // 1000 * 1000
@@ -101,10 +73,7 @@ def zei(k):
             return k * r // 100 - d               # 1,000円単位なので割り切れる
 
 def jkiso(x):
-    for top, v in ((24000000, 430000), (24500000, 290000), (25000000, 150000)):
-        if x <= top:
-            return v
-    return 0
+    return rates.kiso_jumin(x)
 
 def shotokuwari(sh, x):
     """住民税の所得割(市6%+県4%。調整控除を引いて、それぞれ100円未満切り捨て)。"""
@@ -124,9 +93,9 @@ def ref(s, med, hot):
     sa = shaho_nen(s)
     ashi = 100000 if sh >= 2000000 else sh * 5 // 100
     kj = min(max(med - hot - ashi, 0), 2000000)
-    nencho = zei(sh - sa - kiso(sh)) * 1021 // 1000 // 100 * 100      # 年末調整で決まった額
+    nencho = zei(sh - sa - kiso(sh)) * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100      # 年末調整で決まった額
     t = zei(sh - sa - kiso(sh) - kj)
-    shinkoku = t + t * 21 // 1000                                      # 確定申告:基準所得税額+復興特別所得税
+    shinkoku = t * rates.FUKKO_NUM // rates.FUKKO_DEN                  # 確定申告:基準所得税額+復興特別所得税
     st = max(nencho - shinkoku, 0) if kj > 0 else 0
     jb = sh - sa - jkiso(sh)
     jm = max(shotokuwari(sh, jb) - shotokuwari(sh, jb - kj), 0) if kj > 0 else 0

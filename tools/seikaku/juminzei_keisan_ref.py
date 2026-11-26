@@ -10,21 +10,13 @@
 #  2026年の社会保険料(協会けんぽ東京都・各月の料率)… /juminzei/
 #  給料から引く毎月の額:年額を12で割り100円未満切り捨て・端数は6月分・年額が均等割5,000円以下は6月分で全額 … /taishoku-jumin/
 from fractions import Fraction as F
+import rates
 
 def kyuyo(x):
-    if x < 741000: return 0
-    if x < 2191000: return x - 740000
-    if x < 2193000: return 1451000
-    if x < 2196000: return 1453000
-    if x < 2200000: return 1456000
-    if x < 6600000:
-        a = x // 4000 * 4000
-        return a // 4000 * 2800 - 80000 if x < 3600000 else a // 4000 * 3200 - 440000
-    if x < 8500000: return x * 9 // 10 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 
-BOUND = [63,73,83,93,101,107,114,122,130,138,146,155,165,175,185,195,210,230,250,270,290,310,330,350,370,395,425,455,485,515,545,575,605,635,665,695,730,770,810,855,905,955,1005,1055,1115,1175,1235,1295,1355]
-STD = [58,68,78,88,98,104,110,118,126,134,142,150,160,170,180,190,200,220,240,260,280,300,320,340,360,380,410,440,470,500,530,560,590,620,650,680,710,750,790,830,880,930,980,1030,1090,1150,1210,1270,1330,1390]
+BOUND = rates.upper_sen()
+STD = rates.std_sen()
 def std(m):
     for b, s in zip(BOUND, STD):
         if m < b * 1000: return s * 1000
@@ -35,12 +27,12 @@ def r50(x):
 
 def shaho(a, old=0):
     """2026年の1年分の社会保険料(協会けんぽ東京都・賞与なし・本人負担)。"""
-    m = a // 12; s = std(m); p = min(max(s, 88000), 650000); t = 0
+    m = a // 12; s = std(m); p = min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX); t = 0
     for k in range(1, 13):
-        hr = 991 if k <= 2 else (985 if k == 3 else 1008)
-        kai = (159 if k <= 2 else 162) if old else 0
-        ko = 55 if k <= 3 else 50
-        t += r50(F(s * (hr + kai), 20000)) + r50(F(p * 1830, 20000)) + r50(F(m * ko, 10000))
+        hr = 991 if k <= 2 else (rates.TOKYO if k == 3 else rates.TOKYO + rates.SIEN)
+        kai = (159 if k <= 2 else rates.KAIGO) if old else 0
+        ko = 55 if k <= 3 else rates.KOYO
+        t += r50(F(s * (hr + kai), 20000)) + r50(F(p * rates.NENKIN, 20000)) + r50(F(m * ko, 10000))
     return t
 
 def jumin(a, sh, sp=0, n0=0, n1=0, n2=0, n3=0, ide=0, iry=0):
@@ -56,7 +48,7 @@ def jumin(a, sh, sp=0, n0=0, n1=0, n2=0, n3=0, ide=0, iry=0):
     if g <= kin_lim:
         return r  # 住民税はかからない
     r['kin'] = 5000; r['kind'] = 1
-    kiso = 430000 if g <= 24000000 else 290000 if g <= 24500000 else 150000 if g <= 25000000 else 0
+    kiso = rates.kiso_jumin(g)
     spk = (330000 if g <= 9000000 else 220000 if g <= 9500000 else 110000 if g <= 10000000 else 0) if sp else 0
     spd = (50000 if g <= 9000000 else 40000 if g <= 9500000 else 20000 if g <= 10000000 else 0) if sp else 0
     ded = sh + ide + iry + kiso + spk + 330000 * (n1 + n3) + 450000 * n2

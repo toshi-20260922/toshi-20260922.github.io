@@ -42,14 +42,11 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
 from _lib import run
+import rates
 
 F = Fraction
 # (ボタンの番号, 名前, 令和8年度の労働者負担, 事業主負担, うち二事業, 令和7年度の労働者負担, 令和7年度の合計) 単位は1,000分の1
-GEN = [
-    (0, '一般の事業', F(5), F(17, 2), F(7, 2), F(11, 2), F(29, 2)),
-    (1, '農林水産・清酒製造の事業', F(6), F(19, 2), F(7, 2), F(13, 2), F(33, 2)),
-    (2, '建設の事業', F(6), F(21, 2), F(9, 2), F(13, 2), F(35, 2)),
-]
+GEN = rates.koyo_gen()
 
 def honnin(w, r):
     """賃金×料率。円未満は50銭以下切り捨て・50銭1厘以上切り上げ。"""

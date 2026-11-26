@@ -28,8 +28,8 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fractions import Fraction
 from _lib import run
-SOKUSAN = [(1950000, 5, 0), (3300000, 10, 97500), (6950000, 20, 427500), (9000000, 23, 636000),
-           (18000000, 33, 1536000), (40000000, 40, 2796000), (None, 45, 4796000)]
+import rates
+SOKUSAN = rates.sokusan_ue()
 def kojo(n):
     return max(800000, 400000 * n) if n <= 20 else 8000000 + 700000 * (n - 20)
 def ref(g, n):
@@ -38,7 +38,7 @@ def ref(g, n):
     for top, r, d in SOKUSAN:
         if top is None or base <= top:
             kijun = base * r // 100 - d          # 課税退職所得は1,000円単位なので割り切れる
-            it = max(0, kijun) * 1021 // 1000    # 復興特別所得税を合わせて1円未満切り捨て
+            it = max(0, kijun) * rates.FUKKO_NUM // rates.FUKKO_DEN    # 復興特別所得税を合わせて1円未満切り捨て
             break
     shi = base * 6 // 100 // 100 * 100
     ken = base * 4 // 100 // 100 * 100
@@ -152,8 +152,8 @@ async def body(pg):
         ('計算のしかた 1,000円未満', '残りを2分の1にする（1,000円未満は切り捨て）'),
     ]:
         chk('本文 ' + label, want in flat, True)
-    chk('例の速算表の段', (6950000 < kazei <= 9000000, kazei * 23 // 100 - 636000), (True, e['it'] * 1000 // 1021 + (1 if (e['it'] * 1000) % 1021 else 0)))
-    chk('20.42%=20%×102.1%', Fraction(20, 100) * Fraction(1021, 1000), Fraction(2042, 10000))
+    chk('例の速算表の段', (6950000 < kazei <= 9000000, kazei * 23 // 100 - 636000), (True, e['it'] * 1000 // rates.FUKKO_NUM + (1 if (e['it'] * 1000) % rates.FUKKO_NUM else 0)))
+    chk('20.42%=20%×102.1%', Fraction(20, 100) * Fraction(rates.FUKKO_NUM, rates.FUKKO_DEN), Fraction(2042, 10000))
 
     # JS が書き換える前の元の文(ファイルの中身)と、既定の選び方
     raw = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'site', 'yakuin-taishokukin', 'index.html'), encoding='utf-8').read()

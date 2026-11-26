@@ -12,29 +12,13 @@
 import os, sys, re, itertools
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num
+import rates
 
 def gs(x):
-    if x < 741000: return 0
-    if x < 2191000: return x - 740000
-    for lo, v in [(2191000, 1451000), (2193000, 1453000), (2196000, 1456000)]:
-        pass
-    if x < 2193000: return 1451000
-    if x < 2196000: return 1453000
-    if x < 2200000: return 1456000
-    if x < 6600000:
-        a = x - x % 4000
-        return a - (a * 30 // 100 + 80000) if a < 3600000 else a - (a * 20 // 100 + 440000)
-    if x < 8500000: return x * 90 // 100 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 
 def kiso(t):
-    if t <= 4890000: return 1040000
-    if t <= 6550000: return 670000
-    if t <= 23500000: return 620000
-    if t <= 24000000: return 480000
-    if t <= 24500000: return 320000
-    if t <= 25000000: return 160000
-    return 0
+    return rates.kiso_shotoku(t)
 
 def tax(k):
     br = [(1950000, 5), (3300000, 10), (6950000, 20), (9000000, 23), (18000000, 33), (40000000, 40), (10**15, 45)]
@@ -56,7 +40,7 @@ def ref(q, wq, jo, wj, sha, ide, sei, iryo, kifu, hg, fu, tf, loan):
     deduct = sha + ide + min(sei, 170000) + md + kd + sp + fu * 380000 + tf * 630000 + kiso(tot)
     kz = (tot - deduct) // 1000 * 1000 if tot > deduct else 0
     base = max(0, tax(kz) - loan)
-    total = base + base * 21 // 1000
+    total = base * rates.FUKKO_NUM // rates.FUKKO_DEN
     d = total - wq - wj
     return dict(tz=total, kz=kz, pay=(d // 100 * 100) if d > 0 else 0, ref=-d if d < 0 else 0)
 

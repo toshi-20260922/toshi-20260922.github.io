@@ -30,22 +30,18 @@ from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import SITE, ROOT, done
 from playwright.async_api import async_playwright
+import rates
 
 TOP = os.path.join(SITE, 'index.html')
 PAGES = json.load(open(os.path.join(ROOT, 'tools', 'pages.json'), encoding='utf-8'))
 REIWA, SEIREKI, KYOU = 8, 2026, '2026年11月21日'
 
 # ---- 自分の計算(整数。ヒーローの法人成りの表だけに使う) ----
-STD = [58, 68, 78, 88, 98, 104, 110, 118, 126, 134, 142, 150, 160, 170, 180, 190, 200, 220, 240, 260, 280, 300,
-       320, 340, 360, 380, 410, 440, 470, 500, 530, 560, 590, 620, 650, 680, 710, 750, 790, 830, 880, 930, 980,
-       1030, 1090, 1150, 1210, 1270, 1330, 1390]
-LIM = [63, 73, 83, 93, 101, 107, 114, 122, 130, 138, 146, 155, 165, 175, 185, 195, 210, 230, 250, 270, 290, 310,
-       330, 350, 370, 395, 425, 455, 485, 515, 545, 575, 605, 635, 665, 695, 730, 770, 810, 855, 905, 955, 1005,
-       1055, 1115, 1175, 1235, 1295, 1355]
-SOKUSAN = [(1950000, 5, 0), (3300000, 10, 97500), (6950000, 20, 427500), (9000000, 23, 636000),
-           (18000000, 33, 1536000), (40000000, 40, 2796000), (None, 45, 4796000)]
-KOKUHO23 = [(751, 47600, 670000), (280, 17600, 260000), (27, 1873, 30000)]     # 40歳未満:医療・支援金・子ども分(所得割×1万分の1, 均等割, 上限)
-KOKUHO_CARE = (243, 17800, 170000)                                          # 40〜64歳の介護分(東京23区)
+STD = rates.std_sen()
+LIM = rates.upper_sen()
+SOKUSAN = rates.sokusan_ue()
+KOKUHO23 = rates.kokuho23()
+KOKUHO_CARE = rates.kokuho_care()
 
 def std(m):
     for s, t in zip(STD, LIM):
@@ -56,29 +52,16 @@ def half(x):
     return q + 1 if x - q > F(1, 2) else q
 def r_half_up(x): return (x + F(1, 2)).__floor__()
 def kyuyo(x):
-    if x < 741000: return 0
-    if x < 2191000: return x - 740000
-    if x < 2193000: return 1451000
-    if x < 2196000: return 1453000
-    if x < 2200000: return 1456000
-    if x < 6600000:
-        a = x // 4000 * 4000
-        return a * 7 // 10 - 80000 if x < 3600000 else a * 8 // 10 - 440000
-    if x < 8500000: return x * 9 // 10 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 def kiso(g):
-    for top, v in ((4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000), (24500000, 320000), (25000000, 160000)):
-        if g <= top: return v
-    return 0
+    return rates.kiso_shotoku(g)
 def kiso_ju(g):
-    for top, v in ((24000000, 430000), (24500000, 290000), (25000000, 150000)):
-        if g <= top: return v
-    return 0
+    return rates.kiso_jumin(g)
 def shotokuzei(t):
     t = max(0, t) // 1000 * 1000
     for top, r, d in SOKUSAN:
         if top is None or t <= top:
-            return (t * r // 100 - d) * 1021 // 1000 // 100 * 100
+            return (t * r // 100 - d) * rates.FUKKO_NUM // rates.FUKKO_DEN // 100 * 100
 def jumin(g, sh):
     if g <= 450000: return 0
     t = max(0, g - sh - kiso_ju(g)) // 1000 * 1000
@@ -86,17 +69,17 @@ def jumin(g, sh):
     return max(0, t * 6 // 100 - adj * 3 // 100) // 100 * 100 + max(0, t * 4 // 100 - adj * 2 // 100) // 100 * 100 + 5000
 def yakuin(m, old=0):
     """(本人負担, 会社負担)の月額。協会けんぽ東京都。old は 0=40歳未満、1=40〜59歳、2=60〜64歳(介護保険料あり)。会社負担=全額(円未満切り捨て)−本人負担+子ども・子育て拠出金(円未満切り捨て)。"""
-    s = std(m); p = min(max(s, 88000), 650000)
-    kai = 162 if old else 0
-    ken = half(F(s * (985 + 23 + kai), 20000)); nen = half(F(p * 1830, 20000))
-    return ken + nen, s * (985 + 23 + kai) // 10000 + p * 1830 // 10000 - ken - nen + p * 36 // 10000
+    s = std(m); p = min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)
+    kai = rates.KAIGO if old else 0
+    ken = half(F(s * (rates.TOKYO + rates.SIEN + kai), 20000)); nen = half(F(p * rates.NENKIN, 20000))
+    return ken + nen, s * (rates.TOKYO + rates.SIEN + kai) // 10000 + p * rates.NENKIN // 10000 - ken - nen + p * rates.KYOSHUTSU // 10000
 def kojin_futan(a, old=0):
     """個人事業のままの税金・社会保険料の合計。old は 0=40歳未満、1=40〜59歳(介護分あり)、2=60〜64歳(介護分あり・国民年金なし)。"""
-    g = max(0, a - min(650000, a)); base = max(0, g - 430000)
-    red = 7 if g <= 430000 else (5 if g <= 740000 else (2 if g <= 1000000 else 0))
+    g = max(0, a - min(650000, a)); base = max(0, g - rates.KEIGEN_BASE)
+    red = rates.keigen(g, 1)
     rows = KOKUHO23 if not old else KOKUHO23[:2] + [KOKUHO_CARE] + KOKUHO23[2:]
     sh = sum(min(c, base * r // 10000 + k * (10 - red) // 10) for r, k, c in rows)
-    if old != 2: sh += 17920 * 12
+    if old != 2: sh += rates.NENKIN_KOKUMIN * 12
     jg = max(0, a - 2900000) // 1000 * 1000 * 5 // 100 // 100 * 100
     return shotokuzei(g - sh - kiso(g)) + jumin(g, sh) + jg + sh
 def jigyo(a):

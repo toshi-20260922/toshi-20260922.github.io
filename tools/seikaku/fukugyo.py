@@ -49,29 +49,17 @@ import os, re, sys, random
 from fractions import Fraction as F
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _lib import run, num, SITE
+import rates
 
 def fl(v):
     return v.numerator // v.denominator
 
 def kyuyo(x):
-    if x <= 740999: return 0
-    if x <= 2190999: return x - 740000
-    if x <= 2192999: return 1451000
-    if x <= 2195999: return 1453000
-    if x <= 2199999: return 1456000
-    q = x // 4 // 1000 * 1000
-    if x <= 3599999: return q * 28 // 10 - 80000
-    if x <= 6599999: return q * 32 // 10 - 440000
-    if x <= 8499999: return x * 9 // 10 - 1100000
-    return x - 1950000
+    return rates.kyuyo_r8(x)
 
 # 標準報酬月額(健康保険)。報酬月額の下限(千円)と標準報酬月額(千円)
-LOW = [0, 63, 73, 83, 93, 101, 107, 114, 122, 130, 138, 146, 155, 165, 175, 185, 195, 210, 230, 250, 270, 290, 310, 330,
-       350, 370, 395, 425, 455, 485, 515, 545, 575, 605, 635, 665, 695, 730, 770, 810, 855, 905, 955, 1005, 1055, 1115,
-       1175, 1235, 1295, 1355]
-STD = [58, 68, 78, 88, 98, 104, 110, 118, 126, 134, 142, 150, 160, 170, 180, 190, 200, 220, 240, 260, 280, 300, 320, 340,
-       360, 380, 410, 440, 470, 500, 530, 560, 590, 620, 650, 680, 710, 750, 790, 830, 880, 930, 980, 1030, 1090, 1150,
-       1210, 1270, 1330, 1390]
+LOW = rates.lower_sen_with_zero()
+STD = rates.std_sen()
 assert len(LOW) == len(STD) == 50
 
 def hyojun(m):
@@ -87,16 +75,13 @@ def r50(v):
 def shaho(a):
     m = a // 12
     s = hyojun(m)
-    kenpo = r50(F(s) * (F(985, 10000) + F(23, 10000)) / 2)
-    nenkin = r50(F(min(max(s, 88000), 650000)) * F(183, 1000) / 2)
-    koyo = r50(F(m) * F(5, 1000))
+    kenpo = r50(F(s) * (F(rates.TOKYO, 10000) + F(rates.SIEN, 10000)) / 2)
+    nenkin = r50(F(min(max(s, rates.NENKIN_MIN), rates.NENKIN_MAX)) * F(rates.NENKIN_PER_1000, 1000) / 2)
+    koyo = r50(F(m) * F(rates.KOYO_PER_1000, 1000))
     return (kenpo + nenkin + koyo) * 12
 
 def kiso_i(g):
-    for top, v in ((4890000, 1040000), (6550000, 670000), (23500000, 620000), (24000000, 480000),
-                   (24500000, 320000), (25000000, 160000)):
-        if g <= top: return v
-    return 0
+    return rates.kiso_shotoku(g)
 
 def zei(t):
     """所得税法89条:195万円以下5%、330万円以下10%…(超過累進)。税率は t が入る段の率。"""
@@ -114,12 +99,12 @@ def itax(a, s):
     g = kyuyo(a) + s
     t = max(0, g - shaho(a) - kiso_i(g)) // 1000 * 1000
     b, r = zei(t)
-    return fl(F(b) * F(1021, 1000)) // 100 * 100, r
+    return fl(F(b) * F(rates.FUKKO_NUM, rates.FUKKO_DEN)) // 100 * 100, r
 
 def jumin(a, s):
     g = kyuyo(a) + s
     if g <= 450000: return 0
-    k = 430000 if g <= 24000000 else 290000 if g <= 24500000 else 150000 if g <= 25000000 else 0
+    k = rates.kiso_jumin(g)
     t = max(0, g - shaho(a) - k) // 1000 * 1000
     if g > 25000000: adj = F(0)
     elif t <= 2000000: adj = F(min(50000, t))
@@ -278,8 +263,8 @@ async def body(pg):
             if ('給料で' in r[0]) != ('収入' in r[0]) or ('給料以外' in r[0]) != ('所得が' in r[0]):
                 if '取り戻したい' not in r[0]: bad += 1; print('NG 判定の表の収入と所得', r[0])
     # 所得の種類の表:率と金額を原本の数字から出して比べる
-    gensen = F(10) * F(1021, 1000)                    # 所得税10%に復興特別所得税2.1%
-    fx = F(15) * F(1021, 1000) + 5                    # 所得税15%+復興+住民税5%
+    gensen = F(10) * F(rates.FUKKO_NUM, rates.FUKKO_DEN)                    # 所得税10%に復興特別所得税2.1%
+    fx = F(15) * F(rates.FUKKO_NUM, rates.FUKKO_DEN) + 5                    # 所得税15%+復興+住民税5%
     KIND = {'アルバイト': ('給与所得', ['20万円は収入の額']), '物販': ('事業所得か雑所得', []), 'アフィリエイト': ('事業所得か雑所得', []),
             '原稿料': ('事業所得か雑所得', ['%s%%' % float(gensen)]), '不用品': ('原則かからない', ['1個30万円を超える']),
             '暗号資産': ('雑所得', ['差し引くことはできません']), 'FX': ('雑所得（申告分離課税）', ['%s%%' % float(fx), '本業とは分けて']),
