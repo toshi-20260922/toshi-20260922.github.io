@@ -74,6 +74,7 @@ def intro_first(me, s):
 # 言葉は tools/ya_bun.json。「下の計算ツール」は計算の箱(id="calc")へのリンク。
 YA = json.load(open(os.path.join(ROOT, 'tools', 'ya_bun.json'), encoding='utf-8'))
 def yabun(me, s):
+    s = s.replace('.lead2{margin:14px 0 0;font-weight:700}', '.lead2{margin:14px 0 0}.hyi{margin:0 0 16px}')
     if 'id="calc"' not in s or 'class="lead2"' not in s:
         return s
     L = '<a href="#calc">下の計算ツール</a>'

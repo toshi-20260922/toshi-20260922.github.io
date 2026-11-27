@@ -172,7 +172,7 @@ def main():
   </div>
  </div>
  <div class="vd" id="vd"><b id="o-vd">印紙税は2,000円です</b><span id="o-vds">100万円超500万円以下の区分です。紙1通ごとに貼ります</span></div>
- <div id="o-doc" style="white-space:pre-wrap;background:#f4f7f6;border:1px solid #d5e2dc;border-radius:8px;padding:14px 16px;line-height:1.9;margin-top:12px">借用書
+ <div id="o-doc" style="white-space:pre-wrap;color:#1f2a27;background:#f4f7f6;border:1px solid #d5e2dc;border-radius:8px;padding:14px 16px;line-height:1.9;margin-top:12px">借用書
 
 貸主株式会社から金3,000,000円を借り受けました。たしかに受け取りました。
 
