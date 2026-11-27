@@ -222,7 +222,7 @@ async def body(pg):
         await pg.fill('#inc', str(a))
         chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), [w + '万円' for w in want])
     chk('高い行の注記', '年収が高い行は上限の額で止まります。' in raw, True)
-    chk('黄色の行の文', '入力した年収を超えない中でいちばん近い行が黄色になります。' in raw, True)
+    chk('入力した額の印', 'id="hitc"' in raw, True)
 
     # 一覧にない市区町村(料率を入れる)。選んでいた地域の料率が入り、端数は1円・独自減額なしで計算する
     await pg.select_option('#reg', '15')

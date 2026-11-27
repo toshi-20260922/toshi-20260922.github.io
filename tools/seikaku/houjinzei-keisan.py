@@ -174,7 +174,7 @@ async def body(pg):
         if hit != want:
             bad += 1; print('NG 黄色の行', I, hit, want)
     n += 1
-    if '入力した所得を超えない中でいちばん近い行が黄色になります。' not in await pg.content():
+    if 'id="hitc"' not in await pg.content():
         bad += 1; print('NG 黄色の行の文')
     # JS が書き換える前の文(HTML に直に書いた既定の結果)。申し送り11の形
     raw = open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'site', 'houjinzei-keisan', 'index.html'), encoding='utf-8').read()

@@ -140,7 +140,6 @@ async def body(pg):
         chk(lab + ' 結論', await pg.inner_text('#o-vd'), '本人負担は毎月%s円です' % c(e['me']))
         chk(lab + ' 結論の下', await pg.inner_text('#o-vds'),
             '標準報酬月額は%s円（%d等級）です。会社負担は毎月%s円です' % (c(g[1]), g[0], c(e['co'])))
-        chk(lab + ' 等級の文', await pg.inner_text('#o-grade'), '%d等級は、上の早見表の黄色の行です' % g[0])
         chk(lab + ' 内訳', await pg.inner_text('#o-break'), '本人負担の内訳は、健康保険%s円・厚生年金%s円です' % (c(e['ken']), c(e['nen'])))
         chk(lab + ' 黄色の行', await pg.eval_on_selector_all('#gtb tr.hit', 'rs=>rs.map(r=>r.children[0].textContent)'), [str(g[0])])
     ms = [0, 1, 50000, 2000000, 5000000]
@@ -185,7 +184,6 @@ async def body(pg):
         ('元の文 本人', 'id="o-me">%s<i>' % c(t0['me'])), ('元の文 会社', 'id="o-co">%s<i>' % c(t0['co'])),
         ('元の文 合計', 'id="o-all">%s<i>' % c(t0['me'] + t0['co'])),
         ('元の文 年間', 'id="o-year">年間 約%d万円' % ((Fraction((t0['me'] + t0['co']) * 12, 10000) + Fraction(1, 2)).__floor__())),
-        ('元の文 等級', '標準報酬月額は300,000円（%d等級）です。上の早見表の黄色の行です<' % grade(300000)[0]),
         ('表の注 右端の列', '右端の列はそのうちの子ども・子育て拠出金で、会社だけが払います。'),
         ('注意点 免除', '会社が申し出ると本人と会社の両方の保険料が免除されます'),
         ('出典 こども家庭庁', 'href="https://www.cfa.go.jp/policies/kodomokosodateshienkinseido">こども家庭庁「子ども・子育て支援金制度について」'),

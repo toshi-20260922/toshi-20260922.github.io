@@ -141,7 +141,7 @@ body{overflow-x:clip}
 .top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
 .top .pic{margin:0 0 6px 12px}
 @media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
-.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
+.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0}.hyi{margin:0 0 16px}</style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><script id="tt-track">(function(){var s=false;try{var q=location.search;if(/[?&](?:notrack|naibu)=1(?:&|$)/.test(q))localStorage.setItem("tt_naibu","1");if(/[?&](?:notrack|naibu)=0(?:&|$)/.test(q))localStorage.removeItem("tt_naibu");s=localStorage.getItem("tt_naibu")==="1";}catch(e){}try{if(navigator.webdriver)s=true;}catch(e){}if(s)return;var g=document.createElement("script");g.async=1;g.src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1";document.head.appendChild(g);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag("js",new Date());gtag("config","G-CW5VSP86R1");(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");})();</script>
 </head>
 <body>
@@ -157,8 +157,9 @@ body{overflow-x:clip}
  <h1>【法定福利費の計算】社会保険料の会社負担はいくら？人数分まとめて計算【令和8年度】</h1>
 </div>
 <section class="hy1">
+<p class="hyi">法定福利費は、法律で会社が払うと決められている社会保険料の会社負担分です。健康保険・介護保険・子ども・子育て支援金・厚生年金は会社と本人が半分ずつ払い、子ども・子育て拠出金は会社だけが払います。<span class="mk">1人ずつの保険料を足しても、年金事務所から届く納付額と1円単位で合わないことがあります。</span>このページは日本年金機構の端数の決まりどおりに会社全体で計算するので、賞与の保険料がない月は納付額と同じ額になります。産前産後休業や育児休業で保険料が免除されている人は、人数に含めないでください。</p>
 <h2 id="list">標準報酬月額ごとの会社負担と本人負担</h2>
-<p>下で選んだ都道府県で、1人だけを雇っている場合の1か月の額です。</p>
+<p class="cap" id="t-cap2"></p>
 <div class="tw"><table class="t5">
  <thead><tr><th>標準報酬<br>月額（円）</th><th>会社負担<br>40歳未満</th><th>本人負担<br>40歳未満</th><th>会社負担<br>40〜64歳</th><th>本人負担<br>40〜64歳</th></tr></thead>
  <tbody id="tb"></tbody>
@@ -166,7 +167,7 @@ body{overflow-x:clip}
 <p class="note" style="margin-top:8px">単位は円です。会社負担には子ども・子育て拠出金を含みます。雇用保険料と労災保険料は給与の額にかかるので、このページの法定福利費に含めていません。</p>
 <p class="ask">月給から標準報酬月額がいくらになるか？<br>早見表で確かめてみてください。</p>
 <a class="cbtn nx" href="/shakaihoken/" data-cta="hoteifukurihi_next_shakaihoken">社会保険料の早見表</a>
-<p class="lead2">自分の条件で計算したい人は、下に入力してください。</p>
+<p class="lead2">▶ 自分の数字で確かめたい人は、<a href="#calc">下の計算ツール</a>で計算できます。</p>
 </section>
 
 <div class="sum" id="calc">
@@ -198,7 +199,6 @@ body{overflow-x:clip}
  <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/hoteifukurihi/">LINEで送る</a>
  <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/hoteifukurihi/">Xでポストする</a>
 </div>
-<p>法定福利費は、法律で会社が払うと決められている社会保険料の会社負担分です。健康保険・介護保険・子ども・子育て支援金・厚生年金は会社と本人が半分ずつ払い、子ども・子育て拠出金は会社だけが払います。<span class="mk">1人ずつの保険料を足しても、年金事務所から届く納付額と1円単位で合わないことがあります。</span>このページは日本年金機構の端数の決まりどおりに会社全体で計算するので、賞与の保険料がない月は納付額と同じ額になります。産前産後休業や育児休業で保険料が免除されている人は、人数に含めないでください。</p>
 <nav class="toc"><div class="t">目次</div><ol>
  <li><a href="#list">標準報酬月額ごとの会社負担と本人負担</a></li>
  <li><a href="#rate">法定福利費に入る保険料と料率</a></li>
@@ -406,5 +406,6 @@ window.__hf={calc:calc};
 </script>
 <style id="tdwc">main .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}main .tw th,main .tw td{min-width:4em}main .tw .tdn{white-space:nowrap}</style><script id="tdw">(function(){function f(){var c=document.querySelectorAll("main .tw th,main .tw td");for(var i=0;i<c.length;i++){var t=(c[i].textContent||"").replace(/\s/g,"");if(t.length&&t.length<=8)c[i].classList.add("tdn");else c[i].classList.remove("tdn");}}f();var m=document.querySelector("main");if(m&&window.MutationObserver){var b=0;new MutationObserver(function(){if(b)return;b=1;setTimeout(function(){b=0;f();},0);}).observe(m,{childList:true,subtree:true,characterData:true});}})();</script>
 <style id="fsxc">.fsb{display:inline-block;margin:8px 0 6px;padding:6px 12px;border:1px solid #0f3d31;border-radius:6px;background:#ffffff;color:#0f3d31;font-weight:700;font-size:13px;cursor:pointer}.fso{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#ffffff;overflow:auto;padding:0 12px 24px}.fso .fsh{position:sticky;top:0;left:0;background:#ffffff;padding:10px 0;display:flex;justify-content:flex-end}.fso table{min-width:0;margin:0}.fsz{overflow:hidden}</style><script id="fsx">(function(){var ws=document.querySelectorAll("main .tw");for(var i=0;i<ws.length;i++){(function(w){if(w.querySelectorAll("tr").length<6)return;var b=document.createElement("button");b.type="button";b.className="fsb";b.textContent="表全体を見る";b.addEventListener("click",function(){var o=document.createElement("div");o.className="fso";var h=document.createElement("div");h.className="fsh";var c=document.createElement("button");c.type="button";c.className="fsb";c.textContent="閉じる";h.appendChild(c);o.appendChild(h);var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");[].forEach.call(t.querySelectorAll("[id]"),function(e){e.removeAttribute("id")});var bx=document.createElement("div");bx.className="fsz";bx.appendChild(t);o.appendChild(bx);document.body.appendChild(o);document.body.style.overflow="hidden";t.style.width="max-content";var W=o.clientWidth-24,tw=t.offsetWidth,k=Math.min(1,W/tw);t.style.transformOrigin="0 0";t.style.transform="scale("+k+")";bx.style.height=Math.ceil(t.offsetHeight*k)+"px";bx.style.width=Math.floor(tw*k)+"px";c.addEventListener("click",function(){document.body.removeChild(o);document.body.style.overflow="";});});w.parentNode.insertBefore(b,w);})(ws[i]);}})();</script>
+<script id="tcapj">(function(){function A(){try{var e=document.getElementById("pref");return e.options[e.selectedIndex].text.replace(/（[^）]*）/,"");}catch(x){return ""}}function u(){document.getElementById("t-cap2").textContent=A()+"で1人だけを雇っている場合の1か月の額です。";}u();document.addEventListener("input",function(){setTimeout(u,0)},true);document.addEventListener("change",function(){setTimeout(u,0)},true);document.addEventListener("click",function(){setTimeout(u,0)},true);})();</script><style id="hitc">main table tr.hit td{background:transparent!important}</style><script id="hitj"></script>
 </body>
 </html>
