@@ -222,9 +222,9 @@
   "nendo": "令和8年度",
   "unit": "万分率",
   "value": 36,
-  "source_url": "https://www.nenkin.go.jp/oshirase/taisetu/2020/202005/20200514.html",
-  "source_name": "日本年金機構「子ども・子育て拠出金率が改定されました」（令和2年4月分から0.36%。点検はこの率のまま）",
-  "checked": "2026-11-21"
+  "source_url": "https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.files/R08ryougaku.pdf",
+  "source_name": "日本年金機構「厚生年金保険料額表（令和8年度版）」子ども・子育て拠出金率0.36%（令和8年4月1日から）。こども家庭庁の令和8年度当初予算も0.36%。",
+  "checked": "2026-11-27"
  },
  "nenkin": {
   "name": "厚生年金保険料率",

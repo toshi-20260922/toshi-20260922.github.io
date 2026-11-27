@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>【借用書テンプレート】金額を入力すると文面と印紙税を表示する</title>
+<link rel="canonical" href="https://taxtable.jp/shakuyo/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://taxtable.jp/shakuyo/">
+<meta property="og:title" content="【借用書テンプレート】金額を入力すると文面と印紙税を表示する">
+<meta property="og:site_name" content="タックステーブル">
+<meta property="og:description" content="借用書の文面と印紙税を、借りる金額から計算します。1万円未満は非課税で、100万円ちょうどは1,000円、300万円は2,000円です。紙1通ごとにかかり、データを送るだけで紙を作らないときはかかりません。">
+<meta name="description" content="借用書の文面と印紙税を、借りる金額から計算します。1万円未満は非課税で、100万円ちょうどは1,000円、300万円は2,000円です。紙1通ごとにかかり、データを送るだけで紙を作らないときはかかりません。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&amp;display=swap"><style id="ttfont">:root{--tt-font:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif;--tt-fv:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans CJK JP","Yu Gothic",Meiryo,sans-serif}body,button,input,select,textarea{font-family:var(--tt-font)}.hd,.hd button,.hd input,.hd select,.hd textarea,.top,.top button,.top input,.top select,.top textarea,.kp,.kp button,.kp input,.kp select,.kp textarea{font-family:var(--tt-fv)}</style>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box}
+html{background:#ffffff;color:#1f2a2a}
+body{margin:0;background:#ffffff;color:#1f2a2a;font-family:var(--tt-font);font-size:16px;line-height:1.8;-webkit-text-size-adjust:100%;padding-bottom:72px}
+a{color:#00775a}
+.wrap{max-width:932px;margin:0 auto;padding:0 16px}
+
+/* ヘッダー */
+.hd{background:#ffffff;border-bottom:1px solid #e6eaea}
+.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:#004d3c;text-decoration:none;white-space:nowrap}
+.logo i{width:22px;height:22px;border-radius:6px;background:#00775a;display:inline-block}
+.hd nav a{font-size:13px;color:#1f2a2a;text-decoration:none;margin-left:16px}
+@media (max-width:480px){.hd nav a+a{display:none}.hd nav a{margin-left:8px}}
+
+/* タイトル */
+.top{padding:16px 0 0}
+.upd{font-size:12px;color:#5b6666;margin:0 0 16px}
+h1{font-size:24px;line-height:1.6;font-weight:400;margin:0 0 16px;padding:0 0 16px;background:linear-gradient(#00775a,#00775a) left bottom/40% 6px no-repeat,linear-gradient(#d9dede,#d9dede) left bottom/100% 6px no-repeat}
+p{margin:0 0 20px}
+.mk{background:#fff59d}
+h2{font-size:22px;line-height:1.4;font-weight:700;color:#004d3c;margin:30px 0 20px;padding:0 0 10px;border-bottom:2px solid #004d3c}
+h3{font-size:20px;line-height:1.4;font-weight:700;color:#1f2a2a;margin:30px 0 20px;padding:5px 0 5px 10px;border-left:6px solid #004d3c}
+.note{font-size:14px;color:#5b6666}
+
+/* 計算の箱 */
+.sum{background:#e8f4ef;border-radius:4px;padding:24px 16px;margin:0 0 20px}
+.sum .h{font-weight:700;line-height:1.8;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #cddcd7}
+.sum .h span{display:inline-block;background:#00775a;color:#ffffff;border-radius:4px;padding:2px 16px 4px;margin-right:8px;line-height:1.6}
+.in{display:grid;gap:12px;margin:0 0 16px}
+.in label{display:block;font-size:14px;font-weight:700;margin:0 0 4px}
+.in .row{display:flex;align-items:center;gap:8px}
+.in input:is([type=number],.cmn){font-family:inherit;font-size:20px;font-weight:700;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:6px 10px;width:150px;text-align:right;font-variant-numeric:tabular-nums}
+.in input[type=range]{width:100%;accent-color:#00775a;margin:8px 0 0}
+.in select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:8px 10px;width:100%}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{font-family:inherit;font-size:14px;font-weight:700;color:#004d3c;background:#ffffff;border:1.5px solid #9cc9b9;border-radius:8px;padding:10px 4px;cursor:pointer}
+.seg button.on{color:#ffffff;background:#00775a;border-color:#00775a}
+.amt{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 16px}
+.amt div{background:#ffffff;border-radius:4px;padding:10px 4px;text-align:center}
+.amt small{display:block;font-size:12px;line-height:1.5;color:#5b6666}
+.amt b{display:block;font-size:24px;line-height:1.3;font-weight:700;color:#00775a;font-variant-numeric:tabular-nums}
+.amt b i{font-style:normal;font-size:12px}
+.amt em{display:block;font-style:normal;font-size:12px;color:#5b6666}
+.sum ul{margin:0;padding:0 0 0 1.2em;font-size:15px}
+.sum li{margin:0 0 4px}
+.sum li::marker{color:#00775a}
+
+/* 目次 */
+.toc{margin:30px 0 0}
+.toc .t{font-weight:700;margin-bottom:8px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:0 0 4px}
+.toc li::marker{color:#00775a;font-weight:700}
+
+/* 表 */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+table th{background:#d2ebe1;font-weight:700;padding:6px;border:1px solid #666666;font-size:13px;line-height:1.45}
+table td{padding:6px;border:1px solid #666666;font-size:14px;font-weight:500;line-height:1.45;height:40px;vertical-align:middle;text-align:right}
+table td.l{text-align:left}
+table td.c{text-align:center}
+table td small{display:block;font-size:11px;font-weight:400;color:#5b6666}
+table tr.hit td{background:#fff59d}
+.cap{font-size:14px;font-weight:700;margin:0 0 8px}
+
+/* 出口 */
+.bridge{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:14px 20px;font-size:15px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:340px;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.share{display:flex;justify-content:center;gap:10px;margin:0 0 28px}
+.share a{display:inline-block;text-align:center;text-decoration:none;font-size:13px;font-weight:700;border-radius:999px;padding:6px 16px;background:#ffffff}
+.share .ln{color:#06a64a;border:1.5px solid #06c755}.share .x{color:#1a1a1a;border:1.5px solid #1a1a1a}
+.ask{text-align:center;margin:0 0 12px}
+.cbtn{display:block;background:#004d3c;color:#ffffff;text-align:center;text-decoration:none;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;line-height:1.6;margin:0 auto 20px;max-width:320px}
+.cbtn.nx{background:#00775a}
+
+.src{font-size:13px;color:#5b6666;margin:30px 0 0;line-height:1.8}
+.src ul{margin:4px 0 0;padding-left:1.2em}
+.src a{color:#5b6666}
+.auth{font-size:14px;color:#5b6666;margin:24px 0 0;line-height:1.8;border-top:1px solid #e6eaea;padding-top:20px}
+.auth p{margin:0}.auth-h{font-size:13px}.auth-n{font-size:18px;font-weight:700;color:#1f2a2a;margin:4px 0 2px!important}.auth-r{font-size:13px;margin-bottom:8px!important}
+.tools{margin:30px 0 0}
+.tools .t{font-weight:700;padding:0 0 8px;border-bottom:2px solid #004d3c;margin:0 0 4px;color:#004d3c}
+.tools a{display:block;padding:12px 0;border-bottom:1px solid #e6eaea;color:#1f2a2a;text-decoration:none}
+.tools a::after{content:"›";float:right;color:#00775a;font-weight:700}
+footer{margin-top:40px;background:#004d3c;color:#d4ece5;font-size:12px}
+footer .wrap{padding:18px 16px}
+.fbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px;background:rgba(255,255,255,.96);box-shadow:0 -2px 8px rgba(0,0,0,.12)}
+.fbar a{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#ffffff;font-weight:700;font-size:15px;line-height:1.3;border-radius:8px;padding:13px 6px;min-height:48px}
+.fbar a::after{content:"›";font-size:20px;line-height:1;margin-left:6px}
+.fbar .y{background:#004d3c}.fbar .k{background:#c9761c}
+@media (min-width:720px){h1{font-size:28px}.in{grid-template-columns:1fr 1fr}.in .full{grid-column:1/3}}
+@media (max-width:380px){.amt b{font-size:20px}}
+.hcta{display:none}
+@media (min-width:720px){.fbar{display:none}body{padding-bottom:0}.hd nav{margin-left:auto}.hcta{display:flex;gap:8px;margin-left:20px}.hcta a{display:inline-block;font-size:13px;font-weight:700;line-height:1;text-decoration:none;border-radius:6px;padding:11px 14px;white-space:nowrap}.hcta .y{background:#0f3d31;color:#ffffff}.hcta .k{background:#ffffff;color:#b3661a;border:1.5px solid #c9761c;padding:9.5px 13px}}
+.seg3{grid-template-columns:1fr 1fr 1fr}
+.seg3 button{font-size:13px;line-height:1.4}
+.fbar.one{grid-template-columns:1fr}
+.close{background:#e8f4ef;border-radius:6px;padding:20px 16px;margin:20px 0 0;text-align:center}.close p{margin:0 0 12px;font-size:14px}.close .close-h{font-size:17px;font-weight:700;color:#004d3c;margin-bottom:8px}.close .cbtn{margin:0 auto}
+.top{overflow:hidden}.top .pic{float:right;margin:0 0 6px 12px;line-height:0}.top .pic svg{width:64px;height:64px}
+.sum{background:#0f3d31;color:#ffffff;border-radius:10px}
+.sum .h{color:#ffffff;border-bottom:1px solid #ffffff33}.sum .h span{background:#e3b465;color:#0f3d31}
+.in label{color:#dfeee8}.in .row span{color:#dfeee8}.chk{color:#dfeee8}
+.in input[type=range]{accent-color:#e3b465}
+.seg button{color:#ffffff;background:#ffffff14;border-color:#ffffff55}.seg button.on{color:#0f3d31;background:#e3b465;border-color:#e3b465}
+.amt div{background:#ffffff12}.amt small{color:#b9d3ca}.amt b{color:#ffffff}.amt em{color:#e3b465}
+.sum ul{color:#dfeee8}.sum li::marker{color:#e3b465}
+.ch p{color:#e3b465!important}.ch svg{background:#ffffff0d!important}.ch text{fill:#b9d3ca}.ch line{stroke:#ffffff22}.ch polyline{stroke:#e3b465}.ch circle{stroke:#ffffff}
+.close{background:#0f3d31;color:#ffffff}.close p{color:#dfeee8}.close .close-h{color:#ffffff}.close .cbtn{background:#e3b465;color:#0f3d31}
+.nw{white-space:nowrap}
+h1,h2,h3,.close-h,.close p,.rcta p,.sum li,.note{word-break:auto-phrase}
+
+/* ロゴ */
+.hd .logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:#1d6b4a;flex:none;min-width:0}
+.hd .logo i{display:none}
+.hd .logo img{width:35px;height:38px;flex:none;display:block;object-fit:contain}
+.lgt{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.lgt b{font-size:17px;font-weight:900;letter-spacing:.01em;color:#1d6b4a;white-space:nowrap}
+.lgt small{font-size:11px;font-weight:500;letter-spacing:.02em;color:#1f2a2a;margin-top:1px;white-space:nowrap}
+@media (max-width:480px){.hd .logo{gap:6px}.hd .logo img{width:31px;height:34px}.lgt b{font-size:15px}.lgt small{font-size:10px}}
+
+/* 題名の帯(画面の端まで) 2026/11/13 */
+body{overflow-x:clip}
+.top{margin:0 calc(50% - 50vw) 24px;padding:24px calc(50vw - 50%) 26px;background:#1f2b28;color:#ffffff;overflow:hidden}
+.top .upd{color:#b9d3ca;margin:0 0 12px}
+.top h1{color:#ffffff;margin:0;padding:0 0 14px;background:linear-gradient(#e3b465,#e3b465) left bottom/40% 5px no-repeat,linear-gradient(#ffffff33,#ffffff33) left bottom/100% 5px no-repeat}
+.top .pic{margin:0 0 6px 12px}
+@media (max-width:480px){.top{padding-top:18px;padding-bottom:20px}}
+.jdg{margin:0 0 8px}
+.amt.jdg{grid-template-columns:1fr 1fr}
+.amt.jdg div.tot{grid-column:1/3}
+.amt.jdg b{white-space:nowrap}
+.jdg div{background:#ffffff1f}
+.jdg b{font-size:22px}
+.vd{background:#ffffff;color:#0f3d31;border-left:8px solid #d0661c;border-radius:6px;padding:14px 16px;margin:0 0 12px}.vd b{display:block;font-size:24px;line-height:1.4;font-weight:700;color:#d0661c}.vd span{display:block;font-size:14px;line-height:1.6;margin-top:4px}.vd.no{border-left-color:#00775a}.vd.no b{color:#00775a}.sum select{font-family:inherit;font-size:16px;color:#1f2a2a;background:#ffffff;border:1px solid #9cc9b9;border-radius:8px;padding:10px;width:100%}.hide{display:none}.hy1{margin:20px 0 4px}.hy1 h2{margin-top:0}.lead2{margin:14px 0 0;font-weight:700}</style>
+<style id="fbz">.fbar{transform:translateY(110%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s}.fbar.on{transform:none;visibility:visible;transition:transform .25s ease}.fbar a.k{flex-direction:column;padding:6px 6px;line-height:1.25}.fbar a.k::after{display:none}.fbar a.k small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em}</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><script id="tt-track">(function(){var s=false;try{var q=location.search;if(/[?&](?:notrack|naibu)=1(?:&|$)/.test(q))localStorage.setItem("tt_naibu","1");if(/[?&](?:notrack|naibu)=0(?:&|$)/.test(q))localStorage.removeItem("tt_naibu");s=localStorage.getItem("tt_naibu")==="1";}catch(e){}try{if(navigator.webdriver)s=true;}catch(e){}if(s)return;var g=document.createElement("script");g.async=1;g.src="https://www.googletagmanager.com/gtag/js?id=G-CW5VSP86R1";document.head.appendChild(g);window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag("js",new Date());gtag("config","G-CW5VSP86R1");(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9qg6yckbq");})();</script>
+</head>
+<body>
+<header class="hd"><div class="wrap">
+ <a class="logo" href="/"><img src="/img/top/logo.png" alt="" width="35" height="38" loading="eager"><span class="lgt"><b>TaxTable</b><small>タックステーブル</small></span></a>
+ <nav><a href="/#list">早見表・計算ツール</a><a href="#auth">監修・制作税理士</a></nav>
+ <div class="hcta"><a class="y" href="https://oyama-toshiro.com/contact/" data-cta="shakuyo_head_marunage">経理丸投げの無料相談 →</a></div>
+</div></header>
+
+<main class="wrap">
+<div class="top">
+ <div class="pic"><svg viewBox="0 0 64 64" width="56" height="56" role="img" aria-label="人と円"><circle cx="32" cy="32" r="31" fill="#eef6f2"/><circle cx="25" cy="24" r="8" fill="#0f3d31"/><path d="M11 50c1-10 7-15 14-15s13 5 14 15z" fill="#0f3d31"/><circle cx="46" cy="40" r="10" fill="#e3b465"/><text x="46" y="45" font-size="13" font-weight="700" text-anchor="middle" fill="#0f3d31" font-family="sans-serif">円</text></svg></div>
+ <p class="upd">公開日：2026年11月27日　更新日：2026年11月27日（国税庁 No.7140 令和8年4月1日現在法令等）</p>
+ <h1>【借用書テンプレート】金額を入力すると文面と印紙税を表示する</h1>
+</div>
+
+<section class="hy1">
+<h2 id="list">借用書の印紙税はいくらか（金額の区分）</h2>
+<p>紙の借用書は、契約金額で印紙税が決まります。下の表は国税庁の印紙税額の一覧表（No.7140）の第1号文書です。</p>
+<p class="cap">消費貸借に関する契約書・1通あたり</p>
+<div class="tw">
+<table>
+ <thead><tr><th>契約金額</th><th>印紙税</th></tr></thead>
+ <tbody><tr><td class="l">1万円未満</td><td>非課税</td></tr><tr><td class="l">1万円以上10万円以下</td><td>200円</td></tr><tr><td class="l">10万円超50万円以下</td><td>400円</td></tr><tr><td class="l">50万円超100万円以下</td><td>1,000円</td></tr><tr><td class="l">100万円超500万円以下</td><td>2,000円</td></tr><tr><td class="l">500万円超1,000万円以下</td><td>10,000円</td></tr><tr><td class="l">1,000万円超5,000万円以下</td><td>20,000円</td></tr><tr><td class="l">5,000万円超1億円以下</td><td>60,000円</td></tr><tr><td class="l">1億円超5億円以下</td><td>100,000円</td></tr><tr><td class="l">5億円超10億円以下</td><td>200,000円</td></tr><tr><td class="l">10億円超50億円以下</td><td>400,000円</td></tr><tr><td class="l">50億円超</td><td>600,000円</td></tr><tr><td class="l">金額の記載がないもの</td><td>200円</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">不動産の売買契約にある軽減は、借用書にはありません。金額を書かない借用書は200円です。2通作るときは2通分です。</p>
+<p class="lead2">自分の数字で計算したい人は、下に入力してください。</p>
+</section>
+
+<div class="sum" id="calc">
+ <div class="h"><span>結論</span>300万円の借用書の印紙税は2,000円です</div>
+ <div class="amt">
+  <div><small>印紙税<br>1通</small><b id="o-tax">2,000<i>円</i></b><em id="o-band">100万円超500万円以下</em></div>
+  <div><small>利息の<br>合計</small><b id="o-int">0<i>円</i></b><em id="o-intn">無利息</em></div>
+ </div>
+ <div class="in">
+  <div class="full">
+   <label for="amt">借りる金額</label>
+   <div class="row"><input type="number" id="amt" inputmode="numeric" min="0" max="100000000000" step="1" value="3000000"><span>円</span></div>
+  </div>
+  <div>
+   <label for="lender">貸した人</label>
+   <input type="text" id="lender" maxlength="40" value="貸主株式会社">
+  </div>
+  <div>
+   <label for="borrower">借りた人</label>
+   <input type="text" id="borrower" maxlength="40" value="借主 一郎">
+  </div>
+  <div>
+   <label for="d1">借りた日</label>
+   <input type="date" id="d1" value="2026-04-01">
+  </div>
+  <div>
+   <label for="d2">返す日</label>
+   <input type="date" id="d2" value="2027-03-31">
+  </div>
+  <div>
+   <label for="rate">年利（0なら無利息）</label>
+   <div class="row"><input type="number" id="rate" inputmode="decimal" min="0" max="100" step="0.01" value="0"><span>%</span></div>
+  </div>
+  <div>
+   <label for="how">返し方</label>
+   <select id="how"><option value="1" selected>返す日に一括で返す</option><option value="2">毎月に分けて返す</option></select>
+  </div>
+  <div class="full">
+   <label for="guar">連帯保証人（空なら書きません）</label>
+   <input type="text" id="guar" maxlength="40" value="">
+  </div>
+ </div>
+ <div class="vd" id="vd"><b id="o-vd">印紙税は2,000円です</b><span id="o-vds">100万円超500万円以下の区分です。紙1通ごとに貼ります</span></div>
+ <div id="o-doc" style="white-space:pre-wrap;background:#f4f7f6;border:1px solid #d5e2dc;border-radius:8px;padding:14px 16px;line-height:1.9;margin-top:12px">借用書
+
+貸主株式会社から金3,000,000円を借り受けました。たしかに受け取りました。
+
+1. 借りた日は2026年4月1日です。
+2. 返す日は2027年3月31日です。
+3. 利息は付けません。
+4. 元金は返す日に一括で返します。
+
+2026年4月1日
+借りた人　借主 一郎</div>
+ <ul>
+  <li>日数は借りた日の翌日から返す日までです。1年は365日として1円未満を切り捨てます</li>
+  <li>この文面は記入例です。契約の条件は当事者で決めてください</li>
+ </ul>
+</div>
+
+<div class="share">
+ <a class="ln" href="https://social-plugins.line.me/lineit/share?url=https://taxtable.jp/shakuyo/">LINEで送る</a>
+ <a class="x" href="https://x.com/intent/post?url=https://taxtable.jp/shakuyo/">Xでポストする</a>
+</div>
+
+<p>借用書は、お金を借りたことを紙に残す文書です。契約金額によって貼る印紙税が決まります。<span class="mk">300万円なら1通2,000円で、100万円ちょうどなら1,000円です。</span>データを送るだけで紙を作らないときは、印紙税はかかりません。</p>
+
+<nav class="toc">
+ <div class="t">目次</div>
+ <ol>
+  <li><a href="#list">借用書の印紙税はいくらか</a></li>
+  <li><a href="#kiri">区分の境目</a></li>
+  <li><a href="#kami">紙と電子契約の違い</a></li>
+  <li><a href="#risoku">利息の計算のしかた</a></li>
+  <li><a href="#rel">次に確かめること</a></li>
+  <li><a href="#qa">借用書でよく聞かれること</a></li>
+ </ol>
+</nav>
+
+<h2 id="kiri">区分の境目</h2>
+<p>税額が上がるのは、記載された金額が区分を超えたときです。ちょうど境目の金額は、低い方の税額です。</p>
+<div class="tw">
+<table>
+ <thead><tr><th>契約金額</th><th>印紙税</th></tr></thead>
+ <tbody><tr><td class="l">9,999円</td><td>非課税</td></tr><tr><td class="l">10,000円</td><td>200円</td></tr><tr><td class="l">100,000円</td><td>200円</td></tr><tr><td class="l">100,001円</td><td>400円</td></tr><tr><td class="l">1,000,000円</td><td>1,000円</td></tr><tr><td class="l">1,000,001円</td><td>2,000円</td></tr><tr><td class="l">10,000,000円</td><td>10,000円</td></tr><tr><td class="l">10,000,001円</td><td>20,000円</td></tr><tr><td class="l">50,000,000円</td><td>20,000円</td></tr><tr><td class="l">50,000,001円</td><td>60,000円</td></tr></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:8px">100万円ちょうどは1,000円です。1円でも超えると2,000円です。5,000万円ちょうどは20,000円で、1円超えると60,000円です。</p>
+
+<h2 id="kami">紙と電子契約の違い</h2>
+<p>印紙税は、紙の文書を作ったときにかかります。借用書を2通作ると、それぞれに印紙税がかかります。</p>
+<p>データを送るだけで紙を作らない電子契約は、課税される文書を作っていません。あとから紙に印刷して相手に渡すと、その紙にかかります。</p>
+
+<h2 id="risoku">利息の計算のしかた</h2>
+<p>利息は元金に年利と日数を掛けて365で割り、1円未満を切り捨てます。日数は借りた日の翌日から返す日までです。</p>
+<p>300万円を年1.5%で365日借りると、利息は45,000円です。年利0%なら利息は0円で、文面には利息を付けないと書きます。</p>
+<p>毎月の元金と利息の内訳は<a href="/hensai/">借入の返済の計算</a>で見られます。元金の返済は経費にならず、事業のための利息は経費になります。</p>
+
+<style>.rl{list-style:none;padding:0;margin:0 0 24px}.rl li{padding:12px 0;border-bottom:1px solid #e6eaea;line-height:1.7}.rl a{display:block;font-weight:700;color:#00775a;margin-top:2px}</style><h2 id="rel">次に確かめること</h2><ul class="rl"><li>毎月の返済額は、借入の返済の計算で見られます。<a href="/hensai/" data-cta="rel_shakuyo_hensai">借入の返済の計算</a></li><li>いくら売れば赤字にならないかは、損益分岐点で分かります。<a href="/soneki-bunkiten/" data-cta="rel_shakuyo_soneki-bunkiten">損益分岐点の計算</a></li><li>個人事業から会社にするかは、所得で損得が分かれます。<a href="/houjinnari/" data-cta="rel_shakuyo_houjinnari">法人成りの計算</a></li><li>会社の利益にかかる法人税は、所得800万円を境に税率が変わります。<a href="/houjinzei/" data-cta="rel_shakuyo_houjinzei">法人税の早見表</a></li><li>個人事業主の手取りは、国保と国民年金を引いて考えます。<a href="/kojin-zei/" data-cta="rel_shakuyo_kojin-zei">個人事業主の手取りの早見表</a></li><li>受け取った利息の税金は、所得税の計算で見られます。<a href="/shotokuzei/" data-cta="rel_shakuyo_shotokuzei">所得税の計算</a></li><li>申告の期限は、所得税と法人税で違います。<a href="/kakutei-shinkoku/" data-cta="rel_shakuyo_kakutei-shinkoku">確定申告の期限の早見表</a></li><li>役員報酬の手取りは、社会保険料を引いた額で考えます。<a href="/yakuin-tedori/" data-cta="rel_shakuyo_yakuin-tedori">役員報酬の手取りの早見表</a></li><li>会社が払う社会保険料は、法定福利費として経費になります。<a href="/hoteifukurihi/" data-cta="rel_shakuyo_hoteifukurihi">法定福利費の計算</a></li><li>ふるさと納税の上限は、所得で決まります。<a href="/furusato/" data-cta="rel_shakuyo_furusato">ふるさと納税の限度額の計算</a></li></ul>
+
+<h2 id="qa">借用書でよく聞かれること</h2>
+<h3>100万円の借用書の印紙税はいくらですか？</h3>
+<p>1,000円です。50万円を超え100万円以下の区分です。</p>
+<h3>300万円ではいくらですか？</h3>
+<p>2,000円です。100万円を超え500万円以下の区分です。</p>
+<h3>電子契約でも印紙税はかかりますか？</h3>
+<p>紙の借用書を作ったときにかかります。データを送るだけで紙を作らないときはかかりません。</p>
+<h3>1万円未満は非課税ですか？</h3>
+<p>金額を書いた借用書で1万円未満は非課税です。金額を書かない借用書は200円です。</p>
+<h3>利息は経費になりますか？</h3>
+<p>事業のための借入なら利息は経費になります。元金の返済は経費になりません。</p>
+<h3>連帯保証人は必要ですか？</h3>
+<p>法律で必須ではありません。保証人を書くと、その人も紙の契約の当事者になります。</p>
+
+<div class="src">出典・参考（2026年11月確認）
+ <ul>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/inshi/7140.htm">国税庁 No.7140「印紙税額の一覧表（その1）」</a>（令和8年4月1日現在法令等・第1号文書）</li>
+  <li><a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/inshi/7101.htm">国税庁 No.7101「不動産の譲渡・土地の賃貸借・消費貸借・運送等に関する契約書」</a></li>
+ </ul>
+</div>
+
+<div class="auth" id="auth"><p class="auth-h">監修・制作税理士</p><p class="auth-n">大山 俊郎</p><p class="auth-r">近畿税理士会所属（登録番号127208）</p><p>このページの数字は2026年11月に私が確かめました。もとにしているのは、国税庁の数字です。</p><p><a href="/#auth">詳しいプロフィール</a></p></div>
+<div class="close"><p class="close-h"><span class="nw">借用書を書いたあとの、</span><span class="nw">帳簿と申告も</span></p><p>お金の貸し借りは、帳簿の借入金と利息に残ります。記帳から決算・申告まで、まるごとお受けしています。全国どこからでも対応します。初回のご相談は無料、オンラインでもお受けしています。</p><a class="cbtn" href="https://oyama-toshiro.com/contact/" data-cta="shakuyo_close_marunage">経理丸投げの無料相談</a></div>
+<nav class="tools"><div class="t">早見表・計算ツール一覧</div>
+ <a href="/yakuin-shataku/">役員社宅の家賃の計算</a>
+ <a href="/chukosha-taiyonensu/">中古車の耐用年数の計算</a>
+ <a href="/niwari-tokurei/">消費税の計算</a>
+ <a href="/kakutei-shinkoku/">確定申告の期限の早見表</a>
+ <a href="/yatou-hiyou/">人を雇う費用の計算</a>
+ <a href="/houjinzei-keisan/">法人税の計算</a>
+ <a href="/soneki-bunkiten/">損益分岐点の計算</a>
+ <a href="/hoteifukurihi/">法定福利費の計算</a>
+ <a href="/zoyozei/">贈与税の計算</a>
+ <a href="/shotokuzei/">所得税の計算</a>
+ <a href="/taishokukin/">退職金の税金の計算</a>
+ <a href="/yakuin-taishokukin/">役員退職金の計算</a>
+ <a href="/iryohi-kojo/">医療費控除の計算</a>
+ <a href="/nenmatsu-chosei/">年末調整の還付金の計算</a>
+ <a href="/furusato/">ふるさと納税の限度額の計算</a>
+ <a href="/shoyo-shotokuzei/">賞与の所得税の計算</a>
+ <a href="/gensen-hoshu/">源泉徴収の早見表</a>
+ <a href="/genbutsu-kyuyo/">非課税の限度額の早見表</a>
+ <a href="/houjinzei/">法人税の早見表</a>
+ <a href="/yakuin-tedori/">役員報酬の手取りの早見表</a>
+ <a href="/houjinnari/">法人成りの計算</a>
+ <a href="/kojin-zei/">個人事業主の手取りの早見表</a>
+ <a href="/shakaihoken/">社会保険料の早見表</a>
+ <a href="/koyohoken/">雇用保険料の早見表</a>
+ <a href="/tedori/">年収の手取りの早見表</a>
+ <a href="/tedori-gyakusan/">手取り年収の逆算</a>
+ <a href="/juminzei/">住民税の早見表</a>
+ <a href="/juminzei-keisan/">住民税の計算</a>
+ <a href="/nenshu-kabe/">年収の壁の早見表</a>
+ <a href="/fukugyo/">副業の税金の計算</a>
+ <a href="/gakusei-kabe/">学生バイトの年収の壁</a>
+ <a href="/part-fuyou/">パートの扶養の計算</a>
+ <a href="/kokuho/">国民健康保険と任意継続の比較</a>
+ <a href="/kokuho-keisan/">国民健康保険料の計算</a>
+ <a href="/taishoku-jumin/">退職後の住民税の計算</a>
+ <a href="/hensai/">借入の返済の計算</a>
+ <a href="/saitei-chingin/">最低賃金の一覧</a>
+ <a href="/saitei-chingin-tokyo/">東京の最低賃金</a>
+ <a href="/saitei-chingin-kanagawa/">神奈川県の最低賃金</a>
+ <a href="/saitei-chingin-aichi/">愛知県の最低賃金</a>
+ <a href="/saitei-chingin-hokkaido/">北海道の最低賃金</a>
+ <a href="/saitei-chingin-osaka/">大阪の最低賃金</a>
+ <a href="/tsukin-teate/">通勤手当の非課税限度額</a>
+ <a href="/shotoku-kingaku/">所得金額の計算</a>
+ <a href="/saitei-chingin-saitama/">埼玉県の最低賃金</a>
+ <a href="/saitei-chingin-fukuoka/">福岡県の最低賃金</a>
+ <a href="/saitei-chingin-chiba/">千葉県の最低賃金</a>
+ <a href="/saitei-chingin-hyogo/">兵庫県の最低賃金</a>
+ <a href="/saitei-chingin-kyoto/">京都府の最低賃金</a>
+ <a href="/taiyonensu/">法定耐用年数の一覧</a>
+ <a href="/saitei-chingin-okinawa/">沖縄県の最低賃金</a>
+ <a href="/saitei-chingin-kumamoto/">熊本県の最低賃金</a>
+ <a href="/saitei-chingin-ibaraki/">茨城県の最低賃金</a>
+ <a href="/saitei-chingin-hiroshima/">広島県の最低賃金</a>
+ <a href="/saitei-chingin-kagoshima/">鹿児島県の最低賃金</a>
+ <a href="/kani-kazei/">簡易課税の事業区分</a>
+ <a href="/saitei-chingin-mie/">三重県の最低賃金</a>
+ <a href="/saitei-chingin-shizuoka/">静岡県の最低賃金</a>
+ <a href="/saitei-chingin-miyagi/">宮城県の最低賃金</a>
+ <a href="/saitei-chingin-niigata/">新潟県の最低賃金</a>
+ <a href="/saitei-chingin-nagano/">長野県の最低賃金</a>
+ <a href="/kakutei-shinkoku-keisan/">確定申告シミュレーション</a>
+ <a href="/saitei-chingin-gifu/">岐阜県の最低賃金</a>
+ <a href="/saitei-chingin-okayama/">岡山県の最低賃金</a>
+ <a href="/saitei-chingin-tochigi/">栃木県の最低賃金</a>
+ <a href="/saitei-chingin-gunma/">群馬県の最低賃金</a>
+ <a href="/saitei-chingin-shiga/">滋賀県の最低賃金</a>
+ <a href="/saitei-chingin-yamaguchi/">山口県の最低賃金</a>
+ <a href="/kyuyo-meisai/">給与明細の差引支給額</a>
+ <a href="/saitei-chingin-fukushima/">福島県の最低賃金</a>
+ <a href="/saitei-chingin-iwate/">岩手県の最低賃金</a>
+ <a href="/saitei-chingin-nara/">奈良県の最低賃金</a>
+ <a href="/saitei-chingin-nagasaki/">長崎県の最低賃金</a>
+ <a href="/saitei-chingin-miyazaki/">宮崎県の最低賃金</a>
+ <a href="/bonus-tedori/">ボーナス手取り計算</a>
+ <a href="/saitei-chingin-aomori/">青森の最低賃金</a>
+ <a href="/saitei-chingin-akita/">秋田の最低賃金</a>
+ <a href="/saitei-chingin-yamagata/">山形の最低賃金</a>
+ <a href="/saitei-chingin-toyama/">富山の最低賃金</a>
+ <a href="/saitei-chingin-ishikawa/">石川の最低賃金</a>
+ <a href="/">トップへ</a>
+</nav>
+</main>
+<footer style="position:relative"><div class="wrap"><a href="/policy/" style="color:#d4ece5">運営方針</a>　<a href="https://docs.google.com/forms/d/e/1FAIpQLSdCmggUpJpkXMiAnXkkmfbaIrG52Zuw7ZrqjgEnsfj6xTIzhQ/viewform" style="color:#d4ece5">掲載内容の訂正・お問い合わせ</a><br>タックステーブル　運営：大山俊郎（大阪市中央区谷町2丁目4番5号 谷町センタービル9階）</div></footer>
+<div class="fbar one">
+ <a class="k" href="https://oyama-toshiro.com/contact/" data-cta="shakuyo_fbar_marunage"><small>全国オンライン対応</small><span>経理丸投げの無料相談 ›</span></a>
+</div>
+
+<script>
+(function(){
+ var BANDS=[[9999,0,"1万円未満"],[100000,200,"1万円以上10万円以下"],[500000,400,"10万円超50万円以下"],[1000000,1000,"50万円超100万円以下"],[5000000,2000,"100万円超500万円以下"],[10000000,10000,"500万円超1,000万円以下"],[50000000,20000,"1,000万円超5,000万円以下"],[100000000,60000,"5,000万円超1億円以下"],[500000000,100000,"1億円超5億円以下"],[1000000000,200000,"5億円超10億円以下"],[5000000000,400000,"10億円超50億円以下"]];
+ var $=function(i){return document.getElementById(i)};
+ function f(n){return Math.round(n).toLocaleString("ja-JP");}
+ function num(i){var v=parseFloat($(i).value);return isNaN(v)?0:v;}
+ function esc(s){return String(s||"").replace(/[<>&]/g,"").replace(/\s+/g," ").trim().slice(0,40);}
+ function stamp(yen){
+  if(!(yen>0)) return [200,"金額の記載がないもの"];
+  for(var i=0;i<BANDS.length;i++) if(yen<=BANDS[i][0]) return [BANDS[i][1],BANDS[i][2]];
+  return [600000,"50億円超"];
+ }
+ function days(a,b){
+  if(!a||!b) return 0;
+  var A=new Date(a+"T00:00:00+09:00"),B=new Date(b+"T00:00:00+09:00");
+  var d=Math.round((B-A)/86400000);
+  return d>0?d:0;
+ }
+ function interest(amount,rate,d){
+  var bp=Math.round(rate*100);
+  if(!(amount>0)||bp<=0||!(d>0)) return 0;
+  return Number((BigInt(Math.round(amount))*BigInt(bp)*BigInt(d))/3650000n);
+ }
+ function ymd(s){
+  if(!s) return "";
+  var p=s.split("-");
+  return (+p[0])+"年"+(+p[1])+"月"+(+p[2])+"日";
+ }
+ function render(){
+  var amount=Math.round(num("amt")),rate=num("rate"),d=days($("d1").value,$("d2").value);
+  var st=stamp(amount),tax=st[0],band=st[1],intr=interest(amount,rate,d);
+  var lender=esc($("lender").value)||"貸した人",borrower=esc($("borrower").value)||"借りた人",guar=esc($("guar").value);
+  var lump=$("how").value==="1";
+  $("o-tax").innerHTML=(tax?f(tax):"0")+"<i>円</i>";
+  $("o-band").textContent=tax?band:(amount>0?"非課税":band);
+  $("o-int").innerHTML=f(intr)+"<i>円</i>";
+  $("o-intn").textContent=rate<=0?"無利息":"年"+rate+"%・"+d+"日";
+  var vd=$("vd");
+  if(amount>0&&tax===0){vd.className="vd no";$("o-vd").textContent="印紙税はかかりません";$("o-vds").textContent="1万円未満の借用書は非課税です";}
+  else if(tax===0){vd.className="vd no";$("o-vd").textContent="金額を書いてください";$("o-vds").textContent="金額の記載がない借用書は200円です";}
+  else{$("vd").className="vd";$("o-vd").textContent="印紙税は"+f(tax)+"円です";$("o-vds").textContent=band+"の区分です。紙1通ごとに貼ります";}
+  var lines=[];
+  lines.push("借用書");
+  lines.push("");
+  lines.push(lender+"から金"+(amount>0?f(amount):"（金額）")+"円を借り受けました。たしかに受け取りました。");
+  lines.push("");
+  lines.push("1. 借りた日は"+($("d1").value?ymd($("d1").value):"（日付）")+"です。");
+  lines.push("2. 返す日は"+($("d2").value?ymd($("d2").value):"（日付）")+"です。");
+  if(rate<=0) lines.push("3. 利息は付けません。");
+  else lines.push("3. 利息は年"+rate+"%です。合計は"+f(intr)+"円です。");
+  if(lump) lines.push("4. 元金は返す日に一括で返します。");
+  else{
+   var months=Math.max(1,Math.round(d/30));
+   var per=amount>0?Math.floor(amount/months):0;
+   lines.push("4. 元金は毎月に分けて返します。1か月の元金の目安は"+f(per)+"円です。");
+  }
+  if(guar) lines.push("5. "+guar+"は借りた人と連帯して保証します。");
+  lines.push("");
+  lines.push(($("d1").value?ymd($("d1").value):"（日付）"));
+  lines.push("借りた人　"+borrower);
+  $("o-doc").textContent=lines.join("\n");
+ }
+ ["amt","rate","d1","d2","lender","borrower","guar","how"].forEach(function(i){$(i).addEventListener("input",render);$(i).addEventListener("change",render);});
+ render();
+})();
+</script>
+
+<script id="fbzj">(function(){var b=document.querySelector(".fbar");if(!b)return;var t=document.getElementById("calc")||document.getElementById("hy")||document.querySelector("main .tw,main table");function f(){var on=t?t.getBoundingClientRect().bottom<window.innerHeight*0.5:window.scrollY>window.innerHeight;b.classList.toggle("on",on)}window.addEventListener("scroll",f,{passive:true});window.addEventListener("resize",f);f()})();</script>
+
+
+<script id="cmj">(function(){var D=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,"value");function dg(s){return String(s==null?"":s).replace(/[\uFF10-\uFF19]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-65248)}).replace(/[^0-9]/g,"")}function raw(s){return dg(s).replace(/^0+(?=[0-9])/,"")}function fm(s){return raw(s).replace(/\B(?=([0-9]{3})+(?![0-9]))/g,",")}var L=document.querySelectorAll("input[type=number]");for(var i=0;i<L.length;i++)(function(el){var st=el.getAttribute("step")||"1",mx=parseFloat(el.getAttribute("max"));if(st.indexOf(".")>=0||(mx&&mx<1000))return;var v=D.get.call(el);el.setAttribute("type","text");el.setAttribute("inputmode","numeric");el.setAttribute("autocomplete","off");el.classList.add("cmn");Object.defineProperty(el,"value",{configurable:true,get:function(){return raw(D.get.call(el))},set:function(x){D.set.call(el,fm(x))}});Object.defineProperty(el,"valueAsNumber",{configurable:true,get:function(){var r=raw(D.get.call(el));return r===""?NaN:Number(r)}});D.set.call(el,fm(v));el.addEventListener("input",function(){var t=D.get.call(el),p=el.selectionStart==null?t.length:el.selectionStart,r=dg(t.slice(p)).length,f=fm(t);D.set.call(el,f);var k=f.length,c=0;while(k>0&&c<r){k--;if(/[0-9]/.test(f.charAt(k)))c++}try{el.setSelectionRange(k,k)}catch(e){}},true)})(L[i])})();</script><style id="tdwc">main .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}main .tw th,main .tw td{min-width:4em}main .tw .tdn{white-space:nowrap}</style><script id="tdw">(function(){function f(){var c=document.querySelectorAll("main .tw th,main .tw td");for(var i=0;i<c.length;i++){var t=(c[i].textContent||"").replace(/\s/g,"");if(t.length&&t.length<=8)c[i].classList.add("tdn");else c[i].classList.remove("tdn");}}f();var m=document.querySelector("main");if(m&&window.MutationObserver){var b=0;new MutationObserver(function(){if(b)return;b=1;setTimeout(function(){b=0;f();},0);}).observe(m,{childList:true,subtree:true,characterData:true});}})();</script>
+<style id="fsxc">.fsb{display:inline-block;margin:8px 0 6px;padding:6px 12px;border:1px solid #0f3d31;border-radius:6px;background:#ffffff;color:#0f3d31;font-weight:700;font-size:13px;cursor:pointer}.fso{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:#ffffff;overflow:auto;padding:0 12px 24px}.fso .fsh{position:sticky;top:0;left:0;background:#ffffff;padding:10px 0;display:flex;justify-content:flex-end}.fso table{min-width:0;margin:0}.fsz{overflow:hidden}</style><script id="fsx">(function(){var ws=document.querySelectorAll("main .tw");for(var i=0;i<ws.length;i++){(function(w){if(w.querySelectorAll("tr").length<6)return;var b=document.createElement("button");b.type="button";b.className="fsb";b.textContent="表全体を見る";b.addEventListener("click",function(){var o=document.createElement("div");o.className="fso";var h=document.createElement("div");h.className="fsh";var c=document.createElement("button");c.type="button";c.className="fsb";c.textContent="閉じる";h.appendChild(c);o.appendChild(h);var t=w.querySelector("table").cloneNode(true);t.removeAttribute("id");[].forEach.call(t.querySelectorAll("[id]"),function(e){e.removeAttribute("id")});var bx=document.createElement("div");bx.className="fsz";bx.appendChild(t);o.appendChild(bx);document.body.appendChild(o);document.body.style.overflow="hidden";t.style.width="max-content";var W=o.clientWidth-24,tw=t.offsetWidth,k=Math.min(1,W/tw);t.style.transformOrigin="0 0";t.style.transform="scale("+k+")";bx.style.height=Math.ceil(t.offsetHeight*k)+"px";bx.style.width=Math.floor(tw*k)+"px";c.addEventListener("click",function(){document.body.removeChild(o);document.body.style.overflow="";});});w.parentNode.insertBefore(b,w);})(ws[i]);}})();</script>
+</body></html>

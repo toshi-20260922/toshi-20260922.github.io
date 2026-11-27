@@ -373,5 +373,35 @@
   "path": "/bonus-tedori/",
   "label": "ボーナス手取り計算",
   "kw": "ボーナス 賞与 手取り 計算 社会保険料 所得税"
+ },
+ {
+  "path": "/shakuyo/",
+  "label": "借用書テンプレート",
+  "kw": "借用書 テンプレート 金銭消費貸借 印紙税 契約書"
+ },
+ {
+  "path": "/saitei-chingin-aomori/",
+  "label": "青森の最低賃金",
+  "kw": "最低賃金 青森県 あおもり 八戸 時給"
+ },
+ {
+  "path": "/saitei-chingin-akita/",
+  "label": "秋田の最低賃金",
+  "kw": "最低賃金 秋田県 あきた 時給"
+ },
+ {
+  "path": "/saitei-chingin-yamagata/",
+  "label": "山形の最低賃金",
+  "kw": "最低賃金 山形県 やまがた 時給"
+ },
+ {
+  "path": "/saitei-chingin-toyama/",
+  "label": "富山の最低賃金",
+  "kw": "最低賃金 富山県 とやま 時給"
+ },
+ {
+  "path": "/saitei-chingin-ishikawa/",
+  "label": "石川の最低賃金",
+  "kw": "最低賃金 石川県 いしかわ 金沢 時給"
  }
 ]
