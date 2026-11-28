@@ -111,10 +111,21 @@ def c(v):
 RD = {7: '7割', 5: '5割', 2: '2割', 0: 'なし'}
 LB = ['医療分', '後期高齢者支援金分', '介護分（40〜64歳）', '子ども・子育て支援金分']
 
+
+import json as _json
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+from regions import REG as _REG
+from muni import MUNI as _MUNI, PREF47 as _P47
+_PF = _json.dumps([_P47.index(next(p for p, n, sh in _MUNI if sh == r['s'])) for r in _REG])
+
+async def pick(pg, v):
+    # 都道府県→市区町村の2段の欄で、RG の番号 v の地域を選ぶ(都道府県の番号は PF[v])
+    await pg.evaluate("""v=>{const PF=""" + _PF + """;const pf=document.getElementById('pref-m'),reg=document.getElementById('reg');if(pf.selectedIndex!==PF[v]){pf.selectedIndex=PF[v];pf.dispatchEvent(new Event('change'));}reg.value=String(v);reg.dispatchEvent(new Event('change'));}""", int(v))
+
 JS_SET = """cs=>{
- const out=[];const reg=document.getElementById('reg'),inc=document.getElementById('inc'),fam=document.getElementById('fam'),famo=document.getElementById('famo');
+ const PF=""" + _PF + """;const out=[];const reg=document.getElementById('reg'),inc=document.getElementById('inc'),fam=document.getElementById('fam'),famo=document.getElementById('famo');
  for(const k of cs){
-  if(reg.value!==String(k[0])){reg.value=String(k[0]);reg.dispatchEvent(new Event('change'));}
+  if(reg.value!==String(k[0])){const pf=document.getElementById('pref-m');if(k[0]!=='x'&&pf.selectedIndex!==PF[+k[0]]){pf.selectedIndex=PF[+k[0]];pf.dispatchEvent(new Event('change'));}reg.value=String(k[0]);reg.dispatchEvent(new Event('change'));}
   document.querySelector('#s-k button[data-v="'+k[1]+'"]').click();
   document.querySelector('#s-age button[data-v="'+k[3]+'"]').click();
   fam.value=String(k[4]);fam.dispatchEvent(new Event('change'));
@@ -148,7 +159,7 @@ async def body(pg):
 
     # 料率の表(JS)と見出し
     for i, d in enumerate(D):
-        await pg.select_option('#reg', str(i))
+        await pick(pg, str(i))
         rows = await pg.eval_on_selector_all('#rtb tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
         caps = [d[4]] + CAP[1:]
         want = [[LB[j], '%d.%02d%%' % (q[0] // 100, q[0] % 100), c(q[1]), c(q[2]), c(caps[j])] for j, q in enumerate(d[1])]
@@ -200,7 +211,7 @@ async def body(pg):
     chk('年収別の表の見出し', await pg.eval_on_selector_all(':is(#list ~ .tw):not(#list ~ .tw ~ .tw) thead th', "ts=>ts.map(t=>t.innerText.replace(/\\s+/g,''))"),
         ['前の年の年収', '40歳未満（年・円）', '40〜64歳（年・円）'])
     for i, d in enumerate(D):
-        await pg.select_option('#reg', str(i))
+        await pick(pg, str(i))
         await pg.click('#s-k button[data-v="0"]')
         for fam in range(4):
             await pg.select_option('#fam', str(fam))
@@ -217,7 +228,7 @@ async def body(pg):
     await pg.select_option('#fam', '0')
 
     # 黄色の行(入れた年収を超えない中でいちばん近い行)
-    await pg.select_option('#reg', '0')
+    await pick(pg, '0')
     for a, want in [(4000000, ['400']), (4490000, ['400']), (4500000, ['450']), (999999, []), (1000000, ['100']), (30000000, ['2,000']), (11999999, ['1,000']), (12000000, ['1,200']), (19999999, ['1,500']), (20000000, ['2,000'])]:
         await pg.fill('#inc', str(a))
         chk('黄色の行 %d' % a, await pg.eval_on_selector_all('#tb tr.hit', "rs=>rs.map(r=>r.children[0].textContent)"), [w + '万円' for w in want])
@@ -225,7 +236,7 @@ async def body(pg):
     chk('入力した額の印', 'id="hitc"' in raw, True)
 
     # 一覧にない市区町村(料率を入れる)。選んでいた地域の料率が入り、端数は1円・独自減額なしで計算する
-    await pg.select_option('#reg', '15')
+    await pick(pg, '15')
     await pg.select_option('#reg', 'x')
     vals = [await pg.input_value('#c%d%d' % (j, k)) for j in range(4) for k in range(3)]
     chk('料率を入れる欄 大阪府の値', vals, [x for q in D[15][1] for x in ('%d.%02d' % (q[0] // 100, q[0] % 100), c(q[1]), c(q[2]))])
@@ -262,13 +273,13 @@ async def body(pg):
     rows = await pg.eval_on_selector_all('#hikaku ~ .tw', "ws=>[...ws[0].querySelectorAll('tbody tr')].map(r=>[...r.children].map(td=>td.innerText))")
     g4 = kyuyo(4000000)
     want = [[d[0], c(hoken(d, g4, 0, 0, 0)[0]), c(hoken(d, g4, 1, 0, 0)[0])] for d in D]
-    chk('比べる表の行の数', len(rows), 22)
+    chk('比べる表の行の数', len(rows), len(D))
     for r, w in zip(rows, want):
         chk('比べる表 ' + w[0], r, w)
     lo = min(D, key=lambda d: hoken(d, g4, 0, 0, 0)[0]); hi = max(D, key=lambda d: hoken(d, g4, 0, 0, 0)[0])
     flat = ''.join((await pg.inner_text('main')).split())
     for label, want in [
-        ('QA 最も安い・高い', 'この早見表の22の地域では年%s円（%s）から年%s円（大阪府内）まで開きがあります。' % (c(hoken(lo, g4, 0, 0, 0)[0]), lo[0], c(hoken(hi, g4, 0, 0, 0)[0]))),
+        ('QA 最も安い・高い', 'この早見表の%dの地域では年%s円（%s）から年%s円（大阪府内）まで開きがあります。' % (len(D), c(hoken(lo, g4, 0, 0, 0)[0]), lo[0], c(hoken(hi, g4, 0, 0, 0)[0]))),
         ('冒頭 43万円', '前の年の所得から43万円を引いた額にかかる所得割'),
         ('冒頭 上限', '上限は多くの市区町村で1年%d万円（40〜64歳の人は%d万円）です。' % ((sum(CAP) - CAP[2]) // 10000, sum(CAP) // 10000)),
         ('軽減 7割', '7割43万円以下'),
