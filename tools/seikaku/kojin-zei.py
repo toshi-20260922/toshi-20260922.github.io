@@ -42,7 +42,7 @@ import os, sys, re, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fractions import Fraction
-from _lib import run, SITE
+from _lib import run, PICK_JS, SITE
 import regions
 import rates
 
@@ -110,7 +110,7 @@ def half_up(fr):
 def d(t):
     return int(''.join(c for c in t if c.isdigit()) or 0)
 
-READ = '''([ri,ao,old,as])=>{var reg=document.getElementById("reg");reg.value=String(ri);reg.dispatchEvent(new Event("change"));
+READ = '''([ri,ao,old,as])=>{''' + PICK_JS + '''(ri);
  document.querySelector('#s-ao button[data-v="'+ao+'"]').click();document.querySelector('#s-age button[data-v="'+old+'"]').click();
  var inc=document.getElementById("inc"),o=[];as.forEach(function(a){inc.value=a;inc.dispatchEvent(new Event("input"));
   o.push(["o-n","o-t","o-s","o-br","o-sh","o-nr"].map(function(i){return document.getElementById(i).textContent;}));});return o;}'''

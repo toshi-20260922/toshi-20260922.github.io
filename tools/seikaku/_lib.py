@@ -149,3 +149,18 @@ def run(slug, body, width=390):
             return n, bad
     n, bad = asyncio.run(main())
     done(n, bad)
+
+# ---- 国保の2段の欄(2026-11-28) ----
+# 国保の4ページは「都道府県(#pref-m)→市区町村(#reg)」の2段。#reg の値は今までどおり RG の番号だが、選んだ都道府県の市区町村しか入っていない。
+# 番号で選ぶときは、先に RG の番号に合う都道府県を選ぶ。PICK_PF は RG の番号 → 都道府県の並びの番号。
+def _pick_pf():
+    import json, os, sys
+    d = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+    if d not in sys.path:
+        sys.path.insert(0, d)
+    from regions import REG
+    from muni import MUNI, PREF47
+    return json.dumps([PREF47.index(next(p for p, n, sh in MUNI if sh == r['s'])) for r in REG])
+PICK_PF = _pick_pf()
+# JS の文字列の中に入れる。v が 'x' 以外なら都道府県を合わせてから #reg を選ぶ
+PICK_JS = "(function(v){var PF=" + PICK_PF + ",pf=document.getElementById('pref-m'),r=document.getElementById('reg');if(pf&&String(v)!=='x'&&pf.selectedIndex!==PF[+v]){pf.selectedIndex=PF[+v];pf.dispatchEvent(new Event('change'));}r.value=String(v);r.dispatchEvent(new Event('change',{bubbles:true}));})"

@@ -47,7 +47,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from fractions import Fraction as F
-from _lib import run
+from _lib import run, PICK_JS
 import rates
 TOKYO = rates.TOKYO
 
@@ -124,7 +124,7 @@ JS_SET = """cs=>{
  const out=[];const reg=document.getElementById('reg'),pref=document.getElementById('pref'),inc=document.getElementById('inc'),fam=document.getElementById('fam');
  const tx=id=>document.getElementById(id).innerText.replace(/\\s+/g,'');
  for(const k of cs){
-  if(reg.value!==String(k[0])){reg.value=String(k[0]);reg.dispatchEvent(new Event('change'));}
+  if(reg.value!==String(k[0])){""" + PICK_JS + """(k[0]);}
   if(pref.value!==String(k[1])){pref.value=String(k[1]);pref.dispatchEvent(new Event('change'));}
   document.querySelector('#s-age button[data-v="'+k[3]+'"]').click();
   document.querySelector('#s-hi button[data-v="'+k[4]+'"]').click();
@@ -249,15 +249,15 @@ async def body(pg):
     # 市区町村を選ぶと都道府県がその市区町村のある都道府県に切り替わる・料率の表
     for i, d in enumerate(D):
         await pg.select_option('#pref', str(PIDX['沖縄県'] if d[5] != '沖縄県' else 0))
-        await pg.select_option('#reg', str(i))
+        await pg.evaluate(PICK_JS + '(%d)' % i)
         chk('都道府県の切り替え ' + d[0], await pg.input_value('#pref'), str(PIDX[d[5]]))
         rows = await pg.eval_on_selector_all('#rtb tr', "rs=>rs.map(r=>[...r.children].map(td=>td.textContent))")
         caps = [d[4]] + CAP[1:]
         chk('料率の表 ' + d[0], rows, [[LB[j], pc(q[0]), c(q[1]), c(q[2]), c(caps[j])] for j, q in enumerate(d[1])])
         chk('料率の表の題 ' + d[0], await pg.inner_text('#r-cap'), d[0] + '・令和8年度')
-    opts = await pg.eval_on_selector_all('#reg option', "os=>os.map(o=>o.textContent)")
     for i, d in enumerate(D):
-        chk('市区町村の選択肢 ' + d[0], opts[i].startswith(d[0]), True)
+        await pg.evaluate(PICK_JS + '(%d)' % i)
+        chk('市区町村の選択肢 ' + d[0], await pg.evaluate("()=>document.getElementById('reg').value"), str(i))
 
     # 任意継続のほうが安くなる年収(手で書いた22行。1人・自己都合・その市区町村の都道府県の料率)
     # 1万円きざみで、その年収から上(3,000万円まで)はずっと任意継続のほうが安くなるいちばん小さい年収
@@ -269,7 +269,7 @@ async def body(pg):
             else: break
         return x
     rows = await pg.eval_on_selector_all(':is(#wakare ~ .tw):not(#wakare ~ .tw ~ .tw) tbody tr', "rs=>rs.map(r=>[...r.children].map(td=>td.innerText.trim()))")
-    chk('安くなる年収の表の行の数', len(rows), 22)
+    chk('安くなる年収の表の行の数', len(rows), len(D))
     for r, d in zip(rows, D):
         chk('安くなる年収 ' + d[0], r, [d[0], '%d万円から' % wakare(d, 0), '%d万円から' % wakare(d, 1)])
         # その年収より下で任意継続が安い所がないか(200万円以上)
@@ -280,8 +280,8 @@ async def body(pg):
     chk('安くなる年収の注記', '大阪市・堺市は、年収が表の額より低くても任意継続のほうが安くなることがあります。' in raw, True)
 
     # 一覧にない市区町村(料率を入れる)。選んでいた地域の料率が入り、端数は1円・独自減額なし・上限は67万円で計算する
-    await pg.select_option('#reg', '15')
-    await pg.select_option('#reg', 'x')
+    await pg.evaluate(PICK_JS + '(15)')
+    await pg.evaluate(PICK_JS + "('x')")
     vals = [await pg.input_value('#c%d%d' % (j, k)) for j in range(4) for k in range(3)]
     chk('料率を入れる欄 大阪府の値', vals, [x for q in D[15][1] for x in ('%d.%02d' % (q[0] // 100, q[0] % 100), c(q[1]), c(q[2]))])
     chk('料率を入れても都道府県はそのまま', await pg.input_value('#pref'), str(PIDX['大阪府']))
@@ -298,7 +298,7 @@ async def body(pg):
             res = await pg.evaluate(JS_SET.replace("if(reg.value!==String(k[0]))", "if(false)"), [['x', PIDX['大阪府'], a, old, hi, fam, 0]])
             chk('入力した料率 %d %d %d %d' % (a, old, hi, fam), res[0][:2] + [res[0][5]],
                 [c(kokuho(dx, a, old, hi, fam)) + '円', c(nini(a, old, 1013)[0]) + '円', '入力した料率'])
-    await pg.select_option('#reg', '0')
+    await pg.evaluate(PICK_JS + '(0)')
 
     # 本文とよくある質問の数字
     k5 = kokuho(D[0], 5000000, 0, 0, 0); n5 = nini(5000000, 0, TOKYO)[0]

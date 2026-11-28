@@ -47,7 +47,7 @@ import os, sys, re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fractions import Fraction as F
-from _lib import run
+from _lib import run, PICK_JS
 import regions
 import rates
 
@@ -159,7 +159,7 @@ def d(t):
 
 SET = """async ([reg, pref, old, a, cust]) => {
   const $ = id => document.getElementById(id), ev = (e, t) => e.dispatchEvent(new Event(t, {bubbles: true}));
-  $('reg').value = String(reg); ev($('reg'), 'change');
+  """ + PICK_JS + """(reg);
   if (cust) { cust.forEach((row, i) => row.forEach((v, j) => { $('c' + i + j).value = v; })); ev($('c00'), 'input'); }
   $('pref').value = String(pref); ev($('pref'), 'change');
   document.querySelectorAll('#s-age button')[old].click();
@@ -189,7 +189,7 @@ async def body(pg):
         chk('国保の料率(regions.py) ' + r['s'], (r['p'], r['r'], r['g']), (regions.REG[idx]['p'], regions.REG[idx]['r'], regions.REG[idx]['nag']))
         chk('市区町村の都道府県 ' + r['s'], PREF[r['f']][0][:2] in {'東京': ['東京'], '札幌': ['北海'], '仙台': ['宮城'], 'さい': ['埼玉'], '千葉': ['千葉'],
             '横浜': ['神奈'], '川崎': ['神奈'], '相模': ['神奈'], '新潟': ['新潟'], '浜松': ['静岡'], '名古': ['愛知'], '京都': ['京都'], '大阪': ['大阪'],
-            '神戸': ['兵庫'], '岡山': ['岡山'], '広島': ['広島'], '北九': ['福岡'], '福岡': ['福岡'], '熊本': ['熊本'],
+            '神戸': ['兵庫'], '岡山': ['岡山'], '広島': ['広島'], '北九': ['福岡'], '福岡': ['福岡'], '熊本': ['熊本'], '奈良': ['奈良'],
             '目黒': ['東京'], '中野': ['東京'], '江戸': ['東京']}[r['s'][:2]], True)
     chk('協会けんぽの料率 47', [tuple(x) for x in PF], PREF)
     chk('都道府県の選択肢', await pg.eval_on_selector_all('#pref option', 'os=>os.map(o=>o.textContent)'),
@@ -240,7 +240,7 @@ async def body(pg):
     for old in (0, 1):
         for a in (1500000, 5000000, 9000000, 30000000):
             await one('x', 26, old, a, cu, Rc)
-    await pg.evaluate("()=>{var r=document.getElementById('reg');r.value='0';r.dispatchEvent(new Event('change',{bubbles:true}));}")
+    await pg.evaluate("()=>{" + PICK_JS + "(0);}")
 
     # 5 分岐点の文と10行の表(JS が作る)
     for ri, pi in ((0, 12), (15, 26), (8, 13), (13, 22), (20, 39)):
@@ -393,7 +393,7 @@ async def body(pg):
     await pg.evaluate(SET, [0, 12, 0, 8000000, None])
     chk('元の文 地域', '<li id="o-reg">単身・東京23区の国民健康保険・協会けんぽ東京都で計算しています</li>' in raw, True)
     chk('既定の都道府県', '<option value="12" selected>東京都（9.85%）</option>' in raw, True)
-    chk('既定の市区町村', await pg.evaluate("()=>document.getElementById('reg').options[0].textContent"), '東京23区（下の3区を除く20区）')
+    chk('既定の市区町村', await pg.evaluate("()=>document.getElementById('reg').options[0].textContent"), '千代田区')
     return n, bad
 
 run('houjinnari', body)

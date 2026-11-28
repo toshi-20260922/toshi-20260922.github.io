@@ -35,10 +35,10 @@ def main(path):
     X = '一覧にない市区町村（料率を入力する）'
     pref_opt = ''.join('<option%s>%s</option>' % (' selected' if p == '東京都' else '', p) for p in PREF47)
     tk = ''.join('<option value="%d">%s</option>' % (i, n) for n, i in mu['東京都']) + '<option value="x">%s</option>' % X
-    old = re.search(r'<div class="full">\s*<label for="reg">[^<]*</label>\s*<select id="reg">.*?</select>\s*</div>', s, re.S)
+    old = re.search(r'<div class="full">\s*<label for="reg">([^<]*)</label>\s*<select id="reg">.*?</select>\s*</div>', s, re.S)
     if old:
         new = ('<div>\n   <label for="pref-m">都道府県</label>\n   <select id="pref-m">%s</select>\n  </div>\n'
-               '  <div>\n   <label for="reg">住んでいる市区町村</label>\n   <select id="reg">%s</select>\n  </div>') % (pref_opt, tk)
+               '  <div>\n   <label for="reg">%s</label>\n   <select id="reg">%s</select>\n  </div>') % (pref_opt, old.group(1), tk)
         s = s[:old.start()] + new + s[old.end():]
     else:
         # 2回目からは中身だけ入れ替える
@@ -47,12 +47,16 @@ def main(path):
     js = ('<script id="munij">(function(){var MU=%s,X=%s,pf=document.getElementById("pref-m"),rg=document.getElementById("reg");'
           'function fill(){var a=MU[pf.value]||[],h="";for(var i=0;i<a.length;i++)h+=\'<option value="\'+a[i][1]+\'">\'+a[i][0]+"</option>";'
           'h+=\'<option value="x">\'+X+"</option>";rg.innerHTML=h;rg.selectedIndex=0;rg.dispatchEvent(new Event("change"));}'
+          'var MSG="料率を入力すると計算します。料率は市区町村のホームページか保険料の通知書に載っています。";'
           'function blank(){var c=document.querySelectorAll("#cust input"),e=1;for(var i=0;i<c.length;i++)if(c[i].value!=="")e=0;'
-          'if(rg.value!=="x"||!e)return;var t={"o-vd":"料率を入力すると保険料を計算します","o-vds":"料率は市区町村のホームページか保険料の通知書に載っています","o-y":"−","o-m":"−","o-r":"−","o-br":"料率を入力すると内訳を表示します"};'
-          'for(var k in t){var el=document.getElementById(k);if(el)el.textContent=t[k];}}'
+          'var on=rg.value==="x"&&e,calc=document.getElementById("calc"),ks=calc.children,vd=document.getElementById("vd");'
+          'for(var i=0;i<ks.length;i++){var k=ks[i];if(k.classList.contains("amt")||k.classList.contains("ch")||k.tagName==="UL")k.style.display=on?"none":"";}'
+          'var m=document.getElementById("munimsg");if(!m){m=document.createElement("p");m.id="munimsg";m.style.cssText="margin:12px 0 0;font-weight:700";'
+          'm.textContent=MSG;(vd||document.getElementById("cust")).insertAdjacentElement(vd?"beforebegin":"afterend",m);}'
+          'm.style.display=on?"":"none";if(vd)vd.style.display=on?"none":"";}'
           'pf.addEventListener("change",function(){fill();if(!MU[pf.value]){var c=document.querySelectorAll("#cust input");for(var i=0;i<c.length;i++)c[i].value="";'
-          'document.getElementById("cust").dispatchEvent(new Event("input"));}blank();});'
-          'document.getElementById("cust").addEventListener("input",blank);})();</script>') % (json.dumps(mu, ensure_ascii=False, separators=(',', ':')), json.dumps(X, ensure_ascii=False))
+          'document.getElementById("cust").dispatchEvent(new Event("input"));var kp=document.getElementById("pref");if(kp&&kp.options[pf.selectedIndex]&&kp.options[pf.selectedIndex].value===String(pf.selectedIndex)){kp.value=String(pf.selectedIndex);kp.dispatchEvent(new Event("change"));}}blank();});'
+          'document.getElementById("cust").addEventListener("input",blank);rg.addEventListener("change",blank);})();</script>') % (json.dumps(mu, ensure_ascii=False, separators=(',', ':')), json.dumps(X, ensure_ascii=False))
     s = re.sub(r'<script id="munij">.*?</script>', '', s, flags=re.S)
     s = s.replace('</body>', js + '\n</body>', 1)
     open(path, 'w', encoding='utf-8').write(s)
