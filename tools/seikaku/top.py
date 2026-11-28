@@ -174,7 +174,7 @@ async def main():
             f = os.path.join(SITE, h.strip('/').split('#')[0], 'index.html') if h.strip('/') else TOP
             chk('リンク先がある %s (%s)' % (h, c), os.path.exists(f), True)
         hs = set(l[0] for l in inner)
-        chk('pages.json のページの数', len(PAGES), 81)  # 2026-11-27 借用書と最低賃金5県（青森・秋田・山形・富山・石川）。県は一覧から。借用書はトップに置かない
+        chk('pages.json のページの数', len(PAGES), 92)  # 2026-11-28 最低賃金11県（福井・山梨・和歌山・鳥取・島根・徳島・香川・愛媛・高知・佐賀・大分）で47都道府県がそろった。県は一覧から。 2026-11-27 借用書と最低賃金5県（青森・秋田・山形・富山・石川）。県は一覧から。借用書はトップに置かない
         # 2026-11-27 ボーナス手取り計算を足して75。給与明細と同じくトップには置かない（ツール一覧と関連ページの「次に確かめること」から行ける）
         # 2026-11-27 の制作で借用書テンプレートを足して81。トップのパネルもリンクも足さない。
         # 都道府県の最低賃金はトップに直接置かず、「最低賃金の一覧」から開く。
@@ -436,7 +436,7 @@ async def main():
         cs += [(a, o, 0) for a in range(1000000, 9000001, 130000) for o in (0, 1)]
         await go('kokuho')
         dst = await dp.evaluate("""cs=>{var $=function(i){return document.getElementById(i)};
-          $('reg').value='15';$('reg').dispatchEvent(new Event('change'));$('pref').value='26';$('pref').dispatchEvent(new Event('change'));
+          if($('pref-m')){$('pref-m').value='大阪府';$('pref-m').dispatchEvent(new Event('change'));}$('reg').value='15';$('reg').dispatchEvent(new Event('change'));$('pref').value='26';$('pref').dispatchEvent(new Event('change'));
           document.querySelector('#s-hi button[data-v="0"]').click();
           var o=cs.map(function(c){document.querySelector('#s-age button[data-v="'+c[1]+'"]').click();$('fam').value=String(c[2]);$('fam').dispatchEvent(new Event('change'));
             $('inc').value=String(c[0]);$('inc').dispatchEvent(new Event('input'));return [$('o-k').textContent,$('o-n').textContent]});

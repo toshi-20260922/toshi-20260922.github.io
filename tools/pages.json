@@ -403,5 +403,60 @@
   "path": "/saitei-chingin-ishikawa/",
   "label": "石川の最低賃金",
   "kw": "最低賃金 石川県 いしかわ 金沢 時給"
+ },
+ {
+  "path": "/saitei-chingin-fukui/",
+  "label": "福井の最低賃金",
+  "kw": "最低賃金 福井県 ふくい 福井市 時給"
+ },
+ {
+  "path": "/saitei-chingin-yamanashi/",
+  "label": "山梨の最低賃金",
+  "kw": "最低賃金 山梨県 やまなし 甲府 時給"
+ },
+ {
+  "path": "/saitei-chingin-wakayama/",
+  "label": "和歌山の最低賃金",
+  "kw": "最低賃金 和歌山県 わかやま 和歌山市 時給"
+ },
+ {
+  "path": "/saitei-chingin-tottori/",
+  "label": "鳥取の最低賃金",
+  "kw": "最低賃金 鳥取県 とっとり 米子 時給"
+ },
+ {
+  "path": "/saitei-chingin-shimane/",
+  "label": "島根の最低賃金",
+  "kw": "最低賃金 島根県 しまね 松江 出雲 時給"
+ },
+ {
+  "path": "/saitei-chingin-tokushima/",
+  "label": "徳島の最低賃金",
+  "kw": "最低賃金 徳島県 とくしま 徳島市 時給"
+ },
+ {
+  "path": "/saitei-chingin-kagawa/",
+  "label": "香川の最低賃金",
+  "kw": "最低賃金 香川県 かがわ 高松 時給"
+ },
+ {
+  "path": "/saitei-chingin-ehime/",
+  "label": "愛媛の最低賃金",
+  "kw": "最低賃金 愛媛県 えひめ 松山 今治 時給"
+ },
+ {
+  "path": "/saitei-chingin-kochi/",
+  "label": "高知の最低賃金",
+  "kw": "最低賃金 高知県 こうち 高知市 時給"
+ },
+ {
+  "path": "/saitei-chingin-saga/",
+  "label": "佐賀の最低賃金",
+  "kw": "最低賃金 佐賀県 さが 佐賀市 時給"
+ },
+ {
+  "path": "/saitei-chingin-oita/",
+  "label": "大分の最低賃金",
+  "kw": "最低賃金 大分県 おおいた 大分市 時給"
  }
 ]
