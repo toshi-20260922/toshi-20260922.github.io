@@ -252,6 +252,27 @@ FONT_LINK = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 _PIN = ','.join(p + x for p in FONT['firstview_pin'] for x in ('', ' button', ' input', ' select', ' textarea'))
 FONT_CSS = ('<style id="ttfont">:root{--tt-font:%s;--tt-fv:%s}'
             'body,button,input,select,textarea{font-family:var(--tt-font)}%s{font-family:var(--tt-fv)}</style>') % (FONT['body'], FONT['firstview'], _PIN)
+# 金額の入力欄のカンマ(2026-11-27 本人「金額の入力欄に「,」が入らない。これは完全に撲滅してほしい」)。
+# 正本は tools/comma.js の1つだけ。全ページの <script id="cmj"> をこれに入れ替える。古い版を残さない。
+# 整数で上限1000以上(または上限なし)の type=number の欄があるのに cmj が無いページには、</body> の前に入れる。
+COMMA = open(os.path.join(ROOT, 'tools', 'comma.js'), encoding='utf-8').read().strip()
+def needs_comma(s):
+    for a in re.findall(r'<input\b[^>]*type="number"[^>]*>', s):
+        st = re.search(r'step="([^"]*)"', a); mx = re.search(r'max="([^"]*)"', a)
+        if st and '.' in st.group(1):
+            continue
+        if mx and float(mx.group(1)) < 1000:
+            continue
+        return True
+    return False
+def comma(me, s):
+    tag = '<script id="cmj">' + COMMA + '</script>'
+    if '<script id="cmj">' in s:
+        return re.sub(r'<script id="cmj">.*?</script>', lambda m: tag, s, count=1, flags=re.S)
+    if needs_comma(s):
+        return s.replace('</body>', tag + '\n</body>', 1)
+    return s
+
 def font_keep(sel):
     return any(x.strip() in FONT['firstview_keep'] for x in sel.split(','))
 def fontu(s):
@@ -292,6 +313,7 @@ for f in sorted(glob.glob(os.path.join(SITE, '*', 'index.html'))):
     s = icons(s)
     s = track(s)
     s = fontu(s)
+    s = comma(me, s)
     if '<nav class="tools">' in s:
         s = re.sub(r'<nav class="tools">.*?</nav>', lambda m: nav_for(me), s, count=1, flags=re.S)
     canon = re.search(r'<link rel="canonical" href="([^"]+)">', s)

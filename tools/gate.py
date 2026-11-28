@@ -237,6 +237,31 @@ JS = r'''() => {
  }
  return out;
 }'''
+# 金額の入力欄のカンマ(2026-11-27 本人「金額の入力欄に「,」が入らない。これは完全に撲滅してほしい」)。
+# ① 行を足すボタンを押したあとも、整数で上限1000以上(または上限なし)の type=number の欄が残っていれば問題。
+# ② カンマの仕組みが付いた欄(.cmn)には、たたみを開いて実際に 1234567 を打ち、カンマが付かなければ問題。
+COMMA_LEFT = """() => [...document.querySelectorAll('input[type=number]')].filter(e => {
+  const st = e.getAttribute('step') || '1', mx = parseFloat(e.getAttribute('max'));
+  return st.indexOf('.') < 0 && !(mx && mx < 1000);
+}).map(e => e.id || e.name || e.getAttribute('aria-label') || '(名前なし)')"""
+async def comma_check(pg, f):
+    await pg.evaluate("""() => { for (const b of document.querySelectorAll('button')) if (/行を足す|行を追加|追加する/.test(b.innerText)) { b.click(); break; } }""")
+    for x in await pg.evaluate(COMMA_LEFT):
+        bad(f, '金額の入力欄にカンマが入らない', x)
+    n = await pg.locator('input.cmn').count()
+    for i in range(n):
+        el = pg.locator('input.cmn').nth(i)
+        await el.evaluate("""e => { let d = e.closest('details'); while (d) { d.open = true; d = d.parentElement.closest('details'); } }""")
+        if not await el.is_visible():
+            continue
+        try:
+            await el.click(timeout=2000)
+            await pg.keyboard.press('Control+A'); await pg.keyboard.type('1234567')
+            got = await el.evaluate('e => Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").get.call(e)')
+        except Exception as e:
+            got = '(押せない)'
+        if got != '1,234,567':
+            bad(f, '金額の入力欄にカンマが入らない', '%s に 1234567 を打つと %s' % (await el.get_attribute('id'), got))
 async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch()
@@ -251,6 +276,7 @@ async def main():
                 if r['ov'] > 0: bad(f, 'はみ出し', '%dpx 幅%d' % (r['ov'], w))
                 if r['nan']: bad(f, 'NaN', str(w))
                 if w == 390:
+                    await comma_check(pg, f)
                     for x in r['touten']: bad(f, '「、」2つ以上', x)
                     for x in r['zen']: bad(f, '全角英数字', x)
                     for x in r['narrow'][:3]: bad(f, '表の列が狭くて縦に折れる', x)
